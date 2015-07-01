@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>文字无缝滚动</title>
+    <title>jq文字无缝滚动</title>
     <style type="text/css">
         body {
             font-size: 12px;
@@ -40,7 +40,6 @@
             box-shadow: 2px 2px 10px #ababab;
             margin: 50px auto 0;
             text-align: left;
-            position: relative;
         }
 
         /*  头部样式 */
@@ -60,6 +59,7 @@
             -webkit-border-radius: 8px 8px 0 0;
             border-radius: 8px 8px 0 0;
             color: #fff;
+            position: relative;
         }
 
         #title a {
@@ -97,37 +97,25 @@
             color: #999;
         }
     </style>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
     <script type="text/javascript">
-        window.onload = function () {
-            var area = document.getElementById('noticeBox'); // 滚动区域
-            var con1 = document.getElementById('con1');
-            var con2 = document.getElementById('con2');
+        $(function () {
+            var area = $('#noticeBox');
             var speed = 50;
-            con2.innerHTML = con1.innerHTML;
-            // scrollTop指的是"元素中的内容"超出"元素上边界"的那部分的高度
-            // 向上滚动的数值 scrollTop 如果li中没有内容 scrollTop数值不变
-            function scrollUp() {
-                // 滚动条的高度和ul的高度相同的时候
-                if (area.scrollTop === con1.offsetHeight) {
-                    area.scrollTop = 0;  // 把scrollTop恢复到初始状态,由于速度太快,用户看不到卡顿的现象
+            var iNow = 0;
+            $('#con2').html($('#con1').html());
+
+            setInterval(function () {
+                if (area.scrollTop() === $('#con1').height()) {
+                    area.scrollTop(0);
+                    iNow = 0;
                 } else {
-                    area.scrollTop++;
+                    area.scrollTop(iNow++);
                 }
-            }
+            }, speed);
 
-            var timer = setInterval(scrollUp, speed);
 
-            // 鼠标移入
-            area.onmouseover = function () {
-                clearInterval(timer);
-            };
-
-            // 鼠标移出
-            area.onmouseout = function () {
-                timer =setInterval(scrollUp, speed);
-            };
-
-        };
+        });
     </script>
 </head>
 <body>
