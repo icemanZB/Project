@@ -53,8 +53,8 @@
     <script type="text/javascript">
         window.onload = function () {
             var wrap = document.getElementById('wrap'),
-                    pic = document.getElementById('pic'),
-                    list = document.getElementById('list').getElementsByTagName('li'),
+                    aUlPic = document.getElementById('pic'),
+                    aLiNum = document.getElementById('list').getElementsByTagName('li'),
                     index = 0,
                     timer = null;
 
@@ -67,18 +67,18 @@
             // 鼠标离开整个容器时继续播放至下一张
 
             // 遍历所有数字导航实现划过切换至对应的图片
-        }
+        };
 
     </script>
 </head>
 <body>
 <div class="wrap" id='wrap'>
     <ul id="pic">
-        <li><img src="http://img.mukewang.com/54111cd9000174cd04900170.jpg" alt=""></li>
-        <li><img src="http://img.mukewang.com/54111dac000118af04900170.jpg" alt=""></li>
-        <li><img src="http://img.mukewang.com/54111d9c0001998204900170.jpg" alt=""></li>
-        <li><img src="http://img.mukewang.com/54111d8a0001f41704900170.jpg" alt=""></li>
-        <li><img src="http://img.mukewang.com/54111d7d00018ba604900170.jpg" alt=""></li>
+        <li><img src="img/1.jpg" alt=""></li>
+        <li><img src="img/2.jpg" alt=""></li>
+        <li><img src="img/3.jpg" alt=""></li>
+        <li><img src="img/4.jpg" alt=""></li>
+        <li><img src="img/5.jpg" alt=""></li>
     </ul>
     <ol id="list">
         <li class="on">1</li>
