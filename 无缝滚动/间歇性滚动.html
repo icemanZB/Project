@@ -114,15 +114,14 @@
             area.innerHTML += area.innerHTML;
             function startMove() {
                 timer = setInterval(scrollUp, speed);
-                area.scrollTop++;
             }
 
             function scrollUp() {
+                area.scrollTop++;
                 if (area.scrollTop % iliHeight === 0) {
                     clearInterval(timer);
                     setTimeout(startMove, delay); // 每隔2秒在执行startMove向上滚动
                 } else {
-                    area.scrollTop++;
                     if (area.scrollTop >= area.scrollHeight / 2) {
                         area.scrollTop = 0;
                     }
@@ -130,7 +129,6 @@
             }
 
             setTimeout(startMove, delay);  // 初始化
-
 
         };
     </script>
@@ -152,11 +150,9 @@
             <li><a href="#">8.下拉菜单制作(案例)</a><span>2013-11-22</span></li>
             <li><a href="#">9.如何实现“新手引导”效果</a><span>2013-12-06</span></li>
         </ul>
-        <ul id="con2">
-        </ul>
     </div>
     <!--  noticeBox end -->
-    <div  id ="noticeFooter"> </div>
+    <div id="noticeFooter"></div>
 </div>
 <!--  notice end -->
 </body>

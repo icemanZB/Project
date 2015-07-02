@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>jq文字无缝滚动</title>
+    <title>jq间歇性滚动</title>
     <style type="text/css">
         body {
             font-size: 12px;
@@ -40,6 +40,7 @@
             box-shadow: 2px 2px 10px #ababab;
             margin: 50px auto 0;
             text-align: left;
+            position: relative;
         }
 
         /*  头部样式 */
@@ -59,7 +60,6 @@
             -webkit-border-radius: 8px 8px 0 0;
             border-radius: 8px 8px 0 0;
             color: #fff;
-            position: relative;
         }
 
         #title a {
@@ -83,7 +83,7 @@
         #noticeBox {
             height: 144px; /* 定义外层父容器的高度 */
             width: 330px;
-            padding: 10px 0 0 25px;
+            margin: 10px 0 0 25px;
             overflow: hidden; /*  超出的内容部分要隐藏 */
         }
 
@@ -104,35 +104,38 @@
             color: #999;
         }
     </style>
-    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript" src="js/jquery-2.0.2.js"></script>
     <script type="text/javascript">
         $(function () {
-            var area = $('#noticeBox');
-            var speed = 50;
+            var area = $('#noticeBox'); // 滚动区域
+            var iliHeight = 24; // 单行滚动的高度
             var iNow = 0;
+            var speed = 50;
+            var delay = 2000;
+            var timer = null;
             $('#con2').html($('#con1').html());
+            function startMove() {
 
-
-            var timer = setInterval(scrollUp, speed);
+                timer = setInterval(scrollUp, speed);
+            }
 
             function scrollUp() {
-                //  $('#con1').prop('offsetHeight') = js 获取 offsetHeight
-                if (area.scrollTop() === $('#con1').prop('offsetHeight')) {
-                    area.scrollTop(0);
-                    iNow = 0;
+                area.scrollTop(iNow++);
+                if (area.scrollTop() % iliHeight === 0) {
+                    clearInterval(timer);
+                    setTimeout(startMove, delay);
                 } else {
-                    area.scrollTop(iNow++);
+                    // area.prop("scrollHeight") = js获取 scrollHeight
+                    if (area.scrollTop() >= area.prop("scrollHeight") / 2) {
+                        area.scrollTop(0);
+                        iNow = 0;
+                    }
                 }
             }
 
-            area.hover(function () {
-                clearInterval(timer);
-            }, function () {
-                timer = setInterval(scrollUp, speed);
-            });
-
-
+            setTimeout(startMove, delay);  // 初始化
         });
+
     </script>
 </head>
 <body>
@@ -156,7 +159,7 @@
         </ul>
     </div>
     <!--  noticeBox end -->
-    <div  id ="noticeFooter"> </div>
+    <div id="noticeFooter"></div>
 </div>
 <!--  notice end -->
 </body>
