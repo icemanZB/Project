@@ -105,14 +105,23 @@
             var iNow = 0;
             $('#con2').html($('#con1').html());
 
-            setInterval(function () {
+
+            var timer = setInterval(scrollUp, speed);
+
+            function scrollUp() {
                 if (area.scrollTop() === $('#con1').height()) {
                     area.scrollTop(0);
                     iNow = 0;
                 } else {
                     area.scrollTop(iNow++);
                 }
-            }, speed);
+            }
+
+            area.hover(function () {
+                clearInterval(timer);
+            }, function () {
+                timer = setInterval(scrollUp, speed);
+            });
 
 
         });
