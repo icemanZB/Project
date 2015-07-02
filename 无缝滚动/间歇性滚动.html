@@ -118,8 +118,8 @@
 
             function scrollUp() {
                 area.scrollTop++;
-                if (area.scrollTop % iliHeight === 0) {
-                    clearInterval(timer);
+                if (area.scrollTop % iliHeight === 0) { // 判断是否滚动完一条li的高度
+                    clearInterval(timer); // 清除定时器停2s在执行
                     setTimeout(startMove, delay); // 每隔2秒在执行startMove向上滚动
                 } else {
                     if (area.scrollTop >= area.scrollHeight / 2) {
