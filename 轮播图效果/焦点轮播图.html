@@ -20,6 +20,7 @@
 
         .wrap ul {
             position: absolute;
+            /* top:-170px; */
         }
 
         .wrap ul li {
@@ -53,20 +54,53 @@
     <script type="text/javascript">
         window.onload = function () {
             var wrap = document.getElementById('wrap'),
-                    aUlPic = document.getElementById('pic'),
+                    oUl = document.getElementById('pic'),
                     aLiNum = document.getElementById('list').getElementsByTagName('li'),
                     index = 0,
                     timer = null;
 
             // 定义并调用自动播放函数
+            function autoPlay() {
+                if (index === aLiNum.length) {
+                    index = 0;
+                }
+
+                oUl.style.top = -(index * 170) + 'px';
+                for (var i = 0; i < aLiNum.length; i++) {
+                    aLiNum[i].className = '';
+                }
+                aLiNum[index].className = 'on';
+
+                index++;
+            }
+
+            autoPlay();
 
             // 定义图片切换函数
-
+            timer = setInterval(autoPlay, 2000);
             // 鼠标划过整个容器时停止自动播放
+            wrap.onmouseover = function () {
+                clearInterval(timer);
+            };
 
             // 鼠标离开整个容器时继续播放至下一张
+            wrap.onmouseout = function () {
+                timer = setInterval(autoPlay, 2000);
+            };
 
             // 遍历所有数字导航实现划过切换至对应的图片
+            for (var i = 0; i < aLiNum.length; i++) {
+                aLiNum[i].index = i;
+                aLiNum[i].onmouseover = function () {
+                    for (var i = 0; i < aLiNum.length; i++) {
+                        aLiNum[i].className = '';
+                    }
+                    this.className = 'on';
+                    index = this.index;
+                    oUl.style.top = -(index * 170) + 'px';
+                };
+            }
+
         };
 
     </script>
