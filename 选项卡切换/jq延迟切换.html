@@ -91,10 +91,8 @@
             aLi.mouseover(function () {
                 clearTimeout(timer);
                 timer = setTimeout($.proxy(function () {
-                    aLi.removeClass('active');
-                    $(this).addClass('active');
-                    aDiv.hide();
-                    aDiv.eq($(this).index()).show();
+                    $(this).addClass('active').siblings().removeClass('active');
+                    aDiv.eq($(this).index()).show().siblings().hide();
                 }, $(this)), delay);
             });
 

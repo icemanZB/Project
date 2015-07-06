@@ -97,10 +97,8 @@
             });
 
             function change() {
-                aLi.removeClass('active');
-                aLi.eq(iNow).addClass('active');
-                aDiv.hide();
-                aDiv.eq(iNow).show();
+                aLi.eq(iNow).addClass('active').siblings().removeClass('active');
+                aDiv.eq(iNow).show().siblings().hide();
             }
 
             function autoPlay() {
@@ -116,7 +114,6 @@
             }
 
             timer = setInterval(autoPlay, 2000);
-
 
         });
 
