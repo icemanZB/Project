@@ -95,7 +95,7 @@
         $(function () {
             var container = $('#container');
             var list = $('#list');
-            var buttons = $('#buttons span');
+            var buttons = $('#buttons').find('span');
             var prev = $('#prev');
             var next = $('#next');
             var index = 1;
@@ -112,6 +112,8 @@
                 else {
                     offset = '-=' + Math.abs(offset);
                 }
+                console.log(offset);
+                // 使用 "+=" 或 "-=" 来创建相对动画
                 list.animate({'left': offset}, 300, function () {
                     if (left > -200) {
                         list.css('left', -600 * len);

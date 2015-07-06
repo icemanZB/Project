@@ -101,7 +101,6 @@
             var interval = 3000;
             var timer;
 
-
             function showButton() {
                 for (var i = 0; i < aBtn.length; i++) {
                     if (aBtn[i].className === 'on') {
@@ -112,43 +111,43 @@
                 aBtn[index].className = 'on';
             }
 
-            function animate(offset) {
-                animated = true;
-                var newLeft = parseInt(list.style.left) + offset;
-                console.log(newLeft);
 
-                var time = 300;  // 位移总时间
-                var interval = 10; // 位移间隔时间
-                var speed = offset / (time / interval); // 每次移动的位移量 = 总共移动的偏移量/移动的次数
+            // 点击右箭头
+            next.onclick = function () {
+                index++;
+                index %= aBtn.length;
+                animate(-600 * index);
+                showButton();
+            };
 
-
-                // 位移的判断 (是否位移)
-                function go() {
-                    // 速度小于0 向左移动  left值大于目标值  或者 速度大于0 向右移动 left值小于目标值
-                    // 这两种情况都要做位移
-                    if ((speed < 0 && parseInt(list.style.left) > newLeft) ||
-                            speed > 0 && parseInt(list.style.left) < newLeft) {
-                        // 位移 newLeft + speed
-                        list.style.left = parseInt(list.style.left) + speed + 'px';
-
-                        setTimeout(go, interval); // 递归调用
-
-                    } else {
-                        // 达到目标值以后
-                        list.style.left = newLeft + 'px';  // 设置自身的值-600
-                        if (newLeft > -600) {  // newLeft->0
-                            list.style.left = -3000 + 'px';
-                        }
-
-                        if (newLeft < -3000) {   // newLeft->-3600
-                            list.style.left = -600 + 'px';
-                        }
-                        animated = false;
-                    }
+            // 点击左箭头
+            prev.onclick = function () {
+                if (index <= 0) {
+                    index = 4;
+                } else {
+                    index--;
                 }
+                animate(600 * index);
+                showButton();
+            };
 
-                go();
+            // 按钮点击事件
+            for (var i = 0; i < aBtn.length; i++) {
+                aBtn[i].index = i;
+                aBtn[i].onclick = function () {
+                    if (this.className == 'on') {  // 点击的是当前图片的话,就什么都不做
+                        return;
+                    }
+                    var offset = -600 * this.index;
+                    animate(offset);
+                    index = this.index;
+                    showButton();
+                }
+            }
 
+
+            function animate(offset) {
+                list.style.left = offset + 'px';
             }
 
             function play() {
@@ -162,62 +161,18 @@
                 clearTimeout(timer);
             }
 
-            // 点击右箭头
-            next.onclick = function () {
-                if (animated) {
-                    return;
-                }
-                if (index == 4) {
-                    index = 0;
-                } else {
-                    index++;
-                }
-                showButton();
-                animate(-600);
-            };
-
-            // 点击左箭头
-            prev.onclick = function () {
-                if (animated) {
-                    return;
-                }
-                if (index == 0) {
-                    index = 4;
-                } else {
-                    index--;
-                }
-                showButton();
-                animate(600);
-            };
-
-            for (var i = 0; i < aBtn.length; i++) {
-                aBtn[i].onclick = function () {
-                    if (animated) {
-                        return;
-                    }
-                    if (this.className == 'on') {  // 点击的是当前图片的话,就什么都不做
-                        return;
-                    }
-                    var myIndex = parseInt(this.getAttribute('index'));
-                    // 也就是我要从第一张图片跳到第三张图片
-                    var offset = -600 * (myIndex - index);  // 目标值(第三张图片3)-当前的图片(显示的第一张图片1)= 算出偏移量
-                    animate(offset);
-                    index = myIndex;
-                    showButton();
-                }
-            }
+            play();
 
             container.onmouseover = stop;
             container.onmouseout = play;
 
-            play();
+
         };
     </script>
 </head>
 <body>
 <div id="container">
-    <div id="list" style="left: -600px;">
-        <img src="img2/5.jpg" alt=""/>
+    <div id="list">
         <img src="img2/1.jpg" alt=""/>
         <img src="img2/2.jpg" alt=""/>
         <img src="img2/3.jpg" alt=""/>
@@ -225,11 +180,11 @@
         <img src="img2/5.jpg" alt=""/>
     </div>
     <div id="buttons">
-        <span index="0" class="on"></span>
-        <span index="1"></span>
-        <span index="2"></span>
-        <span index="3"></span>
-        <span index="4"></span>
+        <span class="on"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
     <a href="javascript:;" id="prev" class="arrow">&lt;</a>
     <a href="javascript:;" id="next" class="arrow">&gt;</a>
