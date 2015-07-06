@@ -1,3 +1,11 @@
 scrollTop是什么及用法说明 http://blog.csdn.net/gang_gang_gang/article/details/4233044
 
 jquery prop 方法解析 http://blog.csdn.net/chaiyining007/article/details/8218038
+
+事件绑定好处  可以绑定多个事件且不会覆盖
+
+dom.onclick=function(){ console.log(1); };
+dom.onclick=function(){ console.log(2); };  最终结果是 输出2
+
+事件代理 ( 委托 ) 绑定在父元素上,使其子元素也拥有这个事件
+针对多个元素绑定的时候,并且是动态输出的元素,这个时候就可以用事件代理
