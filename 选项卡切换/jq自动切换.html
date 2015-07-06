@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Tab延迟切换</title>
+    <title>jqTab自动切换</title>
     <style type="text/css">
         * {
             margin: 0;
@@ -76,46 +76,57 @@
             overflow: hidden;
         }
     </style>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
     <script type="text/javascript">
-        window.onload = function () {
-            var oTitle = document.getElementById('notice-title');
-            var aLi = oTitle.getElementsByTagName('li');
-            var oContent = document.getElementById('notice-content');
-            var aDiv = oContent.getElementsByTagName('div');
-            var delay = 500;
+        $(function () {
+            var oTitle = $('#notice-title');
+            var aLi = oTitle.find('li');
+            var oContent = $('#notice-content');
+            var aDiv = oContent.find('div');
+            var iNow = 0;
             var timer = null;
 
             if (aLi.length !== aDiv.length)return;
 
-            for (var i = 0; i < aLi.length; i++) {
-                aLi[i].index = i;
-                aLi[i].onmouseover = function () {
-                    var _this = this;
-                    // 先要清除上一个定时器
-                    // 如果存在准备执行的定时器立刻清除,只有当前停留时间大与500ms时才开始执行
-                    clearTimeout(timer);
-                    timer = setTimeout(function () {
-                        for (var i = 0; i < aLi.length; i++) {
-                            aLi[i].className = '';
-                            aDiv[i].style.display = 'none';
-                        }
-                        _this.className = 'active';
-                        aDiv[_this.index].style.display = 'block';
+            aLi.hover(function () {
+                clearInterval(timer);
+                iNow = $(this).index();
+                change();
+            }, function () {
+                timer = setInterval(autoPlay, 2000);
+            });
 
-                    }, delay);
-
-
-                };
+            function change() {
+                aLi.removeClass('active');
+                aLi.eq(iNow).addClass('active');
+                aDiv.hide();
+                aDiv.eq(iNow).show();
             }
 
-        };
+            function autoPlay() {
+                iNow++;
+                iNow %= aLi.length;  // 无线循环下去
+                change();
+            }
+
+            // 如果有等待的定时器,清除定时器
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+
+            timer = setInterval(autoPlay, 2000);
+
+
+        });
+
     </script>
 </head>
 <body>
 <div id="notice" class="notice">
     <div id="notice-title" class="notice-title">
         <ul>
-            <li>
+            <li class="active">
                 <a href="#">公告</a>
             </li>
             <li>
@@ -127,13 +138,13 @@
             <li>
                 <a href="#">安全</a>
             </li>
-            <li class="active">
+            <li>
                 <a href="#">公益</a>
             </li>
         </ul>
     </div>
     <div id="notice-content" class="notice-content">
-        <div class="mod" style="display: none;">
+        <div class="mod">
             <ul>
                 <li>
                     <a href="#">张勇：要玩快乐足球</a>
@@ -205,7 +216,7 @@
                 </li>
             </ul>
         </div>
-        <div class="mod">
+        <div class="mod" style="display: none;">
             <ul>
                 <li>
                     <a href="#">走进无声课堂</a>
