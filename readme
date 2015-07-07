@@ -9,3 +9,24 @@ dom.onclick=function(){ console.log(2); };  最终结果是 输出2
 
 事件代理 ( 委托 ) 绑定在父元素上,使其子元素也拥有这个事件
 针对多个元素绑定的时候,并且是动态输出的元素,这个时候就可以用事件代理
+
+
+window.onscroll=function(){
+    var top = document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop;
+}
+
+scrollTop指的是"元素中的内容"超出"元素上边界"的那部分的高度,向上滚动的数值 scrollTop 如果li中没有内容 scrollTop数值不变
+
+$('#noticeBox').scrollTop() = js 获取 area.scrollTop
+
+$('#con1').prop('offsetHeight') = js 获取 offsetHeight
+
+jQuery中跳出 each 循环  continue 可以使用 return true
+                       break    可以使用 return false
+
+var _href = _menu.getAttribute('href');  // 获取到 #item1
+var _href=_menu.href; // 获取到的是浏览器的路径
+<a href="#item1" class="current">1F 男装</a>
+
+使用正则表达式来判断一个字符串中是否有某个字符串
+if (/active/.test(aLi[i].className)) {}
