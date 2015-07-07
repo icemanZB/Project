@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>图片无缝滚动</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            background: #efefef;
+        }
+
+        .wrap {
+            width: 200px;
+            border: 1px solid #e9e9e9;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+        }
+
+        .title {
+            background: #FF4B4B;
+            font: bold 12px/28px "微软雅黑";
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding-left: 12px;
+        }
+
+        .content {
+            height: 492px;
+            padding: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content .up,
+        .content .donw {
+            left: 0;
+            cursor: pointer;
+            height: 30px;
+            background: #f6f6f6;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font: 12px/30px "微软雅黑"
+        }
+
+        .content .up {
+            top: 0;
+        }
+
+        .content .donw {
+            bottom: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .content .up:hover,
+        .content .donw:hover {
+            background: #E9E9E9;
+        }
+
+        .box {
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            /* height: 500px; 写样式的时候写死的值,最后由js动态计算出来  */
+        }
+
+        .box ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .box ul li {
+            height: 130px;
+            border-bottom: 1px dashed #efefef;
+            padding: 10px 0;
+        }
+
+        .box ul li img {
+            float: left;
+            width: 192px;
+            height: 128px;
+        }
+
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oDiv = document.getElementsByClassName('box')[0];
+            var oUl = oDiv.getElementsByTagName('ul')[0];
+            var aLi = oUl.getElementsByTagName('li');
+            var oUp = document.getElementById("up");
+            var oDown = document.getElementById("down");
+            var timer = null;
+
+            oUl.innerHTML += oUl.innerHTML;
+
+            // 动态设置ul的高度
+            oDiv.style.height = aLi[0].offsetHeight * aLi.length + 'px';
+
+            // iSpeed 负值向上 正值向下
+            function move(iSpeed) {
+                timer = setInterval(function () {
+                    /**
+                     * offsetHeight 为计算后ul的整体高度 (定值)
+                     * style.top  为绝对定位后的 top 值
+                     * offsetTop  为盒子顶部相对父级顶部的高度 (变值)
+                     * */
+                    // 表示图片已经走了一半了 如果是向上走 offsetTop 一定是负值
+                    if (oUl.offsetTop < -oUl.offsetHeight / 2) {
+                        oUl.style.top = '0'; // 滚动到一半了,迅速把图片拉回来
+                    }
+
+                    /**
+                     * oUl.offsetHeight / 2 = 755 ; 计算后整个高度的一半
+                     *
+                     *  speed = -1 oUl.offsetTop  0 -1 -2 -3 -4 -5 ;
+                     *
+                     * speed = 1  oUl.offsetTop 1 1 0 -754 -753 -752 -751 ;
+                     *
+                     * 当speed 等于 1 的时候会直接进入if 并且赋值为 -oUl.offsetHeight / 2
+                     * 这样页面会直接显示出第二轮的图片
+                     *
+                     * */
+
+                    if (oUl.offsetTop > 0) {
+                        oUl.style.top = -oUl.offsetHeight / 2 + 'px';
+                    }
+
+                    oUl.style.top = oUl.offsetTop + iSpeed + "px";
+
+                }, 30);
+            }
+
+            move();
+
+            oUl.onmouseover = function () {
+                clearInterval(timer);
+            };
+            oUl.onmouseout = function () {
+                move();
+            };
+
+            oUp.onclick = function () {
+                clearInterval(timer);
+                move(-1);
+            };
+            oDown.onclick = function () {
+                clearInterval(timer);
+                move(1);
+            };
+
+        };
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="title">
+        展示
+    </div>
+    <div class="content">
+        <div class="up" id="up">
+            向上
+        </div>
+        <div class="box">
+            <ul>
+                <li>
+                    <img src='img/1.jpg'>
+                </li>
+                <li>
+                    <img src='img/2.jpg'>
+                </li>
+                <li>
+                    <img src='img/3.jpg'>
+                </li>
+                <li>
+                    <img src='img/4.jpg'>
+                </li>
+                <li>
+                    <img src='img/5.jpg'>
+                </li>
+            </ul>
+        </div>
+        <div class="donw" id="down">
+            向下
+        </div>
+    </div>
+</div>
+</body>
+</html>

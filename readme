@@ -30,3 +30,10 @@ var _href=_menu.href; // 获取到的是浏览器的路径
 
 使用正则表达式来判断一个字符串中是否有某个字符串
 if (/active/.test(aLi[i].className)) {}
+
+javascript中top、clientTop、scrollTop、offsetTop的讲解
+http://www.cnblogs.com/trlanfeng/archive/2012/11/04/2753280.html
+
+offsetHeight:为计算后盒子的整体高度 style.top:为绝对定位后的 top 值
+offsetTop: 盒子顶部相对父级顶部的高度
+
