@@ -20,7 +20,7 @@
 
         .wrap ul {
             position: absolute;
-            /* top:-170px; */
+            top: 0; /* top:-170px; 不写的话运动框架会有问题*/
         }
 
         .wrap ul li {
@@ -51,6 +51,7 @@
         }
 
     </style>
+    <script type="text/javascript" src="../js/move_new.js"></script>
     <script type="text/javascript">
         window.onload = function () {
             var wrap = document.getElementById('wrap'),
@@ -64,8 +65,8 @@
                 if (index === aLiNum.length) {
                     index = 0;
                 }
-
-                oUl.style.top = -(index * 170) + 'px';
+                startMove(oUl, {top: -(index * 170)});
+                // oUl.style.top = -(index * 170) + 'px';
                 for (var i = 0; i < aLiNum.length; i++) {
                     aLiNum[i].className = '';
                 }
@@ -74,8 +75,8 @@
                 index++;
             }
 
-            // 定义图片切换函数
             timer = setInterval(autoPlay, 2000);
+
             // 鼠标划过整个容器时停止自动播放
             wrap.onmouseover = function () {
                 clearInterval(timer);
@@ -95,7 +96,8 @@
                     }
                     this.className = 'on';
                     index = this.index;
-                    oUl.style.top = -(index * 170) + 'px';
+                    startMove(oUl, {top: -(index * 170)});
+                    // oUl.style.top = -(index * 170) + 'px';
                 };
             }
 

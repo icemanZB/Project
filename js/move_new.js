@@ -44,7 +44,6 @@ function startMove(obj, json, fnEnd) {
             var iTarget = json[name]; // 目标点
 
             //处理透明度，不能使用parseInt否则就为0了
-
             if (name == 'opacity') {
                 // *100 会有误差 0000007 之类的 所以要用 Math.round() 会四舍五入
                 var cur = Math.round(parseFloat(getStyle(obj, name)) * 100);

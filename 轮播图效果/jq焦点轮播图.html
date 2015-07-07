@@ -62,9 +62,11 @@
 
             function autoPlay() {
                 index %= aLiNum.length;
-                oUl.css('top', -index * 170);
-                aLiNum.removeClass('on');
-                aLiNum.eq(index).addClass('on');
+                oUl.animate({
+                    top: -index * 170
+                }, 800);
+                // oUl.css('top', -index * 170);
+                aLiNum.eq(index).addClass('on').siblings().removeClass('on');
                 index++;
             }
 
@@ -77,8 +79,13 @@
             timer = setInterval(autoPlay, 2000);
 
             aLiNum.mouseover(function () {
-                aLiNum.removeClass('on');
-                $(this).addClass('on');
+                clearInterval(timer);
+                $(this).addClass('on').siblings().removeClass('on');
+                oUl.animate({
+                    top: -$(this).index() * 170
+                }, 800);
+                // oUl.css('top', -$(this).index() * 170);
+                index = $(this).index();
             });
 
             wrap.hover(function () {
