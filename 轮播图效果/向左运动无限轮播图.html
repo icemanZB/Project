@@ -26,6 +26,7 @@
             width: 4200px;
             height: 400px;
             position: absolute;
+            left: 0;
             z-index: 1;
         }
 
@@ -89,6 +90,7 @@
             right: 20px;
         }
     </style>
+    <script type="text/javascript" src="../js/move_new.js"></script>
     <script type="text/javascript">
         window.onload = function () {
             var container = document.getElementById('container');
@@ -114,8 +116,14 @@
 
             // 点击右箭头
             next.onclick = function () {
-                index++;
-                index %= aBtn.length;
+                if (index >= 4) {
+                    index = 0;
+
+                } else {
+                    index++;
+                }
+
+                // index %= aBtn.length;
                 animate(-600 * index);
                 showButton();
             };
@@ -127,7 +135,8 @@
                 } else {
                     index--;
                 }
-                animate(600 * index);
+
+                animate(-600 * index);
                 showButton();
             };
 
@@ -145,9 +154,8 @@
                 }
             }
 
-
             function animate(offset) {
-                list.style.left = offset + 'px';
+                startMove(list, {left: offset, speed: 100})
             }
 
             function play() {
