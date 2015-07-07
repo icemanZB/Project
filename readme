@@ -17,9 +17,9 @@ window.onscroll=function(){
 
 scrollTop指的是"元素中的内容"超出"元素上边界"的那部分的高度,向上滚动的数值 scrollTop 如果li中没有内容 scrollTop数值不变
 
-$('#noticeBox').scrollTop() = js 获取 area.scrollTop
+$('#noticeBox').scrollTop() ==> js 获取 area.scrollTop
 
-$('#con1').prop('offsetHeight') = js 获取 offsetHeight
+$('#con1').prop('offsetHeight') / .outerHeight() ==> js 获取 offsetHeight
 
 jQuery中跳出 each 循环  continue 可以使用 return true
                        break    可以使用 return false
@@ -37,3 +37,20 @@ http://www.cnblogs.com/trlanfeng/archive/2012/11/04/2753280.html
 offsetHeight:为计算后盒子的整体高度 style.top:为绝对定位后的 top 值
 offsetTop: 盒子顶部相对父级顶部的高度
 
+offsetTop 和 style.top 的区别
+1、offsetTop 返回的是数字，而 style.top 返回的是字符串,除了数字外还带有单位: px
+2、offsetTop 只读 而 style.top 可读写
+3、如果没有给 HTML 元素指定过 top 样式,则 style.top 返回的是空字符串。
+
+jQuery中的.height()、.innerHeight()和.outerHeight()
+.height() 是没有计算过的  不包括padding,不包括边框
+获取计算后的整个高度  aLi.outerHeight() = offsetHeight
+.innerHeight()  包括padding但不包括border  document.getElementById("div1").clientHeight
+.outerHeight()  包括padding和border  还可以接受一个参数,该参数代表是否计算外边距,如果为true则表示计算外边距
+js 写法 div1.offsetHeight + parseInt(div1.style.marginTop) + parseInt(div1.style.marginBottom);
+js中 offsetHeight 是动态获取值
+http://www.kuqin.com/shuoit/20140113/337572.html
+
+jQuery之位置
+http://www.cnblogs.com/kissdodog/archive/2012/12/09/2809770.html
+oUl.position().top ==> oUl.get(0).offsetTop

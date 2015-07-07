@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>图片无缝滚动</title>
+    <title>jq图片无缝滚动</title>
     <style type="text/css">
         * {
             margin: 0;
@@ -92,75 +92,59 @@
         }
 
     </style>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
     <script type="text/javascript">
-        window.onload = function () {
-            var oDiv = document.getElementsByClassName('box')[0];
-            var oUl = oDiv.getElementsByTagName('ul')[0];
-            var aLi = oUl.getElementsByTagName('li');
-            var oUp = document.getElementById("up");
-            var oDown = document.getElementById("down");
+        $(function () {
+            var oDiv = $('.box');
+            var oUl = oDiv.find('ul');
             var timer = null;
+            oUl.html(oUl.html() + oUl.html());
             var iNow = -1;
 
-            oUl.innerHTML += oUl.innerHTML;
+            var aLi = oUl.find('li');
+            // 获取计算后的整个高度  aLi.outerHeight() = offsetHeight
+            oDiv.height(aLi.outerHeight() * aLi.length);
 
-            // 动态设置oDiv的高度
-            oDiv.style.height = aLi[0].offsetHeight * aLi.length + 'px';
-
-            // iSpeed 负值向上 正值向下
             function move(iSpeed) {
+
                 iNow = iSpeed;
+
                 timer = setInterval(function () {
-                    /**
-                     * offsetHeight 为计算后ul的整体高度 (定值)
-                     * style.top  为绝对定位后的 top 值
-                     * offsetTop  为盒子顶部相对父级顶部的高度 (变值)
-                     * */
-                    // 表示图片已经走了一半了 如果是向上走 offsetTop 一定是负值
-                    if (oUl.offsetTop < -oUl.offsetHeight / 2) {
-                        oUl.style.top = '0'; // 滚动到一半了,迅速把图片拉回来
+
+                    // console.log(oUl.get(0).offsetHeight + ' | ' + oUl.outerHeight());
+
+                    if (oUl.position().top < -oUl.outerHeight() / 2) {
+                        oUl.css('top', 0);
                     }
 
-                    /**
-                     * oUl.offsetHeight / 2 = 755 ; 计算后整个高度的一半
-                     *
-                     *  speed = -1 oUl.offsetTop  0 -1 -2 -3 -4 -5 ;
-                     *
-                     * speed = 1  oUl.offsetTop 1 1 0 -754 -753 -752 -751 ;
-                     *
-                     * 当speed 等于 1 的时候会直接进入if 并且赋值为 -oUl.offsetHeight / 2
-                     * 这样页面会直接显示出第二轮的图片
-                     *
-                     * */
-
-                    if (oUl.offsetTop > 0) {
-                        oUl.style.top = -oUl.offsetHeight / 2 + 'px';
+                    if (oUl.position().top > 0) {
+                        oUl.css('top', -oUl.outerHeight() / 2);
                     }
 
-                    oUl.style.top = oUl.offsetTop + iSpeed + "px";
+                    oUl.css('top', oUl.position().top + iSpeed);
 
                 }, 30);
             }
 
             move(-1);
 
-            oUl.onmouseover = function () {
-                clearInterval(timer);
-            };
-            oUl.onmouseout = function () {
-                move(iNow);
-            };
-
-            oUp.onclick = function () {
+            $("#up").click(function () {
                 clearInterval(timer);
                 move(-1);
-            };
-            oDown.onclick = function () {
+            });
+
+            $("#down").click(function () {
                 clearInterval(timer);
                 move(1);
-            };
+            });
 
-        };
+            oUl.hover(function () {
+                clearInterval(timer);
+            }, function () {
+                move(iNow);
+            });
+
+        });
     </script>
 </head>
 <body>
