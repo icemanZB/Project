@@ -121,7 +121,7 @@
                     var m = $(this);
                     // m.offset().top代表每一个item的顶部位置 就是 offsetTop
                     // -300 是因为需要展示的楼层大部分显示出来就让焦点发生改变
-                    if (top > m.offset().top - 300) {
+                    if (top > m.position().top - 300) {
                         currentId = "#" + m.attr("id");
                     } else {
                         // continue 可以使用 return true

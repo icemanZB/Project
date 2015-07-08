@@ -38,3 +38,20 @@ var getElementLeft = function (element) {
     }
     return actualLeft;
 };
+
+// alert(addDate('2015/07/07',31));
+var addDate = function (date, days) {
+    var d = new Date(date);
+    d.setDate(d.getDate() + days);
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+    if (month < 10) {
+        month = "0" + month;
+    }
+    if (day < 10) {
+        day = "0" + day;
+    }
+    var result = d.getFullYear() + "/" + month + "/" + day;
+    return result;
+}
+

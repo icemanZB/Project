@@ -54,3 +54,5 @@ http://www.kuqin.com/shuoit/20140113/337572.html
 jQuery之位置
 http://www.cnblogs.com/kissdodog/archive/2012/12/09/2809770.html
 oUl.position().top ==> oUl.get(0).offsetTop
+
+$("#content").find(".item") == $('#content .item')  但是后者效率低
