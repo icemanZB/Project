@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>随机布局</title>
+    <style type="text/css">
+        .box {
+            width: 300px;
+            height: 300px;
+            border: 3px solid #000000;
+            margin: auto;
+        }
+
+        .div {
+            width: 14px;
+            height: 14px;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            float: left;
+        }
+
+        .red {
+            width: 14px;
+            height: 14px;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            background: red;
+            float: left;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oBox = document.getElementById("box");
+            var arr = [];
+            var arr2 = [];
+
+            for (var i = 0; i < 400; i++) {
+                arr.push("<div class='div'></div>");
+            }
+            oBox.innerHTML = arr.join('');
+
+            var aDiv = oBox.getElementsByTagName('div');
+
+            for (var i = 0; i < 400; i++) {
+                arr2.push(i);
+            }
+
+            // 取了个随机数  random() 方法可返回介于 0 ~ 1 之间的一个随机数
+            arr2.sort(function () {
+                return Math.random() - 0.5;
+            });
+
+            arr2.length = 80;  // 拿80个元素
+
+            for (var i = 0; i < arr2.length; i++) {
+                aDiv[arr2[i]].className = "red";
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="box">
+</div>
+</body>
+</html>

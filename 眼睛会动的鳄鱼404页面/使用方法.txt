@@ -1,0 +1,16 @@
+眼睛会动的鳄鱼404错误页面代码，鼠标移动时鳄鱼的眼睛会跟着移动，兼容主流浏览器，懒人图库推荐下载！
+
+使用方法：
+1、head区域引用js和css文件
+电脑版：
+<link href="css/application-one.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script src="js/application.js" type="text/javascript"></script>
+
+手机版：
+<link href="css/application-mobile.css" media="only screen and (max-device-width: 480px)" rel="stylesheet" type="text/css">
+<script src="js/application.js" type="text/javascript"></script>
+2、body标签添加class="error_page"
+3、复制images文件夹里的图片到相应的路径
+4、在你的网页中加入<!-- 代码 开始 --><!-- 代码 结束 -->注释区域代码即可 
+
+*更多代码请访问：懒人图库 www.lanrentuku.com/js/
