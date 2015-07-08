@@ -1,202 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>图片轮播展示</title>
-		<link rel="stylesheet" type="text/css" href="index.css"/>
-		<script src="../js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/move_new.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-		/*
-		 	原理： 先把所有的li 转为绝对定位
-		 		     然后在把9-20 的图片叠起来在一行不显示
-		 		    之后就只要把 9-12 的图片向上走就可以了
-		 		  这样等于一次性只动了12张图片,极大的提高效率
-		 		  不用一次性动"几百张图片"
-		 		 i/4 : 一排四张图片 0-3 就是第一行  , 这样 parseInt(i/4)求出来的就是 行
-		 		 
-		 */
-		window.onload=function ()
-		{
-			//li变成绝对定位
-			var oDiv=document.getElementById('div1');
-			var oUl=oDiv.children[0];
-			var aLi=oUl.children;
-			var ready=true;
-			
-			var now=0;	//现在是哪张图片在第一个,让谁动
-			
-			for(var i=0;i<aLi.length;i++)
-			{
-				// 布局转换 left = 自己的  offsetLeft
-				aLi[i].style.left=aLi[i].offsetLeft+'px';
-				
-				if(i>=12) // 大于第三排，统一给400高度 叠在一起
-				{
-					aLi[i].style.top='400px';
-				}
-				else
-				{
-					aLi[i].style.top=parseInt(i/4)*200+'px'; // *200 是图片的高度
-				}
-			}
-			
-			for(var i=0;i<aLi.length;i++)
-			{
-				aLi[i].style.position='absolute';
-			}
-			
-			for(var i=0;i<8;i++)
-			{
-				aLi[i].style.filter='alpha(opacity:100)';
-				aLi[i].style.opacity=1;
-			}
-			 
-			// 从第8个开始隐藏  可以看到 ul上的样式 class="list hidden"
-			for(var i=8;i<aLi.length;i++)
-			{
-				aLi[i].style.filter='alpha(opacity:0)';
-				aLi[i].style.opacity=0;
-			}
-			// 去掉 hidden 溢出隐藏样式 
-			oUl.className='list';
-			
-			//按钮
-			var aBtn1=oDiv.children[1].getElementsByTagName('a');
-			var aBtn2=oDiv.children[1].getElementsByTagName('span');
-			
-			//上一个
-			aBtn1[0].onclick=aBtn2[0].onclick=function ()
-			{
-				// now=0 表示前8张图片,那也不能按
-				if(now==0)
-				{
-					return;
-				}
-				
-				if(!ready)return;
-				ready=false;
-				
-				// now-4 表示是从移动上去的那四个图片下来(第一排的在网上一排)
-				// now+8 目的是为了倒着走, 从第8张开始往下掉
-				var i=now+8-1;  
-				var timer=setInterval(function (){
-					if(i<now)			//第一行
-					{
-						if(i==now-4)    
-						{
-							//  运动是 -200 -> 0
-							startMove(aLi[i], {top: 0, opacity: 100}, function (){
-								ready=true;
-							});
-						}
-						else
-						{
-							startMove(aLi[i], {top: 0, opacity: 100});
-						}
-					}
-					else if(i<now+4)	//第二行
-					{
-						 // 0->200
-						startMove(aLi[i], {top: 200});
-					}
-					else			//第三行   200->400
-					{
-						startMove(aLi[i], {top: 400, opacity: 0});
-					}
-					
-					i--; // 倒过来走
-					if(i==now-5)   // now-4 就变成第一张图片, 第一张图片是不要动的 所以now-5
-					{
-						now-=4; // 倒过来走
-						clearInterval(timer);
-					}
-				}, 40);
-				
-				//now+=4;
-			};
-			
-			//下一个
-			aBtn1[1].onclick=aBtn2[1].onclick=function ()
-			{
-				// 表示最后8张图片显示了, 就不能在点按钮了
-				if(now>=aLi.length-8)
-				{
-					return;
-				}
-				
-				if(!ready)return;
-				ready=false;
-				
-				var i=now;
-				var timer=setInterval(function (){
-					if(i<now+4)			// +4 前4张   <4 就是0-3个 ：第一行
-					{
-						// 往上走就是-200px  第一行 运动 0->-200
-						startMove(aLi[i], {top: -200, opacity: 0});
-					}
-					else if(i<now+8)	 // +8 前8张    4-7个
-					{
-						//第二行  运动 200->0 
-						startMove(aLi[i], {top: 0});
-					}
-					else			//第三行  运动 400->200
-					{
-						if(i==now+11)
-						{
-							startMove(aLi[i], {top: 200, opacity: 100}, function (){
-								ready=true;
-							});
-						}
-						else
-						{
-							startMove(aLi[i], {top: 200, opacity: 100});
-						}
-					}
-					
-					i++;
-					// 12张 到头了 
-					if(i==now+12)
-					{
-						now+=4; // 关闭定时器才加4 表示一次已经循环完成
-						clearInterval(timer);
-					}
-				}, 40);
-				
-			};
-		};
-		</script>
-	</head>
-	<body>
-		<div class="imgListBox" id="div1">
-			<ul class="list hidden">
-		    	<li><a href="javascript:void(0);"><img src="img/02.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/03.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/04.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/05.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/06.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/07.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/08.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/09.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/10.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/11.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/12.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/13.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/14.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/15.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/16.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/17.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/18.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/19.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/20.jpg" alt="" /></a></li>
-				<li><a href="javascript:void(0);"><img src="img/01.jpg" alt="" /></a></li>
-			</ul>
-		    <div class="page">
-		    	<a href="javascript:void(0);" class="prev"></a>
-		    	<a href="javascript:void(0);" class="next"></a>
-		    	<span class="prev_ie6"></span>
-		        <span class="next_ie6"></span>
-		    </div>
-		</div>
-	</body>
+<head>
+    <meta charset="utf-8">
+    <title>图片轮播展示</title>
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <script src="../js/move_new.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        /*
+         原理： 布局技巧,布局的时候使用浮动布局,那么排不下的自然到了第二排
+         因为有移动(运动)效果,所以先把所有的li 转为绝对定位
+         然后在把9-20 的图片叠起来在一行不显示
+         之后就只要把 9-12 的图片向上走就可以了
+         这样等于一次性只动了12张图片,极大的提高效率
+         不用一次性动"几百张图片"
+         i/4 : 一排四张图片 0-3 就是第一行  ,  这样 parseInt(i/4)求出来的就是 行
+
+         由于页面中动的东西越多, 页面就越卡,为了提高效率,那么看不到的那几
+         排就可以叠在一起(技巧),因为每次就看到8张图片,当动的时候每次实际
+         只需要动12张图片,那么剩下看不到的内容就可以不动了,那么不管有多少
+         张图片实际每次就只动12张图片,大大提高了性能
+
+         */
+        window.onload = function () {
+            // li变成绝对定位
+            var oDiv = document.getElementById('div1');
+            var oUl = oDiv.children[0];
+            var aLi = oUl.children;
+            var ready = true;
+
+            var now = 0;	// 现在是哪张图片在第一个,让谁动
+
+            for (var i = 0; i < aLi.length; i++) {
+                // 布局转换 left = 自己的  offsetLeft
+                aLi[i].style.left = aLi[i].offsetLeft + 'px';
+
+                if (i >= 12) // 大于第三排,统一给400高度 叠在一起
+                {
+                    aLi[i].style.top = '400px';
+                }
+                else {
+                    // i/4 :  一排四张图片 0-3, 那么除出来都是小于0的数,在parseInt(i/4)
+                    // 那么得到的结果就都是0,这样求出来的就是一行
+                    // 最后就是 0 1 2 3 4 各自输出四次
+                    aLi[i].style.top = parseInt(i / 4) * 200 + 'px'; // 200 是图片的高度
+                }
+            }
+
+            // 在设置top,left值的时候,不能同时,转为绝对定位
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].style.position = 'absolute';
+            }
+
+            // 显示8张图片
+            for (var i = 0; i < 8; i++) {
+                aLi[i].style.filter = 'alpha(opacity:100)';
+                aLi[i].style.opacity = 1;
+            }
+
+            // 从第8个图片开始隐藏  可以看到 ul上的样式 class="list hidden"
+            for (var i = 8; i < aLi.length; i++) {
+                aLi[i].style.filter = 'alpha(opacity:0)';
+                aLi[i].style.opacity = 0;
+            }
+            // 去掉 hidden 溢出隐藏样式,就可以看到图片向上走之后不会消失的情况了
+            // 然后在运动的时候设置opacity 为 0
+            oUl.className = 'list';
+
+            // 按钮
+            var aBtn1 = oDiv.children[1].getElementsByTagName('a');
+
+            // 上一个
+            aBtn1[0].onclick = function () {
+                // now=0 表示前8张图片,那也不能按
+                if (now == 0) {
+                    return;
+                }
+
+                if (!ready)return;
+                ready = false;
+
+                // 假设当前显示的图片是4-11 张
+                // 那么now就应该是 4 , 那么 now-4 now指的就是0
+                // 表示是从移动上去的那四个图片下来(第一排的在上面一排)
+                // now+8-1 那么 i 为 11, 目的是为了倒着走, 从第8张开始往下掉
+                var i = now + 8 - 1;
+                var timer = setInterval(function () {
+                    // 点过下一张后 now就变成了4  显示的图片是4-11 张
+                    // i=11 开始递减 now=4
+                    if (i < now)			// 第一行
+                    {
+                        if (i == now - 4) {
+                            //  运动是 -200 -> 0
+                            startMove(aLi[i], {top: 0, opacity: 100}, function () {
+                                ready = true;
+                            });
+                        }
+                        else {
+                            startMove(aLi[i], {top: 0, opacity: 100});
+                        }
+                    }
+                    else if (i < now + 4)	// 第二行
+                    {
+                        // 0->200
+                        startMove(aLi[i], {top: 200});
+                    }
+                    else // 第三行   200->400
+                    {
+                        startMove(aLi[i], {top: 400, opacity: 0});
+                    }
+
+                    i--; // 倒过来走
+                    if (i == now - 5)   // now-4 就变成第一张图片, 第一张图片是也要动的 所以now-5
+                    {
+                        now -= 4; // 倒过来走
+                        clearInterval(timer);
+                    }
+                }, 40);
+
+            };
+
+            // 下一个
+            aBtn1[1].onclick = function () {
+                // 表示最后8张图片显示了,就不能在点按钮了,此时的now应该指向的是第12
+                // 总共的图片个数-8 就是now
+                if (now >= aLi.length - 8) {
+                    return;
+                }
+
+                if (!ready)return;
+                ready = false;
+
+                var i = now;  //   本身i=0; 现在从 now 开始
+                // 开定时器,为了让图片一个一个走
+                var timer = setInterval(function () {
+                    if (i < now + 4)			// +4 前4张   <4 就是0-3个 ：第一行
+                    {
+                        // 往上走就是-200px  第一行 运动 0->-200
+                        startMove(aLi[i], {top: -200, opacity: 0});
+                    }
+                    else if (i < now + 8)	 // +8 前8张    4-7个   第二行
+                    {
+                        //第二行  运动 200->0
+                        startMove(aLi[i], {top: 0});
+                    }
+                    else // 第三行  运动 400->200
+                    {
+                        if (i == now + 11) {
+                            // 从下面出来的图片 opacity为100 显示出来
+                            startMove(aLi[i], {top: 200, opacity: 100}, function () {
+                                ready = true;
+                            });
+                        }
+                        else {
+                            startMove(aLi[i], {top: 200, opacity: 100});
+                        }
+                    }
+
+                    i++; // 定时器循环所用
+
+                    // 12张 到头了 因为每次只动12张图片
+                    if (i == now + 12) {
+                        now += 4; // 关闭定时器才加4,表示循环一行 表示一次已经循环完成
+                        clearInterval(timer);
+                    }
+                }, 40);
+
+            };
+        };
+    </script>
+</head>
+<body>
+<div class="imgListBox" id="div1">
+    <ul class="list hidden">
+        <li><a href="javascript:void(0);"><img src="img/02.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/03.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/04.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/05.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/06.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/07.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/08.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/09.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/10.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/11.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/12.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/13.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/14.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/15.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/16.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/17.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/18.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/19.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/20.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/01.jpg" alt=""/></a></li>
+    </ul>
+    <div class="page">
+        <a href="javascript:void(0);" class="prev"></a>
+        <a href="javascript:void(0);" class="next"></a>
+        <!--<span class="prev_ie6"></span>
+       <span class="next_ie6"></span>-->
+    </div>
+</div>
+</body>
 </html>
