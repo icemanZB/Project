@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>无缝切换</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #div1 {
+            width: 350px;
+            height: 60px;
+            border: 1px solid #000;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden; /* 去掉hidden可以看效果 */
+        }
+
+        #div1 ul {
+            position: absolute;
+            left: 0; /* 改变left值就可以运动 */
+            /* width: 2000px; 宽度动态生成,因为图片的个数不确定 */
+        }
+
+        #div1 ul li {
+            width: 80px;
+            height: 60px;
+            margin-right: 10px;
+            float: left;
+        }
+
+    </style>
+    <script type="text/javascript" src="../js/move_new.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oBtn = document.getElementById('btn');
+            var oUl = document.getElementById('ul1');
+            var aLi = oUl.getElementsByTagName('li');
+            var iNum = 4; // 如果iNum 为1 那就会一个一个往前面走
+            var bBtn = true;
+            var oneWidth = aLi[0].offsetWidth + 10;  // 一个li的宽度 + 10px 的 margin-right
+
+            function getWidth() {
+                // 设置 oUl 的宽度
+                oUl.style.width = aLi.length * oneWidth + 'px';
+
+            }
+
+            getWidth();  // 页面以上来就执行一次
+
+            oBtn.onclick = function () {
+                // 防止多次点击, 由于多次点击的时候,运动的回调函数没有走完就被覆盖了
+                // 只有运动结束以后,才能进行下一次切换
+                if (bBtn) {
+                    bBtn = false;
+
+                    // 复制4个li 追加到最后(添加到ul里面)
+                    for (var i = 0; i < iNum; i++) {
+                        var oLi = aLi[i].cloneNode(true);
+                        oUl.appendChild(oLi);
+                    }
+                    getWidth(); // 添加结束后在重新计算宽度
+
+                    // 开始运动 ul运动的距离就是4个li宽度的距离
+                    // 运动结束后 删除前面4个li
+                    startMove(oUl, {left: -iNum * oneWidth}, function () {
+                        for (var i = 0; i < iNum; i++) {
+                            // 由于删除一个元素,下一个元素就成为了新的第一个
+                            // 所以每次就只要删除第一个元素即可
+                            oUl.removeChild(aLi[0]);
+
+                        }
+                        // 最后把oUl的left变为 0 让他回到初始状态
+                        oUl.style.left = 0;
+
+                        // 运动结束后 打开开关
+                        bBtn = true;
+
+
+                    });
+                }
+
+
+            };
+
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="切换" id="btn"/>
+
+<div id="div1">
+    <ul id="ul1">
+        <li><img src="img/1.gif" alt=""/></li>
+        <li><img src="img/2.gif" alt=""/></li>
+        <li><img src="img/3.gif" alt=""/></li>
+        <li><img src="img/4.gif" alt=""/></li>
+        <li><img src="img/5.gif" alt=""/></li>
+    </ul>
+</div>
+</body>
+</html>

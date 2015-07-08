@@ -70,3 +70,9 @@ push()  方法可向数组的末尾添加一个或多个元素,并返回新的长度
 arr.push(arr.shift()); // 3   arr => [2, 3, 1]
 
 Math.random()  random() 方法可返回介于 0 ~ 1 之间的一个随机数
+
+js 中 appendChild 带有剪切功能,并不是复制
+
+复制节点 cloneNode() 如果参数是 true 就是一起复制里面的子节点, false 就只复制当前节点 不会复制里面的子节点
+
+removeChild ?
