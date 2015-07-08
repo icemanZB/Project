@@ -282,12 +282,15 @@
         }
 
         oPrel.onclick = function () {
+            // pop() 方法用于删除并返回数组的最后一个元素
+            // unshift() 方法可向数组的开头添加一个或更多元素,并返回新的长度
             aStyle.unshift(aStyle.pop());
             aImgWidth.unshift(aImgWidth.pop());
             set();
         };
 
         oNext.onclick = function () {
+            // shift() 方法用于把数组的第一个元素从其中删除,并返回第一个元素的值
             aStyle.push(aStyle.shift());
             aImgWidth.push(aImgWidth.shift());
             set();

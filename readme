@@ -56,3 +56,15 @@ http://www.cnblogs.com/kissdodog/archive/2012/12/09/2809770.html
 oUl.position().top ==> oUl.get(0).offsetTop
 
 $("#content").find(".item") == $('#content .item')  但是后者效率低
+
+var arr=[1,2,3];
+pop() 方法用于删除并返回数组的最后一个元素
+unshift() 方法可向数组的开头添加一个或更多元素,并返回新的长度
+
+arr.unshift(arr.pop());  // 3   arr => [3, 1, 2]
+
+var arr=[1,2,3];
+shift() 方法用于把数组的第一个元素从其中删除,并返回第一个元素的值
+push()  方法可向数组的末尾添加一个或多个元素,并返回新的长度
+
+arr.push(arr.shift()); // 3   arr => [2, 3, 1]
