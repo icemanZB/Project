@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>焦点轮播图</title>
+    <title>焦点轮播图淡入淡出效果</title>
     <style type="text/css">
         * {
             margin: 0;
@@ -20,11 +20,18 @@
 
         .wrap ul {
             position: absolute;
-            top: 0; /* top:-170px; 不写的话运动框架会有问题*/
+            left: 0;
+            top: 0;
         }
 
         .wrap ul li {
             height: 170px;
+            display: none;
+            position: absolute; /* 变成定位布局 */
+            top: 0;
+            left: 0;
+            filter: alpha(opacity=0);
+            opacity: 0;
         }
 
         .wrap ol {
@@ -54,31 +61,35 @@
     <script type="text/javascript" src="../js/move_new.js"></script>
     <script type="text/javascript">
         /**
-         * 这里不用控制每一个单独的li向上移动,比较影响性能需要多个li一起动
-         * 所以只动父级的ul,那这样ul动了里面的li就跟着一起动了
+         *  首先布局一定是定位布局,所有的图片需要叠在一起
+         *  如果不是的话,就看不到淡入淡出的效果,其次还需要有层级的
+         *
          * */
         window.onload = function () {
             var wrap = document.getElementById('wrap'),
                     oUl = document.getElementById('pic'),
+                    aLiPic = oUl.getElementsByTagName('li'),
                     aLiNum = document.getElementById('list').getElementsByTagName('li'),
                     index = 0,
                     timer = null;
 
             // 定义并调用自动播放函数
             function autoPlay() {
-                // 走到最后一个 index 在变成0
-                if (index === aLiNum.length - 1) {
+                if (index === aLiNum.length) {
                     index = 0;
-                } else {
-                    index++;
                 }
 
-                startMove(oUl, {top: -(index * 170)});
-                // oUl.style.top = -(index * 170) + 'px';
+                startMove(aLiPic[index], {opacity: 100});
+
                 for (var i = 0; i < aLiNum.length; i++) {
                     aLiNum[i].className = '';
+                    aLiPic[i].style.display = 'none';
+                    startMove(aLiPic[i], {opacity: 0});
                 }
                 aLiNum[index].className = 'on';
+                aLiPic[index].style.display = 'block';
+                startMove(aLiPic[index], {opacity: 100});
+                index++;
             }
 
             timer = setInterval(autoPlay, 2000);
@@ -93,18 +104,24 @@
                 timer = setInterval(autoPlay, 2000);
             };
 
-            // 遍历所有数字导航,实现划过切换至对应的图片
+            // 遍历所有数字导航实现划过切换至对应的图片
             for (var i = 0; i < aLiNum.length; i++) {
                 aLiNum[i].index = i;
                 aLiNum[i].onmouseover = function () {
                     for (var i = 0; i < aLiNum.length; i++) {
                         aLiNum[i].className = '';
+                        // 运动完成隐藏
+                        // 由于透明度为0,所以就看不见那张图片了,看似实现了效果
+                        // 但是他还是占用空间的,这样点击的时候还是前一张图片,并没有第二张
+                        // 所以要设置隐藏
+                        aLiPic[i].style.display = 'none';
+                        // 每一个做淡出
+                        startMove(aLiPic[i], {opacity: 0});
                     }
                     this.className = 'on';
-                    // 建立关系
                     index = this.index;
-                    startMove(oUl, {top: -(index * 170)});
-                    // oUl.style.top = -(index * 170) + 'px';
+                    aLiPic[this.index].style.display = 'block';
+                    startMove(aLiPic[index], {opacity: 100});
                 };
             }
 
@@ -115,7 +132,7 @@
 <body>
 <div class="wrap" id='wrap'>
     <ul id="pic">
-        <li><img src="img/1.jpg" alt=""></li>
+        <li style="display: block;filter:alpha(opacity=100); opacity:1;"><img src="img/1.jpg" alt=""></li>
         <li><img src="img/2.jpg" alt=""></li>
         <li><img src="img/3.jpg" alt=""></li>
         <li><img src="img/4.jpg" alt=""></li>
