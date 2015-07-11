@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>手风琴效果</title>
+    <style type="text/css">
+        body, ul, ol {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            border: none;
+            vertical-align: top;
+        }
+
+        #box {
+            width: 470px;
+            height: 150px;
+            position: relative;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+
+        ul {
+            width: 470px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        ul li {
+            width: 470px;
+            position: absolute;
+            top: 0;
+        }
+    </style>
+    <script type="text/javascript" src="../js/move_new.js"></script>
+    <script>
+        window.onload = function () {
+            var oUl = document.getElementsByTagName('ul')[0];
+            var aLiUl = oUl.getElementsByTagName('li');
+
+            // 第一个不动 所以i从1开始,计算每一个li的left值 i-1也是一个道理
+            for (var i = 1; i < aLiUl.length; i++) {
+                aLiUl[i].style.left = (470 - 120) + (i - 1) * 30 + 'px';
+            }
+
+            for (var i = 0; i < aLiUl.length; i++) {
+                aLiUl[i].index = i;
+                aLiUl[i].onmouseover = function () {
+                    for (var i = 0; i < aLiUl.length; i++) {
+                        // 根据当前的li 前面的都向左运动(包括自身)
+                        // 后面的都向右运动
+                        if (i <= this.index) {
+                            // 向左运动 运动到底自然left为0
+                            // 现在向左运动也设置下有30px的间隙
+                            startMove(aLiUl[i], {left: i * 30});
+                        }
+                        else {
+                            // 向右运动
+                            startMove(aLiUl[i], {left: (470 - 120) + (i - 1) * 30});
+                        }
+                    }
+
+                };
+            }
+
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="img/1.jpg" alt=""/></li>
+        <li><img src="img/2.jpg" alt=""/></li>
+        <li><img src="img/3.jpg" alt=""/></li>
+        <li><img src="img/4.jpg" alt=""/></li>
+        <li><img src="img/5.jpg" alt=""/></li>
+    </ul>
+
+</div>
+</body>
+</html>
