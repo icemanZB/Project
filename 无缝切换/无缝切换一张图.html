@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>焦点图无缝切换</title>
+    <title>无缝切换一张图</title>
     <style type="text/css">
         * {
             margin: 0;
@@ -21,10 +21,13 @@
         .wrap ul {
             position: absolute;
             top: 0; /* top:-170px; 不写的话运动框架会有问题*/
+            left: 0;
         }
 
         .wrap ul li {
             height: 170px;
+            position: absolute; /* 使所有图片都叠在一起 */
+            top: 0;
         }
 
         .wrap ol {
@@ -53,62 +56,28 @@
     </style>
     <script type="text/javascript" src="../js/move_new.js"></script>
     <script type="text/javascript">
+        /**
+         * 无缝切换一张图片,不管移动到哪一个ol上,就只会出来当前的图片
+         * 而不是一个一个的出现,最后显示当前对应的图片
+         * 采用绝对定位的布局,把所有的图片除了当前的图片都堆在右边
+         * 假设我从第一个移动到第三个,那么我只要把第三个运动出来即可
+         * 这样定位的话,其他图片还在原有的位置,不会受到任何影响
+         * */
         window.onload = function () {
             var wrap = document.getElementById('wrap'),
                     oUl = document.getElementById('pic'),
                     aLiPic = oUl.getElementsByTagName('li'),
                     aLiNum = document.getElementById('list').getElementsByTagName('li'),
-                    index = 0,  // 这个是针对按钮的
-                    iNow = 0, // 这个是针对滚动的
-                    timer = null;
+                    iNow = 0; // 当前的图片
 
-            // 定义并调用自动播放函数
-            function autoPlay() {
-                // 走到了相对定位的那个第一张图的时候
-                if (index === 0) {
-                    // 把定位取消
-                    aLiPic[0].style.position = 'static';
-                    // 由于没有定位了 top值也就不起作用了
-                    // 现在只要把ul的top值归0,就可以把整体拉回来了
-                    oUl.style.top = 0;
-                    // 在把 iNow 还原
-                    iNow = 0;
-                }
+            var oneWidth = aLiPic[0].offsetWidth;
 
-                // 走到最后一个 index 在变成0
-                if (index === aLiNum.length - 1) {
-                    index = 0;
-                    // 走到最后一个时,让第一个li转为相对定位
-                    aLiPic[0].style.position = 'relative';
-                    //设置top值
-                    aLiPic[0].style.top = aLiPic.length * aLiPic[0].offsetHeight + 'px ';
-                } else {
-                    index++;
-                }
-
-                iNow++;
-
-                startMove(oUl, {top: -(iNow * 170)});
-
-                for (var i = 0; i < aLiNum.length; i++) {
-                    aLiNum[i].className = '';
-                }
-                aLiNum[index].className = 'on';
+            // 设置li的left值,由于第一个不用管了,所以从第二个开始循环
+            for (var i = 1; i < aLiPic.length; i++) {
+                aLiPic[i].style.left = oneWidth + 'px';
             }
 
-            timer = setInterval(autoPlay, 2000);
 
-            // 鼠标划过整个容器时停止自动播放
-            wrap.onmouseover = function () {
-                clearInterval(timer);
-            };
-
-            // 鼠标离开整个容器时继续播放至下一张
-            wrap.onmouseout = function () {
-                timer = setInterval(autoPlay, 2000);
-            };
-
-            // 遍历所有数字导航,实现划过切换至对应的图片
             for (var i = 0; i < aLiNum.length; i++) {
                 aLiNum[i].index = i;
                 aLiNum[i].onmouseover = function () {
@@ -116,14 +85,32 @@
                         aLiNum[i].className = '';
                     }
                     this.className = 'on';
-                    // 建立关系
-                    index = this.index;
+
+                    // 判断图片是从右向左移动还是从左向右移动
+                    if (iNow < this.index) {
+                        // 从右向左
+
+                        // 把原来显示的图片定位在左边
+                        aLiPic[this.index].style.left = oneWidth + 'px';
+
+                        // 当前的图片向左移动
+                        startMove(aLiPic[iNow], {left: -oneWidth});
+
+                    } else if (iNow > this.index) {
+                        // 从左向右
+                        aLiPic[this.index].style.left = -oneWidth + 'px';
+
+                        startMove(aLiPic[iNow], {left: oneWidth});
+
+                    }
+
+                    // 移入对应的图片 由于不管是从左移入还是从右移入都是移动到0
+                    // 所以不必放到if中
+                    startMove(aLiPic[this.index], {left: 0});
+
                     iNow = this.index;
-                    startMove(oUl, {top: -(index * 170)});
-                    // oUl.style.top = -(index * 170) + 'px';
                 };
             }
-
         };
 
     </script>
