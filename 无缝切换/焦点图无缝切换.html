@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>焦点图无缝切换</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .wrap {
+            height: 170px;
+            width: 490px;
+            overflow: hidden;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        .wrap ul {
+            position: absolute;
+            top: 0; /* top:-170px; 不写的话运动框架会有问题*/
+        }
+
+        .wrap ul li {
+            height: 170px;
+        }
+
+        .wrap ol {
+            position: absolute;
+            right: 5px;
+            bottom: 10px;
+        }
+
+        .wrap ol li {
+            height: 20px;
+            width: 20px;
+            background: #ccc;
+            border: solid 1px #666;
+            margin-left: 5px;
+            color: #000;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .wrap ol .on {
+            background: #E97305;
+            color: #fff;
+        }
+
+    </style>
+    <script type="text/javascript" src="../js/move_new.js"></script>
+    <script type="text/javascript">
+        /**
+         * 这里不用控制每一个单独的li向上移动,比较影响性能需要多个li一起动
+         * 所以只动父级的ul,那这样ul动了里面的li就跟着一起动了
+         * */
+        window.onload = function () {
+            var wrap = document.getElementById('wrap'),
+                    oUl = document.getElementById('pic'),
+                    aLiPic = oUl.getElementsByTagName('li'),
+                    aLiNum = document.getElementById('list').getElementsByTagName('li'),
+                    index = 0,  // 这个是针对按钮的
+                    iNow = 0, // 这个是针对滚动的
+                    timer = null;
+
+            // 定义并调用自动播放函数
+            function autoPlay() {
+                // 走到了相对定位的那个第一张图的时候
+                if (index === 0) {
+                    // 把定位取消
+                    aLiPic[0].style.position = 'static';
+                    // 由于没有定位了 top值也就不起作用了
+                    // 现在只要把ul的top值归0,就可以把整体拉回来了
+                    oUl.style.top = 0;
+                    // 在把 iNow 还原
+                    iNow = 0;
+                }
+
+                // 走到最后一个 index 在变成0
+                if (index === aLiNum.length - 1) {
+                    index = 0;
+                    // 走到最后一个时,让第一个li转为相对定位
+                    aLiPic[0].style.position = 'relative';
+                    //设置top值
+                    aLiPic[0].style.top = aLiPic.length * aLiPic[0].offsetHeight + 'px ';
+                } else {
+                    index++;
+                }
+
+                iNow++;
+
+                startMove(oUl, {top: -(iNow * 170)});
+
+                for (var i = 0; i < aLiNum.length; i++) {
+                    aLiNum[i].className = '';
+                }
+                aLiNum[index].className = 'on';
+            }
+
+            timer = setInterval(autoPlay, 2000);
+
+            // 鼠标划过整个容器时停止自动播放
+            wrap.onmouseover = function () {
+                clearInterval(timer);
+            };
+
+            // 鼠标离开整个容器时继续播放至下一张
+            wrap.onmouseout = function () {
+                timer = setInterval(autoPlay, 2000);
+            };
+
+            // 遍历所有数字导航,实现划过切换至对应的图片
+            for (var i = 0; i < aLiNum.length; i++) {
+                aLiNum[i].index = i;
+                aLiNum[i].onmouseover = function () {
+                    for (var i = 0; i < aLiNum.length; i++) {
+                        aLiNum[i].className = '';
+                    }
+                    this.className = 'on';
+                    // 建立关系
+                    index = this.index;
+                    iNow = this.index;
+                    startMove(oUl, {top: -(index * 170)});
+                    // oUl.style.top = -(index * 170) + 'px';
+                };
+            }
+
+        };
+
+    </script>
+</head>
+<body>
+<div class="wrap" id='wrap'>
+    <ul id="pic">
+        <li><img src="img2/1.jpg" alt=""></li>
+        <li><img src="img2/2.jpg" alt=""></li>
+        <li><img src="img2/3.jpg" alt=""></li>
+        <li><img src="img2/4.jpg" alt=""></li>
+        <li><img src="img2/5.jpg" alt=""></li>
+    </ul>
+    <ol id="list">
+        <li class="on">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+</div>
+</body>
+</html>
