@@ -1,5 +1,3 @@
-scrollTop是什么及用法说明 http://blog.csdn.net/gang_gang_gang/article/details/4233044
-
 jquery prop 方法解析 http://blog.csdn.net/chaiyining007/article/details/8218038
 
 事件绑定好处  可以绑定多个事件且不会覆盖
@@ -10,19 +8,16 @@ dom.onclick=function(){ console.log(2); };  最终结果是 输出2
 事件代理 ( 委托 ) 绑定在父元素上,使其子元素也拥有这个事件
 针对多个元素绑定的时候,并且是动态输出的元素,这个时候就可以用事件代理
 
-
 window.onscroll=function(){
     var top = document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop;
 }
 
+scrollTop是什么及用法说明 http://blog.csdn.net/gang_gang_gang/article/details/4233044
+
 scrollTop指的是"元素中的内容"超出"元素上边界"的那部分的高度,向上滚动的数值 scrollTop 如果li中没有内容 scrollTop数值不变
 
-$('#noticeBox').scrollTop() ==> js 获取 area.scrollTop
-
-$('#con1').prop('offsetHeight') / .outerHeight() ==> js 获取 offsetHeight
-
 jQuery中跳出 each 循环  continue 可以使用 return true
-                       break    可以使用 return false
+                        break    可以使用 return false
 
 var _href = _menu.getAttribute('href');  // 获取到 #item1
 var _href=_menu.href; // 获取到的是浏览器的路径
@@ -38,7 +33,7 @@ offsetHeight:为计算后盒子的整体高度 style.top:为绝对定位后的 top 值
 offsetTop: 盒子顶部相对父级顶部的高度
 
 offsetTop 和 style.top 的区别
-1、offsetTop 返回的是数字，而 style.top 返回的是字符串,除了数字外还带有单位: px
+1、offsetTop 返回的是数字,而 style.top 返回的是字符串,除了数字外还带有单位: px
 2、offsetTop 只读 而 style.top 可读写
 3、如果没有给 HTML 元素指定过 top 样式,则 style.top 返回的是空字符串。
 
@@ -71,8 +66,77 @@ arr.push(arr.shift()); // 3   arr => [2, 3, 1]
 
 Math.random()  random() 方法可返回介于 0 ~ 1 之间的一个随机数
 
-js 中 appendChild 带有剪切功能,并不是复制
+js 中 appendChild 带有剪切功能,并不是复制(可向节点的子节点列表的末尾添加新的子节点)
+
+appendChild 方法是在父级节点中的子节点的末尾添加新的节点(相对于父级节点 来说)
+
+insertBefore() 方法：可在已有的子节点前插入一个新的子节点
+insertBefore 方法 是在已有的节点前添加新的节点(相对于子节点来说的)
+
+appendChild于insertBefore http://www.cnblogs.com/ATree/archive/2011/09/26/JS-appendChild-insertBefore.html
 
 复制节点 cloneNode() 如果参数是 true 就是一起复制里面的子节点, false 就只复制当前节点 不会复制里面的子节点
+返回的节点不属于文档树,它的 parentNode 属性为 null
+当复制的是 Element 节点时,它的所有属性都将被复制,但要注意,当前节点上注册的事件监听器函数不会被复制
 
-removeChild ?
+removeChild 的一些问题
+<ul id="demo">
+<li>a</li>
+<li>b</li>
+<li>c</li>
+</ul>
+那么这时候只会删除第一行，因为当删除了一个之后，行的位置会向前移动一位。
+giftTrs.length也会相应减一。
+var ul = document.getElementById('demo');
+var liList = ul.getElementsByTagName('li');
+for (var i = 0; i < = liList.length; i++) {
+ul.removeChild(liList[i]);
+}
+正确做法：
+var ul = document.getElementById('demo');
+var liList = ul.getElementsByTagName('li');
+var lilength = liList.length;
+for (var i = 0; i < lilength; i++) {
+ul.removeChild(liList[0]);
+}
+IE 下 removeChild 的问题
+http://fins.iteye.com/blog/172263/
+<html>
+ <head>
+<script type="text/javascript">
+
+function $(id) {
+    return typeof(id)=='string'?document.getElementById(id):id;
+}
+
+function removeElement(el){
+        el=$(el);
+        if (el && el.parentNode) {
+            el.parentNode.removeChild(el);
+        }
+}
+
+  </script>
+ </head>
+
+ <body >
+  <div id="ttt">aaa</div>
+
+  <input type="button" value="b1" onclick="removeElement('ttt')">
+ </body>
+</html>
+
+removeNode : isIE ? function(){
+    var d;
+    return function(n){
+        if(n && n.tagName != 'BODY'){
+            d = d || document.createElement('div');
+            d.appendChild(n);
+            d.innerHTML = '';
+        }
+    }
+}() : function(n){
+    if(n && n.parentNode && n.tagName != 'BODY'){
+        n.parentNode.removeChild(n);
+    }
+}

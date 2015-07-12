@@ -1,0 +1,9 @@
+js 获取 obj.scrollTop  ==>    $('#obj').scrollTop()
+
+js 获取 obj.offsetHeight   ==>   $('#obj').prop('offsetHeight') / $("#obj").outerHeight()
+
+js 获取 document.getElementById("div1").clientHeight  ==>     $("#obj").innerHeight()
+
+js div1.offsetHeight + parseInt(div1.style.marginTop) + parseInt(div1.style.marginBottom)==>$("#obj").outerHeight(true)
+
+js 获取 obj.offsetTop  ==>  $("#obj").position().top
