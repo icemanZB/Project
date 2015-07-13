@@ -45,12 +45,10 @@
         $(function () {
             var oUl = $('#box').find('ul');
             var aLi = oUl.find('li');
-            var arr = [];
 
             aLi.each(function (index) {
                 if (index === 0) return true;
                 $(this).css('left', (470 - 120) + (index - 1) * 30);
-                arr.push(index);
             });
 
             aLi.mouseover(function () {
