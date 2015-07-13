@@ -31,6 +31,7 @@ http://www.cnblogs.com/trlanfeng/archive/2012/11/04/2753280.html
 
 offsetHeight:为计算后盒子的整体高度 style.top:为绝对定位后的 top 值
 offsetTop: 盒子顶部相对父级顶部的高度
+offsetTop 只能获取到有定位的父级
 
 offsetTop 和 style.top 的区别
 1、offsetTop 返回的是数字,而 style.top 返回的是字符串,除了数字外还带有单位: px
@@ -89,7 +90,7 @@ jquery stop() 方法停止当前正在运行的动画
 解决方法:在写动画效果的代码前加入 stop(true,true) 这样每次快速的移入移出菜单就正常了
 当移入一个菜单的时候,停止所有加入队列的动画,但是完成当前的动画(跳至当前动画的最终效果位置)
 
-
+Math.pow(x,y) x 的 y 次幂
 
 removeChild 的一些问题
 <ul id="demo">

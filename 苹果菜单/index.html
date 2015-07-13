@@ -16,41 +16,61 @@
         }
 
         #div1 img {
+            width: 64px; /* 设置图片的宽度是原来的一般 */
             border: none;
         }
     </style>
     <script type="text/javascript">
-        document.onmousemove = function (ev) {
-            var oEvent = ev || event;
+        /**
+         *  如何寻找这几条斜线的距离 (用两点之间的坐标,求出两点之间的距离，如图)
+         *
+         * */
+        window.onload = function () {
             var oDiv = document.getElementById('div1');
             var aImg = oDiv.getElementsByTagName('img');
-            var d = 0;
-            var iMax = 200;
 
-            function getDistance(obj) {
-                return Math.sqrt
-                (
-                        Math.pow(obj.offsetLeft + oDiv.offsetLeft - oEvent.clientX + obj.offsetWidth / 2, 2) +
-                        Math.pow(obj.offsetTop + oDiv.offsetTop - oEvent.clientY + obj.offsetHeight / 2, 2)
-                );
-            }
+            document.onmousemove = function (ev) {
+                var oEvent = ev || event;
+                // 获取每张图片的中心点
+                for (var i = 0; i < aImg.length; i++) {
+                    var x = aImg[i].offsetLeft + aImg[i].offsetWidth / 2;
+                    // offsetTop 只能获取到有定位的父级,所以还要加上div的offsetTop值
+                    var y = aImg[i].offsetTop + aImg[i].offsetHeight / 2 + oDiv.offsetTop;
 
-            for (i = 0; i < aImg.length; i++) {
-                d = getDistance(aImg[i]);
-                d = Math.min(d, iMax);
+                    var b = oEvent.clientX - x;
+                    var a = oEvent.clientY - y;
+                    // 5 条斜边
+                    var c = Math.sqrt(Math.pow(b, 2) + Math.pow(a, 2));
+                    // 由于c的值在200-300之间太大了
+                    // 所以除300 让他范围在0-1之间
+                    // 由于显示的是中间的图片是大的而两边的图片是小的
+                    // 但是求出的比例(c的值)是两边大中间小,正好是反比的关系
+                    // 所以用1-scale 正好就变成中间大两边小
+                    var scale = 1 - c / 300;
 
-                aImg[i].width = ((iMax - d) / iMax) * 64 + 64;
-            }
+                    // 限制范围,最小不能小于图片的一般
+                    if (scale < 0.5) {
+                        scale = 0.5;
+                    }
+
+                    // 原图的宽度为128,所以用scale*128
+                    // 这个时候就是离谁越近谁越大,离谁越远谁越小
+                    aImg[i].style.width = scale * 128 + 'px';
+                    aImg[i].style.heiht = scale * 128 + 'px';
+                }
+
+            };
         };
+
     </script>
 </head>
 <body>
 <div id="div1">
-    <a href="javascript:void(0);"><img src="img/1.png" width="64"/></a>
-    <a href="javascript:void(0);"><img src="img/2.png" width="64"/></a>
-    <a href="javascript:void(0);"><img src="img/3.png" width="64"/></a>
-    <a href="javascript:void(0);"><img src="img/4.png" width="64"/></a>
-    <a href="javascript:void(0);"><img src="img/5.png" width="64"/></a>
+    <a href="javascript:void(0);"><img src="img/1.png"/></a>
+    <a href="javascript:void(0);"><img src="img/2.png"/></a>
+    <a href="javascript:void(0);"><img src="img/3.png"/></a>
+    <a href="javascript:void(0);"><img src="img/4.png"/></a>
+    <a href="javascript:void(0);"><img src="img/5.png"/></a>
 </div>
 </body>
 </html>
