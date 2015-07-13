@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>下拉菜单特效</title>
+    <link rel="stylesheet" href="css.css"/>
+    <script type="text/javascript" src="../js/move_new.js"></script>
+    <script type="text/javascript">
+        /**
+         * 默认情况下透明度是0,先用js把li绝对定位在左右两侧
+         * 之后再移动到原来的位置(点击请选择,就把在左边的往右边跑,右边的往左边跑)
+         * 也就是设置left为0就可以了
+         * 运动的时候设置分布前进,也就是使用setInterval()代替循环分布执行运动
+         * 循环运动会一次性都出来,所以用setInterval()代替
+         * 之后再点击li,把文字赋给请选择,之后再收起来
+         *
+         * */
+        window.onload = function () {
+            var oDiv = document.getElementById('box');
+            var oNavBox = oDiv.children[0];
+            var oUl = oDiv.children[1];
+            var aLi = oUl.children;
+            var opened = false; // 判断菜单是否已经展开 (默认是收起来的false)
+
+            for (var i = 0; i < aLi.length; i++) {
+                // i%2 来区分单双数  1 3 5 7 9 取模为1
+                // 2 4 6 8 取模 为0
+                if (i % 2) {
+                    // 设置left,定位在左边 (单数)
+                    aLi[i].style.left = -aLi[i].offsetWidth + 'px';
+                } else {
+                    // 设置left,定位在右边 (双数)
+                    aLi[i].style.left = aLi[i].offsetWidth + 'px';
+                }
+            }
+
+            // 点击请选择
+            oNavBox.onclick = function () {
+                // 判断是否是打开状态
+                if (opened) {
+                    // 收起来
+                    var i = aLi.length - 1;
+                    var timer = setInterval(function () {
+                        startMove(aLi[i], {left: i % 2 ? -aLi[i].offsetWidth : aLi[i].offsetWidth, opacity: 0});
+                        i--;
+                        if (i === -1) {
+                            clearInterval(timer);
+                        }
+                    }, 77);
+                } else {
+                    // 展开
+                    var i = 0;
+                    var timer = setInterval(function () {
+                        startMove(aLi[i], {left: 0, opacity: 100});
+                        i++;
+                        if (i === aLi.length) {
+                            clearInterval(timer);
+                        }
+
+                    }, 77);
+                }
+
+                /*if(opened){
+                 opened=false;
+                 }else{
+                 opened=true;
+                 }*/
+                opened = !opened;
+            };
+
+            // aLi加点击 字上去 本身收起
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].onclick = function () {
+                    // 设置收起来的状态
+                    opened = false;
+                    var oSpan = oNavBox.children[0];
+                    oSpan.innerHTML = this.children[0].innerHTML;
+                    // 回到原本的位置,以相反的顺序回去
+                    var i = aLi.length - 1;
+                    var timer = setInterval(function () {
+                        startMove(aLi[i], {left: i % 2 ? -aLi[i].offsetWidth : aLi[i].offsetWidth, opacity: 0});
+                        i--;
+                        if (i === -1) {
+                            clearInterval(timer);
+                        }
+                    }, 77);
+
+                };
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="warp" id="box">
+    <div class="navBox">
+        <span><img src="img/ico_01.png" alt="" style="display:none;"/>请选择</span>
+        <em class="triangle"><i></i></em>
+    </div>
+    <ul class="navList">
+        <li><a href="javascript:void(0);"><img src="img/ico_01.png" alt=""/>关于我们</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_02.png" alt=""/>联系我们</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_03.png" alt=""/>官网首页</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_04.png" alt=""/>财金学习</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_05.png" alt=""/>财金阅读</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_06.png" alt=""/>财金职涯</a></li>
+    </ul>
+</div>
+</body>
+</html>
