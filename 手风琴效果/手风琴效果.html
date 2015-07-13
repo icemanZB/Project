@@ -41,12 +41,13 @@
         }
     </style>
     <script type="text/javascript" src="../js/move_new.js"></script>
-    <script>
+    <script type="text/javascript">
         window.onload = function () {
             var oUl = document.getElementsByTagName('ul')[0];
             var aLiUl = oUl.getElementsByTagName('li');
 
             // 第一个不动 所以i从1开始,计算每一个li的left值 i-1也是一个道理
+            // 每张图片30px空隙,那么4张图片就120px  470为图片的宽度
             for (var i = 1; i < aLiUl.length; i++) {
                 aLiUl[i].style.left = (470 - 120) + (i - 1) * 30 + 'px';
             }

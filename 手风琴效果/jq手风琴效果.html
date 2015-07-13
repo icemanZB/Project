@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>手风琴效果</title>
+    <style type="text/css">
+        body, ul, ol {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            border: none;
+            vertical-align: top;
+        }
+
+        #box {
+            width: 470px;
+            height: 150px;
+            position: relative;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+
+        ul {
+            width: 470px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        ul li {
+            width: 470px;
+            position: absolute;
+            top: 0;
+        }
+    </style>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var oUl = $('#box').find('ul');
+            var aLi = oUl.find('li');
+            var arr = [];
+
+            aLi.each(function (index) {
+                if (index === 0) return true;
+                $(this).css('left', (470 - 120) + (index - 1) * 30);
+                arr.push(index);
+            });
+
+            aLi.mouseover(function () {
+                var index = $(this).index();
+                aLi.each(function (i) {
+                    if (i <= index) {
+                        // stop() 方法停止当前正在运行的动画
+                        $(this).stop().animate({left: i * 30}, 500);
+                    } else {
+                        $(this).stop().animate({left: (470 - 120) + (i - 1) * 30}, 500);
+                    }
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="img/1.jpg" alt=""/></li>
+        <li><img src="img/2.jpg" alt=""/></li>
+        <li><img src="img/3.jpg" alt=""/></li>
+        <li><img src="img/4.jpg" alt=""/></li>
+        <li><img src="img/5.jpg" alt=""/></li>
+    </ul>
+
+</div>
+</body>
+</html>
