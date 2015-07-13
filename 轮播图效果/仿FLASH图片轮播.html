@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>仿FLASH图片轮播</title>
+    <style type="text/css">
+        body {
+            background: #666;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            border: 0;
+        }
+
+        .play {
+            width: 400px;
+            height: 430px;
+            margin: 50px auto 0;
+            background: #999;
+            font: 12px Arial;
+        }
+
+        .big_pic {
+            width: 400px;
+            height: 320px;
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+            background: #222;
+            position: relative;
+        }
+
+        .big_pic li {
+            width: 400px;
+            height: 320px;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: url(img2/loading.gif) no-repeat center center;
+        }
+
+        .mark_left {
+            width: 200px;
+            height: 320px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: red;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            z-index: 3000;
+        }
+
+        .mark_right {
+            width: 200px;
+            height: 320px;
+            position: absolute;
+            left: 200px;
+            top: 0;
+            background: green;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            z-index: 3000;
+        }
+
+        .big_pic .prev {
+            width: 60px;
+            height: 60px;
+            background: url(img2/btn.gif) no-repeat;
+            position: absolute;
+            top: 130px;
+            left: 10px;
+            z-index: 3001;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .big_pic .next {
+            width: 60px;
+            height: 60px;
+            background: url(img2/btn.gif) no-repeat 0 -60px;
+            position: absolute;
+            top: 130px;
+            right: 10px;
+            z-index: 3001;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .big_pic .bg {
+            width: 400px;
+            height: 25px;
+            background: #000;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+            position: absolute;
+            z-index: 2999;
+            bottom: 0;
+            left: 0;
+        }
+
+        .small_pic {
+            width: 380px;
+            height: 94px;
+            position: relative;
+            top: 7px;
+            left: 10px;
+            overflow: hidden;
+        }
+
+        .small_pic ul {
+            height: 94px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .small_pic li {
+            width: 120px;
+            height: 94px;
+            float: left;
+            padding-right: 10px;
+            background: url(img2/loading.gif) no-repeat center center;
+            cursor: pointer;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+        }
+
+        .small_pic img {
+            width: 120px;
+            height: 94px;
+        }
+    </style>
+    <script src="../js/move_new.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        function getByClass(oParent, sClass) {
+            var aEle = oParent.getElementsByTagName('*');
+            var aResult = [];
+            for (var i = 0; i < aEle.length; i++) {
+                if (aEle[i].className == sClass) {
+                    aResult.push(aEle[i]);
+                }
+            }
+            return aResult;
+        }
+
+        window.onload = function () {
+            var oDiv = document.getElementById("playimages");
+            var oBtnPrev = getByClass(oDiv, 'prev')[0]; // 上一个按钮
+            var oBtnNext = getByClass(oDiv, 'next')[0]; // 下一个按钮
+            var oMarkLeft = getByClass(oDiv, 'mark_left')[0];  // 遮罩
+            var oMarkRight = getByClass(oDiv, 'mark_right')[0];
+            var oDivSmall = getByClass(oDiv, 'small_pic')[0];
+            var aLiSmall = oDivSmall.getElementsByTagName('li');
+            var oUlBig = getByClass(oDiv, 'big_pic')[0];
+            var aLiBig = oUlBig.getElementsByTagName('li');
+            var oUlSmall = oDivSmall.getElementsByTagName('ul')[0];
+            var nowZIndex = 2;  // 设置层级默认为2,因为开始的层级为1
+            var now = 0;  // 记录当前是哪一张图片
+
+            // 设置oUlSmall的宽度,为了让小图片排在一排
+            oUlSmall.style.width = aLiSmall.length * aLiSmall[0].offsetWidth + 'px';
+
+            // 鼠标移入到遮罩按钮显示
+            // 为了保证能够点到按钮,按钮本身的层级肯定比遮罩高
+            // 那么移动到按钮本身就会消失,处理这个问题就是按钮自己也加上移入移出事件
+            oBtnPrev.onmouseover = oMarkLeft.onmouseover = function () {
+                startMove(oBtnPrev, {opacity: 100});
+            };
+            // 鼠标移开遮罩按钮消失
+            oBtnPrev.onmouseout = oMarkLeft.onmouseout = function () {
+                startMove(oBtnPrev, {opacity: 0});
+            };
+            oBtnNext.onmouseover = oMarkRight.onmouseover = function () {
+                startMove(oBtnNext, {opacity: 100});
+            };
+            oBtnNext.onmouseout = oMarkRight.onmouseout = function () {
+                startMove(oBtnNext, {opacity: 0});
+            };
+
+            // 循环小图
+            for (var i = 0; i < aLiSmall.length; i++) {
+                aLiSmall[i].index = i;
+                // 添加click事件
+                aLiSmall[i].onclick = function () {
+                    // 如果当前的图片和点击的图片是一样的(重复点击),就不去管他
+                    if (this.index == now) return;
+                    now = this.index;
+                    tab();
+                };
+
+                aLiSmall[i].onmouseover = function () {
+                    startMove(this, {opacity: 100});
+                };
+                aLiSmall[i].onmouseout = function () {
+                    // 如果是当前的这一张,就不执行opacity:60
+                    if (this.index != now) {
+                        startMove(this, {opacity: 60});
+                    }
+                };
+            }
+
+            function tab() {
+                // 每次显示大图需要把它的层级放到最前面,然后在改变值
+                // 不然会被上一张挡住也看不到效果
+                // 设置大图的zIndex
+                aLiBig[now].style.zIndex = nowZIndex++;
+
+                // 循环小图,把所有的小图变成透明的
+                for (var i = 0; i < aLiSmall.length; i++) {
+                    startMove(aLiSmall[i], {opacity: 60});
+                }
+                // 当前的小图变成透明度100
+                startMove(aLiSmall[now], {opacity: 100});
+
+                // 设置大图片的高度初始值为0,为了后面的动画效果
+                aLiBig[now].style.height = 0;
+
+                // 320 是图片的本身高度 也可以使用 offsetHeight
+                startMove(aLiBig[now], {height: 320});
+
+                /*
+                 *  当我是第0张图片的时候,移动小图下的ul的left为0
+                 *  oUlSmall: 0        left : 0
+                 *            1        left : 0
+                 *            2        left : 往左走1个li的宽度
+                 *            3        left : 往左走2个li的宽度
+                 *            n        left : -(n-1)*aLiSmall[0].offsetWidth  总结规律
+                 * */
+                // 第一张图片
+                if (now == 0) {
+                    startMove(oUlSmall, {left: 0});
+                } else if (now == aLiSmall.length - 1) {
+                    // 最后一张图片 now - 2 是因为让最后一张图片和倒数第二张图片的left是一致的
+                    startMove(oUlSmall, {left: -(now - 2) * aLiSmall[0].offsetWidth});
+                } else {
+                    startMove(oUlSmall, {left: -(now - 1) * aLiSmall[0].offsetWidth});
+                }
+
+            }
+
+            // 上一张
+            oBtnPrev.onclick = function () {
+                now--;
+                if (now == -1) {
+                    now = aLiSmall.length - 1;  // 循环切换
+                }
+                tab();
+            };
+
+            // 下一张
+            oBtnNext.onclick = function () {
+                now++;
+                if (now == aLiSmall.length) {
+                    now = 0;
+                }
+                tab();
+            };
+
+            // 自动播放
+            var timer = setInterval(oBtnNext.onclick, 2000);
+
+            oDiv.onmouseover = function () {
+                clearInterval(timer);
+            };
+            oDiv.onmouseout = function () {
+                timer = setInterval(oBtnNext.onclick, 2000);
+            };
+
+        }
+    </script>
+</head>
+<body>
+<div id="playimages" class="play">
+    <ul class="big_pic">
+        <!-- 左右两个按钮 -->
+        <div class="prev"></div>
+        <div class="next"></div>
+
+        <!-- 左右两个层,用来判断鼠标移动到左边还是右边 -->
+        <a class="mark_left" href="javascript:void(0);"></a>
+        <a class="mark_right" href="javascript:void(0);"></a>
+
+        <div class="bg"></div>
+
+        <li style="z-index:1;">
+            <img src="img2/1.jpg"/>
+        </li>
+        <li>
+            <img src="img2/2.jpg"/>
+        </li>
+        <li>
+            <img src="img2/3.jpg"/>
+        </li>
+        <li>
+            <img src="img2/4.jpg"/>
+        </li>
+        <li>
+            <img src="img2/5.jpg"/>
+        </li>
+        <li>
+            <img src="img2/6.jpg"/>
+        </li>
+    </ul>
+    <div class="small_pic">
+        <ul style="width:390px;">
+            <li style="opacity: 1;">
+                <img src="img2/1.jpg"/>
+            </li>
+            <li>
+                <img src="img2/2.jpg"/>
+            </li>
+            <li>
+                <img src="img2/3.jpg"/>
+            </li>
+            <li>
+                <img src="img2/4.jpg"/>
+            </li>
+            <li>
+                <img src="img2/5.jpg"/>
+            </li>
+            <li>
+                <img src="img2/6.jpg"/>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
