@@ -65,4 +65,17 @@ var getPos = function (ev) {
     };
 };
 
+var distinctArr = function (arr) {
+    var aResult = [];
+    var json = {};
+    for (var i = 0; i < arr.length; i++) {
+        // 判断json中是否有该元素，没有就添加到数组中
+        if (!json[arr[i]]) {
+            aResult.push(arr[i]);
+            json[arr[i]] = 1; // 赋值为1表示上面的判断就是为否不添加到新的数组中
+        }
+    }
+    return aResult;
+};
+
 
