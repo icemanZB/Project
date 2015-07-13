@@ -21,6 +21,7 @@
             var oUl = oDiv.children[1];
             var aLi = oUl.children;
             var opened = false; // 判断菜单是否已经展开 (默认是收起来的false)
+            var bBtn = true;  // 判断是否运动结束
 
             for (var i = 0; i < aLi.length; i++) {
                 // i%2 来区分单双数  1 3 5 7 9 取模为1
@@ -36,37 +37,45 @@
 
             // 点击请选择
             oNavBox.onclick = function () {
-                // 判断是否是打开状态
-                if (opened) {
-                    // 收起来
-                    var i = aLi.length - 1;
-                    var timer = setInterval(function () {
-                        startMove(aLi[i], {left: i % 2 ? -aLi[i].offsetWidth : aLi[i].offsetWidth, opacity: 0});
-                        i--;
-                        if (i === -1) {
-                            clearInterval(timer);
-                        }
-                    }, 77);
-                } else {
-                    // 展开
-                    var i = 0;
-                    var timer = setInterval(function () {
-                        startMove(aLi[i], {left: 0, opacity: 100});
-                        i++;
-                        if (i === aLi.length) {
-                            clearInterval(timer);
-                        }
-
-                    }, 77);
+                if (bBtn) {
+                    bBtn = false;
+                    // 判断是否是打开状态
+                    if (opened) {
+                        // 收起来
+                        animateClose();
+                    } else {
+                        // 展开
+                        animateOpen();
+                    }
+                    opened = !opened;
                 }
 
-                /*if(opened){
-                 opened=false;
-                 }else{
-                 opened=true;
-                 }*/
-                opened = !opened;
             };
+
+            function animateOpen() {
+                var i = 0;
+                var timer = setInterval(function () {
+                    startMove(aLi[i], {left: 0, opacity: 100});
+                    i++;
+                    if (i === aLi.length) {
+                        bBtn = true;
+                        clearInterval(timer);
+                    }
+
+                }, 77);
+            }
+
+            function animateClose() {
+                var i = aLi.length - 1;
+                var timer = setInterval(function () {
+                    startMove(aLi[i], {left: i % 2 ? -aLi[i].offsetWidth : aLi[i].offsetWidth, opacity: 0});
+                    i--;
+                    if (i === -1) {
+                        bBtn = true;
+                        clearInterval(timer);
+                    }
+                }, 77);
+            }
 
             // aLi加点击 字上去 本身收起
             for (var i = 0; i < aLi.length; i++) {
@@ -74,17 +83,10 @@
                     // 设置收起来的状态
                     opened = false;
                     var oSpan = oNavBox.children[0];
+                    // 文字设置
                     oSpan.innerHTML = this.children[0].innerHTML;
                     // 回到原本的位置,以相反的顺序回去
-                    var i = aLi.length - 1;
-                    var timer = setInterval(function () {
-                        startMove(aLi[i], {left: i % 2 ? -aLi[i].offsetWidth : aLi[i].offsetWidth, opacity: 0});
-                        i--;
-                        if (i === -1) {
-                            clearInterval(timer);
-                        }
-                    }, 77);
-
+                    animateClose();
                 };
             }
         };
