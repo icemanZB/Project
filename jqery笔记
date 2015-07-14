@@ -1,0 +1,20 @@
+$('li').html();  // aaa   当是一组元素的时候,取值是一组中的第一个
+$('li').html('hello'); // 所有的li里面的内容都为hello 当是一组元素的时候,赋值是一组元素中的所有元素
+<ul>
+    <li>aaa</li>
+    <li>bbb</li>
+    <li>ccc</li>
+</ul>
+
+has() 保包含的意思 所找的元素,是看他包含的内部当中是否有.box
+
+$('div').has('.box').css('background','red');  // 只会让第一个div变红
+
+filter() 是针对元素自身的  not() 也是一样的, 它是filter的反义词
+$('div').filter('.box').css('background','red'); // 第二个div变红
+
+<div>div1<span class='box'>span</span><div>
+<div class='box'>div2</div>
+
+next()  只会选择下一个兄弟节点
+prev()  只会选择上一个兄弟节点
