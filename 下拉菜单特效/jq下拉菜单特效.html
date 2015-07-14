@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jq下拉菜单特效</title>
+    <link rel="stylesheet" href="css.css"/>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var aLi = $('.navList').find('li');
+            var timer = null;
+            var bOpen = false;
+            var bBtn = true;
+
+            aLi.filter(':even').css('left', aLi.eq(0).outerWidth()); // 偶数
+            aLi.filter(':odd').css('left', -aLi.eq(0).outerWidth());  // 奇数
+
+            $(".navBox").click(function () {
+                if (bBtn) {
+                    bBtn = false;
+                    if (bOpen) {
+                        anminateClose();
+                    } else {
+                        anminateOpen();
+                    }
+                }
+
+                bOpen = !bOpen;
+            });
+
+            function anminateClose() {
+                var iNow = aLi.length - 1;
+                timer = setInterval(function () {
+                    aLi.eq(iNow).stop().animate({
+                        left: iNow % 2 ? -aLi.eq(0).outerWidth() : aLi.eq(0).outerWidth(),
+                        opacity: 0
+                    }, 500);
+                    iNow--;
+                    if (iNow < 0) {
+                        bBtn = true;
+                        clearInterval(timer);
+                    }
+                }, 77);
+            }
+
+            function anminateOpen() {
+                var iNow = 0;
+                timer = setInterval(function () {
+                    aLi.eq(iNow).stop().animate({left: 0, opacity: 100}, 500);
+                    iNow++;
+                    if (iNow === aLi.length) {
+                        bBtn = true;
+                        clearInterval(timer);
+                    }
+                }, 77);
+            }
+
+            aLi.click(function () {
+                bOpen = false;
+                $(".navBox").find('span').html($(this).find('a').html());
+                anminateClose();
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="warp" id="box">
+    <div class="navBox">
+        <span><img src="img/ico_01.png" alt="" style="display:none;"/>请选择</span>
+        <em class="triangle"><i></i></em>
+    </div>
+    <ul class="navList">
+        <li><a href="javascript:void(0);"><img src="img/ico_01.png" alt=""/>关于我们</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_02.png" alt=""/>联系我们</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_03.png" alt=""/>官网首页</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_04.png" alt=""/>财金学习</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_05.png" alt=""/>财金阅读</a></li>
+        <li><a href="javascript:void(0);"><img src="img/ico_06.png" alt=""/>财金职涯</a></li>
+    </ul>
+</div>
+</body>
+</html>
