@@ -6,9 +6,10 @@ $('li').html('hello'); // ËùÓĞµÄliÀïÃæµÄÄÚÈİ¶¼Îªhello µ±ÊÇÒ»×éÔªËØµÄÊ±ºò,¸³ÖµÊÇÒ
     <li>ccc</li>
 </ul>
 
-has() ±£°üº¬µÄÒâË¼ ËùÕÒµÄÔªËØ,ÊÇ¿´Ëû°üº¬µÄÄÚ²¿µ±ÖĞÊÇ·ñÓĞ.box
 
+has() ±£°üº¬µÄÒâË¼ ËùÕÒµÄÔªËØ,ÊÇ¿´Ëû°üº¬µÄÄÚ²¿µ±ÖĞÊÇ·ñÓĞ.box
 $('div').has('.box').css('background','red');  // Ö»»áÈÃµÚÒ»¸ödiv±äºì
+
 
 filter() ÊÇÕë¶ÔÔªËØ×ÔÉíµÄ  not() Ò²ÊÇÒ»ÑùµÄ, ËüÊÇfilterµÄ·´Òå´Ê
 $('div').filter('.box').css('background','red'); // µÚ¶ş¸ödiv±äºì
@@ -16,5 +17,38 @@ $('div').filter('.box').css('background','red'); // µÚ¶ş¸ödiv±äºì
 <div>div1<span class='box'>span</span><div>
 <div class='box'>div2</div>
 
+
 next()  Ö»»áÑ¡ÔñÏÂÒ»¸öĞÖµÜ½Úµã
 prev()  Ö»»áÑ¡ÔñÉÏÒ»¸öĞÖµÜ½Úµã
+
+
+height()¡¢.innerHeight()ºÍ.outerHeight()µÄÇø±ğ
+
+height() ÊÇÃ»ÓĞ¼ÆËã¹ıµÄ  ²»°üÀ¨padding,²»°üÀ¨±ß¿ò
+innerHeight()  °üÀ¨paddingµ«²»°üÀ¨border  document.getElementById("div1").clientHeight
+outerHeight() »ñÈ¡¼ÆËãºóµÄÕû¸ö¸ß¶È °üÀ¨paddingºÍborder
+outerHeight(ture) »¹¿ÉÒÔ½ÓÊÜÒ»¸ö²ÎÊı,¸Ã²ÎÊı´ú±íÊÇ·ñ¼ÆËãÍâ±ß¾à,Èç¹ûÎªtrueÔò±íÊ¾¼ÆËãÍâ±ß¾à  width+padding+border+margin
+
+
+insertBefore()  before() µÄÇø±ğ
+insertAfter() ºÍ after()  ¡¢ appendTo() ºÍ append()  ¡¢ prependTo() ºÍ prepend()  Ô­ÀíÊÇÒ»ÑùµÄ
+Çø±ğÔÚÓÚºóĞøµÄ²Ù×÷ÊÇÕë¶ÔÄÄ¸öÔªËØ
+
+$('span').insertBefore($('div')).css('background','red');  // ÔÚspanÇ°Ãæ²åÈëdiv  span±äºì
+$('div').before($('span')).css('background','red');  // spanÇ°Ãæ±ØĞëÊÇdiv  div±äºì
+
+
+on() Ğ´¶à¸öÊÂ¼ş°ó¶¨ÔÚÔªËØÉÏ    off()  È¡ÏûÊÂ¼ş
+
+$('div').on('click mouseover',function(){
+    alert(1);
+});
+
+$('div').on({
+    'click':function(){},
+    'mouseover':function(){}
+});
+
+
+
+

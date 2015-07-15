@@ -7,3 +7,7 @@ js 获取 document.getElementById("div1").clientHeight  ==>     $("#obj").innerHei
 js div1.offsetHeight + parseInt(div1.style.marginTop) + parseInt(div1.style.marginBottom)==>$("#obj").outerHeight(true)
 
 js 获取 obj.offsetTop  ==>  $("#obj").position().top
+
+js appendChild  ==>  $("#li").appendTo('ul');
+
+js removeChild 必须是父级调用 ul.removeChild(li); ==>  $('ul').find('li').remove();  jquery中的remove() 可以删除自己
