@@ -92,6 +92,11 @@ jquery stop() 方法停止当前正在运行的动画
 
 Math.pow(x,y) x 的 y 次幂
 
+jquery clone() 无参数的情况是潜复制(不复制事件)  clone(true) 深复制(复制事件)
+
+
+
+
 removeChild 的一些问题
 <ul id="demo">
 <li>a</li>

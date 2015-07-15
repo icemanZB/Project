@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>无缝切换</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #div1 {
+            width: 350px;
+            height: 60px;
+            border: 1px solid #000;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden; /* 去掉hidden可以看效果 */
+        }
+
+        #div1 ul {
+            position: absolute;
+            left: 0; /* 改变left值就可以运动 */
+            /* width: 2000px; 宽度动态生成,因为图片的个数不确定 */
+        }
+
+        #div1 ul li {
+            width: 80px;
+            height: 60px;
+            margin-right: 10px;
+            float: left;
+        }
+
+    </style>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var oUl = $('#ul1');
+            var aLi = oUl.find('li');
+            var iNum = 3;
+            var bBtn = true;
+            var oneWidth = aLi.eq(0).outerWidth() + 10;
+
+            oUl.css('width', oneWidth * aLi.length);
+
+            $('#btn').click(function () {
+                if (bBtn) {
+                    bBtn = false;
+                    for (var i = 0; i < iNum; i++) {
+                        oUl.find('li').eq(i).clone().appendTo(oUl);
+                    }
+
+                    // 这里需要重新获取li的个数
+                    oUl.css('width', oneWidth * oUl.find('li').length);
+
+                    oUl.animate({left: -iNum * oneWidth}, 1000, function () {
+
+                        for (var i = 0; i < iNum; i++) {
+                            oUl.find('li').eq(0).remove();
+                        }
+
+                        oUl.css('left', 0);
+
+                        bBtn = true;
+                    });
+                }
+
+
+            });
+
+        });
+    </script>
+</head>
+<body>
+<input type="button" value="切换" id="btn"/>
+
+<div id="div1">
+    <ul id="ul1">
+        <li><img src="img/1.gif" alt=""/></li>
+        <li><img src="img/2.gif" alt=""/></li>
+        <li><img src="img/3.gif" alt=""/></li>
+        <li><img src="img/4.gif" alt=""/></li>
+        <li><img src="img/5.gif" alt=""/></li>
+    </ul>
+</div>
+</body>
+</html>
