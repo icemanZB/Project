@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jq图片轮播展示</title>
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <script src="../js/jquery-2.0.2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var oUl = $('.list');
+            var aLi = oUl.find('li');
+            var iNow = 0;
+            var ready = true;
+            aLi.each(function () {
+                $(this).css('left', $(this).position().left);
+                if ($(this).index() >= 12) {
+                    $(this).css('top', 400);
+                } else {
+                    $(this).css('top', parseInt($(this).index() / 4) * 200);
+                }
+            });
+
+            aLi.css('position', 'absolute');
+
+            for (var i = 0; i < 8; i++) {
+                aLi.eq(i).css('opacity', 1);
+            }
+
+            for (var i = 8; i < aLi.length; i++) {
+                aLi.eq(i).css('opacity', 0);
+            }
+
+            oUl.removeClass('hidden');
+
+            $('.prev').click(function () {
+                if (iNow == 0) {
+                    return;
+                }
+
+                if (!ready)return;
+                ready = false;
+
+                var i = iNow + 8 - 1;
+                var timer = setInterval(function () {
+                    // 点过下一张后 now就变成了4  显示的图片是4-11 张
+                    // i=11 开始递减 now=4
+                    if (i < iNow) { // 第一行
+                        if (i == iNow - 4) {
+                            //  运动是 -200 -> 0
+                            aLi.eq(i).animate({top: 0, opacity: 100}, 500, function () {
+                                ready = true;
+                            });
+                        }
+                        else {
+                            aLi.eq(i).animate({top: 0, opacity: 100}, 500);
+                        }
+                    }
+                    else if (i < iNow + 4) { // 第二行
+                        // 0->200
+                        aLi.eq(i).animate({top: 200}, 500);
+                    }
+                    else { // 第三行   200->400
+                        aLi.eq(i).animate({top: 400, opacity: 0}, 500);
+                    }
+
+                    i--; // 倒过来走
+                    if (i === iNow - 5) {  // now-4 就变成第一张图片, 第一张图片是也要动的 所以now-5
+                        iNow -= 4; // 倒过来走
+                        clearInterval(timer);
+                    }
+                }, 40);
+
+
+            });
+
+
+            $('.next').click(function () {
+                if (iNow >= aLi.length - 8) {
+                    return;
+                }
+
+                if (!ready)return;
+                ready = false;
+
+                var i = iNow;
+
+                var timer = setInterval(function () {
+                    if (i < iNow + 4) {
+                        aLi.eq(i).animate({top: -200, opacity: 0}, 500);
+                    } else if (i < iNow + 8) {
+                        aLi.eq(i).animate({top: 0}, 500);
+                    } else {
+                        if (i < iNow + 11) {
+                            aLi.eq(i).animate({top: 200, opacity: 1}, 500, function () {
+                                ready = true;
+                            });
+
+                        } else {
+                            aLi.eq(i).animate({top: 200, opacity: 1}, 500);
+                        }
+                    }
+
+                    i++;
+
+                    if (i === iNow + 12) {
+                        iNow += 4;
+                        clearInterval(timer);
+                    }
+
+                }, 40);
+
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="imgListBox" id="div1">
+    <ul class="list hidden">
+        <li><a href="javascript:void(0);"><img src="img/01.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/02.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/03.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/04.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/05.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/06.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/07.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/08.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/09.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/10.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/11.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/12.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/13.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/14.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/15.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/16.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/17.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/18.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/19.jpg" alt=""/></a></li>
+        <li><a href="javascript:void(0);"><img src="img/20.jpg" alt=""/></a></li>
+    </ul>
+    <div class="page">
+        <a href="javascript:void(0);" class="prev"></a>
+        <a href="javascript:void(0);" class="next"></a>
+        <!--<span class="prev_ie6"></span>
+       <span class="next_ie6"></span>-->
+    </div>
+</div>
+</body>
+</html>

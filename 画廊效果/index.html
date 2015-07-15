@@ -34,11 +34,9 @@
                 // 布局转换 left = 自己的  offsetLeft
                 aLi[i].style.left = aLi[i].offsetLeft + 'px';
 
-                if (i >= 12) // 大于第三排,统一给400高度 叠在一起
-                {
+                if (i >= 12) {// 大于第三排,统一给400高度 叠在一起
                     aLi[i].style.top = '400px';
-                }
-                else {
+                } else {
                     // i/4 :  一排四张图片 0-3, 那么除出来都是小于0的数,在parseInt(i/4)
                     // 那么得到的结果就都是0,这样求出来的就是一行
                     // 最后就是 0 1 2 3 4 各自输出四次
@@ -87,9 +85,8 @@
                 var timer = setInterval(function () {
                     // 点过下一张后 now就变成了4  显示的图片是4-11 张
                     // i=11 开始递减 now=4
-                    if (i < now)			// 第一行
-                    {
-                        if (i == now - 4) {
+                    if (i < now) { // 最上面一行
+                        if (i === now - 4) {
                             //  运动是 -200 -> 0
                             startMove(aLi[i], {top: 0, opacity: 100}, function () {
                                 ready = true;
@@ -98,20 +95,15 @@
                         else {
                             startMove(aLi[i], {top: 0, opacity: 100});
                         }
-                    }
-                    else if (i < now + 4)	// 第二行
-                    {
+                    } else if (i < now + 4) { 	// 第二行(现在显示的第一行)
                         // 0->200
                         startMove(aLi[i], {top: 200});
-                    }
-                    else // 第三行   200->400
-                    {
+                    } else { // 第三行   200->400
                         startMove(aLi[i], {top: 400, opacity: 0});
                     }
 
                     i--; // 倒过来走
-                    if (i == now - 5)   // now-4 就变成第一张图片, 第一张图片是也要动的 所以now-5
-                    {
+                    if (i === now - 5) { // now-4 就变成第一张图片, 第一张图片是也要动的 所以now-5
                         now -= 4; // 倒过来走
                         clearInterval(timer);
                     }
@@ -133,25 +125,21 @@
                 var i = now;  //   本身i=0; 现在从 now 开始
                 // 开定时器,为了让图片一个一个走
                 var timer = setInterval(function () {
-                    if (i < now + 4)			// +4 前4张   <4 就是0-3个 ：第一行
-                    {
+                    if (i < now + 4) { // +4 前4张   <4 就是0-3个 ：第一行
                         // 往上走就是-200px  第一行 运动 0->-200
                         startMove(aLi[i], {top: -200, opacity: 0});
                     }
-                    else if (i < now + 8)	 // +8 前8张    4-7个   第二行
-                    {
+                    else if (i < now + 8) { // +8 前8张    4-7个   第二行
                         //第二行  运动 200->0
                         startMove(aLi[i], {top: 0});
                     }
-                    else // 第三行  运动 400->200
-                    {
-                        if (i == now + 11) {
+                    else {  // 第三行  运动 400->200
+                        if (i === now + 11) {
                             // 从下面出来的图片 opacity为100 显示出来
                             startMove(aLi[i], {top: 200, opacity: 100}, function () {
                                 ready = true;
                             });
-                        }
-                        else {
+                        } else {
                             startMove(aLi[i], {top: 200, opacity: 100});
                         }
                     }
@@ -159,7 +147,7 @@
                     i++; // 定时器循环所用
 
                     // 12张 到头了 因为每次只动12张图片
-                    if (i == now + 12) {
+                    if (i === now + 12) {
                         now += 4; // 关闭定时器才加4,表示循环一行 表示一次已经循环完成
                         clearInterval(timer);
                     }
@@ -172,6 +160,7 @@
 <body>
 <div class="imgListBox" id="div1">
     <ul class="list hidden">
+        <li><a href="javascript:void(0);"><img src="img/01.jpg" alt=""/></a></li>
         <li><a href="javascript:void(0);"><img src="img/02.jpg" alt=""/></a></li>
         <li><a href="javascript:void(0);"><img src="img/03.jpg" alt=""/></a></li>
         <li><a href="javascript:void(0);"><img src="img/04.jpg" alt=""/></a></li>
@@ -191,7 +180,6 @@
         <li><a href="javascript:void(0);"><img src="img/18.jpg" alt=""/></a></li>
         <li><a href="javascript:void(0);"><img src="img/19.jpg" alt=""/></a></li>
         <li><a href="javascript:void(0);"><img src="img/20.jpg" alt=""/></a></li>
-        <li><a href="javascript:void(0);"><img src="img/01.jpg" alt=""/></a></li>
     </ul>
     <div class="page">
         <a href="javascript:void(0);" class="prev"></a>
