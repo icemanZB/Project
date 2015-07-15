@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jq无缝切换一张图</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .wrap {
+            height: 170px;
+            width: 490px;
+            overflow: hidden;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        .wrap ul {
+            position: absolute;
+            top: 0; /* top:-170px; 不写的话运动框架会有问题*/
+            left: 0;
+        }
+
+        .wrap ul li {
+            height: 170px;
+            position: absolute; /* 使所有图片都叠在一起 */
+            top: 0;
+        }
+
+        .wrap ol {
+            position: absolute;
+            right: 5px;
+            bottom: 10px;
+        }
+
+        .wrap ol li {
+            height: 20px;
+            width: 20px;
+            background: #ccc;
+            border: solid 1px #666;
+            margin-left: 5px;
+            color: #000;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .wrap ol .on {
+            background: #E97305;
+            color: #fff;
+        }
+
+    </style>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var aPic = $('#pic').find('li');
+            var iNow = 0;
+            var oneWidth = aPic.eq(0).outerWidth();
+
+            aPic.each(function (index) {
+                if (index == 0) return true;
+
+                $(this).css('left', oneWidth);
+
+            });
+
+            $('#list').find('li').mouseover(function () {
+
+                var index = $(this).index();
+                $(this).addClass('on').siblings().removeClass('on');
+
+                if (iNow < index) {
+
+                    aPic.eq(index).css('left', oneWidth);  // 定在右边
+
+                    aPic.eq(iNow).animate({left: -oneWidth}, 1000);
+
+                } else if (iNow > index) {
+
+                    aPic.eq(index).css('left', -oneWidth);
+
+                    aPic.eq(iNow).animate({left: oneWidth}, 1000);
+                }
+
+                aPic.eq(index).animate({left: 0}, 1000);
+
+                iNow = index;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="wrap" id='wrap'>
+    <ul id="pic">
+        <li><img src="img2/1.jpg" alt=""></li>
+        <li><img src="img2/2.jpg" alt=""></li>
+        <li><img src="img2/3.jpg" alt=""></li>
+        <li><img src="img2/4.jpg" alt=""></li>
+        <li><img src="img2/5.jpg" alt=""></li>
+    </ul>
+    <ol id="list">
+        <li class="on">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+</div>
+</body>
+</html>

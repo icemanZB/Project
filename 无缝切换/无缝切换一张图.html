@@ -90,10 +90,10 @@
                     if (iNow < this.index) {
                         // 从右向左
 
-                        // 把原来显示的图片定位在左边
+                        // 把原来显示的图片定位在右边
                         aLiPic[this.index].style.left = oneWidth + 'px';
 
-                        // 当前的图片向左移动
+                        // 当前的图片向左移动,定在左边
                         startMove(aLiPic[iNow], {left: -oneWidth});
 
                     } else if (iNow > this.index) {
