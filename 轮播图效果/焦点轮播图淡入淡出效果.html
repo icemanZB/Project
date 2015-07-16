@@ -75,11 +75,10 @@
 
             // 定义并调用自动播放函数
             function autoPlay() {
+                index++;
                 if (index === aLiNum.length) {
                     index = 0;
                 }
-
-                startMove(aLiPic[index], {opacity: 100});
 
                 for (var i = 0; i < aLiNum.length; i++) {
                     aLiNum[i].className = '';
@@ -89,7 +88,7 @@
                 aLiNum[index].className = 'on';
                 aLiPic[index].style.display = 'block';
                 startMove(aLiPic[index], {opacity: 100});
-                index++;
+
             }
 
             timer = setInterval(autoPlay, 2000);

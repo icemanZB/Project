@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>焦点轮播图淡入淡出效果</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .wrap {
+            height: 170px;
+            width: 490px;
+            overflow: hidden;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        .wrap ul {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .wrap ul li {
+            height: 170px;
+            display: none;
+            position: absolute; /* 变成定位布局 */
+            top: 0;
+            left: 0;
+            filter: alpha(opacity=0);
+            opacity: 0;
+        }
+
+        .wrap ol {
+            position: absolute;
+            right: 5px;
+            bottom: 10px;
+        }
+
+        .wrap ol li {
+            height: 20px;
+            width: 20px;
+            background: #ccc;
+            border: solid 1px #666;
+            margin-left: 5px;
+            color: #000;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .wrap ol .on {
+            background: #E97305;
+            color: #fff;
+        }
+
+    </style>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var aPic = $('#pic').find('li');
+            var aNum = $('#list').find('li');
+            var iNow = 0;
+            aNum.mouseover(function () {
+                iNow = $(this).index();
+                animate();
+            });
+
+            function autoPlay() {
+                iNow++;
+                if (iNow === aPic.length) {
+                    iNow = 0;
+                }
+
+                animate();
+            }
+
+            function animate() {
+                aNum.eq(iNow).addClass('on').siblings().removeClass('on');
+                aPic.hide().stop().animate({'opacity': 0}, 800).eq(iNow).show().stop().animate({'opacity': 1}, 800);
+            }
+
+            var timer = setInterval(autoPlay, 2000);
+
+            $('#wrap').hover(function () {
+                clearInterval(timer);
+            }, function () {
+                timer = setInterval(autoPlay, 2000);
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="wrap" id='wrap'>
+    <ul id="pic">
+        <li style="display: block;filter:alpha(opacity=100); opacity:1;"><img src="img/1.jpg" alt=""></li>
+        <li><img src="img/2.jpg" alt=""></li>
+        <li><img src="img/3.jpg" alt=""></li>
+        <li><img src="img/4.jpg" alt=""></li>
+        <li><img src="img/5.jpg" alt=""></li>
+    </ul>
+    <ol id="list">
+        <li class="on">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+</div>
+</body>
+</html>
