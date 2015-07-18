@@ -53,6 +53,62 @@ $('div').on({
 多个对象调用相同的事件
 $('.mark_left,.prev').click();
 
+ev : event 对象已经做了兼容
+$('div').click(function(ev){
+      console.log(ev);
+      // ev.pageX  类似于 原生js中 clientX  有所区别
+      // clientX 是相对于可视区的    pageX 是相对于文档的,那么也就是多了一个滚动条的距离
+      // ev.which 类似于 keyCode
+      // ev.which 比keyCode更加强大,可以对应出鼠标的键值
+      ev.preventDefault();  // 阻止默认事件
+
+      ev.stopPropagation();  // 阻止冒泡的操作
+
+      return false;  // 即阻止默认事件,又阻止了冒泡
+
+});
+
+one  事件就只能执行一次
+$('div').one('click',function(){console.log(1)});
+
+
+$("#obj").position().left  //这个方法就是获取到屏幕的左边距离,不管父级有没有定位(可以不用自己写方法获取了,循环递归)
+js 中 obj.offsetLeft 如果父级没有定位,那就相对于整个页面,父级有定位,那就相对于定位父级
+
+$("#obj").position().left // 如果obj上没有定位,那么在jquery中会把obj看做是一个有定位的元素,那么获取的到的就是有定位
+元素的left值,如果该元素有margin,是不算在内的 ==  obj.offsetLeft(); 到有定位的父级
+
+<style>
+*{margin:0;padding:0}
+#div1{ width:200px;height:200px;background:red;overflow:hidden; margin:20px}
+#div2{ width:100px;height:100px;background:yellow;margin:30px;}
+<script>
+    // div2.offsetLeft  没有定位值就是 50  div1有定位就是30
+    $("#div2").offset().left   // 50  不管有没有定位  获取到屏幕的左距离
+    $("#div2").position().left   // 20 (红的到屏幕的这段距离) div2就是看做一个有定位的元素了
+    // div2本身的margin30px是不算进去的,因为有定位
+    // 如果给div1加了定位 那么值就是为0  因为margin30是不算的
+    // 如果给div2 加了left:25px;  那么他的值肯定就是25
+</script>
+</style>
+
+<div id="div1">
+    <div id="div2"></div>
+</div>
+
+研究 原生 offsetParent  parentNode ??
+
+parent()  获取父级  $('#div2').parent();  // div1
+
+offsetParent() 获取有定位的父级  $('#div2').offsetParent() // 如果div1 有定位就是 div1  没有的话就是body
+
+size() 像 length
+
+fadeIn()  fadeOut()   淡入淡出从0到1 默认400ms  案例修改！
+
+fadeTo(1000,0.6)  案例修改！ 淡入淡出到某个值
+
+slideUp() slideDown() 向上向下卷曲 案例修改！
 
 
 
