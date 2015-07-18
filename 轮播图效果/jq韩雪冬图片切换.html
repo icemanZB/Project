@@ -3,7 +3,7 @@
 
 <head lang="en">
     <meta charset="utf-8">
-    <title>图片切换</title>
+    <title>jq图片切换</title>
     <style>
         * {
             padding: 0;
@@ -136,71 +136,55 @@
 
 
     </style>
-
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
     <script type="text/javascript">
-        /**
-         * 一张图片运动到另外一张图片上
-         * 通过切换数组就可以完成这样的操作,参考无缝切换
-         * */
-        window.onload = function () {
-            var oUl = document.getElementById("ul");
-            var aLi = oUl.getElementsByTagName("li");
-            var oPrel = document.getElementById("prev");
-            var oNext = document.getElementById("next");
-            var oLine = document.getElementById("line");
+        $(function () {
+            var aLi = $('#ul').find("li");
+            var oLine = $("#line");
 
             var aStyle = [];
 
-            for (var i = 0; i < aLi.length; i++) {
-                var obj = aLi[i];
-                var oImg = obj.getElementsByTagName('img')[0];
-                aStyle.push([getStyle(obj, 'top')
-                    , getStyle(obj, 'left')
-                    , getStyle(obj, 'zIndex')
-                    , getStyle(obj, 'opacity')
-                    , oImg.width
-                ]);
-            }
+            aLi.each(function () {
+                var oImg = $(this).find('img')[0];
+                aStyle.push([$(this).css('top')
+                    , $(this).css('left')
+                    , $(this).css('zIndex')
+                    , $(this).css('opacity')
+                    , oImg.width]);
+            });
 
-            // console.log(aStyle);
-
-            oPrel.onclick = function () {
-                // pop() 方法用于删除并返回数组的最后一个元素
-                // unshift() 方法可向数组的开头添加一个或更多元素,并返回新的长度
+            $("#prev").click(function () {
                 aStyle.unshift(aStyle.pop());
                 setStyle();
-            };
+            });
 
-            oNext.onclick = function () {
-                // shift() 方法用于把数组的第一个元素从其中删除,并返回第一个元素的值
+            $("#next").click(function () {
                 aStyle.push(aStyle.shift());
                 setStyle();
-            };
+            });
 
             function setStyle() {
-                for (var i = 0; i < aLi.length; i++) {
-                    var oImg = aLi[i].getElementsByTagName('img')[0];
-                    aLi[i].style.top = aStyle[i][0];
-                    aLi[i].style.left = aStyle[i][1];
-                    aLi[i].style.zIndex = aStyle[i][2];
-                    aLi[i].style.opacity = aStyle[i][3];
-                    oImg.width = aStyle[i][4];
-                }
+
+                $.each(aLi, function (i, ele) {
+                    $(ele).css({
+                        'top': aStyle[i][0],
+                        'left': aStyle[i][1],
+                        'zIndex': aStyle[i][2],
+                        'opacity': aStyle[i][3]
+                    });
+                    $(ele).find('img')[0].width = aStyle[i][4];
+                });
+
                 setTimeout(function () {
-                    oLine.style.display = "none";
+                    oLine.hide();
                 }, 200);
                 setTimeout(function () {
-                    oLine.style.display = "block";
+                    oLine.show();
                 }, 300);
             }
 
-            function getStyle(obj, attr) {
-                if (obj.currentStyle) {
-                    return obj.currentStyle[attr];
-                }
-                return getComputedStyle(obj, "")[attr];
-            }
-        };
+        });
+
     </script>
 </head>
 <body>

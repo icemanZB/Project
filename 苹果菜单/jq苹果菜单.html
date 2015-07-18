@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jq苹果菜单</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        #div1 {
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #div1 img {
+            width: 64px; /* 设置图片的宽度是原来的一般 */
+            border: none;
+        }
+    </style>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var aImg = $('#div1').find('img');
+
+            $(document).mousemove(function (ev) {
+                aImg.each(function () {
+                    var obj = $(this);
+                    var x = obj.position().left + obj.outerWidth() / 2;
+                    var y = obj.position().top + obj.outerHeight() / 2 + $('#div1').position().top;
+
+                    var b = ev.clientX - x;
+                    var a = ev.clientY - y;
+
+                    var c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+
+                    var scale = 1 - c / 300;
+
+                    if (scale < 0.5)scale = 0.5;
+
+                    obj.css({
+                        'width': scale * 128,
+                        'height': scale * 128
+                    });
+
+
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div id="div1">
+    <a href="javascript:void(0);"><img src="img/1.png"/></a>
+    <a href="javascript:void(0);"><img src="img/2.png"/></a>
+    <a href="javascript:void(0);"><img src="img/3.png"/></a>
+    <a href="javascript:void(0);"><img src="img/4.png"/></a>
+    <a href="javascript:void(0);"><img src="img/5.png"/></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jq仿FLASH图片轮播</title>
+    <style type="text/css">
+        body {
+            background: #666;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            border: 0;
+        }
+
+        .play {
+            width: 400px;
+            height: 430px;
+            margin: 50px auto 0;
+            background: #999;
+            font: 12px Arial;
+        }
+
+        .big_pic {
+            width: 400px;
+            height: 320px;
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+            background: #222;
+            position: relative;
+        }
+
+        .big_pic li {
+            width: 400px;
+            height: 320px;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: url(img2/loading.gif) no-repeat center center;
+        }
+
+        .mark_left {
+            width: 200px;
+            height: 320px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: red;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            z-index: 3000;
+        }
+
+        .mark_right {
+            width: 200px;
+            height: 320px;
+            position: absolute;
+            left: 200px;
+            top: 0;
+            background: green;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            z-index: 3000;
+        }
+
+        .big_pic .prev {
+            width: 60px;
+            height: 60px;
+            background: url(img2/btn.gif) no-repeat;
+            position: absolute;
+            top: 130px;
+            left: 10px;
+            z-index: 3001;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .big_pic .next {
+            width: 60px;
+            height: 60px;
+            background: url(img2/btn.gif) no-repeat 0 -60px;
+            position: absolute;
+            top: 130px;
+            right: 10px;
+            z-index: 3001;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .big_pic .bg {
+            width: 400px;
+            height: 25px;
+            background: #000;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+            position: absolute;
+            z-index: 2999;
+            bottom: 0;
+            left: 0;
+        }
+
+        .small_pic {
+            width: 380px;
+            height: 94px;
+            position: relative;
+            top: 7px;
+            left: 10px;
+            overflow: hidden;
+        }
+
+        .small_pic ul {
+            height: 94px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .small_pic li {
+            width: 120px;
+            height: 94px;
+            float: left;
+            padding-right: 10px;
+            background: url(img2/loading.gif) no-repeat center center;
+            cursor: pointer;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+        }
+
+        .small_pic img {
+            width: 120px;
+            height: 94px;
+        }
+    </style>
+    <script src="../js/jquery-2.0.2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var iNow = 0;
+            var aPicBig = $('.big_pic').find('li');
+            var zIndex = 2;
+            var oUlSmall = $('.small_pic').find('ul');
+            var aPicSmall = oUlSmall.find('li');
+            var oPrev = $('.prev');
+            var oNext = $('.next');
+            var oDiv = $('#playimages');
+            oUlSmall.css('width', aPicSmall.length * aPicSmall.eq(0).outerWidth());
+
+            $('.mark_left,.prev').hover(function () {
+                oPrev.stop().animate({'opacity': 100}, 800);
+            }, function () {
+                oPrev.stop().animate({'opacity': 0}, 800);
+            });
+
+            $('.mark_right,.next').hover(function () {
+                oNext.stop().animate({'opacity': 100}, 800);
+            }, function () {
+                oNext.stop().animate({'opacity': 0}, 800);
+            });
+
+
+            aPicSmall.click(function () {
+                if ($(this).index() === iNow)return;
+                iNow = $(this).index();
+                tab();
+            }).hover(function () {
+                $(this).stop().animate({'opacity': 1}, 800);
+            }, function () {
+                if ($(this).index() !== iNow) {
+                    $(this).stop().animate({'opacity': 0.6}, 800);
+                }
+            });
+
+            oPrev.click(prevFn);
+
+            oNext.click(nextFn);
+
+
+            // 自动播放
+            var timer = setInterval(nextFn, 2000);
+
+            oDiv.hover(function () {
+                clearInterval(timer);
+            }, function () {
+                timer = setInterval(nextFn, 2000);
+            });
+
+            function nextFn() {
+                iNow++;
+                if (iNow === aPicSmall.length) {
+                    iNow = 0;
+                }
+                tab();
+            }
+
+            function prevFn() {
+                iNow--;
+                if (iNow === 0) {
+                    iNow = aPicSmall.length - 1;
+                }
+                tab();
+            }
+
+            function tab() {
+                aPicBig.eq(iNow).css('zIndex', zIndex++);
+
+                aPicSmall.stop().animate({'opacity': 0.6}, 800).eq(iNow).stop().animate({'opacity': 1}, 800);
+
+                aPicBig.eq(iNow).css('height', 0).stop().animate({'height': 320}, 800);
+
+                if (iNow === 0) {
+                    oUlSmall.animate({'left': 0}, 800);
+                } else if (iNow === aPicSmall.length - 1) {
+                    oUlSmall.animate({'left': -(iNow - 2) * aPicSmall.eq(0).outerWidth()}, 800);
+                } else {
+                    oUlSmall.animate({'left': -(iNow - 1) * aPicSmall.eq(0).outerWidth()}, 800);
+
+                }
+
+            }
+
+
+        });
+    </script>
+</head>
+<body>
+<div id="playimages" class="play">
+    <ul class="big_pic">
+        <!-- 左右两个按钮 -->
+        <div class="prev"></div>
+        <div class="next"></div>
+
+        <!-- 左右两个层,用来判断鼠标移动到左边还是右边 -->
+        <a class="mark_left" href="javascript:void(0);"></a>
+        <a class="mark_right" href="javascript:void(0);"></a>
+
+        <div class="bg"></div>
+
+        <li style="z-index:1;">
+            <img src="img2/1.jpg"/>
+        </li>
+        <li>
+            <img src="img2/2.jpg"/>
+        </li>
+        <li>
+            <img src="img2/3.jpg"/>
+        </li>
+        <li>
+            <img src="img2/4.jpg"/>
+        </li>
+        <li>
+            <img src="img2/5.jpg"/>
+        </li>
+        <li>
+            <img src="img2/6.jpg"/>
+        </li>
+    </ul>
+    <div class="small_pic">
+        <ul>
+            <li style="opacity: 1;">
+                <img src="img2/1.jpg"/>
+            </li>
+            <li>
+                <img src="img2/2.jpg"/>
+            </li>
+            <li>
+                <img src="img2/3.jpg"/>
+            </li>
+            <li>
+                <img src="img2/4.jpg"/>
+            </li>
+            <li>
+                <img src="img2/5.jpg"/>
+            </li>
+            <li>
+                <img src="img2/6.jpg"/>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
