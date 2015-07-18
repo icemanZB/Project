@@ -30,7 +30,8 @@ javascript中top、clientTop、scrollTop、offsetTop的讲解
 http://www.cnblogs.com/trlanfeng/archive/2012/11/04/2753280.html
 
 offsetHeight:为计算后盒子的整体高度 style.top:为绝对定位后的 top 值
-offsetTop: 盒子顶部相对父级顶部的高度
+
+offsetTop: 盒子顶部相对定位父级顶部的高度 如果父级没有定位,那就相对于整个页面
 offsetTop 只能获取到有定位的父级
 
 offsetTop 和 style.top 的区别
