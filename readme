@@ -82,6 +82,8 @@ appendChild于insertBefore http://www.cnblogs.com/ATree/archive/2011/09/26/JS-app
 返回的节点不属于文档树,它的 parentNode 属性为 null
 当复制的是 Element 节点时,它的所有属性都将被复制,但要注意,当前节点上注册的事件监听器函数不会被复制
 
+jquery clone() 无参数的情况是潜复制(不复制事件)  clone(true) 深复制(复制事件)
+
 jquery stop() 方法停止当前正在运行的动画
 工作中遇到过的实际案例:
 在项目里做的一个下拉菜单,当鼠标移上去的时候就菜单显示,当鼠标离开的时候菜单隐藏
@@ -93,9 +95,6 @@ jquery stop() 方法停止当前正在运行的动画
 当移入一个菜单的时候,停止所有加入队列的动画,但是完成当前的动画(跳至当前动画的最终效果位置)
 
 Math.pow(x,y) x 的 y 次幂
-
-jquery clone() 无参数的情况是潜复制(不复制事件)  clone(true) 深复制(复制事件)
-
 
 $(window).width()  获取窗口的宽度 ？
 

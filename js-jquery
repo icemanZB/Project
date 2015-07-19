@@ -1,6 +1,6 @@
 js 获取 obj.scrollTop  ==>    $('#obj').scrollTop()
 
-js 获取 obj.offsetHeight   ==>   $('#obj').prop('offsetHeight') / $("#obj").outerHeight()
+js 获取 obj.offsetHeight (获取不到隐藏元素的值)  ==>   $('#obj').prop('offsetHeight') / $("#obj").outerHeight() jquery可以
 
 js 获取 document.getElementById("div1").clientHeight  ==>     $("#obj").innerHeight()
 
