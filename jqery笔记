@@ -35,6 +35,7 @@ outerHeight(ture) »¹¿ÉÒÔ½ÓÊÜÒ»¸ö²ÎÊı,¸Ã²ÎÊı´ú±íÊÇ·ñ¼ÆËãÍâ±ß¾à,Èç¹ûÎªtrueÔò±íÊ¾¼Æ
 insertBefore()  before() µÄÇø±ğ
 insertAfter() ºÍ after()  ¡¢ appendTo() ºÍ append()  ¡¢ prependTo() ºÍ prepend()  Ô­ÀíÊÇÒ»ÑùµÄ
 Çø±ğÔÚÓÚºóĞøµÄ²Ù×÷ÊÇÕë¶ÔÄÄ¸öÔªËØ
+$('div').append('p','h1');  ÏÈ²åÈëp ºó²åÈëh1
 
 $('span').insertBefore($('div')).css('background','red');  // ÔÚspanÇ°Ãæ²åÈëdiv  span±äºì
 $('div').before($('span')).css('background','red');  // spanÇ°Ãæ±ØĞëÊÇdiv  div±äºì
@@ -112,11 +113,11 @@ offsetParent() »ñÈ¡ÓĞ¶¨Î»µÄ¸¸¼¶  $('#div2').offsetParent() // Èç¹ûdiv1 ÓĞ¶¨Î»¾ÍÊ
 
 size() Ïñ length
 
-fadeIn()  fadeOut()   µ­Èëµ­³ö´Ó0µ½1 Ä¬ÈÏ400ms  °¸ÀıĞŞ¸Ä£¡
-
+fadeIn()  fadeOut()   µ­Èëµ­³ö´Ó0µ½1 Ä¬ÈÏ400ms
+fadeOut() ¼´ÔªËØµÄ²»Í¸Ã÷¶ÈµÄ±ÈÀı´Ó100%Öğ½¥¼õĞ¡µ½0%
 fadeTo(1000,0.6)  °¸ÀıĞŞ¸Ä£¡ µ­Èëµ­³öµ½Ä³¸öÖµ
-
-slideUp() slideDown() ÏòÉÏÏòÏÂ¾íÇú °¸ÀıĞŞ¸Ä£¡
+slideUp() slideDown() ÏòÉÏÏòÏÂ¾íÇú
+ÌáÊ¾£ºÈç¹ûÔªËØÒÑ¾­Òş²Ø£¬Ôò¸ÃĞ§¹û²»²úÉúÈÎºÎ±ä»¯
 
 
 text()  »ñÈ¡µÄÊÇËùÓĞÔªËØµÄÎÄ±¾ (ÌØÀı)

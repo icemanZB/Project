@@ -176,3 +176,5 @@ removeNode : isIE ? function(){
         n.parentNode.removeChild(n);
     }
 }
+
+委托 冒泡 研究一下？
