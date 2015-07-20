@@ -96,7 +96,7 @@ jquery stop() 方法停止当前正在运行的动画
 
 Math.pow(x,y) x 的 y 次幂
 
-$(window).width()  获取窗口的宽度 ？
+$(window).width()  获取窗口的宽度
 
 容器页面居中 ($(window).width()-$('#obj').outWidth())/2 、 ($(window).height()-$('#obj').outHeight())/2
 
@@ -106,6 +106,14 @@ $(window).on('resize scroll',function(){
     $('div').css('top',($(window).height()-$('#obj').outHeight())/2 + $(window).scroll());
 })
 
+js里用 "parentNode" 获得父节点,用 "childNodes"　获得所有的子节点。
+parentElement 获取对象层次中的父对象。
+parentNode 获取文档层次中的父对象。
+childNodes 获取作为指定对象直接后代的 HTML 元素和 TextNode 对象的集合。
+children 获取作为对象直接后代的 DHTML 对象的集合。
+
+parentNode 和 parentElement 功能一样, childNodes 和 children 功能一样。但是 parentNode 和 childNodes 是符合W3C标准的
+可以说比较通用。而另外两个只是IE支持,不是标准, Firefox 就不支持
 
 removeChild 的一些问题
 <ul id="demo">

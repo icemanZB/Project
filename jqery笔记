@@ -106,8 +106,6 @@ $("#obj").position().left // 如果obj上没有定位,那么在jquery中会把obj看做是一个有
     <div id="div2"></div>
 </div>
 
-研究 原生 offsetParent  parentNode ??
-
 parent()  获取父级  $('#div2').parent();  // div1
 
 offsetParent() 获取有定位的父级  $('#div2').offsetParent() // 如果div1 有定位就是 div1  没有的话就是body
