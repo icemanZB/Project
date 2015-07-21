@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>旋转木马</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript" src="carousel.js"></script>
+</head>
+<body>
+<!-- setting 配置参数传递的方式不使用js传参数的方式,因为是面向对象的形式,如果页面中有两个这样的插件,那么循环初始化的时候始终是配置的
+一次达不到每一个插件是独立的效果,所以使用淘宝配置参数的方式自定义属性。插件会每一次都获取页面上的自定义属性,那么获取到的参数都是不一样的
+那么就可以达到插件独立存在,格式需要注意必须是正确的json,属性需要加双引号 -->
+<div class="J_Poster poster-main" data-setting='{
+                                                "width":1000,
+                                                "height":270,
+                                                "posterWidth":640,
+                                                "posterHeight":270,
+                                                "scale":0.8,
+                                                "autoPlay":true,
+                                                "delay":2000,
+                                                "speed":300
+                                                }'>
+    <div class="poster-btn poster-prev-btn"></div>
+    <ul class="poster-list">
+        <li class="poster-item"><a href="#"><img src="img/1.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/2.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/3.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/4.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/5.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/2.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/3.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/4.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/5.jpg" width="100%" height="100%"></a></li>
+    </ul>
+    <div class="poster-btn poster-next-btn"></div>
+</div>
+<p style="height:50px;"></p>
+
+<div class="J_Poster poster-main" data-setting='{
+                                                "width":800,
+                                                "height":270,
+                                                "posterWidth":640,
+                                                "posterHeight":270,
+                                                "scale":0.8,
+                                                "autoPlay":true,
+                                                "delay":5000,
+                                                "speed":300,
+                                                "vericalAlign":"top"
+                                                }'>
+    <div class="poster-btn poster-prev-btn"></div>
+    <ul class="poster-list">
+        <li class="poster-item"><a href="#"><img src="img/1.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/2.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/3.jpg" width="100%" height="100%"></a></li>
+        <li class="poster-item"><a href="#"><img src="img/4.jpg" width="100%" height="100%"></a></li>
+    </ul>
+    <div class="poster-btn poster-next-btn"></div>
+</div>
+<script>
+
+    $(function () {
+        Carousel.init($(".J_Poster"));
+    });
+</script>
+</body>
+</html>

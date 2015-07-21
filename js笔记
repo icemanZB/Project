@@ -1,9 +1,9 @@
-js offsetParent是个只读属性,返回一个对象的引用,这个对象是距离调用offsetParent的元素最近的(在包含层次中最靠近的)
+1、js offsetParent 是个只读属性,返回一个对象的引用,这个对象是距离调用offsetParent的元素最近的(在包含层次中最靠近的)
    并且是已进行过CSS定位的容器元素。如果这个容器元素未进行CSS定位, 则offsetParent属性的取值为根元素
    (在标准兼容模式下为html元素、在怪异呈现模式下为body元素)的引用。
    当容器元素的 style.display 被设置为 "none" 时 (译注：IE和Opera除外) offsetParent 属性 返回 null
 
-js offsetParent 例子
+   js offsetParent 例子
      function offset_init() {
         var pElement = document.getElementById("sonObj");
         parentObj = pElement.offsetParent;
@@ -62,9 +62,9 @@ js offsetParent 例子
            则这个元素的offsetParent属性的取值为在DOM结构层次中距离其最近,并且已进行了CSS定位的元素。
 
 
-js parentNode 获得父节点
+2、js parentNode 获得父节点
 
-js parentNode 例子
+   js parentNode 例子
 
    function fn(){
         var oLi=document.getElementsByTagName("li")[0];
@@ -74,3 +74,72 @@ js parentNode 例子
     <li>Coffee</li>
     <li>Tea</li>
    </ul>
+
+
+3、js  事件冒泡
+       当一个元素上的事件被触发的时候,比如说鼠标点击了一个按钮,同样的事件将会在那个元素的所有祖先元素中被触发。
+       这一过程被称为事件冒泡,这个事件从原始元素开始一直冒泡到DOM树的最上层。 冒泡是从下级元素到上级元素
+
+       目标元素 : 任何一个事件的目标元素都是最开始的那个元素( event.srcElement||event.target )
+
+       事件的冒泡的好处 : 那就是事件代理(委托),可以有效的减少事件处理,提高性能,在DOM更新后无须重新绑定事件处理器了
+       如果你的页面是动态生成的，你不再需要在元素被载入或者卸载的时候来添加或者删除事件处理器了。
+
+       不是所有的事件都能冒泡 : blur 、focus 、load 和 unload 不能像其它事件一样冒泡。
+       事实上 blur 和 focus 可以用事件捕获而非事件冒泡的方法获得(在IE之外的其它浏览器中)。
+
+
+   js 事件冒泡 例子
+   <!--
+   			当里面的div被点击了之后，他会传递到他的父级
+   			然后他的父级会传递到他的父级的父级,这个就是事件冒泡
+
+   -->
+   <style type="text/css">
+   	    div { padding: 100px;}
+   </style>
+   <div style="background: #CCCCCC;" onclick="alert(this.style.background);">
+        <div style="background: green;" onclick="alert(this.style.background);">
+            <div style="background: red;" onclick="alert(this.style.background);">
+
+            </div>
+        </div>
+   </div>
+
+   阻止冒泡 :
+    if (window.event) {
+      e.cancelBubble=true;
+    } else {
+      //e.preventDefault(); // 在基于firefox内核的浏览器中支持做法stopPropagation
+      e.stopPropagation();
+    }
+
+
+3、document.getElementById 于 document.getElementsByTagName 的区别
+   (1） getElementById 前面只能用 document 而 getElementsByTagName 前面可以更别的元素
+        例如:    var oUl = document.getElementById('list');
+            	var aLi = oUl.getElementsByTagName('li');
+   (2) getElementById : 找到的是一个元素
+       getElementsByTagName :  找到的是元素的集合 aLi => [ li, li, li ]
+
+   (3) getElementsByTagName 是动态方法 getElementById :静态方法
+       例如 : window.onload = function (){
+            	var aBtn = document.getElementsByTagName('input');
+            	document.body.innerHTML = '<input type="button" value="按钮" />
+            	<input type="button" value="按钮" /><input type="button" value="按钮" />';
+            	// alert(aBtn.length);  3
+                aBtn[0].onclick = function (){ alert(1); };
+            };
+
+
+4、取模的技巧
+   var arr=['red','orange','yellow','green','blue'];
+   for(var i=0;i<5;i++){
+       console.info(i % arr.length); // 0 1 2 3 4
+       var bgColor=arr[i % arr.length];
+   }
+
+
+
+
+

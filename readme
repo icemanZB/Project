@@ -5,9 +5,6 @@ jquery prop 方法解析 http://blog.csdn.net/chaiyining007/article/details/8218038
 dom.onclick=function(){ console.log(1); };
 dom.onclick=function(){ console.log(2); };  最终结果是 输出2
 
-事件代理 ( 委托 ) 绑定在父元素上,使其子元素也拥有这个事件
-针对多个元素绑定的时候,并且是动态输出的元素,这个时候就可以用事件代理
-
 window.onscroll=function(){
     var top = document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop;
 }
@@ -115,6 +112,9 @@ children 获取作为对象直接后代的 DHTML 对象的集合。
 parentNode 和 parentElement 功能一样, childNodes 和 children 功能一样。但是 parentNode 和 childNodes 是符合W3C标准的
 可以说比较通用。而另外两个只是IE支持,不是标准, Firefox 就不支持
 
+
+Json 与 数组的区别  json 的下标 是一个字符串   数组的下标是数字  json 没有length  数组有 length
+
 removeChild 的一些问题
 <ul id="demo">
 <li>a</li>
@@ -177,4 +177,64 @@ removeNode : isIE ? function(){
     }
 }
 
-委托 冒泡 研究一下？
+
+http://blog.sina.com.cn/s/blog_6f6360250101hjo7.html js兼容问题
+
+
+注意事项
+
+ 1、所有的相对路径地址,不能做为判断条件(img src href )
+    例子 : // img/1.jpg 原始路径
+       	 // file:///C:/Users/Administrator/Desktop/11-4-JS1/img/1.jpg // 获得路径
+    图片的相对路径不能读,但是可以写!
+
+ 2、颜色值 : color: red #f00 rgb() rgba()  颜色值也不能拿来做判断
+
+ 3、innerHTML 的值也不能拿来做判断,有兼容性问题?
+
+ 4、不要修改表单元素的type值,IE6 7 8 不支持,会报错
+
+ 5、修改浮动的兼容问题 , 可以通过写样式来回避这个问题.{float:left} .right{float:right;}
+    然后再是oDiv.className='left';
+
+    oDiv.style.float = 'right';     // 有兼容问题
+   	oDiv.style.styleFloat = 'right';		// IE styleFloat
+   	oDiv.style.cssFloat = 'left';			// 非IE cssFloat
+
+ 6、this 指向问题
+   	function fn(){
+   	    this
+   	}
+    (1) fn();   this->window
+    (2) oDiv.onclick=fn;  this->oDiv
+    (3) oDiv.onclick=function(){
+            this;   thi->oDiv
+        }
+    (4) oDiv.onclick=function(){
+           fn();   fn()里面的this->window
+        }
+    (5) <div onclick="this"></div>    this->div
+    (6) <div onclick="fn();"></div>   fn()里面的this->window
+    (7) funtion fn(obj){
+            obj->window
+        }
+        fn(this);
+    (8) oDiv.onclick=function(){
+            fn(this);
+        }
+        function fn(obj){
+            obj->Odiv
+        }
+ 7、for循环中的i 与自定义属性
+    window.onload = function (){
+    	var aBtn = document.getElementsByTagName('input');
+    	for( var i=0; i<aBtn.length; i++ ){
+    		aBtn[i].index = i;			// 自定义属性（索引值）
+    		aBtn[i].onclick = function (){
+    			// alert( i );			// 这边永远得到的是3
+    			alert( this.index );
+    		};
+    	}
+    };
+
+
