@@ -12,7 +12,7 @@
         // 如果图片是偶数的话,那么补一张一样的图片 (相对不太友好,不处理也可以)
         if (this.posterItems.size() % 2 == 0) {
             this.posterItemMain.append(this.posterItems.eq(0).clone());
-            this.posterItems = this.posterItemMain.children();  //重新获取一下li,保证获取的是最新的集合
+            this.posterItems = this.posterItemMain.children();  // 重新获取一下li,保证获取的是最新的集合
         }
 
         this.posterFirstItem = this.posterItems.first();  // 第一帧图片
