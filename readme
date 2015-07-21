@@ -5,10 +5,6 @@ jquery prop 方法解析 http://blog.csdn.net/chaiyining007/article/details/8218038
 dom.onclick=function(){ console.log(1); };
 dom.onclick=function(){ console.log(2); };  最终结果是 输出2
 
-window.onscroll=function(){
-    var top = document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop;
-}
-
 scrollTop是什么及用法说明 http://blog.csdn.net/gang_gang_gang/article/details/4233044
 
 scrollTop指的是"元素中的内容"超出"元素上边界"的那部分的高度,向上滚动的数值 scrollTop 如果li中没有内容 scrollTop数值不变
