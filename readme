@@ -111,6 +111,8 @@ parentNode 和 parentElement 功能一样, childNodes 和 children 功能一样。但是 pare
 
 Json 与 数组的区别  json 的下标 是一个字符串   数组的下标是数字  json 没有length  数组有 length
 
+getAttribute() 兼容问题  如果是获取class 那么高等级的浏览器没有问题 IE7需要用className
+
 removeChild 的一些问题
 <ul id="demo">
 <li>a</li>

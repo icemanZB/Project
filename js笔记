@@ -69,6 +69,7 @@
    function fn(){
         var oLi=document.getElementsByTagName("li")[0];
         console.log( oLi.parentNode.nodeName );  // UL
+        // li.parentNode.children;  找到li的父节点ul下的所有li
    }
    <ul>
     <li>Coffee</li>
