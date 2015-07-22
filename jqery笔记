@@ -241,3 +241,8 @@ $.fn.extend({
 });
 
 $('div').drag();
+
+// 如果已经配置了自定义的参数就使用自定义的,没有的话就使用默认配置参数
+// this.setting 默认配置参数  this.getSetting() 用户自定义参数
+// this.setting, this.getSetting() 都是json对象
+$.extend(this.setting, this.getSetting());
