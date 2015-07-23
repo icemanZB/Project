@@ -3,186 +3,14 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>超炫的散列画廊特效</title>
-    <style type="text/css">
-        * {
-            padding: 0;
-            margin: 0;
-        }
-
-        body {
-            background-color: #fff;
-            color: #555;
-            font-family: 'Avenir Next', 'Lantinghei SC';
-            font-size: 14px;
-            -webkit-font-smoothing: antialiased; /* 字体平滑 */
-        }
-
-        .wrap {
-            width: 100%;
-            height: 600px;
-            /* 垂直居中的方法:
-                    position: absolute;
-                    top: 50%;
-                    margin-top: -300px;  设置为高度的一半
-             */
-            position: absolute;
-            top: 50%;
-            margin-top: -300px;
-            background-color: #333333;
-            overflow: hidden;
-            -webkit-perspective: 800px;
-
-        }
-
-        /* 海报样式 */
-        .photo {
-            width: 260px;
-            height: 320px;
-            position: absolute;
-            z-index: 1;
-            box-shadow: 0 0 1px rgba(0, 0, 0, .01);
-            -webkit-transition: all .6s;
-        }
-
-        .photo .side {
-            width: 100%; /* 大小随着海报的变化而变化 */
-            height: 100%;
-            background-color: #eeeeee;
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .photo .side-front .image {
-            width: 100%;
-            height: 250px;
-            line-height: 250px;
-            overflow: hidden;
-        }
-
-        .photo .side-front .image img {
-            width: 100%; /* 图片的宽度会根据外层海报的宽度大小来调整 */
-        }
-
-        .photo .side-front .caption {
-            text-align: center;
-            font-size: 16px;
-            line-height: 50px;
-        }
-
-        .photo .side-back .desc {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5em;
-        }
-
-        /* 当前选中的海报样式 */
-        .photo_center {
-            width: 260px;
-            height: 320px;
-            left: 50%;
-            top: 50%;
-            margin: -160px 0 0 -130px; /* 设置水平垂直居中 */
-            z-index: 999; /* 居中的海报层级最高 */
-
-        }
-
-        /* photo-wrap负责翻转 */
-        .photo-wrap {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            -webkit-transform-style: preserve-3d; /* 让photo-wrap中子元素支持3d效果 */
-            -webkit-transition: all .6s;
-        }
-
-        .photo-wrap .side-front {
-            -webkit-transform: rotateY(0deg);
-        }
-
-        .photo-wrap .side-back {
-            -webkit-transform: rotateY(180deg);
-        }
-
-        .photo-wrap .side {
-            -webkit-backface-visibility: hidden; /* 在旋转元素不希望看到其背面时隐藏 */
-        }
-
-        /* photo_front和photo_back 都是用在photo-wrap上,用来支持正反面的切换,所以附加在photo photo_center上 */
-
-        .photo_front .photo-wrap {
-            -webkit-transform: rotateY(0deg);
-        }
-
-        .photo_back .photo-wrap {
-            -webkit-transform: rotateY(180deg);
-        }
-
-        /* 控制按钮的样式 */
-        .nav {
-            width: 80%;
-            height: 30px;
-            line-height: 30px;
-            position: absolute;
-            left: 10%;
-            bottom: 20px;
-            z-index: 999;
-            background: #fff;
-        }
-
-        /* 普通样式 */
-        .nav .i {
-            width: 30px;
-            height: 30px;
-            display: inline-block;
-            cursor: pointer;
-            background-color: #aaa;
-            text-align: center;
-            border-radius: 50%;
-            -webkit-transform: scale(.48);
-            -webkit-transition: all .5s;
-        }
-
-        /* 当前选中的样式 */
-        .nav .i_current {
-            -webkit-transform: scale(1);
-        }
-
-        /* 背面的样式 */
-        .nav .i_back {
-            -webkit-transform: rotateY(-180deg);
-            background: red;
-        }
-
-        /*
-           这边因为当切换的时候,一个元素的样式突然没了photo_center,那元素会被先分配left:0;top:0
-           在被我们随机分配样式,那么预先加上photo_center一样的样式初始化一下就可以了
-         */
-        .photo {
-            left: 50%;
-            top: 50%;
-            margin: -160px 0 0 -130px;
-        }
-
-        .photo-wrap {
-            -webkit-transform-origin: 0% 50%;
-        }
-
-        .photo_front .photo-wrap {
-            -webkit-transform: translate(0, 0) rotateY(0deg);
-        }
-
-        .photo_back .photo-wrap {
-            -webkit-transform: translate(260px, 0) rotateY(180deg);
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <div class="wrap" id="wrap">
-    <!-- photo_center添加这条样式就会居中显示 photo负责平移和旋转,改变photo_front为photo_back就会旋转  -->
-    <div class="photo" id="photo_{{index}}" onclick="turn(this)">
+    <!-- photo_center添加这条样式就会居中显示 photo负责平移和旋转,改变photo_front为photo_back就会旋转
+         onclick="turn(this)"
+     -->
+    <div class="photo photo_front" id="photo_{{index}}">
         <div class="photo-wrap"> <!-- photo-wrap负责翻转 -->
             <div class="side side-front">
                 <p class="image"><img src="img/{{img}}" alt=""/></p>
@@ -198,6 +26,7 @@
 <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
 <script type="text/javascript" src="data.js"></script>
 <script type="text/javascript">
+
     // 初始化数据
     var data = [];
 
@@ -222,175 +51,180 @@
         return Math.ceil((Math.random() * diff + min));
     }
 
-    // 输出所有的海报
-    function addPhotos() {
-        var template = $('#wrap').html(); // 获得模板字符串
-        var html = [];
-        var nav = [];
+    $(function () {
 
-        for (var i = 0; i < data.length; i++) {
-            var _html = template.replace('{{index}}', i + "").replace('{{img}}', data[i].img)
-                    .replace('{{caption}}', data[i].caption).replace('{{desc}}', data[i].desc); // 保存一下当前的模板
+        // 输出所有的海报
+        function addPhotos() {
+            var template = $('#wrap').html(); // 获得模板字符串
+            var html = [];
+            var nav = [];
 
-            html.push(_html);
+            for (var i = 0; i < data.length; i++) {
+                // 保存一下当前的模板
+                var _html = template.replace('{{index}}', i + "").replace('{{img}}', data[i].img)
+                        .replace('{{caption}}', data[i].caption).replace('{{desc}}', data[i].desc);
 
-            // 控制按钮样式,对应每一张海报
-            nav.push('<span id="nav_' + i + '" onclick="turn(document.getElementById(\'photo_' + i + '\'))" class="i">&nbsp;</span>');
+                html.push(_html);
 
-        }
+                // 控制按钮样式,对应每一张海报 在加一个turn操作
+                // onclick="turn(document.getElementById(\'photo_' + i + '\'))"
+                nav.push('<span id="nav_' + i + '" data-index="' + i + '"  class="i">&nbsp;</span>');
 
-        html.push('<div class="nav">' + nav.join('') + '</div>');
+            }
 
-        $('#wrap').html(html.join(''));
+            html.push('<div class="nav" style=" text-align: center;">' + nav.join('') + '</div>');
 
-        rSort(randomNum([0, data.length]));
-    }
+            $('#wrap').html(html.join(''));
 
-    addPhotos();
-
-    // 排序海报  根据n传入的值,来确认哪个海报是居中显示
-    function rSort(n) {
-        // 以下划线开头的命名为临时变量
-        var _photo = document.getElementsByClassName('photo');
-
-        var photos = [];
-
-        $(_photo).removeClass(['photo_center','photo_front','photo_back']);
-
-        // 去掉所有的photo_center
-        for (var i = 0; i < _photo.length; i++) {
-
-           /* _photo[i].className = _photo[i].className.replace('/\s*photo_center\s*!/', ' ');
-
-            _photo[i].className = _photo[i].className.replace('/\s*photo_front\s*!/', ' ');
-
-            _photo[i].className = _photo[i].className.replace('/\s*photo_back\s*!/', ' ');*/
-
-            _photo[i].style.left = '';
-            _photo[i].style.top = '';
-            _photo[i].style['-webkit-transform'] = 'rotate(0deg)';
-
-            _photo[i].className += ' photo_front';
-
-            _photo[i].style['-webkit-transform'] = 'rotate(360deg) scale(1.3)';
-
-            photos.push(_photo[i]);
-        }
-
-
-        var photoCenter = document.getElementById('photo_' + n);
-
-        photoCenter.className += ' photo_center';
-
-        photos.splice(n, 1); // 把中间的海报分离出来
-
-
-        // 把海报分为左右区域两个部分
-
-        var photoLeft = photos.splice(0, Math.ceil(photos.length / 2));
-
-        var photoRight = photos;
-
-        var ranges = range(); // 获得左右分区的取值范围
-
-        for (var i = 0; i < photoLeft.length; i++) {
-            photoLeft[i].style.left = randomNum(ranges.left.x) + "px";
-            photoLeft[i].style.top = randomNum(ranges.left.y) + "px";
-
-            photoLeft[i].style['-webkit-transform'] = 'rotate(' + randomNum([-150, 150]) + 'deg) scale(1)';
-        }
-
-        for (var i = 0; i < photoRight.length; i++) {
-            photoRight[i].style.left = randomNum(ranges.right.x) + "px";
-            photoRight[i].style.top = randomNum(ranges.right.y) + "px";
-
-            photoRight[i].style['-webkit-transform'] = 'rotate(' + randomNum([-150, 150]) + 'deg) scale(1)';
-        }
-
-        // 控制按钮处理,当点击其他按钮的时候也会进行一次排序,并清除其他的i_current
-        var navs = $('.i');
-
-        navs.attr('class', 'i');
-
-        navs.eq(n).addClass('i_current');
-
-        /*for (var i = 0; i < navs.length; i++) {
-         navs[i].className = navs[i].className.replace('/\s*i_current\s*!/', ' ');
-         navs[i].className = navs[i].className.replace('/\s*i_back\s*!/', ' ');
-         }*/
-
-        // document.getElementById("nav_" + n).className += " i_current ";
-
-
-    }
-
-    // 海报翻转
-    function turn(elem) {
-        var cls = elem.className;
-        var n = elem.id.split('_')[1];  // 拿到索引编号
-
-        // 判断当前的元素是不是photo_center
-        if (!/photo_center/.test(cls)) {
-            return rSort(n);
-        }
-
-        // 判断传入的class中有没有photo_front
-
-        if (/photo_front/.test(cls)) {
-
-            cls = cls.replace(/photo_front/, 'photo_back');
-            $('#nav_' + n + '').addClass('i_back');
-           // document.getElementById('nav_' + n).className += ' i_back ';
-        } else {
-
-            cls = cls.replace(/photo_back/, 'photo_front');
-
-            $('#nav_' + n + '').attr('class', 'i i_current');
-
-            $('#nav_' + n + '').removeClass('i_back');
-
-            /*document.getElementById('nav_' + n).className = document.getElementById('nav_' + n)
-             .className.replace('/\s*i_back\s*!/', ' '); */
+            rSort(randomNum([0, data.length]));
 
         }
 
-        elem.className = cls;
-    }
+        addPhotos();
+
+        $('.photo').click(function () {
+            turn($(this).get(0));
+        });
+
+        $('.nav').find('span').click(function () {
+            var index = $(this).attr("data-index");
+            turn($('#photo_' + index).get(0));
+        });
 
 
-    // 计算左右分区随机的范围 返回 {left:{x:[min,max],y:[min,max]},right:{}}
-    function range() {
-        var range = {left: {x: [], y: []}, right: {x: [], y: []}};
+        // 排序海报  根据n传入的值,来确认哪个海报是居中显示
+        function rSort(n) {
 
-        /*
-         * client字面意思的理解是,客户端,在我们的视窗中,客户端就是浏览器。
-         * clientHeight就是浏览器可视范围的高度,clientWidth同理。
-         * 对于client与offest之间的区别是,client仅仅是可视范围,并不包括滚动条的高度。
-         * */
+            var _photo = $('.photo');  // 存所有海报
 
-        var wrap = {
-            w: document.getElementById('wrap').clientWidth,
-            h: document.getElementById('wrap').clientHeight
-        };
+            var photos = [];
 
-        var photo = {
-            w: document.getElementsByClassName('photo')[0].clientWidth,
-            h: document.getElementsByClassName('photo')[0].clientHeight
-        };
+            // 去掉除了传入n的海报的所有photo_center
+            // 去除'photo_front', 'photo_back' 是因为点击nav导航的时候需要清空样式
+            //_photo.removeClass(['photo_center', 'photo_front', 'photo_back'])
+            _photo.attr('style', '');
 
-        // 附加给range对象
-        range.wrap = wrap;
-        range.photo = photo;
+            // _photo.attr('class','photo photo_front');  // 设置样式为初始值
 
-        // 左右分区 x的取值范围和y的取值范围
-        range.left.x = [0 - photo.w, wrap.w / 2 - photo.w / 2];
-        range.left.y = [0 - photo.h, wrap.h];
+            _photo.removeClass('photo_center photo_front photo_back');
 
-        range.right.x = [wrap.w / 2 + photo.w / 2, wrap.w + photo.w];
-        range.right.y = range.left.y;
+            console.log(_photo);
 
-        return range;
-    }
+            // 把所有海报添加到一个数组中方便操作
+            _photo.each(function (index, elem) {
+                photos.push(elem);
+            });
+
+            var photoCenter = $('#photo_' + n);
+            photoCenter.addClass('photo_center');
+
+            photos.splice(n, 1); // 把中间的海报分离出来
+
+            // 把海报分为左右区域两个部分
+            var photoLeft = photos.splice(0, Math.ceil(photos.length / 2));  // 小数向上取整
+
+            var photoRight = photos;  // 现在的photos就是剩余的海报
+
+            var ranges = range(); // 获得左右分区的取值范围
+
+            $.each(photoLeft, function () {
+                $(this).css({
+                    "left": randomNum(ranges.left.x) + "px",
+                    "top": randomNum(ranges.left.y) + "px",
+                    "-webkit-transform": 'rotate(' + randomNum([-150, 150]) + 'deg) scale(1)'
+                })
+            });
+
+            $.each(photoRight, function () {
+                $(this).css({
+                    "left": randomNum(ranges.right.x) + "px",
+                    "top": randomNum(ranges.right.y) + "px",
+                    "-webkit-transform": 'rotate(' + randomNum([-150, 150]) + 'deg) scale(1)'
+                })
+            });
+
+            // 控制按钮处理,当点击其他按钮的时候也会进行一次排序,并清除其他的i_current
+            var navs = $('.nav').find('span');
+
+            navs.removeClass('i_current');
+
+            $('#nav_' + n).addClass('i_current');
+
+
+        }
+
+        // 海报翻转
+        function turn(elem) {
+            var n = elem.id.split('_')[1];  // 拿到索引编号
+            var _$ele = $(elem);
+            var cls = _$ele.attr('class');
+
+            // console.log(cls);
+
+            // 判断当前的元素是不是photo_center
+            /*if (!/photo_center/.test(cls)) {
+             return rSort(n);
+             }*/
+
+            if (!_$ele.hasClass('photo_center')) {
+                return rSort(n);
+            }
+
+
+            // 如果当前的cls中含有photo_front的话,那么就把photo_front换成photo_back
+            // 也就是把正面换成反面
+            // 判断传入的class中有没有photo_front
+            if (_$ele.hasClass('photo_front')) {
+                _$ele.removeClass('photo_front').addClass('photo_back');
+
+                // 如果当前海报为正面的话,那么这个海报将会被转为背面
+                $('#nav_' + n).addClass('i_back');
+            } else {
+
+                _$ele.removeClass('photo_back').addClass('photo_front');
+
+                $('#nav_' + n).removeClass('i_back');
+            }
+
+
+        }
+
+
+        // 计算左右分区随机的范围 返回 {left:{x:[min,max],y:[min,max]},right:{}}
+        function range() {
+            var range = {left: {x: [], y: []}, right: {x: [], y: []}};
+
+            /*
+             * client字面意思的理解是,客户端,在我们的视窗中,客户端就是浏览器。
+             * clientHeight就是浏览器可视范围的高度,clientWidth同理。
+             * 对于client与offest之间的区别是,client仅仅是可视范围,并不包括滚动条的高度。
+             * */
+
+            var wrap = {
+                w: document.getElementById('wrap').clientWidth,
+                h: document.getElementById('wrap').clientHeight
+            };
+
+            var photo = {
+                w: document.getElementsByClassName('photo')[0].clientWidth,
+                h: document.getElementsByClassName('photo')[0].clientHeight
+            };
+
+            // 附加给range对象
+            range.wrap = wrap;
+            range.photo = photo;
+
+            // 左右分区 x的取值范围和y的取值范围
+            range.left.x = [0 - photo.w, wrap.w / 2 - photo.w / 2];
+            range.left.y = [0 - photo.h, wrap.h];
+
+            range.right.x = [wrap.w / 2 + photo.w / 2, wrap.w + photo.w];
+            range.right.y = range.left.y;
+
+            return range;
+        }
+
+    });
 
 
 </script>
