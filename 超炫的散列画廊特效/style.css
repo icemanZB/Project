@@ -1,0 +1,212 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+img{
+    vertical-align: top;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before, q:after {
+    content:"";
+}
+
+abbr, acronym {
+    border: 0;
+}
+
+body {
+            background-color: #fff;
+            color: #555;
+            font-family: 'Avenir Next', 'Lantinghei SC';
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased; /* 字体平滑 */
+        }
+
+        .wrap {
+            width: 100%;
+            height: 600px;
+            /* 垂直居中的方法:
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -300px;  设置为高度的一半
+             */
+            position: absolute;
+            top: 50%;
+            margin-top: -300px;
+            background-color: #333333;
+            overflow: hidden;
+            -webkit-perspective: 800px;
+
+        }
+
+        /* 海报样式 */
+        .photo {
+            width: 260px;
+            height: 320px;
+            position: absolute;
+            z-index: 1;
+            box-shadow: 0 0 1px rgba(0, 0, 0, .01);
+            -webkit-transition: all .6s;
+        }
+
+        .photo .side {
+            width: 100%; /* 大小随着海报的变化而变化 */
+            height: 100%;
+            background-color: #eeeeee;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .photo .side-front .image {
+            width: 100%;
+            height: 250px;
+            line-height: 250px;
+            overflow: hidden;
+        }
+
+        .photo .side-front .image img {
+            width: 100%; /* 图片的宽度会根据外层海报的宽度大小来调整 */
+        }
+
+        .photo .side-front .caption {
+            text-align: center;
+            font-size: 16px;
+            line-height: 50px;
+        }
+
+        .photo .side-back .desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5em;
+        }
+
+        /* 当前选中的海报样式 */
+        .photo_center {
+            width: 260px;
+            height: 320px;
+            left: 50%;
+            top: 50%;
+            margin: -160px 0 0 -130px; /* 设置水平垂直居中 */
+            z-index: 999; /* 居中的海报层级最高 */
+
+        }
+
+        /* photo-wrap负责翻转 */
+        .photo-wrap {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            -webkit-transform-style: preserve-3d; /* 让photo-wrap中子元素支持3d效果 */
+            -webkit-transition: all .6s;
+        }
+
+        .photo-wrap .side-front {
+            -webkit-transform: rotateY(0deg);
+        }
+
+        .photo-wrap .side-back {
+            -webkit-transform: rotateY(180deg);
+        }
+
+        .photo-wrap .side {
+            -webkit-backface-visibility: hidden; /* 在旋转元素不希望看到其背面时隐藏 */
+        }
+
+        /* photo_front和photo_back 都是用在photo-wrap上,用来支持正反面的切换,所以附加在photo photo_center上 */
+
+        .photo_front .photo-wrap {
+            -webkit-transform: rotateY(0deg);
+        }
+
+        .photo_back .photo-wrap {
+            -webkit-transform: rotateY(180deg);
+        }
+
+        /* 控制按钮的样式 */
+        .nav {
+            width: 80%;
+            height: 30px;
+            line-height: 30px;
+            position: absolute;
+            left: 10%;
+            bottom: 20px;
+            z-index: 999;
+            background: #fff;
+        }
+
+        /* 普通样式 */
+        .nav .i {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            cursor: pointer;
+            background-color: #aaa;
+            text-align: center;
+            border-radius: 50%;
+            -webkit-transform: scale(.48);
+            -webkit-transition: all .5s;
+        }
+
+        /* 当前选中的样式 */
+        .nav .i_current {
+            -webkit-transform: scale(1);
+        }
+
+        /* 背面的样式 */
+        .nav .i_back {
+            -webkit-transform: rotateY(-180deg);
+            background: red;
+        }
+
+        /*
+           这边因为当切换的时候,一个元素的样式突然没了photo_center,那元素会被先分配left:0;top:0
+           在被我们随机分配样式,那么预先加上photo_center一样的样式初始化一下就可以了
+         */
+        .photo {
+            left: 50%;
+            top: 50%;
+            margin: -160px 0 0 -130px;
+        }
+
+        .photo-wrap {
+            -webkit-transform-origin: 0% 50%;
+        }
+
+        .photo_front .photo-wrap {
+            -webkit-transform: translate(0, 0) rotateY(0deg);
+        }
+
+        .photo_back .photo-wrap {
+            -webkit-transform: translate(260px, 0) rotateY(180deg);
+        }
