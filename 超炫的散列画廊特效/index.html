@@ -7,15 +7,17 @@
 </head>
 <body>
 <div class="wrap" id="wrap">
-    <!-- photo_center添加这条样式就会居中显示 photo负责平移和旋转,改变photo_front为photo_back就会旋转
-         onclick="turn(this)"
+    <!-- photo_center添加这条样式就会居中显示
+         photo负责平移和旋转,改变photo_front为photo_back就会旋转
      -->
     <div class="photo photo_front" id="photo_{{index}}">
         <div class="photo-wrap"> <!-- photo-wrap负责翻转 -->
+            <!-- side-front 正面样式 -->
             <div class="side side-front">
                 <p class="image"><img src="" alt=""/></p>
                 <p class="caption">{{caption}}</p>
             </div>
+            <!-- side-back 反面样式 -->
             <div class="side side-back">
                 <p class="desc">{{desc}}</p>
             </div>
