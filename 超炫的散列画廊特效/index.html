@@ -3,33 +3,207 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>超炫的散列画廊特效</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 </head>
 <body>
 <div class="wrap" id="wrap">
     <!-- photo_center添加这条样式就会居中显示
          photo负责平移和旋转,改变photo_front为photo_back就会旋转
      -->
-    <div class="photo photo_front" id="photo_{{index}}">
+    <div class="photo photo_front">
         <div class="photo-wrap"> <!-- photo-wrap负责翻转 -->
             <!-- side-front 正面样式 -->
             <div class="side side-front">
-                <p class="image"><img src="" alt=""/></p>
-                <p class="caption">{{caption}}</p>
+                <p class="image"><img src="img/1.jpg" alt=""/></p>
+                <p class="caption">恋爱通告</p>
             </div>
             <!-- side-back 反面样式 -->
             <div class="side side-back">
-                <p class="desc">{{desc}}</p>
+                <p class="desc">中国台湾|98分钟|2010年8月12日</p>
             </div>
         </div>
+    </div>
+    <div class="nav" id="nav">
+        <i class="i fa fa-undo">&nbsp;</i>
     </div>
 </div>
 <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
 <script type="text/javascript" src="data.js"></script>
 <script type="text/javascript">
     $(function() {
+        // 输出所有的海报
+        function addPhotos() {
+            var oWrap = $('#wrap');
+            var oNav = $('#nav');
+            var sHtml = '';
+            var nav = '';
 
-    })
+            oWrap.empty();
+            oNav.empty();
+
+            for (var attr in data) {
+                sHtml += '<div class="photo photo_front">';
+                sHtml += '<div class="photo-wrap">';
+                sHtml += '<div class="side side-front">';
+                sHtml += '<p class="image"><img src="img/' + data[attr].img + '" alt=""/></p>';
+                sHtml += '<p class="caption">' + data[attr].caption + '</p>';
+                sHtml += '</div>';
+                sHtml += '<div class="side side-back">';
+                sHtml += '<p class="desc">' + data[attr].caption + '<br>' + data[attr].info_i + '<br> ' + data[attr].info_t + '</p>';
+                sHtml += '</div>';
+                sHtml += '</div>';
+                sHtml += '</div>';
+                // 控制按钮样式
+                nav += '<i class="i"></i>';
+            }
+
+            oNav.append(nav);
+            oWrap.append(sHtml, oNav);
+
+            // 输出海报的时候,进行一次排序
+            rSort(randomNum([0, data.length - 1]));
+
+        }
+
+        // 排序海报
+        function rSort(n) {
+
+            var _photo = $('.photo'); // 存所有海报 (类数组)
+
+            //点击nav导航的时候需要清空样式
+            _photo.attr('style', '');
+
+            // 去掉除了传入n的海报的所有 photo_center photo_back
+            // 根据n传入的值,来确认哪个海报是居中显示
+            _photo.removeClass('photo_center photo_back').eq(n).addClass('photo_center');
+
+
+            // _photo 从类数组转为真正的数组,方便操作
+            var aPhoto = Array.prototype.slice.call(_photo, 0);
+            aPhoto.splice(n, 1); // 把中间的海报分离出来
+
+            // 把海报分为左右区域两个部分
+            var aPhotoLeft = aPhoto.splice(0, Math.ceil(aPhoto.length / 2)); // 小数向上取整
+
+            var aPhotoRight = aPhoto; // 现在的 aPhoto 就是剩余的海报
+
+            var oRange = range(); // 获得左右分区的取值范围
+
+            $.each(aPhotoLeft, function() {
+                $(this).css({
+                    "left": randomNum(oRange.left.x) + "px",
+                    "top": randomNum(oRange.left.y) + "px",
+                    "-webkit-transform": 'rotate(' + randomNum([-150, 150]) + 'deg) scale(1)'
+                })
+            });
+
+            $.each(aPhotoRight, function() {
+                $(this).css({
+                    "left": randomNum(oRange.right.x) + "px",
+                    "top": randomNum(oRange.right.y) + "px",
+                    "-webkit-transform": 'rotate(' + randomNum([-150, 150]) + 'deg) scale(1)'
+                })
+            });
+
+            // 控制按钮处理,当点击其他按钮的时候也会进行一次排序,并清除其他的i_current,i_back
+            var aNav = $('.nav').find('i');
+
+            aNav.removeClass('i_current i_back').eq(n).addClass('i_current');
+
+
+        }
+        addPhotos();
+
+        $('.photo').click(function() {
+            turn($(this));
+        });
+
+        // 点击控制按钮,显示对应每一张海报
+        $('#nav').find('i').click(function() {
+            var index = $(this).index();
+            turn($('.photo').eq(index));
+        });
+
+        // 如果当前的cls中含有photo_front的话,那么就把photo_front换成photo_back
+        // 也就是把正面换成反面
+        function turn(ele) {
+            var clsName = ele.prop('class');
+
+            var n = ele.index(); // 拿到索引编号
+
+            var oNav = $('.nav').find('i').eq(n);
+
+            // 当前海报没有 photo_center 那就要做一次排序,展现出来
+            if (!ele.hasClass('photo_center')) {
+                return rSort(n);
+            }
+
+            // 如果当前海报为正面的话,那么这个海报将会被转为背面
+            if (/photo_front/.test(clsName)) {
+
+                clsName = clsName.replace(/photo_front/, 'photo_back');
+
+                oNav.addClass('i_back');
+
+            } else {
+
+                clsName = clsName.replace(/photo_back/, 'photo_front');
+
+                oNav.removeClass('i_back');
+            }
+
+            ele.prop('class', clsName);
+        }
+
+        // 随机生成一个数字 传入一个数组 [min,max]
+        // 返回 min 和 max 之间的数字
+        function randomNum(range) {
+            // 区分 min max
+            var max = Math.max(range[0], range[1]);
+
+            var min = Math.min(range[0], range[1]);
+
+            var diff = max - min; // 差值  [1,6] => 5(0~5) =>(0~5) + min (1~6)
+
+            // Math.random() 返回 0-1 之间的小数
+            return Math.ceil((Math.random() * diff + min));
+        }
+
+        // 计算左右分区随机的范围 返回 {left:{x:[min,max],y:[min,max]},right:{}}
+        function range() {
+            var oRange = {
+                left: {
+                    x: [],
+                    y: []
+                },
+                right: {
+                    x: [],
+                    y: []
+                }
+            };
+
+            var oWrap = {
+                w: $('#wrap').width(),
+                h: $('#wrap').height()
+            };
+            var oPhoto = {
+                w: $('.photo').first().width(),
+                h: $('.photo').first().height()
+            };
+
+
+            // 左右分区 x的取值范围和y的取值范围
+            oRange.left.x = [0 - oPhoto.w, oWrap.w / 2 - oPhoto.w / 2];
+            oRange.left.y = [0 - oPhoto.h, oWrap.h];
+
+            oRange.right.x = [oWrap.w / 2 + oPhoto.w / 2, oWrap.w + oPhoto.w];
+            oRange.right.y = oRange.left.y;
+
+            return oRange;
+        }
+
+    });
 </script>
 </body>
 </html>

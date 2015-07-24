@@ -113,6 +113,13 @@ Json 与 数组的区别  json 的下标 是一个字符串   数组的下标是数字  json 没有length
 
 getAttribute() 兼容问题  如果是获取class 那么高等级的浏览器没有问题 IE7需要用className
 
+
+/*
+ * client字面意思的理解是,客户端,在我们的视窗中,客户端就是浏览器。
+ * clientHeight就是浏览器可视范围的高度,clientWidth同理。
+ * 对于client与offest之间的区别是,client仅仅是可视范围,并不包括滚动条的高度。
+ * */
+
 removeChild 的一些问题
 <ul id="demo">
 <li>a</li>
