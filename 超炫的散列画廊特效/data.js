@@ -108,8 +108,8 @@ for (var i = 0; i < d.length; i++) {
 		info_d: oInfo[0],
 		info_a: oInfo[1],
 		info_t: oInfo[2],
-		info_i: oInfo[3],
+		info_i: oInfo[3]
 	});
-};
+}
 
 // console.log(data);

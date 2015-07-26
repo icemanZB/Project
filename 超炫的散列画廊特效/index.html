@@ -172,6 +172,8 @@
 
         // 计算左右分区随机的范围 返回 {left:{x:[min,max],y:[min,max]},right:{}}
         function range() {
+            var $wrap=$('#wrap');
+            var $photo=$('.photo');
             var oRange = {
                 left: {
                     x: [],
@@ -184,12 +186,12 @@
             };
 
             var oWrap = {
-                w: $('#wrap').width(),
-                h: $('#wrap').height()
+                w: $wrap.width(),
+                h: $wrap.height()
             };
             var oPhoto = {
-                w: $('.photo').first().width(),
-                h: $('.photo').first().height()
+                w: $photo.first().width(),
+                h: $photo.first().height()
             };
 
 
