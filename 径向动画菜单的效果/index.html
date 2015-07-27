@@ -114,7 +114,7 @@
         var isLocated = false;
 
         $('.nav-wrap').on('click', '.main-nav', function (e) {
-            e.preventDefault();
+            e.preventDefault();  // 阻止默认行为
 
             var navWrap = $(this).parent(), // 动画效果的父容器
                 navs = navWrap.find('nav a'); // 父容器中的所有子菜单

@@ -1,1 +1,15 @@
-css选择器中的 '>' ?
+css选择器中的 '>' 如果不希望选择任意的后代元素,而是只选择某个元素的子元素,使用子元素选择器(Child selector)
+E > F 子元素选择器,匹配所有E元素的子元素F
+<style type="text/css">
+	h1 > strong {color:red;}  /* 就只有第一个h1下面的strong文字变红 */
+</style>
+<h1>
+	This is <strong>very</strong> <strong>very</strong> important.
+</h1>
+<h1>This is
+	<em>really
+		<strong>very</strong>
+	</em> important.
+</h1>
+
+http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  css选择器
