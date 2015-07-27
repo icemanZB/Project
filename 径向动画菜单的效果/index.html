@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>径向动画菜单的效果</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #292a38;
+            font-family: "微软雅黑";
+        }
+
+        h1, h2 {
+            margin-top: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* 整个动画场景的容器 */
+        .nav-wrap {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 50px auto;
+            border: 2px dotted #4e5061;
+            border-radius: 50%;
+        }
+
+        /* nav的宽度和高度随着父级走,撑满整个容器 */
+        .nav-wrap nav {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            /* transform: scale(0) 缩小初始值为0 */
+            transform: scale(0);
+            /* 设置平滑过渡 */
+            transition: all 0.5s ease-out;
+            opacity: 0;
+        }
+
+        /* 点击按钮时, transform: scale(1) 放大为正常倍数 */
+        .nav-wrap.active nav {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .nav-wrap nav > a {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #f44283;
+            text-align: center;
+            line-height: 30px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 3px;
+            text-shadow: 1px 1px 0 #000;
+            /*
+                第一个 <a> 的左上角默认对着盒子 nav-wrap 的左角
+                但是应该是盒子的左角对准a的中心点,所以进行了平移
+            */
+            transform: translate(-50%, -50%);
+        }
+
+        /* 点击按钮的样式 */
+        .nav-wrap .main-nav {
+            position: absolute;
+            /* 设置left,top,transform:translate(-50%,-50%) 相对于父容器水平垂直居中 */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 3px;
+            text-shadow: 1px 1px 0 #000;
+            background: #15a5f3;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<h1>径向动画菜单效果分步演示</h1>
+
+<h2>http://anjia.github.io/2015/02/02/code_point_circleMenu/</h2>
+
+<div class="nav-wrap">
+    <nav>
+        <a class="nav-item">1</a>
+        <a class="nav-item">2</a>
+        <a class="nav-item">3</a>
+        <a class="nav-item">4</a>
+        <a class="nav-item">5</a>
+        <a class="nav-item">6</a>
+        <a class="nav-item">7</a>
+        <a class="nav-item">8</a>
+    </nav>
+    <a class="main-nav">点我</a>
+</div>
+<script src="../js/jquery-2.0.2.js"></script>
+<script type="text/javascript">
+    (function () {
+
+        // 避免每次点击按钮时都会重新计算他们的位置(当菜单没被激活时)
+        var isLocated = false;
+
+        $('.nav-wrap').on('click', '.main-nav', function (e) {
+            e.preventDefault();
+
+            var navWrap = $(this).parent(), // 动画效果的父容器
+                navs = navWrap.find('nav a'); // 父容器中的所有子菜单
+
+            // 当子菜单没有被激活时,动态计算各个子菜单的位置
+            if (!navWrap.hasClass('active') && !isLocated) {
+
+                // 圆的半径 raduis = 父容器宽度的一半
+                var width = navWrap.width(),
+                    radius = width / 2;
+
+                // 圆形菜单的起始、终止角度
+                var startAngle = 0,
+                    endAngle = 360;
+
+                // 两个子菜单间的夹角 gap
+                var total = navs.length,  // 所有子菜单的个数
+                    gap = (endAngle - startAngle) / total;
+
+                // 角度 -> 弧度
+                var radian = Math.PI / 180;
+
+
+                /*
+                 * 计算并确定各个子菜单的最终位置
+                 */
+                $.each(navs, function (index) {
+
+                    // 当前子菜单与x轴正向的夹角 θ (角度->弧度)
+                    var myAngle = (startAngle + gap * index) * radian;  // θ
+
+                    // 计算当前子菜单相对于左上角(0,0)的坐标 (x,y),也就是求出圆上任意一点的位置
+                    var myX = radius + radius * Math.cos(myAngle), // x=r+r*cos(θ)
+                        myY = radius + radius * Math.sin(myAngle); // y=r+r*sin(θ)
+
+                    // 设置当前子菜单的位置 (left,top) = (x,y)
+                    $(this).css({
+                        left: myX + 'px',
+                        top: myY + 'px'
+                    });
+                });
+
+                isLocated = true;
+            }
+
+            navWrap.toggleClass('active');
+        });
+
+    })();
+</script>
+</body>
+</html>
