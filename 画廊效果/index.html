@@ -44,7 +44,16 @@
                 }
             }
 
-            // 在设置top,left值的时候,不能同时,转为绝对定位
+            /**
+             * 在设置top,left值的时候,不能同时,转为绝对定位,因为有 css 解析问题
+             * 用js设置css样式的时候,在同一个代码块中,有些css样式的设置的权限要高于其他的样式
+             * 那么 absolute 的优先级高于 obj.offsetLeft
+             * 可以这样理解 offsetLeft 要先获取在设置,而absolute直接设置就可以了
+             * 那么先定位,后获取到的 offsetLeft 的值就是定位后的值那就不是我们想要的
+             * 所以要先 获取到 offsetLeft 赋值到 left 之后 在转绝对定位
+             * 如果有margin值的话需要清零 aLi[i].style.margin=0;
+             *
+             */
             for (var i = 0; i < aLi.length; i++) {
                 aLi[i].style.position = 'absolute';
             }
