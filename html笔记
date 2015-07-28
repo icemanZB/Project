@@ -12,4 +12,14 @@ E > F 子元素选择器,匹配所有E元素的子元素F
 	</em> important.
 </h1>
 
+css 倒影
+ -webkit-box-reflect: below 0px -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(transparent),
+        color-stop(50%, transparent),
+        to(rgba(255, 255, 255, .3))
+    );
+
 http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  css选择器

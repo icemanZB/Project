@@ -243,6 +243,8 @@ http://blog.sina.com.cn/s/blog_6f6360250101hjo7.html js兼容问题
     };
 
 
+技巧
+奇偶数使用  ['','main-i_right'][i%2]
 
 关注的网站
 http://codepen.io/

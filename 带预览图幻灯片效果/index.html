@@ -27,37 +27,57 @@
     </div>
 </div>
 <script type="text/javascript">
-    var data = [
-        {img: 1, h2: 'Creative', h3: 'DUET'},
-        {img: 2, h2: 'Friendly', h3: 'DEVIL'},
-        {img: 3, h2: 'Tranquitlent', h3: 'COMPATRIOT'},
-        {img: 4, h2: 'Insecure', h3: 'HUSSLER'},
-        {img: 5, h2: 'Loving', h3: 'REBEL'},
-        {img: 6, h2: 'Passionate', h3: 'SEEKER'},
-        {img: 7, h2: 'Crazy', h3: 'FRIEND'}
-    ];
+    var data = [{
+        img: 1,
+        h2: 'Creative',
+        h3: 'DUET'
+    }, {
+        img: 2,
+        h2: 'Friendly',
+        h3: 'DEVIL'
+    }, {
+        img: 3,
+        h2: 'Tranquitlent',
+        h3: 'COMPATRIOT'
+    }, {
+        img: 4,
+        h2: 'Insecure',
+        h3: 'HUSSLER'
+    }, {
+        img: 5,
+        h2: 'Loving',
+        h3: 'REBEL'
+    }, {
+        img: 6,
+        h2: 'Passionate',
+        h3: 'SEEKER'
+    }, {
+        img: 7,
+        h2: 'Crazy',
+        h3: 'FRIEND'
+    }];
 
     function addSliders() {
-         var oMain = $('#template_main');
-         oMain.empty();
-         var strMain='';
-         var oCtrl = $('#template_ctrl');
-         oCtrl.empty();
-         var strCtrl='';
-         var strBackground='';
+        var oMain = $('#template_main');
+        oMain.empty();
+        var strMain = '';
+        var oCtrl = $('#template_ctrl');
+        oCtrl.empty();
+        var strCtrl = '';
+        var strBackground = '';
 
         for (var i = 0; i < data.length; i++) {
             // 随机出现在左侧和右侧 ['','main-i_right'][i%2]
-            strMain +='<div class="main-i '+['','main-i_right'][i%2]+'">';
-            strMain +='<div class="caption">';
-            strMain +='<h2>'+data[i].h2+'</h2><h3>'+data[i].h3+'</h3>';
-            strMain +='</div>';
-            strMain +='<img src="img/'+data[i].img+'.jpg" alt="" />';
-            strMain +='</div>';
+            strMain += '<div class="main-i ' + ['', 'main-i_right'][i % 2] + '">';
+            strMain += '<div class="caption">';
+            strMain += '<h2>' + data[i].h2 + '</h2><h3>' + data[i].h3 + '</h3>';
+            strMain += '</div>';
+            strMain += '<img src="img/' + data[i].img + '.jpg" alt="" />';
+            strMain += '</div>';
 
-            strCtrl +='<a href="javascript:;" class="ctrl-i">';
-            strCtrl +='<img src="img/'+data[i].img+'.jpg" alt=""/>';
-            strCtrl +='</a>';
+            strCtrl += '<a href="javascript:;" class="ctrl-i">';
+            strCtrl += '<img src="img/' + data[i].img + '.jpg" alt=""/>';
+            strCtrl += '</a>';
         }
 
         oMain.append(strMain);
@@ -67,19 +87,19 @@
         $('.ctrl-i').first().addClass('ctrl-i_active');
 
         // 添加#main_background 为了切换的时候不留白
-        strBackground +='<div class="main-i" id="main_background">';
-        strBackground +='<div class="caption">';
-        strBackground +='<h2>'+data[0].h2+'</h2><h3>'+data[0].h3+'</h3>';
-        strBackground +='</div>';
-        strBackground +='<img src="img/'+data[0].img+'.jpg" alt="" class="picture"/>';
-        strBackground +='</div>';
+        strBackground += '<div class="main-i" id="main_background">';
+        strBackground += '<div class="caption">';
+        strBackground += '<h2>' + data[0].h2 + '</h2><h3>' + data[0].h3 + '</h3>';
+        strBackground += '</div>';
+        strBackground += '<img src="img/' + data[0].img + '.jpg" alt="" class="picture"/>';
+        strBackground += '</div>';
 
         oMain.append(strBackground);
     }
 
-    $(function () {
+    $(function() {
         addSliders();
-        $('#template_ctrl').find('a').click(function(){
+        $('#template_ctrl').find('a').click(function() {
             var n = $(this).index();
             // 获得所有的幻灯片和控制按钮,并清除其样式,添加当前的样式
             $('.main-i').removeClass('main-i_active').eq(n).addClass('main-i_active');
@@ -88,9 +108,9 @@
             // 切换时,复制上一个幻灯片到main_background中
             // 当我切换到当前的幻灯片的时候,背景图片马上换了,所以要等一下在换
             // 切换完成以后才把背景图片变成当前这一张图
-            setTimeout(function(){
+            setTimeout(function() {
                 $('#main_background').html($('.main-i').eq(n).html());
-            },1000);
+            }, 1000);
 
         });
 
