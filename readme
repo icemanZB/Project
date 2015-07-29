@@ -113,6 +113,39 @@ Json 与 数组的区别  json 的下标 是一个字符串   数组的下标是数字  json 没有length
 
 getAttribute() 兼容问题  如果是获取class 那么高等级的浏览器没有问题 IE7需要用className
 
+http://www.cnblogs.com/2050/archive/2012/07/14/2591594.html
+用innerHTML插入html代码中有样式表时需注意的地方
+  document.getElementById('div').innerHTML='<style>p{background:#f00}</style><p>我是p标签</p>';
+注意到在IE中，代码中的<style>p{background:#f00}</style> 这段样式声明并没有起作用
+解决方法：在样式表前必须要有其他的html代码，即使是一个 &nbsp 也行。
+
+判断页面所有图片加载完成
+<script>
+先得出图片的数量，然后在每一张图片加载完后的事件中把先前得出的图片数量减1，再判断最后的结果是不是0，如果是0则意味着所有图片都加载完了
+var imgNum=$('img').length;
+$('img').load(function(){
+    if(!--imgNum){alert('All images loaded')}
+})
+</script>
+
+数据类型转换
+[]+1+3  //结果为13
+[1]+3   //结果为13
+null+1+3  //结果为4
+
+转换成数字
++x //使用一个一元的加号运算符，这是最快的方法
+x-0 或 x*1 //另一种形式
+Number(x)  //使用不带new的数字构造函数进行转换
+
+对象和函数总是被转换成NaN, undefined也会被转换成NaN, 但null会被转换成0
+alert(+[]);  //结果为0
+alert(+[1]); //结果为1
+alert(+[1,2]); //结果为NaN
+alert(+new Array(1)); //结果为0
+alert(+new Array(1,2)); //结果为NaN
+
+
 
 /*
  * client字面意思的理解是,客户端,在我们的视窗中,客户端就是浏览器。
@@ -251,5 +284,55 @@ http://codepen.io/
 http://web.jobbole.com/82870/  js 单例模式
 http://www.nowcoder.com/828779 牛客网 做面试题
 http://www.oxcoder.com/index.action / http://www.oxcoder.com/index.htm 猿圈 目前没有开设前端
+http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812 margin负值
 
 问题:  mouseenter mouseleave 已经解决
+
+延迟加载    延迟加载，也称惰性加载，惰性载入等。延迟加载意味着在信息被使用前不会做任何操作：
+function addHandler(target, eventType, handler) {
+  if (target.addEventListener) {  // DOM2 Events
+    addHandler = function(target, eventType, handler) {
+      target.addEventListener(eventType, handler, false);
+    };
+  } else {  // IE
+    addHandler = function(target, eventType, handler) {
+      target.attachEvent('on' + eventType, handler);
+    };
+  }
+  addHandler(target, eventType, handler);
+}
+
+// 调用
+addHandler(document, 'click', function() {
+  console.log('hello world');
+});
+
+addHandler(window, 'keydown', function() {
+  console.log('key down');
+});
+方法在第一次被调用时，会先检查并决定使用哪种方法去绑定事件处理器，然后原始函数被包含正确操作的新函数覆盖。
+最后一步调用新的函数（也可以直接return 新的函数），并传入原始参数。
+之后的每次调用addHandler()都不会再做检测，因为检测代码已经被新的函数覆盖。
+
+调用延迟加载函数时，第一次总会消耗较长的时间，因为它必须运行检测接着再调用另一个函数完成任务，
+但随后调用函数会变快，因为不需要再进行检测。当一个函数在页面中不会立即调用时，延迟加载是最好的选择。
+
+条件预加载 条件预加载会在脚本加载期间提前检测，而不会等到函数被调用：
+var addHandler = document.addEventListener ?
+  function(target, eventType, handler) {
+    target.addEventListener(eventType, handler, false);
+  }:
+  function(target, eventType, handler) {
+    target.attachEvent('on' + eventType, handler);
+  };
+
+// 调用
+addHandler(document, 'click', function() {
+  console.log('hello world');
+});
+
+addHandler(window, 'keydown', function() {
+  console.log('key down');
+});
+条件预加载确保所有函数消耗的时间相同，其代价是需要在脚本加载时就检测，而不是加载后。
+预加载适用于一个函数马上就要被用到，并且在整个页面的生命周期中频繁出现的场合
