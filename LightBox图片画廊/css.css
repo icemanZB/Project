@@ -98,6 +98,7 @@ abbr, acronym {
 }
 #lightbox-popup .lightbox-pic-caption {
     position: relative;
+    z-index: 2;
     margin: -60px 5px 0 5px;
     background-color: rgba(0, 0, 0, .5);
 }

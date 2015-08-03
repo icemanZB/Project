@@ -1,8 +1,14 @@
 ;
 (function($) {
 
-	var LightBox = function() {
+	var LightBox = function(settings) {
 		var self = this;
+
+		this.settings = {
+			speed: 500
+		};
+
+		$.extend(this.settings, settings || {});
 
 		// 创建遮罩和弹出框
 		this.mask = $('<div id="lightbox-mask">');
@@ -50,12 +56,113 @@
 			// 初始化弹框 传入当前点击的对象
 			self.initPopup($(this));
 
-		})
+		});
+
+		// 关闭弹出框
+		this.mask.click(function() {
+			$(this).fadeOut();
+			self.popup.fadeOut();
+			this.clear = false;
+		});
+
+		this.closeBtn.click(function() {
+			self.mask.fadeOut();
+			self.popup.fadeOut();
+			this.clear = false;
+		});
+
+		this.flag = true;
+
+		// 绑定上下切换的事件
+		this.nextBtn.hover(function() {
+			if (!$(this).hasClass('disabled') && self.groupData.length > 1) {
+				$(this).addClass('next-show');
+			}
+		}, function() {
+			if (!$(this).hasClass('disabled') && self.groupData.length > 1) {
+				$(this).removeClass('next-show');
+			}
+		}).click(function(ev) {
+			if (!$(this).hasClass('disabled') && self.flag) {
+				self.flag = false;
+				ev.stopPropagation();
+				self.tabClick("next");
+			}
+		});
+
+		this.prevBtn.hover(function() {
+			if (!$(this).hasClass('disabled') && self.groupData.length > 1) {
+				$(this).addClass('prev-show');
+			}
+		}, function() {
+			if (!$(this).hasClass('disabled') && self.groupData.length > 1) {
+				$(this).removeClass('prev-show');
+			}
+		}).click(function(ev) {
+			if (!$(this).hasClass('disabled') && self.flag) {
+				self.flag = false;
+				ev.stopPropagation();
+				self.tabClick("prev");
+			}
+		});
+
+		// 绑定窗口调整事件
+		var timer = null;
+		this.clear = false;
+		$(window).resize(function() {
+			if (self.clear) {
+				// 防止连续调整
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					self.loadPicSize(self.groupData[self.index].src);
+				}, 500);
+			}
+
+		});
+
 	};
 	LightBox.prototype = {
 
+		tabClick: function(dir) {
+			if (dir === "next") {
+				this.index++;
+				if (this.index >= this.groupData.length - 1) {
+					this.nextBtn.addClass('disabled').removeClass('next-show');
+				}
+				// 显示向上切换的按钮
+				if (this.index !== 0) {
+					this.prevBtn.removeClass('disabled');
+				}
+
+				var srcPic = this.groupData[this.index].src;
+
+				this.loadPicSize(srcPic);
+
+			} else if (dir === "prev") {
+				this.index--;
+				if (this.index <= 0) {
+					this.prevBtn.addClass('disabled').removeClass('prev-show');
+				}
+
+				if (this.index !== this.groupData.length - 1) {
+					this.nextBtn.removeClass('disabled');
+				}
+
+				var srcPic = this.groupData[this.index].src;
+
+				this.loadPicSize(srcPic);
+			}
+
+		},
+
 		loadPicSize: function(sourceSrc) {
 			var self = this;
+			// 每一次点击时候的图片的宽高设为自动,保证下一次点的时候是新加载进来的图片宽高
+			self.popupPic.css({
+				"width": "auto",
+				"hieght": "auto"
+			}).hide();
+			// this.picCaptionArea.hide();
 			// 判断图片是否完成加载 加载完成就给  this.popupPic 图片上来,相应的获取宽高
 			this.preLoadImg(sourceSrc, function() {
 				self.popupPic.attr('src', sourceSrc); // 图片加载完成设置弹出框的图片的src
@@ -86,20 +193,24 @@
 			this.picViewArea.animate({
 				"width": picWidth - 10,
 				"height": picHeight - 10
-			});
+			}, self.settings.speed);
 			// 设置水平垂直居中
 			this.popup.animate({
 				"width": picWidth,
 				"height": picHeight,
 				"margin-left": -picWidth / 2,
 				"top": (winHeight - picHeight) / 2 // (当前视口的高度-图片的高度) / 2
-			}, function() {
+			}, self.settings.speed, function() {
 				self.popupPic.css({
 					"width": picWidth - 10,
 					"height": picHeight - 10
 				}).fadeIn();
 
 				self.picCaptionArea.fadeIn();
+
+				self.flag = true;
+				self.clear = true;
+
 			});
 
 			// 设置描述文字和当前的索引
@@ -134,9 +245,6 @@
 
 			// 显示遮罩层
 			this.showMaskAndPopup(sourceSrc, currentID);
-
-
-
 		},
 
 		showMaskAndPopup: function(sourceSrc, currentID) {
@@ -172,7 +280,7 @@
 				"top": -viewHeight // 先设置到看不到的位置,所以是负的,在通过动画展现出来
 			}).animate({
 				"top": (winHeight - viewHeight) / 2 // 动画过渡到当前视口的垂直位置的中间(当前视口的高度-自身的高度)/2
-			}, function() {
+			}, self.settings.speed,function() {
 				// 加载图片
 				self.loadPicSize(sourceSrc);
 			});
