@@ -62,13 +62,13 @@
 		this.mask.click(function() {
 			$(this).fadeOut();
 			self.popup.fadeOut();
-			this.clear = false;
+			self.clear = false;
 		});
 
 		this.closeBtn.click(function() {
 			self.mask.fadeOut();
 			self.popup.fadeOut();
-			this.clear = false;
+			self.clear = false;
 		});
 
 		this.flag = true;
@@ -124,6 +124,7 @@
 	LightBox.prototype = {
 
 		tabClick: function(dir) {
+			var srcPic = "";
 			if (dir === "next") {
 				this.index++;
 				if (this.index >= this.groupData.length - 1) {
@@ -134,7 +135,7 @@
 					this.prevBtn.removeClass('disabled');
 				}
 
-				var srcPic = this.groupData[this.index].src;
+				srcPic = this.groupData[this.index].src;
 
 				this.loadPicSize(srcPic);
 
@@ -148,7 +149,7 @@
 					this.nextBtn.removeClass('disabled');
 				}
 
-				var srcPic = this.groupData[this.index].src;
+				srcPic = this.groupData[this.index].src;
 
 				this.loadPicSize(srcPic);
 			}
@@ -168,6 +169,7 @@
 				self.popupPic.attr('src', sourceSrc); // 图片加载完成设置弹出框的图片的src
 				var picWidth = self.popupPic.width();
 				var picHeight = self.popupPic.height();
+				console.log(picWidth + " : " + picHeight);
 				// 改变图片的宽高
 				self.changePic(picWidth, picHeight);
 			});
@@ -182,7 +184,7 @@
 			// 如果图片的宽高大于浏览器视口的宽高,就看下图片的宽高是否溢出
 			// 10 是图片的边框
 			// 计算宽高比例 极端情况 图片与浏览器宽高相同 就取1
-			var scale = Math.min(winWidth / (picWidth + 10), winHeight / (picHeight + 10), 1);
+			var scale = Math.min(winWidth / (picWidth + 10), winHeight / (picHeight + 10));
 
 			// 现在计算出来的宽高是 .lightbox-pic-view 的 div 宽高
 			// 并不是图片的宽高,所以用的时候要减掉10个边框
@@ -239,8 +241,7 @@
 		},
 
 		initPopup: function(obj) {
-			var self = this,
-				sourceSrc = obj.data('source'),
+			var sourceSrc = obj.data('source'),
 				currentID = obj.data('id');
 
 			// 显示遮罩层
@@ -280,7 +281,7 @@
 				"top": -viewHeight // 先设置到看不到的位置,所以是负的,在通过动画展现出来
 			}).animate({
 				"top": (winHeight - viewHeight) / 2 // 动画过渡到当前视口的垂直位置的中间(当前视口的高度-自身的高度)/2
-			}, self.settings.speed,function() {
+			}, self.settings.speed, function() {
 				// 加载图片
 				self.loadPicSize(sourceSrc);
 			});
