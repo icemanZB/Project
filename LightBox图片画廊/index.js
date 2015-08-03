@@ -183,7 +183,7 @@
 
 			// 如果图片的宽高大于浏览器视口的宽高,就看下图片的宽高是否溢出
 			// 10 是图片的边框
-			// 计算宽高比例 极端情况 图片与浏览器宽高相同 就取1
+			// 计算宽高比例 极端情况 图片与浏览器宽高相同
 			var scale = Math.min(winWidth / (picWidth + 10), winHeight / (picHeight + 10));
 
 			// 现在计算出来的宽高是 .lightbox-pic-view 的 div 宽高
