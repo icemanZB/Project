@@ -75,7 +75,7 @@ margin-right:15px;font: 13px/30px "Arial";}
 /* ad */
 #ad{ width: 940px; height: 300px; position: relative; margin: 0 auto;}
 #ad ul{ position: absolute;top: 0;left: 0; z-index: 1;}
-#ad li{ position: absolute;top: 0;left: 0;}
+#ad li{ position: absolute;top: 0;left: 0; filter: alpha(opacity=0); opacity: 0;}
 #ad h2{ width: 268px; position: absolute;left: 0; bottom: 8px; z-index: 3; font-size:25px; color:#ffc600;
 	text-align: center;}
 #ad p{ width: 630px; position: absolute;left: 268px; bottom: 7px; z-index: 3; color: #fcc;
