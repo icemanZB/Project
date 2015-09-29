@@ -26,7 +26,7 @@ function getStyle(obj, name) {
  如果是写到样式表 就用getStyle();
  10、 运动属性的参数
  11、 运动执行完成调用
- 12、 json： {width:500,height:400}  for(var name in json){json[name]=500}
+ 12、 json： {width:500,height:400}  for(var attr in json){json[attr]=500}
  13、 等所有的东西都到了 才关闭定时器
 
  */
@@ -40,15 +40,16 @@ function startMove(obj, json, fnEnd) {
 
         var bStop = true; // 假设：所有的值都已经到了
 
-        for (var name in json) {
-            var iTarget = json[name]; // 目标点
+        for (var attr in json) {
+
+            var iTarget = json[attr]; // 目标点
 
             //处理透明度，不能使用parseInt否则就为0了
-            if (name == 'opacity') {
+            if (attr == 'opacity') {
                 // *100 会有误差 0000007 之类的 所以要用 Math.round() 会四舍五入
-                var cur = Math.round(parseFloat(getStyle(obj, name)) * 100);
+                var cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
             } else {
-                var cur = parseInt(getStyle(obj, name)); // cur 当前移动的数值
+                var cur = parseInt(getStyle(obj, attr)); // cur 当前移动的数值
             }
 
             var speed = (iTarget - cur) / 5; // 物体运动的速度 数字越小动的越慢  /5 : 自定义的数字
@@ -61,11 +62,11 @@ function startMove(obj, json, fnEnd) {
                 speed = json[speed];
             }
 
-            if (name == 'opacity') {
+            if (attr == 'opacity') {
                 obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')'; //IE
                 obj.style.opacity = (cur + speed) / 100; //ff chrome
             } else {
-                obj.style[name] = cur + speed + 'px';
+                obj.style[attr] = cur + speed + 'px';
             }
 
             // 某个值不等于目标点
@@ -88,3 +89,81 @@ function startMove(obj, json, fnEnd) {
 }
 
 
+function shake(obj, attr, endFn) {
+
+    if (obj.onOff) {
+        return;
+    }
+    obj.onOff = true;
+
+    var pos = parseInt(getStyle(obj, attr));
+
+    var arr = [];
+    var num = 0;
+
+    for (var i = 10; i > 0; i -= 2) {
+        arr.push(i, -i);
+    }
+    arr.push(0);
+
+    clearInterval(obj.shake);
+    obj.shake = setInterval(function () {
+        obj.style[attr] = pos + arr[num] + 'px';
+        num++;
+        if (num === arr.length) {
+            clearInterval(obj.shake);
+            endFn && endFn();
+            obj.onOff = false;
+        }
+    }, 70);
+}
+
+
+function doMove(obj, attr, dir, target, endFn) {
+
+    dir = parseInt(getStyle(obj, attr)) < target ? dir : -dir;
+
+    clearInterval(obj.timer);
+
+    obj.timer = setInterval(function () {
+
+        var speed = parseInt(getStyle(obj, attr)) + dir;
+
+        if (speed > target && dir > 0 || speed < target && dir < 0) {
+            speed = target;
+        }
+
+        obj.style[attr] = speed + 'px';
+
+        if (speed == target) {
+            clearInterval(obj.timer);
+            endFn && endFn();
+        }
+
+    }, 30);
+}
+
+function opacity(obj, num, target, endFn) {
+
+    num = getStyle(obj, 'opacity') * 100 < target ? num : -num;
+
+    clearInterval(obj.opacity);
+
+    obj.opacity = setInterval(function () {
+
+        var speed = parseInt(getStyle(obj, 'opacity') * 100) + num;
+
+        if (speed > target && num > 0 || speed < target && num < 0) {
+            speed = target;
+        }
+
+        obj.style.opacity = speed / 100;
+        obj.style.filter = 'alpha(opacity=' + speed + ')';
+
+        if (speed == target) {
+            clearInterval(obj.opacity);
+            endFn && endFn();
+        }
+
+    }, 20);
+}

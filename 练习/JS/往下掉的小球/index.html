@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>往下掉的小球</title>
+    <script src="../../../js/move_new.js"></script>
+    <style>
+        img { width: 100px; height: 100px; position: absolute; top: 20px; border-radius: 50%; }
+    </style>
+    <script>
+        window.onload = function () {
+
+            var str = '';
+            var n = 1;
+            var arr = ['img/1.jpg', 'img/2.jpg', 'img/3.jpg', 'img/4.jpg', 'img/5.jpg'];
+            for (var k = 0; k < 4; k++) {
+                for (var j = 0; j < 8; j++) {
+                    str += '<img style="top:' + (20 + k * 110) + 'px; left:' + (20 + j * 110) + 'px;" ' +
+                    'src="' + arr[n % arr.length] + '" />';
+                    n++;
+                }
+            }
+            document.body.innerHTML = str;
+
+
+            var aImg = document.getElementsByTagName('img');
+
+            for (var i = 0; i < aImg.length; i++) {
+                aImg[i].index = i;
+                aImg[i].onclick = function () {
+                    var arr = getArr(this.index);
+                    var num = n = 0;
+                    var timer = setInterval(function () {
+
+                        // 注意，当第一个抖完以后，num这个数字已经不再是第0个了
+
+                        shake(aImg[arr[num]], 'left', function () {
+                            var iTarget = parseInt(getStyle(aImg[arr[n]], 'top'));
+
+                            doMove(aImg[arr[n]], 'top', 22, iTarget + 300);
+
+                            n++;
+
+                        });
+
+                        num++;
+
+                        if (num === arr.length) {
+                            clearInterval(timer);
+                        }
+
+                    }, 50);
+
+                };
+            }
+            /*
+             * 原理，球掉下去的顺序：
+             *    点击第三个的时候的索引值       2 1 3 0 4 5 6 7
+             *    点击第四个的时候的索引值       3 2 4 1 5 0 6 7
+             *
+             * */
+            function getArr(index) {
+                var arr = [index];
+                var leftNum = rightNum = index;
+                // 找到左右两边最大的数字，作为循环的依据
+                var len = Math.max(index, aImg.length - 1 - index);
+
+                for (var i = 0; i < len; i++) {
+                    if (leftNum > 0) {
+                        arr.push(--leftNum);
+                    }
+                    if (rightNum < aImg.length - 1) {
+                        arr.push(++rightNum);
+                    }
+
+                }
+
+                return arr;
+            }
+
+
+        };
+    </script>
+</head>
+<body>
+<!--<img src="img/1.jpg"/>
+<img src="img/2.jpg"/>
+<img src="img/3.jpg"/>
+<img src="img/4.jpg"/>
+<img src="img/5.jpg"/>
+<img src="img/1.jpg"/>
+<img src="img/2.jpg"/>
+<img src="img/3.jpg"/>-->
+</body>
+</html>
