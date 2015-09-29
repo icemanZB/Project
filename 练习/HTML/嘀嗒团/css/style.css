@@ -1,0 +1,143 @@
+body, h2, ul {
+    margin: 0;
+    padding: 0;
+    font-family: '宋体';
+    font-size: 12px;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    border: none;
+    vertical-align: top;
+}
+
+.clear {
+    zoom: 1;
+}
+
+.clear:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.wrap {
+    width: 1010px;
+    margin: 30px auto;
+}
+
+.content {
+    width: 988px;
+    background: #f3f3f3;
+    margin: 19px 13px 12px 9px;
+    padding: 0 10px;
+}
+
+.nav {
+    height: 36px;
+}
+
+.nav, .area, .topic {
+    width: 968px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.nav li {
+    height: 24px;
+    line-height: 36px;
+    float: left;
+}
+
+.nav li, .area li {
+    padding-left: 20px;
+}
+
+.nav h2 {
+    line-height: 36px;
+}
+
+.nav h2, .topic h2, .area h2 {
+    font-size: 12px;
+    color: #333333;
+    float: left;;
+}
+
+.nav h2, .area h2 {
+    padding-right: 10px
+}
+
+.nav strong, .area strong {
+    color: #878787;
+    font-weight: normal;
+}
+
+.nav li a, .area li a {
+    color: #444444;
+}
+
+.nav li.more, .area li.more {
+    float: right;
+    width: 42px;
+}
+
+.nav li a.more, .area li a.more {
+    color: #ff9900;
+    background: url(../img/more.png) no-repeat right;
+    padding-right: 18px;
+}
+
+.nav li a.hover, .area li a.hover {
+    background: #0066cc;
+    color: #ffffff;
+    padding: 3px 4px;
+}
+
+.area li {
+    height: 24px;
+    float: left;
+    padding-top: 8px;
+}
+
+.area h2, .area .more {
+    padding-top: 9px;
+}
+
+.topic li {
+    height: 43px;
+    padding-left: 10px;
+    float: left;
+}
+
+.topic h2 {
+    padding: 11px 20px 0 0;
+}
+
+.topic .liBg {
+    background: url(../img/liBg.png) repeat-x 0 6px;
+    float: left;
+}
+
+.topic .liBgL {
+    background: url(../img/liBgL.png) no-repeat 0 6px;
+    float: left;
+}
+
+.topic .liBgR {
+    background: url(../img/liBgR.png) no-repeat right 6px;
+    float: left;
+}
+
+.topic a {
+    height: 22px;
+    display: block;
+    padding: 10px 18px 5px 12px;
+    color: #ffffff;
+    float: left;
+}

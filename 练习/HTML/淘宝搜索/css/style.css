@@ -1,0 +1,144 @@
+body, ul, p, form, input {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: "ËÎÌו";
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.clear {
+    zoom: 1;
+}
+
+.clear:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.wrap {
+    width: 631px;
+    margin: 50px auto;
+}
+
+.nav {
+    height: 24px;
+}
+
+.nav li {
+    float: left;
+    padding-right: 4px;
+}
+
+.nav a {
+    float: left;
+}
+
+.nav span {
+    float: left;
+    height: 22px;
+    padding: 2px 13px 0;
+    line-height: 22px;
+    color: #075ad2;
+}
+
+.nav a:hover {
+    background: url(../img/navL.gif) no-repeat;
+}
+
+.nav a:hover span {
+    background: url(../img/navR.gif) no-repeat right 0;
+    color: #ff6800;
+    text-decoration: underline;
+}
+
+.nav .active {
+    position: relative;
+    margin-bottom: -1px;
+    background: url(../img/navAL.gif) no-repeat;
+}
+
+.nav .active span {
+    padding: 2px 15px 1px;
+    background: url(../img/navAR.gif) no-repeat right 0;
+    color: #3e3e3e;
+    font-weight: bold;
+}
+
+.search {
+    float: left;
+    width: 572px;
+    background: url(../img/search.gif) repeat-x;
+}
+
+.searchL {
+    background: url(../img/searchL.gif) no-repeat;
+}
+
+.searchR {
+    background: url(../img/searchR.gif) no-repeat right 0;
+    height: 32px;
+    padding: 3px;
+}
+
+.searchR .text {
+    float: left;
+    width: 416px;
+    height: 16px;
+    background: none;
+    border: none;
+    padding: 8px 10px;
+    line-height: 16px;
+    outline: none;
+}
+
+.btn {
+    width: 130px;
+    height: 32px;
+    background: url(../img/searchBtn.gif) no-repeat;
+    float: left;
+    border: none;
+}
+
+.searchA {
+    float: right;
+    line-height: 18px;
+    width: 48px;
+    padding-top: 2px;
+}
+
+.searchA a {
+    color: #3e3e3e;
+}
+
+.footer {
+    height: 25px;
+    background: url(../img/footer.gif) no-repeat 0 bottom;
+    line-height: 24px;
+    padding-left: 6px;
+}
+
+.footer a,.footer span {
+    margin-left: 9px;
+    float: left;
+    color: #666;
+}
+
+.searchA a:hover, .footer a:hover {
+    color: #ff6606;
+}
+
+.footer .more {
+    background: url(../img/more.gif) no-repeat 0 7px;
+}
+
+.footer .more a {
+    color: #9c9ead;
+}
