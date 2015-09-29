@@ -1,0 +1,94 @@
+body, ul, h2, p {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-family: "Arial", "宋体";
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+img {
+    border: none;
+    vertical-align: top;
+}
+.clear {
+    zoom: 1
+}
+.clear:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.wrap {
+    width: 700px;
+    margin: 50px auto;
+}
+.header {
+    height: 30px;
+    border-left: 5px solid #ff7800;
+    position: relative;
+    margin-bottom: 18px;
+}
+.header .title {
+    height: 0;
+    overflow: hidden;
+    padding-top: 28px;
+    background: url(../img/mv_bg.png) no-repeat 10px 0;
+}
+.header .more {
+    width: 37px;
+    height: 0;
+    overflow: hidden;
+    padding-top: 14px;
+    position: absolute;
+    left: 115px;
+    top: 13px;
+    background: url(../img/mv_bg.png) no-repeat 0 -28px;
+}
+.content ul {
+    margin-right: -20px;
+}
+.content li {
+    width: 160px;
+    float: left;
+    margin: 0 20px 22px 0;
+}
+.content li .name {
+    color: #0f820c;
+}
+.content li .singer {
+    color: #515151;
+}
+.content li p {
+    margin-top: 3px;
+    line-height: 20px;
+}
+.content li .pic {
+    display: block;
+    margin-bottom: 6px;
+    position: relative;
+}
+.content li .pic .icon {
+    width: 32px;
+    height: 21px;
+    position: absolute;
+    top: 0;
+    right: 9px;
+    background: url(../img/mv_bg.png) no-repeat 0 -103px;
+}
+.content li .info {
+    color: #8b8b8b;
+}
+.content li .play_num {
+    float: left;
+    padding-left: 15px;
+    background: url(../img/mv_bg.png) no-repeat 0 -67px;
+    color: #a3a3a3;
+}
+.content li .date {
+    float: right;
+    color: #a3a3a3;
+}

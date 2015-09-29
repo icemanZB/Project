@@ -1,0 +1,72 @@
+body, dl, dd {
+    margin: 0;
+    font-size: 12px;
+    font-family: "ËÎÌו";
+}
+
+a {
+    text-decoration: none;
+    color: #323232;
+}
+
+.list {
+    width: 147px;
+    margin: 30px auto;
+    border: 1px solid #cec0d9;
+    padding-left: 1px;
+    overflow: hidden;
+}
+
+.list dl {
+    width: 73px;
+    float: left;
+    background: url(../img/ico.gif) no-repeat;
+}
+
+.ico2, .ico4, .ico4 {
+    border-left: 1px dashed #dadadc;
+}
+
+.list dt {
+    height: 32px;
+    text-indent: 31px;
+    font-weight: bold;
+    line-height: 26px;
+    background: url(../img/ico.gif) no-repeat;
+}
+
+.list dt a {
+    color: #353535;
+}
+
+.list dd {
+    float: left;
+    padding-left: 8px;
+    height: 25px;
+    line-height: 24px;
+    background: #fff;
+}
+
+.list .ico1 dt {
+    background-position: 0 -27px;
+}
+
+.list .ico2 dt {
+    background-position: 0 -52px;
+}
+
+.list .ico3 dt {
+    background-position: 0 -81px;
+}
+
+.list .ico4 dt {
+    background-position: 0 -108px;
+}
+
+.list .ico5 dt {
+    background-position: 0 -135px;
+}
+
+.list .ico6 dt {
+    background-position: 0 -162px;
+}
