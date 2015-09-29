@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body, ul { padding: 0; margin: 0; }
+
+        ul { position: relative; }
+
+        li { list-style: none; width: 50px; height: 50px; position: absolute; border: 1px solid #000000;
+            line-height: 50px; text-align: center; font-size: 20px; }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("list");
+            var aLi = oUl.getElementsByTagName('li');
+            var arr = ['red', 'yellow', 'blue', 'green'];
+            var str = "";
+            oBtn.onclick = function () {
+                // 向下取整是为了换行处理 1~9 /10 = 0.1...  以此类推去掉小数部分
+                // i%10  就是遇到10变成0
+                for (var i = 0; i < 100; i++) {
+                    str += '<li style="background: ' + arr[i % arr.length] + '; ' +
+                    'top: ' + Math.floor(i / 10) * 55 + 'px; left:' + (i % 10) * 55 + 'px  ">' + i + '</li>';
+                }
+                oUl.innerHTML = str;
+            }
+        };
+    </script>
+</head>
+<body>
+<input id="btn" type="button" value="自动生成100个LI"/>
+<ul id="list">
+</ul>
+</body>
+</html>

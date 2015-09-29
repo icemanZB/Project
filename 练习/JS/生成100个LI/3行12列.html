@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>无标题文档</title>
+</head>
+
+<body>
+
+<script>
+
+    //0 0 0 0 0 0 0 0 0 0 0 0
+    //0 0 0 0 0 0 0 0 0 0 0 0
+    //0 0 0 0 0 0 0 0 0 0 0 0
+
+    var str = '';
+    for (var i = 0; i < 3; i++) {  // 8
+        for (var j = 0; j < 12; j++) {  // 22
+            str += '<div style=" position:absolute; width:50px; height:50px; background:red;' +
+            'top: ' + i * 55 + 'px; left:' + j * 55 + 'px;"></div>';
+        }
+    }
+    document.body.innerHTML = str;
+
+</script>
+
+</body>
+</html>

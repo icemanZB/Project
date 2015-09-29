@@ -66,7 +66,7 @@ body {
     background: -ms-linear-gradient(top, #FFFFFF, #f8f8f8);
     background: linear-gradient(top, #FFFFFF, #f8f8f8);
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#FFFFFF, endColorstr=#f8f8f8)";
-    +background : #f9f9f9; /* css hank IE6,7 */
++ background : #f9f9f9; /* css hank IE6,7 */
 }
 
 .triangle_up, .triangle_down_red, .triangle_down_gray {
@@ -122,7 +122,7 @@ body {
 }
 
 #search {
-    width: 958px;  /* 宽度减掉左右1px的边框 */
+    width: 958px; /* 宽度减掉左右1px的边框 */
     height: 114px;
     margin: 0 auto 10px;
     position: relative;
@@ -409,7 +409,7 @@ body {
     border: 1px solid #c40d0e;
     position: absolute;
     top: 16px;
-    left: -1px;  /* 叠在父级上面 */
+    left: -1px; /* 叠在父级上面 */
     background: #e21c01;
     border-radius: 5px;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.15);
