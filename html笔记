@@ -1,164 +1,164 @@
-padding : �൱�ڸ����Ӽ������ĺ�Ȼ�Ӱ����ӵĴ�С�� padding:top| right | bottom | left
-          ��������ڱ߾�Ҫʹԭ���Ŀ��ߴ�С���䣬��Ҫ��ԭ���Ŀ��ߵĻ����ϼ����ڱ߾�
+padding : 相当于给盒子加了填充的厚度会影响盒子的大小。 padding:top| right | bottom | left
+          如果加了内边距要使原来的宽高大小不变，需要在原来的宽高的基础上减掉内边距
 
-margin : 1����߾� ������߾�����һ��һ�㲻�������ĺ��Ӽ��±߾࣬�ָ�����ĺ��Ӽ��ϱ߾�
-         ����:(����һ�����Ӿ�����margin-bottom:10px,����һ�����Ӿ�����margin-top:10px,
-         ��ô����������֮��Ŀ�϶������10px!!)
-         2�����Ӽ�������ϵ��ʱ���Ӽ���margin-top�ᴫ�ݸ�����
-         ����:(   <div id="box3">
+margin : 1、外边距 上下外边距会叠在一起，一般不会给上面的盒子加下边距，又给下面的盒子加上边距
+         例子:(上面一个盒子居下面margin-bottom:10px,下面一个盒子居上面margin-top:10px,
+         那么这两个盒子之间的空隙就自有10px!!)
+         2、父子级包含关系的时候，子级的margin-top会传递给父级
+         例子:(   <div id="box3">
                     <div id="box4"></div>
                 </div>
-             ) ��ʱ ���box4���� margin-top:100px; ��ʹbox3һ�������100px,��������
-             box4 ����box3���� 100px, ���Ҫ�ﵽ������Ч�� ������ padding-top���
-         3����߾���кܶ�����⣬�ܲ��þ;���������߾�(�����ø������ڱ߾������߾�)
-         4������Ӧ��:margin:0 auto;  --����
+             ) 此时 如果box4加了 margin-top:100px; 会使box3一起掉下来100px,而不会变成
+             box4 距离box3上面 100px, 如果要达到这样的效果 就是用 padding-top替代
+         3、外边距会有很多的问题，能不用就尽量不用外边距(可以用父级的内边距替代外边距)
+         4、特殊应用:margin:0 auto;  --居中
 
-border : һ����ֱ�� dashed(�������ñȽϴ�Ļ�,�����������ʽ���в�ͬ)  dotted(IE6 ������)
+border : 一般用直线 dashed(像素设置比较大的话,各个浏览器样式略有不同)  dotted(IE6 不兼容)
 
-��ģ�� :
+盒模型 :
 
-     ���Ӵ�С=border + padding + width/height
-     ���ӿ���=��border + ��padding + width + ��padding + ��border
-     ���Ӹ߶�=��border + ��padding + height + ��padding + ��border
-    IE��Ⱦ�Ŀ��� ��margin+border+padding+content
+     盒子大小=border + padding + width/height
+     盒子宽度=左border + 左padding + width + 右padding + 右border
+     盒子高度=上border + 上padding + height + 下padding + 下border
+    IE渲染的宽度 是margin+border+padding+content
 
-�ṹ��ʽ :
+结构样式 :
 
-    width           ����
-    height          �߶�
-    background      ����(��������)
-    border          �߿�
-    padding         �ڱ߾�
-    margin          ��߾�
+    width           宽度
+    height          高度
+    background      背景(复合属性)
+    border          边框
+    padding         内边距
+    margin          外边距
 
-�ı����� :
+文本设置 :
 
-    font-size           ���ִ�С(һ���Ϊż����chromeĬ�ϴ�СΪ16px������������)
-    font-family         ����(Ĭ������)
-    color               ������ɫ(����ģʽ: Ӣ��(red..)��rgb��ʮ��λ����ɫ��ֵ(#f00), css3 rgba() )
-    line-height         �и�
-    text-align          �ı����뷽ʽ
-    text-indent         ��������(em �����ַ�)
-    font-weight         �������� (bold,normal)
-    font-style          ������б (һ�㲻��б�����֣��û�����ܲ�)
-    text-decoration     �������� (line-through ɾ����;)
-    letter-spacing      ��ĸ��� (������) ͨ������������ұ߻���1px��϶���������letter-spacing:5px;ʵ�ʲ���������6px
-    word-spacing        ���ʼ�� (�����ã��Կո�Ϊ������λ�������Ƿ���һ������)
-    white-space:nowrap; ǿ���ı�������
+    font-size           文字大小(一般均为偶数，chrome默认大小为16px，字体是宋体)
+    font-family         字体(默认宋体)
+    color               文字颜色(三种模式: 英文(red..)、rgb、十六位进制色彩值(#f00), css3 rgba() )
+    line-height         行高
+    text-align          文本对齐方式
+    text-indent         首行缩进(em 缩进字符)
+    font-weight         文字着重 (bold,normal)
+    font-style          文字倾斜 (一般不用斜体文字，用户体验很差)
+    text-decoration     文字修饰 (line-through 删除线;)
+    letter-spacing      字母间距 (不常用) 通常情况下文字右边会有1px间隙，如果设置letter-spacing:5px;实际测量出来是6px
+    word-spacing        单词间距 (不常用，以空格为解析单位，区分是否是一个单词)
+    white-space:nowrap; 强制文本不换行
 
 
-�������� :
-    һ��ĸ�������˳��ûҪ�� font ��ǿ��˳���
+复合属性 :
+    一般的复合属性顺序没要求 font 是强制顺序的
     background:background-color|background-image|background-repeat|background-attachment|background-position
-    border:border-width|border-style �߿���ʽ  solidʵ�� dashed���� dotted����|border-color �߿���ɫ
+    border:border-width|border-style 边框样式  solid实线 dashed虚线 dotted点线|border-color 边框颜色
     padding
     margin
-    font:font-weight| font-style ( italic��б )|font-size/line-height |font-family(������) ������ǿ��˳���
-    font:14px "����"; ��������ʽ��Ҫ�ӣ�������û��Ч���� font������ʽ�������и�
-    .box{ line-height:30px; font:normal 12px '����'; } ��ʱ�� line-height ������Ч����Ϊ�����ߵ�font������
+    font:font-weight| font-style ( italic倾斜 )|font-size/line-height |font-family(不常用) 这里是强制顺序的
+    font:14px "宋体"; 这两个样式都要加，不加是没有效果的 font复合样式包括了行高
+    .box{ line-height:30px; font:normal 12px '宋体'; } 此时的 line-height 设置无效，因为被后者的font覆盖了
 
 
-background ͬʱ�����˱�����ɫ�ͱ���ͼƬ�Ļ�,����ͼƬ�����ȼ��Ǹ��ڱ�����ɫ��
+background 同时设置了背景颜色和背景图片的话,背景图片的优先级是高于背景颜色的
 
-background-position:left; ����ڶ���ֵ������,Ĭ���Ǿ���;������������bottom,û�����õ�һ��ֵ,Ĭ��Ҳ�Ǿ�����ʾ
-                          �����������һ����ֵ100px,ʶ����x��y,��ôĬ����x,y����
-                          ���������ֵ��center,��ô����Ĭ��center center
-                          ���д�� bottom left ���������Ҳ���� left bottom
-                          ������ֵ�Ǹ���padding�����Ͻǿ�ʼ�����
+background-position:left; 如果第二个值不设置,默认是居中;反过来设置了bottom,没有设置第一个值,默认也是居中显示
+                          如果给定的是一个数值100px,识别不了x、y,那么默认是x,y居中
+                          如果给定的值是center,那么就是默认center center
+                          如果写成 bottom left 浏览器解析也会变成 left bottom
+                          设置数值是根据padding的左上角开始计算的
 
-background-repeat: repeat-x;  x��ƽ��,���������background-position:40px; ��ô����ǲ��ֻᲹ��ͼƬ,����ճ���
+background-repeat: repeat-x;  x轴平铺,如果设置了background-position:40px; 那么左边那部分会补上图片,不会空出来
 
-font-size : ҳ���е��������ִ�С��СΪ12px��һ���Ϊż������������(������������)
+font-size : 页面中的中文文字大小最小为12px，一般均为偶数，不用奇数(奇数会有问题)
 
-font-family : ����һ���� ΢���ź�,Arial; ǰ��һ���ֿⲻ��ʶ�Ļ������ö��ź����
-              Ĭ�������壬�����ó�������壬�Է����˵���û�������ֿ�
-              ���������£������������С��һ��
-              ***�������Կ��Լ̳У������ڸ������棬�Ӽ�����Ÿ�����
+font-family : 字体一般用 微软雅黑,Arial; 前面一个字库不认识的话，会用逗号后面的
+              默认是宋体，尽量用常规的字体，以防他人电脑没有这种字库
+              宋体的情况下，数字是字体大小的一半
+              ***文字属性可以继承，设置在父级上面，子集会跟着父级走
 
-line-height : 1�����������иߵ����¾���: �����и߼�϶ 30�и�-18���ִ�С=12/2=6px
-              2������Ӧ�� : �����ں��������¾��еķ���:�����и�����Ӵ�Сһ��
-              3��ie6 �������и߲�����ͼƬ����
+line-height : 1、文字是在行高的上下居中: 计算行高间隙 30行高-18文字大小=12/2=6px
+              2、特殊应用 : 文字在盒子中上下居中的方法:设置行高与盒子大小一样
+              3、ie6 下设置行高不能让图片居中
 
-text-indent : 1��2em; �൱����������2���� �Զ��������ִ�С��������Ӧ������  ( 1em=1�����ִ�С )
-              ��������С��16px�Ļ�,��ô��������2���ַ��Ļ�Ҳ��������Ϊtext-indent:32px;
-              2������Ӧ�� : text-indent:-999px; ��������
+text-indent : 1、2em; 相当于首行缩进2个字 自动检索文字大小，进行相应的缩进  ( 1em=1个文字大小 )
+              如果字体大小是16px的话,那么首行缩进2个字符的话也可以设置为text-indent:32px;
+              2、特殊应用 : text-indent:-999px; 隐藏文字
 
-border ͬһ��Ԫ�����߱߿��ཻ�ĵط���б�� ( ��������border��ȫ����ʽ,�ֵ���������border-top��ʽ�ͻ��ཻ )
+border 同一个元素两边边框相交的地方是斜线 ( 即设置了border的全部样式,又单独设置了border-top样式就会相交 )
 
-img �� alt ����ͼƬ�����֣�������������ʶ���������
+img 中 alt 就是图片的名字，让搜索引擎认识你这个东西
 
-<base target="_blank" />  ����ҳ���������Ӵ򿪷�ʽ���¿�ҳ���
+<base target="_blank" />  定义页面所有链接打开方式，新开页面打开
 
-��ҳ����ĳ����������Ҫ������ҳ��,ֻҪ��a��ǩ��д <a target="_self">����</a>
+若页面中某个超链接需要打开自身页面,只要在a标签中写 <a target="_self">链接</a>
 
-ê�� : <a href="#box1">�ٲ��ɽ�(ê��)</a>
-      <a href="#box2">ҹ������</a>
-      <a href="#box3">���Ӱټ�</a>
+锚点 : <a href="#box1">百步飞剑(锚点)</a>
+      <a href="#box2">夜尽天明</a>
+      <a href="#box3">诸子百家</a>
       <div style="height:1000px;" id="box1">
-      �ٲ��ɽ�<br/><!-- ���з� -->
-      ������������������������
+      百步飞剑<br/><!-- 折行符 -->
+      ………………………………
       </div>
       <div style="height:1000px;" id="box2">
-      ҹ������<br/><!-- ���з� -->
-      ������������������������
+      夜尽天明<br/><!-- 折行符 -->
+      ………………………………
       </div>
 
 
-h1 : һ��һ��ҳ�������һ��( ����logo��),���鲻Ҫд���h1 ��Ҫ��̫�� strong ���ÿ����Ż� (h4,h5,h6������)
-h2 : һ�����ڵ�����
+h1 : 一般一个页面就自有一个( 用在logo上),建议不要写多个h1 不要用太多 strong 不用可以优化 (h4,h5,h6不常用)
+h2 : 一般用在导航上
 
-strong : �ǳ�ǿ��,��һ��ҳ����ʹ��7%-8%
+strong : 非常强烈,在一个页面中使用7%-8%
 
-em : Ҳ��ǿ������,û��strong��ôǿ��,Ĭ����б��
+em : 也是强调作用,没有strong那么强烈,默认是斜体
 
-ol : �����б� <ol><li></li></ol>
+ol : 有序列表 <ol><li></li></ol>
 
 <dl><dt></dt><dd></dd></dl>
 
-p : ��ǩĬ��������16����߾࣬��ʵ��������ֵ���һ������⣬����Ҫ����
+p : 标签默认有上下16个外边距，其实这会有文字叠在一起的问题，所以要重置
 
-section ��� ���ڻ���ҳ���ϵĲ�ͬ����,���߻��������ﲻͬ�Ľ�
+section 版块 用于划分页面上的不同区域,或者划分文章里不同的节
 
-header ҳ��ͷ�����߰�飨section��ͷ��
+header 页面头部或者版块（section）头部
 
-footer ҳ��ײ����ߣ�section���ײ�
+footer 页面底部或者（section）底部
 
-nav ���� ���������ӵĵ�һ���б���
+nav 导航 （包含链接的的一个列表）
 
-article	������ҳ���б�ʾһ�׽ṹ�����Ҷ��������ݲ��֣���������������̳��һ�����ӣ���־��ֽ�е�һƪ���£�
-        һƪ���ͣ��û��ύ���������ݣ��ɻ�����ҳ��ģ��Ҽ��ȡ�
+article	用来在页面中表示一套结构完整且独立的内容部分，可以用来呈现论坛的一个帖子，杂志或报纸中的一篇文章，
+        一篇博客，用户提交的评论内容，可互动的页面模块挂件等。
 
-aside Ԫ�ر�ǩ���԰����뵱ǰҳ�����Ҫ������ص����á����������桢navԪ���飬�Լ��������Ƶ��б�����Ҫ���ݵĲ���
-	1����������<article>����Ϊ��Ҫ���ݵĸ�����Ϣ���֣����е����� �����뵱ǰ�����йص����á��ʻ��б���
-	2����<article>֮��ʹ�ã���Ϊҳ���վ��ȫ�ֵĸ�����Ϣ���֣�����͵���ʽ�ǲ����(sidebar)
-	   ���е����ݿ������������ӡ������������浥Ԫ�ȡ�
+aside 元素标签可以包含与当前页面或主要内容相关的引用、侧边栏、广告、nav元素组，以及其他类似的有别与主要内容的部分
+	1、被包含在<article>中作为主要内容的附属信息部分，其中的内容 以是与当前文章有关的引用、词汇列表等
+	2、在<article>之外使用，作为页面或站点全局的附属信息部分；最典型的形式是侧边栏(sidebar)
+	   其中的内容可以是友情链接、附属导航或广告单元等。
 
-a:link(δ����Ĭ��) visited(���ʹ���) hover active(���Ӽ����갴��)
+a:link(未访问默认) visited(访问过后) hover active(链接激活，鼠标按下)
 
-    4�����ȼ���һ����,��ѭͬ����ʽĬ�Ϻ��߸���ǰ��
+    4个优先级是一样的,遵循同级样式默认后者覆盖前者
 
-    һ��Ҫ������˳���������ܳ�������,һ�������������桢�����Ż���С˵��վ
+    一定要这样的顺序，这样就能持续触发,一般用在搜索引擎、新闻门户、小说网站
 
-div:hover IE6 ��֧��, ��IE6��֧�ֳ���a���������α��
+div:hover IE6 不支持, 即IE6不支持除了a以外的所有伪类
 
 
-����ѡ��� :
+包含选择符 :
 div p{width:100px; height:100px; background:blue;}
-***div p div��������е�p��������ʽ
+***div p div下面的所有的p都会有样式
 
-div span p{ background:red}  /* ֻѡ��p3����ʽ */
+div span p{ background:red}  /* 只选中p3的样式 */
 <div>
-	<p>p2</p>  <!-- ����ʽ -->
+	<p>p2</p>  <!-- 有样式 -->
 </div>
 <div>
-	<p>p2</p>  <!-- ����ʽ -->
+	<p>p2</p>  <!-- 有样式 -->
   <span>
-  	<p>p3</p>  <!-- ����ʽ -->
+  	<p>p3</p>  <!-- 有样式 -->
   </span>
 </div>
 
 
-��ʽ���ȼ� :
+样式优先级 :
 
 <ol>
     <li class="list list1" id="box" style="background:purple;"></li>
@@ -169,23 +169,23 @@ div span p{ background:red}  /* ֻѡ��p3����ʽ */
     <li></li>
 </ol>
 
-1������(1)  <  class(10)  <  id(100)  <  style�м���ʽ(1000) < js
+1、类型(1)  <  class(10)  <  id(100)  <  style行间样式(1000) < js
 
-2���ͽ�ԭ��,ͬ����ʽĬ�Ϻ��߸���ǰ�� li{backgroud:green;} li{background:red;}  ����� red
+2、就近原则,同级样式默认后者覆盖前者 li{backgroud:green;} li{background:red;}  结果是 red
 
-3��ol li{background:green;} li{background:red;} ����� green
+3、ol li{background:green;} li{background:red;} 结果是 green
 
-  ����ԭ������Լ������ȼ� : ol li /* �൱�� 1+1 */  li /* �൱��1 */
+  类型原则符有自己的优先级 : ol li /* 相当于 1+1 */  li /* 相当于1 */
 
-4�� class ѡ���, ������Ϊ ��10 �����
+4、 class 选择符, 可以认为 是10 级别的
 
-5�� .list{background:red;}/* 10 */ .list1{background:yellow;}/* 10 */
-    <li class="list li1"></li> <li class="list1 list"></li>  ��� : yellow
-    <li class="list li1"></li> <li class="list1 list"></li>  ��� : yellow
-    ���ֵ��Ⱥ�˳�����ʽ���Ⱥ�˳����û���κι�ϵ��,��ʽ�����ȼ��Ǹ�����ʽ��Ȩ�غ���д˳�����й�ϵ��
-    .list1 д�ں���,���������ȼ���
+5、 .list{background:red;}/* 10 */ .list1{background:yellow;}/* 10 */
+    <li class="list li1"></li> <li class="list1 list"></li>  结果 : yellow
+    <li class="list li1"></li> <li class="list1 list"></li>  结果 : yellow
+    名字的先后顺序和样式的先后顺序是没有任何关系的,样式的优先级是根据样式的权重和抒写顺序是有关系的
+    .list1 写在后面,所以他优先级高
 
-6�� �߼�ѡ�����ģ���ʽ���ȼ��� ���� #aa #bb #ccc >#dd #ww .qq
+6、 高级选择符多的，样式优先级高 比如 #aa #bb #ccc >#dd #ww .qq
 
 
 /* css reset */
@@ -199,105 +199,105 @@ table{border-collapse:collapse}
 form{margin:0;}
 input,textarea{margin:0;padding:0;}
 select{margin:0;}
-textarea{resize:none;overflow:auto;outline:none;}  /* outline:none;�������Ž���� */
+textarea{resize:none;overflow:auto;outline:none;}  /* outline:none;建议留着焦点框 */
 
 
-����Ԫ�� : 1�� Ĭ��ͬ��,���Լ�����ͬ���ͱ�ǩ
-          2�� ���ݳſ�����
-          3�� ��֧�ֿ���
-          4�� ��֧������margin��padding
-          5�� ���뻻�б�����
+内联元素 : 1、 默认同行,可以继续跟同类型标签
+          2、 内容撑开宽度
+          3、 不支持宽高
+          4、 不支持上下margin和padding
+          5、 代码换行被解析
 
 span,a,strong,em
 
 
-�� : 1��Ĭ�϶�ռһ����ʾ
-    2��û�п���ʱ��Ĭ�ϳ���һ��
+块 : 1、默认独占一行显示
+    2、没有宽度时，默认撑满一排
 
 div,dl,ol,dd,li,ul,p,h1-h6
 
-img �Ȳ��ǿ�Ҳ�������� ����ʵ�� inline-block(����һ����ʾ������֧�ֿ��� �������ݳſ�����)
+img 既不是块也不是内联 它其实是 inline-block(能在一行显示，并且支持宽高 可以内容撑开宽度)
 
-inline-block(һ���ڵĿ�) :
-    1������һ����ʾ
-    2���������Ա�ǩ֧�ֿ���
-    3��û�п��ȵ�ʱ��,���ݳſ�����
+inline-block(一行内的块) :
+    1、能在一行显示
+    2、行内属性标签支持宽高
+    3、没有宽度的时候,内容撑开宽度
 
-�� inline-block ��ǩ���лᱻ����(���м�϶)
-���� :
+但 inline-block 标签换行会被解析(会有间隙)
+例子 :
 span,div{background:blue; width:100px; height:100px; display:inline-block;}
 
-<span>������ʽ</span>
-<span>������ʽ</span>
-<span>������ʽ</span>
-<div>��</div>
+<span>区分样式</span>
+<span>区分样式</span>
+<span>区分样式</span>
+<div>块</div>
 
-<div>��</div>
-<div>��</div>
+<div>块</div>
+<div>块</div>
 
-ʵ�����ǵ��ЪҲ����һ���ո�Ĵ�С,��ô�ո�Ĵ�С����ҳ�����ִ�С��һ��
-���ҳ������ִ�СΪ12px,��ô�ո�Ĵ�С��Ϊ6px (�������Խ��?)
-IE6 7 ��֧�ֿ����Ա�ǩ��inline-block; (�������Խ��? ò��֧��)
+实际上那点间歇也就是一个空格的大小,那么空格的大小就是页面文字大小的一半
+如果页面的文字大小为12px,那么空格的大小就为6px (浮动可以解决?)
+IE6 7 不支持块属性标签的inline-block; (浮动可以解决? 貌似支持)
 
 
-ǰ�˹淶 : 1��ע�͹淶 <!-- html -->  /* css */ Ҫ�пո� ������IE6�¿��ܻ����
-         2��ӵ�и��Ӽ���ϵ�ı�ǩ
+前端规范 : 1、注释规范 <!-- html -->  /* css */ 要有空格 否则在IE6下可能会出错
+         2、拥有父子级关系的标签
              <ul>
                <li></li>
-               <div></div>  ���ǲ���дdiv js ����Ԫ�ص�ʱ����ܻ����
+               <div></div>  这是不能写div js 查找元素的时候可能会出错
              </ul>
-         3��p,dt,h ����Ƕ�׿����Ա�ǩ <p><div></div>/p> �����ͻ����
+         3、p,dt,h 不能嵌套块属性标签 <p><div></div>/p> 这样就会出错
             p{width:100px;height:100px;background:red;}
             span{display:block;}
             <p>
-                <h3></h3>  <!-- ��������p,����û�����ر�ǩǶ�׹淶 -->
+                <h3></h3>  <!-- 出现两个p,由于没有遵守标签嵌套规范 -->
             </p>
 
             <p>
-                <span></span>   <!-- ת�ɿ�Ϳ��ǩ������������������������,����û�г������� -->
+                <span></span>   <!-- 转成块和块标签对于浏览器解析还是有区别的,这里没有出现问题 -->
             </p>
 
-         4��a����Ƕ��a
-         5������Ԫ�ز���Ƕ�׿� ��w3c��
-         6��p��ǩ���治�ܰ������ǩ(�����spanתΪ��,�������һ��p���ǲ�������ġ�������������Ƶ�����)
+         4、a不能嵌套a
+         5、内联元素不能嵌套块 （w3c）
+         6、p标签里面不能包含块标签(如果把span转为块,外面包了一个p，是不会出错的。浏览器解析机制的问题)
 
 
-���� :  1��ʹ��Ԫ����ͬһ����ʾ
-       2��ʹ��ǶԪ��֧�ֿ���
-       3��û�п��ȵ�ʱ�����ݳſ�����
-       4�������ĵ��� (ҳ���п���ʾ�Ķ���������ʱ��ռ�õ�λ�ý��ĵ���)
+浮动 :  1、使块元素在同一行显示
+       2、使内嵌元素支持宽高
+       3、没有宽度的时候，内容撑开宽度
+       4、脱离文档流 (页面中可显示的对象在排列时所占用的位置叫文档流)
 
 
-������� 1���ڸ���Ԫ���¼� <br clear="all"/>  ���ǲ�����w3c�ı�׼
+清除浮动 1、在浮动元素下加 <br clear="all"/>  但是不符合w3c的标准
 
             <div class="box">
                 <div class="div"></div>
                 <br clear="all"/>
             </div>
 
-        2��clear:both ֻ�ܼ��ڿ�Ԫ������
+        2、clear:both 只能加在块元素身上
 
-        3��.clear:after{content:"";display:block;clear:both;}   IE6 7 ��֧��after α��
+        3、.clear:after{content:"";display:block;clear:both;}   IE6 7 不支持after 伪类
 
             <div class="box clear">
                 <div class="div"></div>
             </div>
 
-        ������� .clear{zoom:1;} �ڼ����Ϳ�����(�൱�ڸ��������˿���,�����п��ȿ��Բ�д) Ϊ�˴�����IE6 7 �µ�haslayout
+        解决方案 .clear{zoom:1;} 在加这句就可以了(相当于给父级加了宽度,父级有宽度可以不写) 为了触发在IE6 7 下的haslayout
 
-        haslayout: ����Ԫ�����ݵĴ�С ���߸����ĸ�����С�����¼�����ȸ߶�
+        haslayout: 根据元素内容的大小 或者父级的父级大小来重新计算宽度高度
 
-        4����IE6 7�� ����Ԫ�صĸ����п���(�߶�)�Ͳ����������,����haslayout
+        4、在IE6 7下 浮动元素的父级有宽度(高度)就不用清除浮动,触发haslayout
 
-        5��overflow:hidden ������� ���ڸ����ϵ���ʽ IE6 ��֧��(���û�д���haslayout)
-          ��Ҫ�ڸ����Ͽ��� ������� zoom:1; (������)
+        5、overflow:hidden 清除浮动 加在父级上的样式 IE6 不支持(如果没有触发haslayout)
+          需要在父级上宽度 或者配合 zoom:1; (不常用)
 
-        6�����������ϸ��� �Ϳ���������� (����������Ǻܺ�,��ʹmarginʧЧ)
+        6、给父级加上浮动 就可以清除浮动 (这个方法不是很好,会使margin失效)
             .box{ width:300px;margin:0 auto;border:10px solid #000; float:left;}
             .div{ width:200px;height:200px;background:red;float:left;}
             /*
-                �帡��
-                1.������Ҳ�Ӹ���(��������)
+                清浮动
+                1.给父级也加浮动(不居中了)
             */
 
             <div class="box">
@@ -305,12 +305,12 @@ IE6 7 ��֧�ֿ����Ա�ǩ��inline-block; (�������Խ��? ò��֧��)
             </div>
 
 
-        7����������inline-block �����Բ������ĵ���,�ﵽ���������Ч��,���ʱ����������������inline-block
-           �ڼӸ�����,��ô���Ϳ��Գſ������ĸ߶�,�����������ǻ�ʹmarginʧЧ,����������,�����ڸ�����text-algin:center
+        7、给父级加inline-block 他可以不脱离文档流,达到清除浮动的效果,这个时候如果给这个父级的inline-block
+           在加个父级,那么他就可以撑开父级的高度,问题是他还是会使margin失效,想让他居中,还得在父级加text-algin:center
 
-        8���ڸ���Ԫ���¼�<div class="clear"></div>
+        8、在浮动元素下加<div class="clear"></div>
           .clear{ height:0px;overflow:hidden;clear:both;}
-          ������ie6��,��Ԫ������С�߶ȣ�����height<19pxʱ��Ĭ��Ϊ19px�����������font-size:0;��overflow:hidden;
+          但是在ie6下,块元素有最小高度，即当height<19px时，默认为19px，解决方法：font-size:0;或overflow:hidden;
         .box{ width:300px;margin:0 auto;border:10px solid #000;}
         .div{ width:200px;height:200px;background:red;float:left;}
         .clear{ height:0px;font-size:0;clear:both;}
@@ -320,8 +320,8 @@ IE6 7 ��֧�ֿ����Ա�ǩ��inline-block; (�������Խ��? ò��֧��)
                 <div class="clear"></div>
         </div>
 
-        9�� ͨ��������Ԫ�صĸ�����position:absolute; �� position:fixed; ���帡��
-            ͨ������ĳ��Ԫ���Ǿ��Զ�λ,�������ЩԪ���и���,�ǾͲ���Ҫ�ڸ���Ԫ�صĸ����������
+        9、 通过给浮动元素的父级加position:absolute; 或 position:fixed; 来清浮动
+            通常用于某个元素是绝对定位,里面的那些元素有浮动,那就不需要在浮动元素的父级清除浮动
 
             #box1{border:30px solid red; position:absolute;}
             #box2{ width:300px; height:300px; background:blue; float:left;}
@@ -329,35 +329,35 @@ IE6 7 ��֧�ֿ����Ա�ǩ��inline-block; (�������Խ��? ò��֧��)
                 <div id="box2"></div>
             </div>
 
-�ܽ� :  .clear{zoom:1;}
+总结 :  .clear{zoom:1;}
        .clear:after{content:"";display:block;clear:both;}
         <div class="box clear">
             <div class="div"></div>
         </div>
 
-      �Ƽ�ʹ��
+      推荐使用
 
-      ˵���׾����ַ��� �� 1 clear 2 ���� BFC
+      说到底就两种方法 ： 1 clear 2 触发 BFC
 
-IE6 ��������
+IE6 兼容问题
 
-    1�� IE6 ����С�߶�Ϊ19px���ھ��Զ�λ���������²�����С�߶ȣ����Ƕ���input��˵( inline-block ) ���͵�Ԫ����˵��û����С�߶���һ˵
-        ������� : font-size:0;(������ȫ�����ֻ�ܴ�������С2px)
-                               �Ƽ���*overflow:hidden;
+    1、 IE6 下最小高度为19px，在绝对定位、块属性下才有最小高度，但是对于input来说( inline-block ) 类型的元素来说，没有最小高度这一说
+        解决方案 : font-size:0;(不能完全解决，只能处理到最小2px)
+                               推荐：*overflow:hidden;
 
-    2���� IE6 7 ��Ԫ�ظ���Ҫ������ͬһ�е�Ԫ�ض�Ҫ�Ӹ���������IE6�Ὣ����Ԫ��֮����3�����صľ���
+    2、在 IE6 7 下元素浮动要并排在同一行的元素都要加浮动，否则IE6会将两个元素之间多出3个像素的距离
 
         .box{ width:400px}
         .left{width:100px;height:300px;background:red;float:left}
-        .right{width:300px;float:left;/*margin-left:100px;*/} /* �������,���Ҷ��Ӹ��� */
+        .right{width:300px;float:left;/*margin-left:100px;*/} /* 解决方案,左右都加浮动 */
         <div class="box">
             <div class="left">aaaa</div>
             <div class="right">bbv</div>
         </div>
 
-    3����IE6������˫�߾��bug,�������� : 1����Ԫ�� 2������ 3�������margin ֵ
-        �ܽ� : ��IE6�¿�Ԫ���и����ͺ����margin�������marginֵ�ᱻ�Ŵ�2��
-        �������:display:inline;
+    3、在IE6下面有双边距的bug,产生条件 : 1、块元素 2、浮动 3、横向的margin 值
+        总结 : 在IE6下块元素有浮动和横向的margin，横向的margin值会被放大2倍
+        解决方案:display:inline;
          body{margin:0;}
         .wrap{float:left;border:2px solid #000;}
         .box{width:100px;height:100px;background:red;margin:0 100px;float:left; } /* *display:inline; */
@@ -369,9 +369,9 @@ IE6 ��������
         .box div{width:100px;height:100px;background:Red;margin-right:20px;
         border:5px solid #ccc; float:left;}
         /*
-            margin-right һ���Ҳ��һ��Ԫ����˫�߾�
+            margin-right 一行右侧第一个元素有双边距
 
-            margin-left һ������һ��Ԫ����˫�߾�
+            margin-left 一行左侧第一个元素有双边距
         */
         <div class="box">
             <div>1</div>
@@ -380,7 +380,7 @@ IE6 ��������
             <div>4</div>
         </div>
 
-    4��IE6 7�� li�ļ�px��϶����, ��IE6 7 �� li����û�и���,�������ݸ�����,��ôli�ͻ�����4px�ļ�϶
+    4、IE6 7下 li的几px间隙问题, 在IE6 7 下 li本身没有浮动,但是内容浮动了,那么li就会多出来4px的间隙
 
         .list{ width:300px;margin:0;padding:0;}
         .list li{ list-style:none;height:30px;border:1px solid #000;
@@ -389,23 +389,23 @@ IE6 ��������
         .list span{float:right;}
         <ul class="list">
             <li>
-                <a href="#">��������������������</a>
-                <span>����</span>
+                <a href="#">文字文字文字文字文字</a>
+                <span>作者</span>
             </li>
             <li>
-                <a href="#">��������������������</a>
-                <span>����</span>
+                <a href="#">文字文字文字文字文字</a>
+                <span>作者</span>
             </li>
         </ul>
 
 
-    ������� :  1����li�Ӹ���,����liԪ�ظ�����,���������ݳſ�,����Ҫ��li�ӿ���,�����帡��,�Ƚ��鷳
-              2���Ƽ�����li��ʽ��vertical-align:top; /* ����Ԫ�ش�ֱ���뷽ʽ Ԫ�ظ���������Ч�ģ�Ĭ�϶������� */
-              ** vertical-align:top; ����������ͼƬ����Ŀ�϶
+    解决方案 :  1、给li加浮动,但是li元素浮动后,宽度由内容撑开,所以要给li加宽度,还得清浮动,比较麻烦
+              2、推荐：给li样式加vertical-align:top; /* 控制元素垂直对齐方式 元素浮动后是无效的，默认顶部对齐 */
+              ** vertical-align:top; 还可以清理图片下面的空隙
 
-    5�� IE6 7 ��֧��after α�� div:hover IE6 ��֧��, ��IE6��֧�ֳ���a���������α��
+    5、 IE6 7 不支持after 伪类 div:hover IE6 不支持, 即IE6不支持除了a以外的所有伪类
 
-        IE6 7  inline-block ��֧�ֿ����Ա�ǩ,�������,�����Զ��ſ�����,����div�ͻ��������
+        IE6 7  inline-block 不支持块属性标签,不设宽度,内容自动撑开宽度,例如div就会撑满整行
         <style>
             div,span{height:100px;background:red; display:inline-block;}
         </style>
@@ -413,13 +413,13 @@ IE6 ��������
         <div class="div2">div2</div>
         <span class="span1">span1</span>
         <span class="span2">span2</span>
-        ������⸡�����ܽ��,��Ϊ������inline-block һ��������,���Կ���inline-block�Ľ�����
+        这个问题浮动就能解决,因为浮动有inline-block 一样的特性,可以看成inline-block的进化版
 
-    6���̶���λ IE6��֧�� ����js��������
+    6、固定定位 IE6不支持 需用js来做兼容
 
-    7��opacity:0.8;filter:alpha(opacity=80); ͸���ȼ�������
+    7、opacity:0.8;filter:alpha(opacity=80); 透明度兼容问题
 
-    8��body,html{ height:100%} /* ����body,html�������ĵ��߶�һ��,���IE6�µļ������� */
+    8、body,html{ height:100%} /* 设置body,html设置与文档高度一样,解决IE6下的兼容问题 */
       .floats{
         position:absolute;top:0;left:0; width:100%;
         height:100%; background:#000;
@@ -427,8 +427,8 @@ IE6 ��������
       }
       <div class="floats"></div>
 
-    9�� IE6 �и�����, ����һ���ܱ�ס�Ӽ�,�ڱ�׼��������Ӽ���ͻ�Ƹ��� ( �������Ӽ��Ŀ��߳��������Ŀ��� )
-        ��������� �ڸ����ϼ� overflow:hidden;
+    9、 IE6 有个特性, 父级一定能保住子级,在标准浏览器下子集会突破父级 ( 不建议子集的宽高吵过父级的宽高 )
+        解决方案： 在父级上加 overflow:hidden;
         #box1{width:500px; height:300px; background:blue; } /* overflow:hidden; */
         #box2{width:300px; height:500px; background:yellow;}
 
@@ -436,7 +436,7 @@ IE6 ��������
             <div id="box2"></div>
         </div>
 
-        IE6�� ��Ԫ�ػ�ſ��������úõĿ��� ,�ڱ�׼�������,��Ԫ�ز���ſ��������úõĿ���
+        IE6下 子元素会撑开父级设置好的宽高 ,在标准浏览器下,子元素不会撑开父级设置好的宽高
         .box{ width:400px;}
         .left{ width:200px;height:300px;background:red;float:left;}
         .right{ width:200px;float:right;}
@@ -448,9 +448,9 @@ IE6 ��������
             </div>
         </div>
 
-    10��IE6��,������overflow:hidden;�ǰ���ס�Ӽ�����Զ�λ��
+    10、IE6下,父级的overflow:hidden;是包不住子级的相对定位的
 
-        �������:���Ӽ�������Զ�λ����(�ø�����ɶ�λԪ��,�Ӿ��Զ�λҲ�ǿ��Ե�)
+        解决方案:父子级都加相对定位即可(让父级变成定位元素,加绝对定位也是可以的)
 
         #box1{width:500px; height:300px; background:blue; overflow:hidden; } /* position:relative; */
         #box2{width:300px; height:500px; background:yellow; position:relative;}
@@ -459,9 +459,9 @@ IE6 ��������
             <div id="box2"></div>
         </div>
 
-    11�� IE6��,���Զ�λ�Ķ�λ�����Ŀ��߶�Ϊ�����Ļ���right ��bottom������1���ص�ƫ��
+    11、 IE6下,绝对定位的定位父级的宽高都为奇数的话，right 和bottom都会有1像素的偏差
 
-        �������: �����������Ϊ����
+        解决方案: 避免宽高设置为奇数
 
         #box1{ width:303px; height:303px;border:1px solid black; position:relative;}
         #box2{ width:50px; height:50px; background:#7c1; position:absolute;right:-1px;bottom:-1px;}
@@ -469,11 +469,11 @@ IE6 ��������
             <div id="box2"></div>
         </div>
 
-    12�� ���� label ��IE6����
-        <input type="radio" name="sex" id="man" /><label for="man">��</label>
-        <input type="radio" name="sex" id="woman" /><label for="woman">Ů</label>
+    12、 表单 label 做IE6兼容
+        <input type="radio" name="sex" id="man" /><label for="man">男</label>
+        <input type="radio" name="sex" id="woman" /><label for="woman">女</label>
 
-    13�� ��IE6 �� input�е�ֵ�ĳ��ȴ��������Ŀ���ʱ��,input��������  ������fixed ���ɽ��
+    13、 在IE6 下 input中的值的长度大于自身的宽度时候,input背景会跑  背景加fixed 即可解决
          input{margin:0;padding:0;}
         .text{
             width:300px; height:40px; border:1px solid blue;
@@ -495,30 +495,30 @@ IE6 ��������
             <input type="text" name=""/>
         </div>
 
-    14����IE6Ԫ�ظ���,���������Ҫ���ݳſ�,�͸���ߵĿ�Ԫ�ض��Ӹ���( ��˭����Ӧ,�����ͼӸ�˭ )
-        ����Ĳ���:���ڿ�Ԫ��Ĭ�ϳ�������,IE6����Ԫ��Ĭ�ϻ�ſ��������úõĿ���
+    14、在IE6元素浮动,如果宽度需要内容撑开,就给里边的块元素都加浮动( 让谁自适应,浮动就加给谁 )
+        问题的产生:由于块元素默认撑满整行,IE6下子元素默认会撑开父级设置好的宽度
         .box{ width:400px;}
         .left{background:red;float:left;}
         .right{float:right; background:blue;}
         h3{margin:0;height:30px; /* float:left; */}
         <div class="box">
             <div class="left">
-                <h3>���</h3>
+                <h3>左侧</h3>
             </div>
             <div class="right">
-                <h3>�Ҳ�</h3>
+                <h3>右侧</h3>
             </div>
         </div>
 
-        Ԫ�ظ����������ÿ��ȵĻ��͸�Ԫ�ؼӿ��ȣ������Ҫ���������ݳſ��ģ��͸�������Ŀ�Ԫ�ؼ��ϸ���
+        元素浮动后，能设置宽度的话就给元素加宽度，如果需要宽度是内容撑开的，就给它里面的块元素加上浮动
 
-    15�����margin���ݵ�����������
-        ������� : (1) ���Ӽ�����һ����������,��IE6��Ҳû����
-                  (2) �ڸ����ϼ�overflow:hidden; ����IE6ûЧ��,����û�д���haslayout
-                      ��IE6�½��margin����Ҫ���� haslayout �ڼ��� zoom:1;
-                  (3) �������б߿��ʱ��,��Ԫ�ص�marginҲ���ᴫ�ݵ�����border:1px solid #000;
-                      ��IE6�¸����б߿��ʱ��,��Ԫ�ص�marginֵ��ʧ
-                      ����취:���������� haslayout
+    15、解决margin传递到父级的问题
+        解决方案 : (1) 父子级中有一个浮动即可,在IE6下也没问题
+                  (2) 在父级上加overflow:hidden; 但是IE6没效果,由于没有触发haslayout
+                      在IE6下解决margin传递要触发 haslayout 在加上 zoom:1;
+                  (3) 当父级有边框的时候,子元素的margin也不会传递到父级border:1px solid #000;
+                      在IE6下父级有边框的时候,子元素的margin值消失
+                      解决办法:触发父级的 haslayout
          body{margin:0;}
         .box{background:blue;}  /* float:left  / overflow:hidden; zoom:1; */
         .div{width:200px;height:200px;background:red;margin:100px;}
@@ -526,14 +526,14 @@ IE6 ��������
             <div class="div"></div>
         </div>
 
-    16��dashed Ϊ1px��ʱ���޼�������,����1px���Ͼ��м���������,�������ʾ�����Ӳ�ͬ,�޷����
-        dotted ��1px��ʱ�� IE6��������,�޷���� ֻ���б���ƽ��
+    16、dashed 为1px的时候无兼容问题,但是1px以上就有兼容问题了,浏览器显示的样子不同,无法解决
+        dotted 在1px的时候 IE6不兼容了,无法解决 只能切背景平铺
         .box{width: 300px;height: 300px;border: 1px dashed green; margin: 0 auto;}
         .box1{width: 300px;height: 300px;border: 1px dotted red; margin: 0 auto;}
         <div class="box"></div>  <br />
         <div class="box1"></div>
 
-    17����IE6����С�߶����⣬�� li�ļ�϶���⹲���ʱ�� ��li�Ӹ���
+    17、当IE6下最小高度问题，和 li的间隙问题共存的时候 给li加浮动
         ul{margin:0;padding:0;width:302px;}
         li{ list-style:none;height:12px;border:1px solid #000;overflow:hidden; float:left;
             width:300px;}
@@ -554,9 +554,9 @@ IE6 ��������
             </li>
         </ul>
 
-    18����һ����Ԫ��ռ�еĿ���֮�ͺ͸����Ŀ�������3px,�����в�����״̬��ʱ��
-        ���һ����Ԫ�ص���margin��IE6�¾ͻ�ʧЧ
-        .box{border:10px solid #000;width:600px; overflow:hidden;} /* width:603px �ͻ��bug */
+    18、当一行子元素占有的宽度之和和父级的宽度相差超过3px,或者有不满行状态的时候
+        最后一行子元素的下margin在IE6下就会失效
+        .box{border:10px solid #000;width:600px; overflow:hidden;} /* width:603px 就会出bug */
         .box div{width:100px;height:100px;background:Red;margin:20px;
         border:5px solid #ccc; float:left; display:inline;}
        <div class="box">
@@ -573,23 +573,23 @@ IE6 ��������
            <div>3</div>
        </div>
 
-    19�� ��IE6�µ��������BUG
-        ��Ԫ�صĿ��Ⱥ͸����Ŀ������С��3px��ʱ��,��������Ԫ���м���ע�ͻ�����ǶԪ��
-        ����취:��div��ע�ͻ�����ǶԪ����div������,���߰Ѹ����Ŀ��ȵ���һ��
+    19、 在IE6下的文字溢出BUG
+        子元素的宽度和父级的宽度相差小于3px的时候,两个浮动元素中间有注释或者内嵌元素
+        解决办法:用div把注释或者内嵌元素用div包起来,或者把父级的宽度调大一点
         .left{float:left;}
         .right{width:400px;float:right;}
         <div class="box">
             <div class="left"></div>
-            <div><!-- IE6�µ��������BUG --><span></span></div>
-            <div class="right">&darr;leo�Ǹ�������</div>
+            <div><!-- IE6下的文字溢出BUG --><span></span></div>
+            <div class="right">&darr;leo是个大胖子</div>
         </div>
 
-    20��h5��ǩ����,���� html5shiv.js ����
+    20、h5标签兼容,引入 html5shiv.js 即可
 
-    21�� p��ǩ��td��h��ǩ�����ܰ�����Ԫ��
+    21、 p标签、td、h标签，不能包含块元素
 
-    22������ margin ���ӵ�����
-        �������������ʹ��ͬһ����� margin �����綼���� top ���� bottom
+    22、上下 margin 叠加的问题
+        解决方案：尽量使用同一方向的 margin ，比如都设置 top 或者 bottom
 
         .box{
             background:green;
@@ -600,10 +600,10 @@ IE6 ��������
         .item{
             height:50px;
             background:red;
-            margin:50px;  /* ��ʱ�ͻ���� */
+            margin:50px;  /* 此时就会叠加 */
         }
 
-         /* ������� */
+         /* 解决方案 */
          .mt100{
             margin-top:100px;
          }
@@ -613,14 +613,14 @@ IE6 ��������
             <div class='item mt100'></div>
         </div>
 
-    23�� display:inline-block; IE6������,��Ϊ inline-block �� CSS2.1 ����
+    23、 display:inline-block; IE6不兼容,因为 inline-block 是 CSS2.1 出的
 
          div{
             width:100px;
             height:100px;
             background:red;
             display:inline-block;
-            /* ������� : *display:inline; zoom:1; */
+            /* 解决方案 : *display:inline; zoom:1; */
             *display:inline;
             zoom:1;
          }
@@ -629,7 +629,7 @@ IE6 ��������
          <div>div</div>
          <div>div</div>
 
-    24��IE6 �� ���Զ�λԪ�غ͸���Ԫ�ز���,���Զ�λԪ����ʧ
+    24、IE6 下 绝对定位元素和浮动元素并列,绝对定位元素消失
         .box{
             width: 200px;
             height: 200px;
@@ -653,7 +653,7 @@ IE6 ��������
             top: -10px;
         }
 
-        �����������������ֻҪ��������������ͬ���Ϳ��Ա������bug
+        解决方案：所以咱们只要让他们俩不处于同级就可以避免这个bug
 
         <div class="box">
             <div class="item"></div>
@@ -661,11 +661,11 @@ IE6 ��������
             <!--
                 <p>
                     <span></span>
-                </p> ��һ��Ͳ��ǲ�����
+                </p> 套一层就不是并列了
             -->
         </div>
 
-    25�� IE6�� input ��϶����
+    25、 IE6下 input 空隙问题
 
         .box{
             width: 200px;
@@ -678,14 +678,14 @@ IE6 ��������
             width: 200px;
             height: 30px;
             background-color: #fff;
-            *float: left;  /* �����������inputԪ������float */
+            *float: left;  /* 解决方案：给input元素添加float */
         }
 
         <div class="box">
             <input type="text" />
         </div>
 
-    26�� DD_belatedPNG_0.0.8a.js ���ܹ�����body�µ�png24
+    26、 DD_belatedPNG_0.0.8a.js 不能够处理body下的png24
 
         <script src="js/DD_belatedPNG_0.0.8a.js"></script>
         <script>
@@ -696,14 +696,14 @@ IE6 ��������
             height: 500px;
             background:red url("img/png.png") no-repeat;
             _background-image:none;
-            /* ԭ���˾� */
+            /* 原生滤镜 */
             _filter : progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/png.png", sizingMethod="crop");
         }
 
-    27�� margin ��ֵ��IE6�µ�bug
-        ����margin-bottom:-1px  ������ռ�ø���1px�ĸ߶�,�����ٳſ�����1px�߶�,�����������Ĵ�С����ı�
-                               ֻ��ռ�õĴ�С�ı���
-        ��IE6�� margin ��ֵ�Ƴ�ȥ�Ĳ���,��IE6�¶����������ص��ˣ��� position:relative; ����
+    27、 margin 负值在IE6下的bug
+        理解margin-bottom:-1px  就是少占用父级1px的高度,或者少撑开父级1px高度,但是他自身的大小不会改变
+                               只是占用的大小改变了
+        在IE6下 margin 负值移出去的部分,在IE6下都被父级给截掉了，加 position:relative; 即可
         .box{border:10px solid #000;float:left;margin:30px; display:inline;}
         .box div{width:100px;height:100px;background:Red; /* position:relative; */}
         .div1{margin-top:-20px;}
@@ -724,16 +724,16 @@ IE6 ��������
             <div class="div4"></div>
         </div>
 
-    28�� input �������� �и��ڿ����ı����е�ʱ�������ͼƬ��input ������inline-blockԪ�� ����Ч��
-         ������������У���ʱ�ľ��ж���Ҳ���в����
+    28、 input 兼容问题 行高在控制文本居中的时候，如果有图片，input 或者是inline-block元素 是无效的
+         在正常浏览器中，此时的居中对齐也是有差异的
 
-         �������: �������е� "�ʼ�" �Ӹ� span ��ǩ,���ô�ֱ���룬�ڸ�radio���ÿ���
-                  ��������һ�ַ�ʽ������ǣ�3��Ԫ�ض������������þ��붥���ľ���ͺ�
+         解决方案: 给例子中的 "邮件" 加个 span 标签,设置垂直对齐，在给radio设置宽高
+                  还可以有一种方式解决就是，3个元素都浮动，在设置距离顶部的距离就好
 
          .box{
             height:40px;
             border:1px solid #000;
-            font:12px/40 "����";  /* ������и߾�Ҫȥ����� font:12px "����"  */
+            font:12px/40 "宋体";  /* 这里的行高就要去掉变成 font:12px "宋体"  */
          }
 
          input{
@@ -745,146 +745,146 @@ IE6 ��������
             display:inline-block;
             height:40px;
             line-height:40px;
-            vertical-align:middle; /* ��ֱ���뷽ʽ��������к���Ȼû�������� */
+            vertical-align:middle; /* 垂直对齐方式，解决居中后依然没对齐的情况 */
          }
-         /* ������ôһ�����������radio�Ŀ��ߣ�һ����15px���ڣ�13px�ȽϺã������˿��ߺ󣬻���Ҫ΢��һ�� */
+         /* 还差那么一点可以再设置radio的宽高，一般在15px以内，13px比较好，重置了宽高后，还需要微调一下 */
          .radio{
             width:13px;
-            height��13px;
+            height：13px;
             position:relative;
             _top:-2px;
          }
 
          <div class="box">
-             <input type="radio" />�ʼ�<input type="text" />
+             <input type="radio" />邮件<input type="text" />
          </div>
 
          <div class="box">
-              <input type="radio" class="radio" /><span>�ʼ�</span><input type="text" />
+              <input type="radio" class="radio" /><span>邮件</span><input type="text" />
           </div>
 
-    29��IE6 ���׼�������겻ͳһ���������( һ����Բ���ע ) �������:����ͨ��paddingѹ���и�
-        ����һ�ַ������������иߣ��߶Ⱥ�padding���� line-height:32px\9;
+    29、IE6 与标准浏览器光标不统一的情况处理( 一般可以不关注 ) 解决方案:就是通过padding压缩行高
+        还有一种方法就是设置行高，高度和padding不变 line-height:32px\9;
         .text{
             width:416px;height:16px;background:none;border:none;
-            padding:8px 10px; line-height:16px;  /* �����кź͸߶�һ�����������ڱ߾�����8px��Ҳ�ճ�16px */
+            padding:8px 10px; line-height:16px;  /* 设置行号和高度一样，在设置内边距上下8px，也凑成16px */
         }
 
         <input type="text" class="text" />
 
-    30�� ��IE6�� input ����1px�ķ�϶
+    30、 在IE6下 input 会有1px的缝隙
 
          div{height:30px;border:1px solid #000;}
          input{
             margin:0;padding:0;height:28px;border:1px solid red;
-            float:left;  /* �������ɽ�� */
+            float:left;  /* 浮动即可解决 */
           }
 
          <input type="text" />
 
-    31�� IE6 7 �� text-indent �� inline-block ������bug
-        /* inline��inline-blockԪ������text-indent��IE6/IE7����ʾ��������bug,
-           ʹtext-indent�ᴫ�ݵ�����Ԫ�أ���ô��ť��IE6,7����ʧ��
+    31、 IE6 7 下 text-indent 与 inline-block 产生的bug
+        /* inline或inline-block元素设置text-indent在IE6/IE7中显示不正常的bug,
+           使text-indent会传递到父及元素，那么按钮在IE6,7下消失了
          */
         .icon { display:inline-block; width:16px; height:16px; text-indent:-9999px; }
         .icon-pdf { background-image:url(pdf.png); }
-        /* ������� */
+        /* 解决方案 */
         .icon { display:inline-block; width:16px; height:16px; font-size:0; line-height:0; }
-        ��
+        或
         .icon { display:block; width:16px; height:16px;text-indent:-9999px; }
 
          <p> <a href="file.pdf" class="icon icon-pdf">Download PDF</a> </p>
 
-��Զ�λ : position:relative
-        1����Ӱ��Ԫ�ر��������� (���ǿ黹�ǿ�,����Ƕ������Ƕ)
-        2����ʹԪ�������ĵ��� (�ĵ�������ҳ������ռ��λ��,���ھ���û�������ĵ���)
-        3�����û�ж�λƫ����,��Ԫ�ر���û���κ�Ӱ��
-        4��Ĭ�ϳ�������
-        5������ʹ��Ƕ֧�ֿ���
+相对定位 : position:relative
+        1、不影响元素本身的特性 (该是块还是块,是内嵌还是内嵌)
+        2、不使元素脱离文档流 (文档流就是页面中所占的位置,存在就是没有脱离文档流)
+        3、如果没有定位偏移量,对元素本身没有任何影响
+        4、默认撑满整行
+        5、不能使内嵌支持宽高
 
-�������� : ���������overflow:hidden; ʵ������IE6�� ���м�������,
-         ������overflow:hidden;�ǰ���ס�Ӽ�����Զ�λ��
-         �������:���Ӽ�������Զ�λ����(�ø�����ɶ�λԪ��,�Ӿ��Զ�λҲ�ǿ��Ե�)
+兼容问题 : 如果父级有overflow:hidden; 实际上在IE6下 会有兼容问题,
+         父级的overflow:hidden;是包不住子集的相对定位的
+         解决方案:父子级都加相对定位即可(让父级变成定位元素,加绝对定位也是可以的)
 
-���Զ�λ :
-        1��ʹԪ�������ĵ���
-        2��ʹ��ǶԪ��֧�ֿ���
-        3�������Ա�ǩ���ݳſ�����
-        4������ж�λ��������ڶ�λ��������ƫ��,û�ж�λ��������������ĵ�����ƫ��
+绝对定位 :
+        1、使元素脱离文档流
+        2、使内嵌元素支持宽高
+        3、块属性标签内容撑开宽度
+        4、如果有定位父级相对于定位父级发生偏移,没有定位父级相对于整个文档发生偏移
 
-��������: ��ie6�� ���Զ�λ�Ķ�λ�����Ŀ��߶�Ϊ�����Ļ���right ��bottom������1���ص�ƫ��
+兼容问题: 在ie6下 绝对定位的定位父级的宽高都为奇数的话，right 和bottom都会有1像素的偏差
 
-** ��λԪ�ز㼶��ϵ,Ĭ�Ϻ��߲㼶����ǰ�� (���Ʋ㼶���� z-index)
-** �̶���λ IE6��֧�� ����js��������
-** ���Զ�λ�͹̶���λ�������������һ�����ڸ����Ǿ��Զ�λ�������Ԫ������Ҫ��������ô�����������Ҫ��.clear
+** 定位元素层级关系,默认后者层级高于前者 (控制层级就是 z-index)
+** 固定定位 IE6不支持 需用js来做兼容
+** 绝对定位和固定定位可以清楚浮动，一般用在父级是绝对定位，里面的元素又需要浮动，那么这个父级不需要加.clear
 
-ʹ��z-index ��Ҫ�Ӿ��Զ�λ����Ч��,����ʹ�ò����κ�����
+使用z-index 需要加绝对定位才有效果,单独使用不起到任何作用
 
-body,html{ height:100%} /* ����body,html�������ĵ��߶�һ��,���IE6�µļ������� */
+body,html{ height:100%} /* 设置body,html设置与文档高度一样,解决IE6下的兼容问题 */
 .floats{position:absolute;top:0;left:0; width:100%; height:100%; background:#000;
 opacity:0.5;filter:alpha(opacity=50);
 }
 .alert{width:400px; height:200px; background:#fff; border:2px solid yellow;
-position:absolute;top:50%;left:50%; margin-top:-102px; margin-left:-202px;} /* ���в� */
+position:absolute;top:50%;left:50%; margin-top:-102px; margin-left:-202px;} /* 居中层 */
 
-<!-- ����һ��Ҫ���Ǻ��ӵ��ڱ߾����߾�Ժ��ӵ�Ӱ�� -->
+<!-- 这里一定要考虑盒子的内边距和外边距对盒子的影响 -->
 <div class="floats"></div>
 <div class="alert"></div>
 
-����
-ע�����
-1����Ҫ��table,th,td����ı����ǩ����ʽ
-2��table���ԣ������������ǿ飬������table,���ݳſ�����
-3����Ԫ��Ĭ��ƽ��table�Ŀ���
-4��th���������Ĭ�ϼӴ֣������������¾�����ʾ
-5��td���������Ĭ�����¾��У����Ҿ�����ʾ
-6��table��������������Ŀ���
-7��table ����ĵ�Ԫ����Ȼᱻת���ɰٷֱ�
-8�����������ÿһ�б��붼����
-9������ͬһ���м̳�������
-10������ͬ�м̳����߶�
+表格
+注意事项：
+1、不要给table,th,td以外的表格标签加样式
+2、table特性：不是内联不是块，他就是table,内容撑开宽度
+3、单元格默认平分table的宽度
+4、th里面的文字默认加粗，并且左右上下居中显示
+5、td里面的内容默认上下居中，左右距左显示
+6、table决定了整个表格的宽度
+7、table 里面的单元格宽度会被转换成百分比
+8、表格里面的每一列必须都宽度
+9、表格同一竖列继承最大宽度
+10、表格同行继承最大高度
 
-���� label ��IE6����
+表单 label 做IE6兼容
 
-        <input type="radio" name="sex" id="man" /><label for="man">��</label>
-        <input type="radio" name="sex" id="woman" /><label for="woman">Ů</label>
+        <input type="radio" name="sex" id="man" /><label for="man">男</label>
+        <input type="radio" name="sex" id="woman" /><label for="woman">女</label>
 
-    ����ѡ��һ��͸� ���� ���߶����м����������
+    下拉选框一般就给 宽度 ，高度是有兼容性问题的
 
 
-Ԫ�صĿ��������ݳſ�
-1�� display:inline; ��Ƕ (��֧�ָ߶�)
-2�� display:inline-block; ��֧�ֿ��ǩ��IE6 7���м�������
-3�� float Ԫ�ظ�����,�������,����Ҳ�����ݳſ�
-5�� position:absolute;
-6�� position:fixed;
+元素的宽度由内容撑开
+1、 display:inline; 内嵌 (不支持高度)
+2、 display:inline-block; 不支持块标签在IE6 7下有兼容问题
+3、 float 元素浮动后,不设宽度,宽度也是内容撑开
+5、 position:absolute;
+6、 position:fixed;
 
-css ����
+css 精灵
 
-�ϲ�ͼƬ��ʱ����Ҫ����Ԫ�صĸ߶ȣ����Ԫ�صĸ߶���32px����ôСͼ��ĸ߶Ⱦ���32px;
-���Ԫ����Χ��padding�Ļ�����Ҳ��Ҫ��padding�����ȥ���� ͼ��ͺ��Ժ�
-��ps�У�ͼ���Ҽ����ϲ�����ͼ�㣬ctrl+a ȫѡ��ctrl+c ���ƣ�ctrl+n�½�һ���ļ�( ѡ�񱳾�͸�� )�������������ȥ������Ĳ���
-��󱣴��ͼƬ�����GIF��
+合并图片的时候需要考虑元素的高度，如果元素的高度有32px，那么小图标的高度就是32px;
+如果元素周围有padding的话，那也需要把padding计算进去留白 图标和好以后
+在ps中，图层右键，合并所有图层，ctrl+a 全选，ctrl+c 复制，ctrl+n新建一个文件( 选择背景透明 )，在黏贴，即可去掉多余的部分
+最后保存的图片最好是GIF的
 
 background-position:20px 0;
 
-x ��ֵ ����ͼ��Ԫ���У����������ƶ�
-  ��ֵ ����ͼ��Ԫ���У����������ƶ�
+x 正值 背景图在元素中，从左向右移动
+  负值 背景图在元素中，从右向左移动
 
-y ��ֵ ����ͼ��Ԫ���У����������ƶ�
-  ��ֵ ����ͼ��Ԫ���У����������ƶ�
-
-
-���ȹ̶�,�߶Ȳ��̶� ����ϲ�ͼƬ
-�߶ȹ̶� ���Ȳ��̶� ����ϲ�ͼƬ
+y 正值 背景图在元素中，从上向下移动
+  负值 背景图在元素中，从下向上移动
 
 
-������:
-1������Ƕ��: �м�ƽ��,���ȿ������ޱ仯����չ��ǿ,����������
+宽度固定,高度不固定 横向合并图片
+高度固定 宽度不固定 纵向合并图片
+
+
+滑动门:
+1、三层嵌套: 中间平铺,宽度可以无限变化。扩展性强,但代码量大
 <style>
     .btn{ width: 150px; background: url(img/btn.png) repeat-x;}
     .btnL{ background: url(img/btnL.png) no-repeat;}
-    /* ��Ԫ����Ԫ�ظ߶ȳſ������߶�,��Ԫ�صĿ��ȸ��Ÿ����� */
+    /* 块元素子元素高度撑开父级高度,子元素的宽度跟着父级走 */
     .btnR{height: 31px; background: url(img/btnR.png) no-repeat right 0;}
 </style>
 <div class="btn">
@@ -893,27 +893,27 @@ y ��ֵ ����ͼ��Ԫ���У����������ƶ�
     </div>
 </div>
 
-2������Ƕ��: ����������ȴ��ڱ���ͼ�Ŀ���,�Ǿ��������ˡ���չ�Բ���,��ͼƬ���ȵ�����
+2、两层嵌套: 如果整个宽度大于背景图的宽度,那就有问题了。扩展性不佳,有图片宽度的限制
 <style>
     .btn{ width: 100px; background: url(img/btn.png) no-repeat;}
     .btnR{height: 31px; background: url(img/btnR.png) no-repeat right 0;}
 </style>
 <div class="btn">
     <div class="btnR">
-        ����
+        内容
     </div>
 </div>
 
-ʹ�ó��� : ���ڵ�������,���ѡ���ٸ�ѡ����Ȳ�඼�ر��,����������Ƕ�ס�
-          ����Ƕ����������չ���ر�ǿ�ĵط�,����ͼƬ�ر���
-          ����Ƕ�ױȽ�������ѡ�,��������չ��С,ͼƬС�ĵط�
+使用场景 : 对于导航来讲,多个选项少个选项宽度差距都特别大,所以用三层嵌套。
+          三层嵌套适用于扩展性特别强的地方,或者图片特别大的
+          两层嵌套比较适用于选项卡,适用于扩展性小,图片小的地方
 
-Բ��
-1�� css3
+圆角
+1、 css3
 .box{width:200px;height:200px;border:1px solid #e5e5e5;margin:30px auto; border-radius:40px;}
 <div class="box"></div>
 
-2�����߿���չ��Բ�Ǳ���
+2、宽高可扩展的圆角背景
     .box{width:300px;margin:30px auto;}
     .boxHead{ background:url(img/boxH.png) repeat-x;height:9px;overflow:hidden;}
     .boxHeadL{ background:url(img/boxHL.png) no-repeat;}
@@ -929,8 +929,8 @@ y ��ֵ ����ͼ��Ԫ���У����������ƶ�
         </div>
     </div>
     <div class="boxC">
-        &nbsp;&nbsp;ҳ������<br/>
-        &nbsp;&nbsp;ҳ������<br/>
+        &nbsp;&nbsp;页面内容<br/>
+        &nbsp;&nbsp;页面内容<br/>
     </div>
     <div class="boxFoot">
         <div class="boxFootL">
@@ -939,7 +939,7 @@ y ��ֵ ����ͼ��Ԫ���У����������ƶ�
     </div>
 </div>
 
-3������͸����Բ��
+3、背景透明的圆角
  body{ background:#000;}
 .btnL{width:100px;margin:0 auto;background:url(img/btnL.gif) no-repeat;}
 .btnR{ background:url(img/btnR.gif) no-repeat right 0;}
@@ -952,59 +952,70 @@ y ��ֵ ����ͼ��Ԫ���У����������ƶ�
 
 
 
-����
+技巧
 
-������ʱ����Ҫ�ӿ��ȣ�һ��Ҫ���ϣ�����IE6�»��������
-��IE6�£�������Ҫ���ݳſ�����ô�������еĿ��ǩ����Ҫ�Ӹ���
+浮动的时候需要加宽度，一定要加上，避免IE6下会出现问题
+在IE6下，宽度需要内容撑开，那么里面所有的块标签都需要加浮动
 .box{width:300px;border:2px solid #000; overflow:hidden;}
 .left{float:left;background:Red;}
 .right{float:right;background:blue;}
 h3{margin:0;height:30px; float:left;}
 /*
-	Ԫ�ظ���֮��������ϣ�������ݳſ��� �͸�������еĿ�Ԫ�� ���Ӹ���
+	元素浮动之后宽度如果希望是内容撑开的 就给里边所有的块元素 都加浮动
 */
 <div class="box">
 	<div class="left">
-    	<h3>���</h3>
+    	<h3>左侧</h3>
     </div>
     <div class="right">
-    	<h3>�Ҳ�</h3>
+    	<h3>右侧</h3>
     </div>
 </div>
 
 
-a��ǩ��������ɫ���������õ�a��ǩ�����
-<div><a>������</a></div>  ��������ṹ����div�ϸ�color��a��������ɫ�����ģ�ֻ����a�ϼ�color����
+a标签的字体颜色必须是设置到a标签上面的
+<div><a>超链接</a></div>  例如这个结构，在div上给color，a的字体颜色不会变的，只有在a上加color才行
 
 
-�����Ҳ����1px�Ŀ�϶,���Բ�����ʱ����Ҫ����1px
+文字右侧会有1px的空隙,所以测量的时候需要留出1px
 
 
-�� | ��  �������Ϊ���巽�����,����������п�϶( Ϊ���õ������С��һ�룬һ����2px��϶ ),�����ʱ����Ҫ����
+“ | ”  这个设置为宋体方便控制,左右两侧会有空隙( 为设置的字体大小的一半，一般有2px空隙 ),计算的时候需要剪掉
 
-inline-block(����,IE6 7 ��֧��) ���пո���ᱻ������ʹ��font-size:0;���ɽ������֮��ļ�϶��ͬʱ���԰���������
-�ﵽͼƬ�滻���֣����Ҳ����ʹ��float���ͱ������������
+inline-block(内联,IE6 7 不支持) 换行空格符会被解析，使用font-size:0;即可解决文字之间的间隙，同时可以把文字隐藏
+达到图片替换文字，这个也可以使用float，就避免了这个问题
 
 
-icoͼ������,����������һ������
+ico图标制作,网上任意找一个即可
 <link href="img/100du.ico" rel="shortcut icon"/>
 
-CSS���Լ̳У�font ��line-height�� text-align
+CSS属性继承：font 、line-height、 text-align
 
-ͼƬ��ʾԲ�� border-radius:6px; overflow: hidden; ������ر����
+图片显示圆角 border-radius:6px; overflow: hidden; 溢出隐藏必须加
+
+在使用 DD_belatedPNG_0 的时候， DD_belatedPNG.fix('#nav a'); 最好给父级加上相对定位，也最好不要处理鼠标移入之后
+处理办法，先把图片处理到元素外面去，然后在改变图片的background-position 显示出来
 
 
-����������֮����һ���϶����ʹ��  word-spacing:4px;
+文字与文字之间有一点间隙可以使用  word-spacing:4px;
 
+参考 腾讯企业qq
+页面中有大banner，或者铺满全屏的图片加上min-width:960px;可以解决子元素撑开父级导致样式错位的问题
+min-width虽然不兼容ie6，但不影响
 
-li �и�����ʱ��,������ ul �Ӹ��߶�,�Ϳ����������
+参考 腾讯企业qq
+导航一般有两种情况1、固定宽度( 测量最大的文字数量，文字开始到第二个文字开始为一个宽度 ) 2、宽度由内容撑开，通常设置padding
 
-display:inline-block  ����ʹ<span> ����,����֧�ֿ���,���������϶
+li 有浮动的时候,最好外层 ul 加个高度,就可以清除浮动
 
-Сͼ��ͳһ���ñ��������׿��� ( ����������ͼƬ img �� ������������ ���� )
+display:inline-block  可以使<span> 并排,并且支持宽高,但会产生间隙
 
-ͼƬ�Ⱨһ�������������ͼƬ����·�Ϲҵ����ṹ���ε�����
-/* img ���߿����ã�Ҳ�ɲ����� */
+块标签不设宽度，他的宽度就是跟着屏幕走的，那元素有多宽就能显示多大的背景图
+
+小图标统一设置背景，容易控制 ( 常更换的是图片 img ， 不常更换的是 背景 )
+
+图片外抱一个容器，来解决图片在网路上挂掉，结构走形的问题
+/* img 宽高可设置，也可不设置 */
 .pic{
     display:block;
     height:100px;
@@ -1014,47 +1025,47 @@ display:inline-block  ����ʹ<span> ����,����֧�ֿ���,���������϶
 </a>
 
 
-text-indent ��û�п��ȵ������������û��Ч����
+text-indent 在没有宽度的情况下设置是没有效果的
 
-�ڸ�һ��li:hover �ӱ߿��ʱ�򣬻���ֶ������������Ϊ�߿�������ռ1pxλ�õ�
-������ li ���ȸ� padding:1px; Ȼ���� li:hover{ padding:0;  /* ȥ�����padding */}
-��Ȼ�� li ��hover �ǲ����� IE6 7
+在给一个li:hover 加边框的时候，会出现抖动的情况，因为边框本身就是占1px位置的
+所以在 li 上先给 padding:1px; 然后在 li:hover{ padding:0;  /* 去掉这个padding */}
+当然给 li 加hover 是不兼容 IE6 7
 
 
-ͨ�����Լ��ļӶ�λ position:relative; top:10px; ���Լ򵥷���ĵõ���Ҫ��λ��Ч��
+通过给自己的加定位 position:relative; top:10px; 可以简单方便的得到想要的位置效果
 
-��ͼ���ּ��ɣ�һ����Ϊ�����������Ż����ǣ���һ����һͼƬ���ز�������������ʾ����
-������ʹ�� text-indent �� ��Ϊ����������㷨�Ѿ�������
+以图换字技巧，一方面为了搜索引擎优化考虑，另一方万一图片加载不出来还可以显示文字
+不建议使用 text-indent ， 因为搜索引擎的算法已经被屏蔽
 .title{
     background:url(img/title.jpg) no-repeat;
     height:0;
-    overflow:hidden;  /* IE6��С�߶ȼ��������� */
-    padding-top:18px; /* ͼƬ�ĸ߶� */
-    width:79px;  /* ͼƬ�Ŀ��� */
+    overflow:hidden;  /* IE6最小高度兼容性问题 */
+    padding-top:18px; /* 图片的高度 */
+    width:79px;  /* 图片的宽度 */
 }
-<h2 class="title">���ƾ糡</h2>
+<h2 class="title">金牌剧场</h2>
 
-white-space:nowrap; /* ǿ���ı������� */
-�����3��pԪ�ظ���������3��pԪ�ص�ʱ�򣬿��ȳ����˸����Ŀ��ȣ���ô������p���Զ�����
-����IE6�²����ᣬ���ʱ��ʹ�� white-space:nowrap;�Ϳ��Խ���������
+white-space:nowrap; /* 强制文本不换行 */
+如果有3个p元素浮动，到第3个p元素的时候，宽度超过了父级的宽度，那么第三个p会自动折行
+但在IE6下并不会，这个时候使用 white-space:nowrap;就可以解决这个问题
 
 cursor: text;  /* cursor:url(../img/hand.cur),pointer */
-���pointer ��˼�� ���ǰ���ͼƬû������������ͻ������,����ʹ��.cur��׺,������ʽ�м���������
+这个pointer 意思是 如果前面的图片没有引入进来，就会用这个,尽量使用.cur后缀,其他格式有兼容性问题
 
 
-��Ԫ�ز����ÿ���,���Ȼ���Ÿ�����
+块元素不设置宽度,宽度会跟着父级走
 <div style="width:300px;">
-    <div>����</div>  <!-- �������div�Ŀ��Ⱦ���300px -->
+    <div>内容</div>  <!-- 这里这个div的宽度就是300px -->
 </div>
 
-��Ԫ�ظ߶Ȼ�ſ������߶�
-<div> <!-- �������div�ĸ߶Ⱦ���300px -->
-    <div style="height:300px;">����</div>
+子元素高度会撑开父级高度
+<div> <!-- 这里这个div的高度就是300px -->
+    <div style="height:300px;">内容</div>
 </div>
 
 
-a ��ǩ�ӱ��� ��Ҫת display:inline-block/block; ���Ҹ����ߣ����ܿ���Ч��
-����Ĭ�����ݳſ��߶ȿ���,����ͼƬ��ʾ��ȫ�����û��������ô�Ͳ�����ʾ�κζ���
+a 标签加背景 需要转 display:inline-block/block; 并且给宽高，才能看到效果
+否则默认内容撑开高度宽度,导致图片显示不全，如果没有内容那么就不会显示任何东西
 <div class="img">
      <img src="img/pic1.png" alt=""/>
      <a href="javascript:;"></a>
@@ -1064,77 +1075,77 @@ a ��ǩ�ӱ��� ��Ҫת display:inline-block/block; ���Ҹ����ߣ����ܿ���Ч��
 display: inline-block;}
 
 
-IE�²����ǲ�֧��display:inline-block���ԣ�ֻ����IE6/7�¶Կ�����Ԫ������
-display:inline-block�����������������������չʾ��Ҳ����˵���������IE6/7�����м�������ģ�
-ֻ��˵֧�ֵĲ������ƣ������������������ȴ�ܴ���hasLayout
+IE下并不是不支持display:inline-block属性，只是在IE6/7下对块属性元素设置
+display:inline-block并不能像其他浏览器中那样展示，也就是说这个属性在IE6/7下是有兼容问题的，
+只能说支持的不够完善，不过，这个属性设置却能触发hasLayout
 
 
  vertical-align:top
 .box{height:200px;border:2px solid #000; text-align:center;}
 .span1{ width:100px;height:200px;background:Red; display:inline-block; vertical-align:middle;}
 .span2{ width:200px;height:100px;background:blue; display:inline-block; vertical-align:middle;}
-/* ����span��Ҫ�����������ʽ */
+/* 两个span需要都加上这个样式 */
  <div class="box">
  	<span class="span1"></span>
      <span class="span2"></span>
  </div>
 
 
-ͼƬ�¿�϶����
+图片下空隙问题
 .box{border:10px solid #000;background:Red;}
-img{ vertical-align:top;} /* ��ѽ������ */
+img{ vertical-align:top;} /* 最佳解决方案 */
 
-��ͼƬתΪ�� display:block Ҳ�ܽ��,��������ж���ͼƬ,��ôͼƬ�ͻỻ��
-��ô����ڲ��ı�ͼƬdisplay���Ե�����½����һ����,ʹ��vertical-align:top;
+给图片转为块 display:block 也能解决,但是如果有多张图片,那么图片就会换行
+那么如何在不改变图片display属性的情况下解决这一问题,使用vertical-align:top;
 
 <div class="box">
 	<img src="img/pic.jpg" /><img src="img/pic.jpg" /><img src="img/pic.jpg" />
 </div>
 
 
-��������margin�͸���ͬʱ����
+尽量不让margin和浮动同时出现
 
-IETester ���ܵ���͸����
+IETester 不能调试透明度
 
-Xpϵͳ�µ������win7�µ�����С1px
+Xp系统下的字体比win7下的字体小1px
 
-input ���ÿ��ȵ�ʱ����Ҫ�߿����������£������ÿ��ȣ���Ϊinput�ı߿��ڸ���������еĴ�С�ǲ�һ����
+input 设置宽度的时候，需要边框重新设置下，在设置宽度，因为input的边框在各个浏览器中的大小是不一样的
 
-���Ԫ�ز��Ż���ʹ�ø����ȽϺã���Ҫ��inline-block����Ϊinline-block�м�϶��һ�㲻ʹ����
+多个元素并排还是使用浮动比较好，不要用inline-block，因为inline-block有间隙，一般不使用它
 
-��Ҫ�����еĴ������һ��div����,��Ϊҳ�������ʱ����body����ÿ����һ����ǩ����һ����ǩ����������������Ⱦ����
-���˵����ҳ����������ݶ�����һ��div���棬���������������⣬�û��ȴ���ʱ�����һ�οհ�
+不要把所有的代码包在一个div里面,因为页面解析的时候，在body下面每读完一个标签，把一个标签里面的内容整体的渲染出来
+如果说整个页面里面的内容都套在一个div里面，这样会有性能问题，用户等待的时候会有一段空白
 
 
-��ʽ�����Ӹ����ǩ �� <h3><a></a></h3>  ��������ȶ�����h3�ϣ���ɫ����a����
+样式尽量加给块标签 如 <h3><a></a></h3>  设置字体等都加在h3上，颜色加在a上面
 
-�����иߵ�ʱ�򣬾����иߴ��������С����ͬ�������ڸ�����������в�ͬ�Ĳ���
-��׼�£��иߺ������Сһ��������������ճ�1px������IE6��û��������⣬���иߵ�ʱ��߶��ǿ��п��޵�
+设置行高的时候，尽量行高大于字体大小。不同的字体在各个浏览器下有不同的差异
+标准下，行高和字体大小一样，字体的上面会空出1px，但在IE6下没有这个问题，有行高的时候高度是可有可无的
 
-http://www.jb51.net/article/43261.htm ����
-http://blog.csdn.net/return_false/article/details/11203025 �������
+http://www.jb51.net/article/43261.htm 浮动
+http://blog.csdn.net/return_false/article/details/11203025 清除浮动
 
-ϣ����ĳ��Ԫ���Ƴ�������ߣ�
+希望把某个元素移除你的视线：
 
-  1��display:none;				��ʾΪ��
-  2��visibility:hidden;	����
-  3��width \ height
-  4��͸����
-  5��left \ top
-  6����һ����ɫDIV��ס��
-  7��margin��ֵ
+  1、display:none;				显示为无
+  2、visibility:hidden;	隐藏
+  3、width \ height
+  4、透明度
+  5、left \ top
+  6、拿一个白色DIV盖住它
+  7、margin负值
    ...?
-   border �о�����??
+   border 研究三角??
 
-border �����߿��ཻ�������һ��ֱ�ߣ��ཻ�����������
-border-color: �� �� �� ��
+border 两条边框不相交的情况是一条直线，相交的情况是梯形
+border-color: 上 右 下 左
 
-����Ԫ�ص� BFC( �鼶��ʽ�������� ) ���ﵽ�帡������Ԫ���ڲ����ֺͶ�λ���ⲿԪ�ػ���Ӱ��( �����ڲ����ӽ������µ�BFC )
-��������Ϊ BFC ������һ������Ķ�������
+触发元素的 BFC( 块级格式化上下文 ) 来达到清浮动，该元素内部布局和定位和外部元素互不影响( 除非内部盒子建立了新的BFC )
+可以理解为 BFC 建立了一个隔离的独立容器
 
 .box{
     width:300px;border:10px solid #000; margin:0 auto;
-    display:inline-block; /* ����box��BFC���൱ȥ��box��Χ������һ�θ�ǽ����ôbox����Ķ����ͱ������ˣ��ﵽ�帡�� */
+    display:inline-block; /* 触发box的BFC，相当去在box周围垒起来一段高墙，那么box里面的东西就被隔离了，达到清浮动 */
 }
 .left{
     float:left; height:200px; background:Red;
@@ -1142,7 +1153,7 @@ border-color: �� �� �� ��
 
 .div{
     background:blue;height:40px;width:300px;
-    display:inline-block; /* ����box��BFC����ʱ�Ͳ��ᱻ����Ԫ�ظ����� */
+    display:inline-block; /* 触发box的BFC，此时就不会被浮动元素覆盖了 */
 }
 
 <div class="box">
@@ -1150,25 +1161,25 @@ border-color: �� �� �� ��
     <div class="div"></div>
 </div>
 
-һ������ �� 1���帡�� ( ��ע���沢û�� ) ��������Ԫ�أ�������Ԫ�ص��������Ӧ�߶�
-          2�� ��������Ԫ�ظ���
-          3����ֹ����Ԫ�ص� margin �۵� ( ��Ԫ�� margin �ᴫ�ݵ���Ԫ�� )
+一般用在 ： 1、清浮动 ( 标注里面并没有 ) 包含浮动元素，根据子元素的情况自适应高度
+          2、 不被浮动元素覆盖
+          3、阻止父子元素的 margin 折叠 ( 子元素 margin 会传递到父元素 )
 
-���� BFC ������  1��float ��ֵ��Ϊ none;
-               2��overflow ֵ��Ϊ visible;
-               3��display ֵΪ table-cell �� table-caption ��inline-block ֮һ
-               4��position ֵ��Ϊ static �� relative ����һ��
-
-
-����������������ҳ�汣���ͼƬ
+触发 BFC 的属性  1、float 的值不为 none;
+               2、overflow 值不为 visible;
+               3、display 值为 table-cell 、 table-caption 、inline-block 之一
+               4、position 值不为 static 或 relative 其中一个
 
 
+火狐浏览器，讲整个页面保存成图片
 
 
-cssѡ�����е� '>' �����ϣ��ѡ������ĺ��Ԫ��,����ֻѡ��ĳ��Ԫ�ص���Ԫ��,ʹ����Ԫ��ѡ����(Child selector)
-E > F ��Ԫ��ѡ����,ƥ������EԪ�ص���Ԫ��F
+
+
+css选择器中的 '>' 如果不希望选择任意的后代元素,而是只选择某个元素的子元素,使用子元素选择器(Child selector)
+E > F 子元素选择器,匹配所有E元素的子元素F
 <style type="text/css">
-	h1 > strong {color:red;}  /* ��ֻ�е�һ��h1�����strong���ֱ�� */
+	h1 > strong {color:red;}  /* 就只有第一个h1下面的strong文字变红 */
 </style>
 <h1>
 	This is <strong>very</strong> <strong>very</strong> important.
@@ -1179,7 +1190,7 @@ E > F ��Ԫ��ѡ����,ƥ������EԪ�ص���Ԫ��F
 	</em> important.
 </h1>
 
-css ��Ӱ
+css 倒影
  -webkit-box-reflect: below 0px -webkit-gradient(
         linear,
         left top,
@@ -1189,8 +1200,8 @@ css ��Ӱ
         to(rgba(255, 255, 255, .3))
     );
 
-http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  cssѡ����
+http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  css选择器
 
-http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812 margin��ֵ
+http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812 margin负值
 
-http://space.b.qq.com/ ��Ѷ��ҵQQ
+http://space.b.qq.com/ 腾讯企业QQ

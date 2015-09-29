@@ -1,16 +1,16 @@
-js »ñÈ¡ obj.scrollTop  ==>    $('#obj').scrollTop()
+js è·å– obj.scrollTop  ==>    $('#obj').scrollTop()
 
-js »ñÈ¡ obj.offsetHeight (»ñÈ¡²»µ½Òş²ØÔªËØµÄÖµ)  ==>   $('#obj').prop('offsetHeight') / $("#obj").outerHeight() jquery¿ÉÒÔ
+js è·å– obj.offsetHeight (è·å–ä¸åˆ°éšè—å…ƒç´ çš„å€¼)  ==>   $('#obj').prop('offsetHeight') / $("#obj").outerHeight() jqueryå¯ä»¥
 
-js »ñÈ¡ document.getElementById("div1").clientHeight  ==>     $("#obj").innerHeight()
+js è·å– document.getElementById("div1").clientHeight  ==>     $("#obj").innerHeight()
 
 js div1.offsetHeight + parseInt(div1.style.marginTop) + parseInt(div1.style.marginBottom)==>$("#obj").outerHeight(true)
 
-js »ñÈ¡ obj.offsetTop  ==>  $("#obj").position().top  objÊÇÓĞ¶¨Î»µÄ
+js è·å– obj.offsetTop  ==>  $("#obj").position().top  objæ˜¯æœ‰å®šä½çš„
 
 js appendChild  ==>  $("#li").appendTo('ul');
 
-js removeChild ±ØĞëÊÇ¸¸¼¶µ÷ÓÃ ul.removeChild(li); ==>  $('ul').find('li').remove();  jqueryÖĞµÄremove() ¿ÉÒÔÉ¾³ı×Ô¼º
+js removeChild å¿…é¡»æ˜¯çˆ¶çº§è°ƒç”¨ ul.removeChild(li); ==>  $('ul').find('li').remove();  jqueryä¸­çš„remove() å¯ä»¥åˆ é™¤è‡ªå·±
 
 js ev.clientX + document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop  ==> ev.pageX
 

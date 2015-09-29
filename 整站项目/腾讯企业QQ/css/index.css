@@ -1,15 +1,55 @@
 /* reset */
-body,h1,h2,h3,h4,h5,h6,p,dl,dd,ul,ol,pre,form,input,textarea,th,td,select{margin:0;padding:0;}
-em{font-style:normal;}
-li{list-style:none}
-a{text-decoration:none;}
-img{border:none; vertical-align:top;}
-table{border-collapse:collapse;}
-textarea{ resize:none;overflow:auto;}
+body, h1, h2, h3, h4, h5, h6, p, dl, dd, ul, ol, pre, form, input, textarea, th, td, select { margin: 0; padding: 0; }
+
+em { font-style: normal; }
+
+li { list-style: none }
+
+a { text-decoration: none; }
+
+img { border: none; vertical-align: top; }
+
+table { border-collapse: collapse; }
+
+textarea { resize: none; overflow: auto; }
+
 /* end reset */
 
 /* public css */
-
-
+.wrap { width: 960px; margin: 0 auto; }
 
 /* end public css */
+
+body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-family: "微软雅黑"; }
+
+#header { background: url(../img/head_bg.jpg) no-repeat center 0; }
+
+.header { height: 94px; }
+
+#nav { height: 43px; background: url(../img/nav_bg.png) no-repeat; }
+
+#nav li { float: left; width: 118px; padding-right: 8px; position: relative; /* 处理png库的一个bug */ }
+
+#nav a { display: block; padding-top: 1px; line-height: 42px; font-size: 16px; color: #fdfbf9; text-align: center;
+    background: url(../img/nav_hover.png) no-repeat center 50px; }
+
+#nav a:hover, #nav .active { background-position: center 0; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
