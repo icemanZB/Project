@@ -18,6 +18,10 @@ textarea { resize: none; overflow: auto; }
 /* public css */
 .wrap { width: 960px; margin: 0 auto; }
 
+.clearfix { zoom: 1; }
+
+.clearfix:after { content: ""; display: block; clear: both; }
+
 /* end public css */
 
 body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-family: "微软雅黑"; font-size: 12px; }
@@ -73,18 +77,78 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 
 #whyQQ ol li { width: 300px; float: left; padding: 0 0 30px 14px; background: url(../img/whyqq_ol_li_bg.png) no-repeat; }
 
-#whyQQ ol li.col2 { background-position: 0 -102px; }
+#whyQQ ol li.col2,
+.main_fn ul li.col2 { background-position: 0 -102px; }
 
-#whyQQ ol li.col3 { background-position: 0 -204px; }
+#whyQQ ol li.col3,
+.main_fn ul li.col3 { background-position: 0 -204px; }
 
-#whyQQ ol li.col4 { background-position: 0 -306px; }
+#whyQQ ol li.col4,
+.main_fn ul li.col4 { background-position: 0 -306px; }
 
 #whyQQ ol li.col5 { background-position: 0 -408px; }
 
 #whyQQ ol li.col6 { background-position: 0 -510px; }
 
-#whyQQ ol li h3, #whyQQ ol li p { width: 238px; padding-left: 46px; }
+#whyQQ ol li h3,
+#whyQQ ol li p { width: 238px; padding-left: 46px; color: #262626; }
+
+#whyQQ ol li h3 a { color: #262626; }
 
 #whyQQ ol li h3 { line-height: 24px; padding-bottom: 5px; }
 
 #whyQQ ol li p { line-height: 22px; }
+
+/* main */
+#main { background: #fff; height: 1000px; /* 333 */ }
+
+.main_left { width: 702px; float: left; }
+
+/* 主要功能 */
+.main_fn,
+.activity { margin-left: 17px; }
+
+.main_fn h2 a { font-size: 16px; display: block; height: 62px; line-height: 62px;
+    color: #222222; padding-left: 4px; }
+
+.main_fn ul li { width: 320px; height: 71px; float: left; padding: 0 21px 1px 0; margin-bottom: 30px;
+    background: url(../img/main_fn_li_bg.png) no-repeat; }
+
+.main_fn ul li h3 { padding-bottom: 6px; }
+
+.main_fn ul li h3 a { color: #222; }
+
+.main_fn ul li h3,
+.main_fn ul li p { line-height: 22px; width: 260px; color: #222; padding-left: 70px; }
+
+/* 市场活动 */
+.activity { height: 46px; padding-left: 4px;}
+
+.activity h2 { margin-top: 8px; background: url(../img/h2_t.png) no-repeat 71px 14px;}
+
+.activity h2 a{ font-size: 16px; color: #222;}
+
+.activity .more{ width: 30px; background: url(../img/more.png) no-repeat 0 12px;  position: relative; top: 0;
+    left: 572px; padding-left: 4px; padding-right: 5px;}
+
+.activity .more a{color: #1a5d96; font-size: 12px;}
+
+.main_right { float: left; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
