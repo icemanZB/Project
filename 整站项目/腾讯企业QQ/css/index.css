@@ -20,12 +20,25 @@ textarea { resize: none; overflow: auto; }
 
 /* end public css */
 
-body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-family: "微软雅黑"; }
+body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-family: "微软雅黑"; font-size: 12px; }
 
+/* header */
 #header { background: url(../img/head_bg.jpg) no-repeat center 0; }
 
 .header { height: 94px; }
 
+.header h1 { width: 245px; float: left; height: 0; overflow: hidden; padding-top: 90px; }
+
+.header .logo_right { height: 50px; float: right; color: #afe3f3; margin: 9px 6px 0 0; }
+
+.header .logo_right .feedback { height: 24px; line-height: 24px; }
+
+.header .logo_right .service_line { margin-top: 6px; position: relative; left: 190px; top: 0;
+    background: url(../img/icon.gif) no-repeat 0 0; text-indent: 25px; }
+
+.header .logo_right_s3 { background: url(../img/zhuan.png) no-repeat; padding: 3px 12px; margin-left: 11px; }
+
+/* nav */
 #nav { height: 43px; background: url(../img/nav_bg.png) no-repeat; }
 
 #nav li { float: left; width: 118px; padding-right: 8px; position: relative; /* 处理png库的一个bug */ }
@@ -35,21 +48,43 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 
 #nav a:hover, #nav .active { background-position: center 0; }
 
+/* banner */
+#banner { width: 960px; height: 285px; overflow: hidden; position: relative; }
 
+#banner ul li { height: 285px; position: absolute; display: none; top: 0; left: 0; filter: alpha(opacity=0); opacity: 0; }
 
+#banner ol { height: 22px; position: absolute; right: 45px; bottom: 16px; }
 
+#banner ol li { width: 20px; height: 20px; float: left; background: url(../img/ol_btn_bg.png) no-repeat; color: #7b91b6;
+    text-align: center; margin-left: 10px; cursor: pointer; line-height: 22px; font-weight: bold; }
 
+#banner ol li:hover,
+#banner ol li.active { background: url(../img/../img/ol_btn_bg.png) no-repeat 0 -30px; color: #ffffeb; }
 
+/* whyQQ */
+#whyQQ { height: 281px; background: url(../img/whyqq_bg.png) repeat-x; }
 
+#whyQQ .header { width: 179px; height: 50px; background: url(../img/whyqq_h2_bg.png) no-repeat; position: relative; top: 3px;
+    left: -10px }
 
+#whyQQ h2 { height: 0; overflow: hidden; padding-top: 50px; }
 
+#whyQQ ol { margin: 22px 0 5px 11px; }
 
+#whyQQ ol li { width: 300px; float: left; padding: 0 0 30px 14px; background: url(../img/whyqq_ol_li_bg.png) no-repeat; }
 
+#whyQQ ol li.col2 { background-position: 0 -102px; }
 
+#whyQQ ol li.col3 { background-position: 0 -204px; }
 
+#whyQQ ol li.col4 { background-position: 0 -306px; }
 
+#whyQQ ol li.col5 { background-position: 0 -408px; }
 
+#whyQQ ol li.col6 { background-position: 0 -510px; }
 
+#whyQQ ol li h3, #whyQQ ol li p { width: 238px; padding-left: 46px; }
 
+#whyQQ ol li h3 { line-height: 24px; padding-bottom: 5px; }
 
-
+#whyQQ ol li p { line-height: 22px; }
