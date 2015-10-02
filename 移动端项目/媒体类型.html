@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,target-densitydpi=device-dpi"/>
+    <title>无标题文档</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background: blue;
+            margin: 0 auto;
+        }
+
+        @media all {
+            .box {
+                background: red;
+            }
+        }
+
+        /*
+            all 媒体类型：就是访问的这些手持设备还是彩屏设备，或者是电视设备
+
+                        在 Emulation 中 选择 Media,勾上 CSS Media，其中
+
+            1、 all 所有设备
+            2、 braille 盲文触觉设备
+            3、 embossed 盲文打印机
+            4、 print 手持设备
+            5、 projection 打印预览
+            6、 screen 彩屏设备
+            7、 speech '听觉'类似的媒体类型
+            8、 tty 不适用像素的设备
+            9、 tv 电视
+        */
+    </style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+</html>

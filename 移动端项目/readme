@@ -1,0 +1,100 @@
+Emulation 移动端模拟器
+一、Device 设备设置
+    1、model 模型选择
+    2、resolution 分辨率设置 ( 页面可视区的宽高 )
+    3、Device pixel ratio 像素比设置 ( 物理像素和独立像素的比值 )
+       iphone 5 1136*640 独立像素 568*320 物理像素  2倍的差距
+       2个像素的位置显示原先1个像素的内容
+    ( 以下三项都勾选上 )
+    4、*Emulation mobile 模拟移动端特性 ( 主要针对 viewport )
+    5、*Emulation text atuosizing 自动缩放字体
+    6、*Shrink to fit 缩放以适应屏幕
+
+二、Media 媒体查询 ( 设备适配 )
+
+三、Network 浏览器信息
+
+四、Sensors 传感器
+    1、 Emulate touch screen 模拟移动端屏摸事件
+        --touch-events
+    2、 Device Geolocation Overrides 重置地理信息
+    3、Accelerometer 模拟陀螺仪  ( 摇一摇就是靠这个实现的 )
+       α 围绕着 Z 轴的旋转
+       β 围绕着 X 轴的旋转
+       γ 围绕着 Y 轴的旋转
+
+五、 Pixel
+举例: 640*1136的图片为什么不能在iphone5上完全显示
+      为什么iphone5是320px * 568px ？ 因为 dpr 是 2 ( 1个px=4个物理像素(dp)，那么就是 1px=2 * dp)
+      so 640dp * 1136dp = (320px * 568px) * 2
+
+iphone5对外宣称的像素是 640*1136，这是物理像素，实际开发使用的是的px是逻辑像素
+
+px : css pixels 逻辑像素，浏览器使用的抽象单位( 可以根据不同的设备和关系，进行变大变小 )
+dp,pt : device independent pixels 设备无关像素 ( 物理像素是固定大小 )
+dpr : devicePixelRation 设备像素缩放比 ( 就是控制物理像素和逻辑像素的关系 )
+计算公式 : 1px=(dpr*dpr) * dp
+
+DPI : 打印机每英寸可以喷的墨汁点 ( 印刷行业 )
+PPI : 屏幕每英寸的像素数量，即单位英寸内的像素密度
+目前，在计算机显示设备参数描述上，两者的意思表达是一样的
+计算公式 : 以iphone5为例子  4是4英寸，注意算ppi的时候需用物理像素
+ppi=┌(1136*1136+640*640)/4 ( 整体开根号 )  =326ppi ( 就是所谓的视网膜Retina屏 )
+ppi越高，像素数越高，图像越清晰，但可视度越低(小)，系统默认设置缩放比越大
+就是类似pc的分辨率调的越高，图标就越小
+            low-dpi     medium-dpi    high-dpi      xhdpi( 超高清 )
+ppi         120         160           240           320
+默认缩放比  0.75        1.0           1.5           2.0
+
+那么 iphone5 是326ppi 所以缩放比是2.0 ， iphone6p dip 为 3
+Retina 屏 ( 高清屏 ) : dpr都是大于等于2
+
+总结 : 以iphone 5 为例子
+        设备分辨率 1136*640dp -> ┌(1136*1136+640*640)/4 ( 整体开根号 )  =326ppi
+        -> 326ppi 属于 Retina 屏幕，dpr=2 -> 1px=dpr*dpr*dp ( 1px=2 * dp )
+        iphone5 的分辨率为 320 * 568 px
+
+
+六、viewport 手机可视区窗口的设置
+
+    ios的viewport 是 980px，把页面渲染在一个viewport当中，通过缩放可以看到整个页面，这就是viewport的效果
+    1) 页面渲染在一个980px(ios)的viewport
+    2) 缩放
+
+    渲染时要有viewport，是为了能够正确排版，在通过缩放让你看的正确
+
+当没有设置 viewport 的时候 alert( document.documentElement.clientWidth); // 在 Emulation 中 显示的还是 980
+加上 viewport 后 就可以正常显示了 320 如果当前是iphone5 的话
+
+魅族mx3 支持 device-width 和 target-densitydpi
+<meta name="viewport" content="" />
+	width [pixel_value | device-width] width 直接去设置具体数值大部分的安卓手机不支持的 但是IOS支持 device-width 就是默认分辨率
+	height=device-height  ( 可不写 )
+	user-scalable 是否允许缩放 （no||yes）
+	initial-scale 初始比例 1.0 默认原始大小  initial-scale=2.0 的话 需要去掉user-scalable 就可以看到2倍效果
+	minimum-scale 允许缩放的最小比例 1.0  最好不要比1.0小,很多手机都不支持
+	maximum-scale 允许缩放的最大比例  (initial-scale 和 minimum-scale、maximum-scale 写其中一个就好 )
+	target-densitydpi  为了安卓手机支持  ios 不支持
+	-- dpi_value 70–400 // 每英寸像素点的个数
+	-- device-dpi 设备默认像素密度
+	-- high-dpi 高像素密度，由于不是具体的值，各个手机出来的效果可能不一样
+	-- medium-dpi 中等像素密度
+	-- low-dpi 低像素密度
+	-- webkit内核已不准备再支持
+
+<meta name="viewport" content="width=device-width,user-scalable=no,target-densitydpi=device-dpi" />
+
+css3 新增的新单位
+rem
+
+em 相对于字体大小  font-size:24px 1em=24px
+
+rem 相对于根节点的字体大小的计量单位  1rem= 1个html上设置的字体大小
+
+
+鼠标事件例如: onclick 在实际的手机上有半秒的延迟
+
+ontouchend: 表示手指在屏幕上抬起 ( 移动端事件 )  但是在 Emulation 实际上默认并不是这种写法
+而是 oBox.addEventListener("touchend",function(){},false);
+如果要支持 oBox.ontouchend=function(){}; 电脑工具栏,选择chrome 右键，选择chrome，在右键属性
+在目标选项的最后加上 "空格" --touch-events 在重启多次 chrome 即可

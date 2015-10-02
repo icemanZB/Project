@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,target-densitydpi=device-dpi"/>
+    <title>无标题文档</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .box {
+            margin: 0 auto;
+        }
+
+        @media all and (orientation: landscape) {
+            .box {
+                width: 600px;
+                height: 600px;
+                background: Red;
+            }
+        }
+
+        @media all and (orientation: portrait) {
+            .box {
+                width: 300px;
+                height: 300px;
+                background: #000;
+            }
+        }
+
+        /*
+             一般不用考虑
+
+            orientation:portrait; 竖屏
+
+            orientation:landscape; 横屏
+
+        */
+    </style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+</html>
