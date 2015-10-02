@@ -10,7 +10,9 @@ Emulation 移动端模拟器
     5、*Emulation text atuosizing 自动缩放字体
     6、*Shrink to fit 缩放以适应屏幕
 
-二、Media 媒体查询 ( 设备适配 )
+二、Media 媒体查询 ( 设备适配 ) 使用百分比布局比较好，弹性图片 .img{ max-width:100%;height:auto;}
+    min-width:1200px 分辨率 最小在1200 之上包括1200
+    max-width:1024px 分辨率在1024以下 包括1024
 
 三、Network 浏览器信息
 
@@ -44,7 +46,7 @@ ppi越高，像素数越高，图像越清晰，但可视度越低(小)，系统
 就是类似pc的分辨率调的越高，图标就越小
             low-dpi     medium-dpi    high-dpi      xhdpi( 超高清 )
 ppi         120         160           240           320
-默认缩放比  0.75        1.0           1.5           2.0
+默认缩放比   0.75        1.0           1.5           2.0
 
 那么 iphone5 是326ppi 所以缩放比是2.0 ， iphone6p dip 为 3
 Retina 屏 ( 高清屏 ) : dpr都是大于等于2
@@ -54,8 +56,10 @@ Retina 屏 ( 高清屏 ) : dpr都是大于等于2
         -> 326ppi 属于 Retina 屏幕，dpr=2 -> 1px=dpr*dpr*dp ( 1px=2 * dp )
         iphone5 的分辨率为 320 * 568 px
 
+      1px=1dp 缩放0.5，根据设备的物理像素dp等于抽象像素px来设计。1像素边框和高清图片都不需要额外处理
 
-六、viewport 手机可视区窗口的设置
+
+wport 手机可视区窗口的设置
 
     ios的viewport 是 980px，把页面渲染在一个viewport当中，通过缩放可以看到整个页面，这就是viewport的效果
     1) 页面渲染在一个980px(ios)的viewport
@@ -84,17 +88,109 @@ Retina 屏 ( 高清屏 ) : dpr都是大于等于2
 
 <meta name="viewport" content="width=device-width,user-scalable=no,target-densitydpi=device-dpi" />
 
+
+六、Flexbox 弹性盒子布局
+
+flexbox在安卓4.4版本以下只兼容旧版本的flexbox布局,建议使用旧版本的
+
+新flex布局                             旧版本
+display:-webkit-flex;                 display:-webkit-flex-box;
+-webkit-flex:1;                       -webkit-flex-box:1;
+justify-content:center;               box-pack:center;
+align-items:center;                   box-align:center;
+
+
+父级 nav 的css 设置 display:-webkit-flex;  子元素 .item 设置 flex:1; 1表示容器占有比例
+如果第一个item 设置了 flex:1;第二个item设置了flex:2; 那么第二个item就占整个容器的2/3
+
+元素居中
+.parent{
+    justify-content:center; // 子元素水平居中
+    align-items:center; // 子元素垂直居中
+    display:-webkit-flex;
+}
+
+
 css3 新增的新单位
-rem
+rem 为了适应各大手机屏幕，注意font-size 是不应该使用rem等单位的
 
 em 相对于字体大小  font-size:24px 1em=24px
 
 rem 相对于根节点的字体大小的计量单位  1rem= 1个html上设置的字体大小
 
+rem 会根据不同的屏幕去自适应
+// 默认320px
+html{ font-size:32px; }
+// iphone6
+@media (min-device-width:375px){
+    html{ font-size:37.5px;}
+}
+// iphone6 plus
+@media (min-device-width:414px){
+    html{ font-size:41.4px;}
+}
 
-鼠标事件例如: onclick 在实际的手机上有半秒的延迟
+换算 iphone5 rem基础值为32px，渲染一张64*64的div，则用 2rem*2rem去渲染
+width:px/rem 基值  height:px/rem 基值
+
+
+
+
+鼠标事件例如: onclick 在实际的手机上有半秒的延迟(300ms)
+300ms的故事：移动web页面上的click事件响应都要慢上300ms
+移动设备访问的web页面都是pc上的页面。在默认viewport(980px)的页面往往都是需要"双击"或"捏开"放大页面，来看清页面。
+而正是为了确认用户是"双击"还是"单击",safari需要300ms的延迟来判断。而后来的iphone也一直沿用这样的设计，而借鉴
+成功的iphone后，android也采用这样的设计。于是这300ms就成为了一种规范。
+
+解决方案：使用tap(自定义事件)代替click事件 可以引用Zepto.js
+
+但 tag 事件有个点透的bug 就是说有一个遮罩层盖在一个按钮上面，tap点击遮罩层，遮罩层消失，如果是点击按钮区域的遮罩，遮罩层也会消失
+但会触发按钮事件。在设备模拟器上并看不出效果
+事件过程：touchstart -> touchend 遮罩层消失 ->300ms ->target为btn,click触发
+解决方案：遮罩层晚点消失，可以加上一些动画效果 ( 使用Fastclick库也行 或者 使用最新的 zepto.js )
+
 
 ontouchend: 表示手指在屏幕上抬起 ( 移动端事件 )  但是在 Emulation 实际上默认并不是这种写法
 而是 oBox.addEventListener("touchend",function(){},false);
 如果要支持 oBox.ontouchend=function(){}; 电脑工具栏,选择chrome 右键，选择chrome，在右键属性
 在目标选项的最后加上 "空格" --touch-events 在重启多次 chrome 即可
+
+android 只会触发一次touchstart，一次touchmove，touchend 不触发 4.0 4.1 4.4 5.0 都有这个bug 4.2 没有
+加入evnt.preventDefault 即可 ( 但会导致默认行为不发生，导致页面就不会滚动了 )
+
+弹性滚动 ： body层滚动 ( 系统自带弹性滚动，但overflow:hidden;失效，GIF和定时器暂停 )
+局部滚动开启弹性滚动： body{ overflow:scroll;-webkit-overflow-scrolling:touch; } 但是android不支持弹性滚动
+要兼容android可以使用iScroll实现
+
+
+页面性能：经常需要切换位置的元素，使用绝对定位，提高渲染性能
+
+一像素边框问题的解决，根本原因是 1px =2dp
+
+.sidebar .folder li{
+    /* border-bottom:0.5px solid #ddd; */
+    padding: 8px 0 8px 15px;
+    color:#7c7c7c;
+    cursor:pointer;
+    position:relative;
+}
+
+.folder li + li:befpre{
+   position:absolute;
+   top:-1px;
+   left:0;
+   content:'';
+   width:100%;
+   height:1px;
+   border-top:1px solid #ddd;
+   -webkit-transform:scaleY(0.5);
+}
+
+
+
+
+
+
+
+
+

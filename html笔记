@@ -1171,10 +1171,16 @@ border-color: 上 右 下 左
                4、position 值不为 static 或 relative 其中一个
 
 
-火狐浏览器，讲整个页面保存成图片
+不定宽高的元素水平垂直居中
+.wrap{
+    position:absolute;top:50%;left:50px;-webkit-transform:translate(-50%,-50%);
+}
 
-
-
+.parent{
+    justify-content:center; // 子元素水平居中
+    align-items:center; // 子元素垂直居中
+    display:-webkit-flex;
+}
 
 css选择器中的 '>' 如果不希望选择任意的后代元素,而是只选择某个元素的子元素,使用子元素选择器(Child selector)
 E > F 子元素选择器,匹配所有E元素的子元素F
@@ -1199,6 +1205,23 @@ css 倒影
         color-stop(50%, transparent),
         to(rgba(255, 255, 255, .3))
     );
+
+单行文本溢出
+.inaline{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+多行文本溢出
+.intwoline{
+    display:-webkit-box !important;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    word-break:break-all;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+}
 
 http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  css选择器
 
