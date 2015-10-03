@@ -22,10 +22,6 @@ textarea { resize: none; overflow: auto; }
 
 .clearfix:after { content: ""; display: block; clear: both; }
 
-.border_right { width: 0; height: 0; overflow: hidden; border-left: 4px solid #6cbbff;
-    border-top: 4px solid transparent; border-bottom: 4px solid transparent;
-    _border-top: 4px solid #fff; _border-bottom: 4px solid #fff; }
-
 /* end public css */
 
 body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-family: "微软雅黑"; font-size: 12px; }
@@ -225,13 +221,14 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 
 #whatQQ .side { padding: 14px 0 0 42px; position: relative; }
 
-#whatQQ .side h2 { font-size: 12px; line-height: 36px; color: #0089fe; font-weight: normal; }
-
-#whatQQ .side a.h2_bg { display: block;  position: absolute; top: 30px; left: 130px; _left: 90px;   }
-
 #whatQQ .side ul li { line-height: 36px; }
 
 #whatQQ .side ul li a { color: #1a5d96; font-size: 12px; }
+
+#whatQQ .side li.active { font-size: 12px; line-height: 36px;  font-weight: normal;
+    background: url(../img/sj_right.jpg) no-repeat 88px 14px;}
+
+#whatQQ .side li.active a{ color: #0089fe;}
 
 #brief { float: left; padding-left: 25px; margin-top: 12px;}
 
@@ -241,6 +238,8 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 #brief p{ line-height: 24px; width: 654px;}
 
 #brief p.mb13{ margin-bottom: 13px;}
+
+#brief p.mt25{ margin-top: 25px;}
 
 #brief .main_fn_detail{ width: 654px; padding-bottom: 17px;}
 
@@ -258,3 +257,7 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 #brief .info_list ul{ padding: 0 0 22px 0;}
 #brief .info_list ul li{ font-size: 12px; line-height: 24px; color: #222222; text-indent: 24px;
     background: url(../img/li_bg_circle.jpg) no-repeat 10px 10px;}
+
+#brief ol li{  list-style:decimal inside; line-height: 24px;}
+
+#brief img { margin: 18px 0 0 18px;}
