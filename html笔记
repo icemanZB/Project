@@ -16,11 +16,20 @@ margin : 1、外边距 上下外边距会叠在一起，一般不会给上面的
 border : 一般用直线 dashed(像素设置比较大的话,各个浏览器样式略有不同)  dotted(IE6 不兼容)
 
 盒模型 :
+     .box{
+        width:200px;height:200px;border:10px solid #000;background:Red;padding:50px;
+     }
+     .div{
+        height:50px;background:yellow;
+     }
+     <div class="box">
+        <div class="div"></div>
+     </div>
+     可视宽： 元素的内容宽+padding+border   // 320px
+     元素内容宽：元素里可以放内容的宽度 // 200px
 
-     盒子大小=border + padding + width/height
-     盒子宽度=左border + 左padding + width + 右padding + 右border
-     盒子高度=上border + 上padding + height + 下padding + 下border
-    IE渲染的宽度 是margin+border+padding+content
+     IE8之前的可视宽度为200px，内容宽度为80px( 怪异盒模型( 页面没有文档申明 )：可视宽度就是设置的宽度，内容宽度=设置宽-padding-border )
+     标注下进入怪异模式 box-sizing:border-box; // 怪异模式
 
 结构样式 :
 
@@ -45,6 +54,8 @@ border : 一般用直线 dashed(像素设置比较大的话,各个浏览器样�
     letter-spacing      字母间距 (不常用) 通常情况下文字右边会有1px间隙，如果设置letter-spacing:5px;实际测量出来是6px
     word-spacing        单词间距 (不常用，以空格为解析单位，区分是否是一个单词)
     white-space:nowrap; 强制文本不换行
+    word-wrap:break-word 设置如果文本超出容器宽度，强制断行 ( 只限英文单词和数字 )
+    word-break:break-all; 把英文单词和数字排列整齐
 
 
 复合属性 :
@@ -345,7 +356,7 @@ IE6 兼容问题
         解决方案 : font-size:0;(不能完全解决，只能处理到最小2px)
                                推荐：*overflow:hidden;
 
-    2、在 IE6 7 下元素浮动要并排在同一行的元素都要加浮动，否则IE6会将两个元素之间多出3个像素的距离
+    2、在 IE6 下元素浮动要并排在同一行的元素都要加浮动，否则IE6会将两个元素之间多出3个像素的距离
 
         .box{ width:400px}
         .left{width:100px;height:300px;background:red;float:left}
@@ -1128,7 +1139,7 @@ http://blog.csdn.net/return_false/article/details/11203025 清除浮动
 希望把某个元素移除你的视线：
 
   1、display:none;				显示为无
-  2、visibility:hidden;	隐藏
+  2、visibility:hidden;	隐藏 （ 保留文档位置 ）
   3、width \ height
   4、透明度
   5、left \ top
@@ -1206,8 +1217,9 @@ css 倒影
         to(rgba(255, 255, 255, .3))
     );
 
-单行文本溢出
+单行文本溢出，显示省略号
 .inaline{
+    width:200px;
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
@@ -1221,6 +1233,24 @@ css 倒影
     word-break:break-all;
     -webkit-box-orient:vertical;
     -webkit-line-clamp:2;
+}
+
+模拟固定定位
+<style>
+ // 这方法不是很好
+ // 滚动条在document上面,给html设置overflow:hidden; 隐藏了滚动条
+ html{height:100%;overflow:hidden;}
+body{margin:0; height:100%;overflow:auto;}  // overflow:auto; 滚动条就在body上面了
+.box{height:2000px;}
+.div{width:100px;height:100px;background:red; position:absolute;left:100px;top:100px;}
+</style>
+<div class="box">
+	<div class="div"></div>
+</div>
+// 方法2  建议不使用，维护不好，并且在IE6下有晃动，建议js完成
+.box{height:2000px;}
+.div{width:100px;height:100px;background:red; position:fixed;left:100px;top:100px;
+_position:absolute;_top:expression(eval(document.documentElement.scrollTop+100));
 }
 
 http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  css选择器

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        body { margin: 0; }
+
+        /* float: left; */
+        .box { background: blue; overflow: hidden; _zoom:1;   }  /* border: 1px solid #000;_zoom:1; */
+
+        .div { width: 200px; height: 200px; background: red; margin: 100px; }
+
+        /*
+            margin传递解决方案：1、父级或者子集浮动，建议父级加浮动
+                              2、父级加overflow:hidden; 可以解决一些标准浏览器，但在IE6下失效，因为没有触发haslayout
+                              3、通过给父级在加_zoom:1;即可触发haslayout，解决IE6的问题
+
+            在IE6下父级有边框的时候，子元素的margin值消失，需要加上 _zoom:1; 触发haslayout
+            在标准浏览器中，父元素有border即可解决margin传递的问题
+
+        */
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="div"></div>
+</div>
+</body>
+</html>
