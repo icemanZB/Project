@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        table { width: 200px; border-collapse: collapse; background: Red; }
+
+        tbody { background: yellow; }
+
+        tr { background: url(ball.png) no-repeat; }
+
+        td { padding: 0; height: 30px; }
+
+        /*
+            在IE6下 tbody和tr都有背景的时候，tbody背景会消失，thead也是一样的，thead和tr都有背景，那么thead背景也会消失
+
+            解决方案：无解；不要给tbody和tr同时加背景
+
+        */
+    </style>
+</head>
+<body>
+<table>
+    <tbody>
+    <tr>
+        <td>表格</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: red;
+            /*  display:inline-block; IE6 7不兼容块标签，因为 inline-block 是 CSS2.1 出的
+                inline-block 有个特性，元素与元素之间有空隙 标准下是8px的距离，而IE8下是4px距离
+             */
+            display: inline-block;
+            /* 解决方案 : *display:inline; zoom:1; 但是这个方案元素与元素之前是没有空隙的
+            */
+            *display: inline;
+            zoom: 1;
+        }
+    </style>
+</head>
+<body>
+<div>div</div>
+<div>div</div>
+<div>div</div>
+</body>
+</html>

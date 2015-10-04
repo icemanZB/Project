@@ -370,13 +370,13 @@ IE6 兼容问题
         总结 : 在IE6下块元素有浮动和横向的margin，横向的margin值会被放大2倍
         解决方案:display:inline;
          body{margin:0;}
-        .wrap{float:left;border:2px solid #000;}
+        .wrap{float:left;}
         .box{width:100px;height:100px;background:red;margin:0 100px;float:left; } /* *display:inline; */
         <div class="wrap">
             <div class="box"></div>
         </div>
 
-        .box{ overflow:hidden;border:10px solid #000;}
+        .box{ float:left;border:10px solid #000;}
         .box div{width:100px;height:100px;background:Red;margin-right:20px;
         border:5px solid #ccc; float:left;}
         /*
@@ -624,7 +624,7 @@ IE6 兼容问题
             <div class='item mt100'></div>
         </div>
 
-    23、 display:inline-block; IE6不兼容,因为 inline-block 是 CSS2.1 出的
+    23、 display:inline-block; IE6 7不兼容,因为 inline-block 是 CSS2.1 出的，不支持块标签
 
          div{
             width:100px;

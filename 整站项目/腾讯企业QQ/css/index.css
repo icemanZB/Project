@@ -62,7 +62,7 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 #banner ol li { float: left; }
 
 #banner ol li a { display: block; *display: inline; width: 20px; height: 20px; float: left; cursor: pointer; line-height: 22px;
-    background: url(../img/ol_btn_bg.png) no-repeat; color: #7b91b6; text-align: center; margin-left: 10px;font-weight: bold; }
+    background: url(../img/ol_btn_bg.png) no-repeat; color: #7b91b6; text-align: center; margin-left: 10px; font-weight: bold; }
 
 #banner ol li a:hover,
 #banner ol li a.active { background: url(../img/../img/ol_btn_bg.png) no-repeat 0 -30px; color: #ffffeb; }
@@ -225,39 +225,55 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 
 #whatQQ .side ul li a { color: #1a5d96; font-size: 12px; }
 
-#whatQQ .side li.active { font-size: 12px; line-height: 36px;  font-weight: normal;
-    background: url(../img/sj_right.jpg) no-repeat 88px 14px;}
+#whatQQ .side li.active a { color: #0089fe; font-size: 12px; line-height: 36px; font-weight: normal;
+    background: url(../img/sj_right.jpg) no-repeat right 5px; padding-right: 10px; }
 
-#whatQQ .side li.active a{ color: #0089fe;}
+#brief { float: left; padding-left: 25px; margin-top: 12px; }
 
-#brief { float: left; padding-left: 25px; margin-top: 12px;}
+#brief h2 { width: 654px; height: 38px; line-height: 38px; background: #f2f7fc; color: #222222; font-size: 16px;
+    margin-bottom: 17px; }
 
-#brief h2{ width: 654px; height: 38px; line-height: 38px; background: #f2f7fc; color: #222222; font-size: 16px;
-    margin-bottom: 17px;}
+#brief p { line-height: 24px; width: 654px; }
 
-#brief p{ line-height: 24px; width: 654px;}
+#brief p.mb13 { margin-bottom: 13px; }
 
-#brief p.mb13{ margin-bottom: 13px;}
+#brief p.mt25 { margin-top: 25px; }
 
-#brief p.mt25{ margin-top: 25px;}
+#brief span.pdl24{ padding-left: 24px;}
 
-#brief .main_fn_detail{ width: 654px; padding-bottom: 17px;}
+#brief .main_fn_detail { width: 654px; padding-bottom: 17px; }
 
-#brief .main_fn_detail h3{ line-height: 24px; font-size: 13px; background: url(../img/h3_bg.jpg) no-repeat 0 center;
-    text-indent: 8px; margin-bottom: 20px; color: #222;}
+#brief .main_fn_detail h3 { line-height: 24px; font-size: 13px; background: url(../img/h3_bg.jpg) no-repeat 0 center;
+    text-indent: 8px; margin-bottom: 20px; color: #222; }
 
-#brief .main_fn_detail strong{ font-size: 13px; line-height: 18px; padding-bottom: 3px; color: #222222;}
+#brief .main_fn_detail strong { font-size: 13px; line-height: 18px; padding-bottom: 3px; color: #222222; }
 
-#brief .main_fn_detail p{ line-height: 24px; padding-bottom: 16px;}
+#brief .main_fn_detail p { line-height: 24px; padding-bottom: 16px; }
 
-#brief .info_list{ width: 654px;}
+#brief .info_list { width: 654px; }
 
-#brief .info_list h3{  line-height: 18px; font-size: 13px; background: url(../img/h3_bg.jpg) no-repeat 0 center;
-    padding-bottom: 3px; text-indent: 8px;}
-#brief .info_list ul{ padding: 0 0 22px 0;}
-#brief .info_list ul li{ font-size: 12px; line-height: 24px; color: #222222; text-indent: 24px;
-    background: url(../img/li_bg_circle.jpg) no-repeat 10px 10px;}
+#brief .info_list h3 { line-height: 18px; font-size: 13px; background: url(../img/h3_bg.jpg) no-repeat 0 center;
+    padding-bottom: 3px; text-indent: 8px; }
 
-#brief ol li{  list-style:decimal inside; line-height: 24px;}
+#brief .info_list ul { padding: 0 0 22px 0; }
 
-#brief img { margin: 18px 0 0 18px;}
+#brief .info_list ul li { font-size: 12px; line-height: 24px; color: #222222; text-indent: 24px;
+    background: url(../img/li_bg_circle.jpg) no-repeat 10px 10px; }
+
+#brief ol li { list-style: decimal inside; line-height: 24px; }
+
+#brief img { margin: 18px 0 0 18px; }
+
+#brief .tab { width: 636px; }
+
+#brief .tab th { height: 30px; color: #3d78a5; background: #daebf7; border: 1px solid #fff; }
+
+#brief .tab td { height: 37px; background: #f1f7fc; border: 1px solid #ffffff; text-align: left;
+    padding: 3px 8px; }
+
+#brief .tab td.active{ color: #4d97dc;;}
+
+#brief .tab td .info{ background: #f0f0f0; border:1px solid #ccc; padding: 12px 0 0 6px; line-height: 22px;
+    margin-bottom: 8px;}
+
+#brief .tab td .info span{ display: block;}

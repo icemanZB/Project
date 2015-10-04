@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        .box { width: 100px; height: 30px; border: 1px solid red; background: yellow; background: url(ball.png) no-repeat; }
+
+        /*  background: url(ball.png) no-repeat fixed;  能解决IE6的问题，但在IE7下背景会错位 */
+        input { width: 100px; height: 30px; border: none; margin: 0; padding: 0; float: left; background: none; }
+
+        /*
+            在IE6，7下输入类型的表单控件输入文字的时候，背景图片会跟着一块移动
+
+            解决办法: 把背景加给父级，清除自身的背景
+        */
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text"/>
+</div>
+</body>
+</html>

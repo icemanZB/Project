@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        .box { width: 200px; height: 32px; border: 1px solid red; }
+
+        input { width: 100px; height: 30px; border: 1px solid #000; margin: 0; padding: 0; *float: left; }
+
+        /*
+            在IE6 7 下输入类型的表单控件( input )上下各有1px的间隙 ( IE7 好像只有上面有1px的间隙 )，并且会撑开父级高度
+
+            解决办法:给input加浮动
+        */
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text"/>
+</div>
+</body>
+</html>

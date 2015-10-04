@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        body { height: 1000px; margin: 0; }
+
+        .box { width: 100px; height: 100px; background: Red; position: fixed; left: 50px; top: 100px; }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+</html>
+<!--
+模拟固定定位
+<style>
+    // 这方法不是很好
+    // 滚动条在document上面,给html设置overflow:hidden; 隐藏了滚动条
+
+    html{height:100%;overflow:hidden;}
+    body{margin:0; height:100%;overflow:auto;}  // overflow:auto; 滚动条就在body上面了
+    .box{height:2000px;}
+    .div{width:100px;height:100px;background:red; position:absolute;left:100px;top:100px;}
+</style>
+<div class="box">
+    <div class="div"></div>
+</div>
+// 方法2  建议不使用，维护不好，并且在IE6下有晃动，建议js完成
+.box{height:2000px;}
+.div{width:100px;height:100px;background:red; position:fixed;left:100px;top:100px;
+_position:absolute;_top:expression(eval(document.documentElement.scrollTop+100));
+
+}-->
