@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script>
+        window.onload = function () {
+
+            var oText = document.getElementById('text1');
+            var oBtn = document.getElementById('btn');
+            var oUl = document.getElementById('ul1');
+
+            oBtn.onclick = function () {
+
+                // document.createElement(标签名称); 创建元素
+                // 只是创建了一个元素，如果需要在页面显示，还需指定添加到某个节点里面去
+                var oLi = document.createElement('li');
+
+            };
+
+        };
+    </script>
+</head>
+
+<body>
+<input type="text" id="text1"/><input type="button" value="留言" id="btn"/>
+<ul id="ul1"></ul>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /*
- * ÊÂ¼ş°ó¶¨
+ * äº‹ä»¶ç»‘å®š
  * addEvent('id','click',function(){ console.log(1);  });
  * addEvent('id','click',function(){ console.log(2);  });
  *
@@ -15,7 +15,7 @@ var addEvent = function (id, event, fn) {
 
 
 /*
- * ÊÂ¼ş´úÀí ( Î¯ÍĞ ) °ó¶¨ÔÚ¸¸ÔªËØÉÏ,Ê¹Æä×ÓÔªËØÒ²ÓµÓĞÕâ¸öÊÂ¼ş
+ * äº‹ä»¶ä»£ç† ( å§”æ‰˜ ) ç»‘å®šåœ¨çˆ¶å…ƒç´ ä¸Š,ä½¿å…¶å­å…ƒç´ ä¹Ÿæ‹¥æœ‰è¿™ä¸ªäº‹ä»¶
  * delegateEvent('li',click,function(){  console.log(1);  });
  *
  * */
@@ -27,19 +27,20 @@ var delegateEvent = function () {
     });
 };
 
+// è·å–ä¸€ä¸ªå…ƒç´ åˆ°é¡µé¢ç»å¯¹è·ç¦»
+var getElementPos = function (obj) {
+    var pos = {left: 0, top: 0};
 
-var getElementLeft = function (element) {
-    var actualLeft = element.offsetLeft;
-    var current = element.offsetParent;
-
-    while (current !== null) {
-        actualLeft += current.offsetLeft;
-        current = current.offsetParent;
+    while (obj) {
+        pos.left += obj.offsetLeft;
+        pos.top += obj.offsetTop;
+        obj = obj.offsetParent;
     }
-    return actualLeft;
+
+    return pos;
 };
 
-// alert(addDate('2015/07/07',31));
+
 var addDate = function (date, days) {
     var d = new Date(date);
     d.setDate(d.getDate() + days);
@@ -54,9 +55,9 @@ var addDate = function (date, days) {
     var result = d.getFullYear() + "/" + month + "/" + day;
     return result;
 };
+// alert(addDate('2015/07/07',31));
 
-
-var getPos = function (ev) {
+var getScrollPos = function (ev) {
     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
     return {
@@ -69,13 +70,14 @@ var distinctArr = function (arr) {
     var aResult = [];
     var json = {};
     for (var i = 0; i < arr.length; i++) {
-        // ÅĞ¶ÏjsonÖĞÊÇ·ñÓĞ¸ÃÔªËØ£¬Ã»ÓĞ¾ÍÌí¼Óµ½Êı×éÖĞ
+        // åˆ¤æ–­jsonä¸­æ˜¯å¦æœ‰è¯¥å…ƒç´ ï¼Œæ²¡æœ‰å°±æ·»åŠ åˆ°æ•°ç»„ä¸­
         if (!json[arr[i]]) {
             aResult.push(arr[i]);
-            json[arr[i]] = 1; // ¸³ÖµÎª1±íÊ¾ÉÏÃæµÄÅĞ¶Ï¾ÍÊÇÎª·ñ²»Ìí¼Óµ½ĞÂµÄÊı×éÖĞ
+            json[arr[i]] = 1; // èµ‹å€¼ä¸º1è¡¨ç¤ºä¸Šé¢çš„åˆ¤æ–­å°±æ˜¯ä¸ºå¦ä¸æ·»åŠ åˆ°æ–°çš„æ•°ç»„ä¸­
         }
     }
     return aResult;
 };
+
 
 

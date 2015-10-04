@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script>
+        window.onload = function () {
+
+            var oText = document.getElementById('text1');
+
+            // 元素.getAttribute(属性名称); 方法 获取指定元素的指定属性的值
+
+            console.log(oText.getAttribute('value'));
+
+            /*
+             1.用.和[]的形式无法操作元素的自定义属性，getAttribute可以操作元素的自定义属性
+             */
+            console.log(oText._name_);  // undefined  在非标准下，是可以拿到这个值的
+            console.log(oText['_name_']); // 同上
+
+            console.log(oText.getAttribute('_name_')); // 无兼容问题
+
+            var oImg = document.getElementById('img1');
+            /*
+             2.可以获取元素属性实际的值，IE7下还是会返回资源的绝对路径
+             */
+            console.log(oImg.src); // 会获取到当前图片所在的绝对路径
+            console.log(oImg['src']); // 同上
+
+            console.log(oImg.getAttribute('src'));  // 可以获取元素属性实际的值
+
+            console.log(oImg.style.getAttribute('width'));  // 标准下会报错，IE下支持
+
+        }
+    </script>
+</head>
+
+<body>
+<input type="text" id="text1" value="1111" _name_="妙味"/>
+<img src="bdlogo.gif" id="img1" style="width:100px;"/>
+</body>
+</html>
