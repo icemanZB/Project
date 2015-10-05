@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        /*
+            理解margin-bottom:-30px  就是少占用父级30px的高度,或者少撑开父级30px高度,但是他自身的大小不会改变
+            只是占用的大小改变了
+            在IE6下 margin 负值移出去的部分,在IE6下都被父级给截掉了，加 position:relative; 即可
+        */
+        .box { float: left; border: 10px solid #000; margin: 20px; display: inline; }
+
+        .box div { width: 100px; height: 100px; background: red; position: relative; }
+
+        .div1 { margin-top: -30px; }
+
+        .div2 { margin-left: -30px; }
+
+        .div3 { margin-bottom: -30px; }
+
+        .div4 { margin-right: -30px; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="div1"></div>
+</div>
+<div class="box">
+    <div class="div2"></div>
+</div>
+<div class="box">
+    <div class="div3"></div>
+</div>
+<div class="box">
+    <div class="div4"></div>
+</div>
+</body>
+</html>

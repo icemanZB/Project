@@ -80,4 +80,51 @@ var distinctArr = function (arr) {
 };
 
 
+var getByClassName = function (parent, className) {
+    var aEls = parent.getElementsByTagName('*');
+    var aResult = [];
 
+    for (var i = 0; i < aEls.length; i++) {
+        var aClassName = aEls[i].className.split(' ');
+        for (var j = 0; j < aClassName.length; j++) {
+            if (aClassName[j] === className) {
+                aResult.push(aEls[i]);
+                break;
+            }
+        }
+    }
+
+    return aResult;
+};
+
+var addClass = function (obj, className) {
+    if (obj.className === '') {
+        obj.className = className;
+    } else {
+        var aClassName = obj.className.split(' ');
+        var _index = arrIndexOf(aClassName, className);
+        if (_index === -1) {
+            obj.className += ' ' + className;
+        }
+    }
+};
+
+var removeClass = function (obj, className) {
+    if (obj.className !== '') {
+        var aClassName = obj.className.split(' ');
+        var _index = arrIndexOf(aClassName, className);
+        if (_index !== -1) {
+            aClassName.splice(_index, 1);
+            obj.className = aClassName.join(' ');
+        }
+    }
+};
+
+var arrIndexOf = function (arr, val) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] === val) {
+            return i;
+        }
+    }
+    return -1;
+};
