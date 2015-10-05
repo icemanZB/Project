@@ -239,7 +239,7 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 
 #brief p.mt25 { margin-top: 25px; }
 
-#brief span.pdl24{ padding-left: 24px;}
+#brief span.pdl24 { padding-left: 24px; }
 
 #brief .main_fn_detail { width: 654px; padding-bottom: 17px; }
 
@@ -271,9 +271,30 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 #brief .tab td { height: 37px; background: #f1f7fc; border: 1px solid #ffffff; text-align: left;
     padding: 3px 8px; }
 
-#brief .tab td.active{ color: #4d97dc;;}
+#brief .tab td.active { color: #4d97dc;; }
 
-#brief .tab td .info{ background: #f0f0f0; border:1px solid #ccc; padding: 12px 0 0 6px; line-height: 22px;
-    margin-bottom: 8px;}
+#brief .tab td .info { background: #f0f0f0; border: 1px solid #ccc; padding: 12px 0 0 6px; line-height: 22px;
+    margin-bottom: 8px; }
 
-#brief .tab td .info span{ display: block;}
+#brief .tab td .info span { display: block; }
+
+#main .down{ padding: 39px 0 0 41px;}
+
+#download_left { width: 568px; height: 308px; float: left; background: url(../img/download_left_bg.jpg) no-repeat;
+     position: relative; }
+
+#download_left a.download { position: absolute; left: 82px; top: 214px; width: 126px; height: 46px; text-indent: -999px; }
+
+#download_left a.contact { position: absolute; left: 216px; top: 214px; width: 138px; height: 46px; text-indent: -999px; }
+
+#download_right { width: 286px; height: 308px; float: left; background: url(../img/download_right_bg.jpg) no-repeat;
+    margin: 0 0 0 25px; position: relative; }
+
+#download_right a.download { position: absolute; left: 87px; top: 214px; width: 126px; height: 45px; text-indent: -999px; }
+
+#notice{ margin: 50px 0 0 56px;}
+
+#notice h3{ width: 73px; height: 25px; background: #f9e7bf; color: #222222; line-height: 25px; border-radius: 3px;
+    padding: 0 6px; margin-bottom: 22px; font-size: 14px;}
+
+#notice p{ color: #935a08; line-height: 24px; font-size: 12px;}
