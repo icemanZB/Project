@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script>
+        window.onload = function () {
+            var aInput = document.getElementsByTagName('input');
+            var opener = null;
+
+            aInput[0].onclick = function () {
+                opener = window.open();
+
+            };
+
+            aInput[1].onclick = function () {
+
+                window.close();
+                /*
+                 ff : 无法关闭
+                 chrome : 直接关闭
+                 IE : 询问用户
+                 */
+
+            };
+
+            aInput[2].onclick = function () {
+                opener.close();	// 可以通过关闭用window.open方法打开的窗口，无兼容问题
+            }
+        }
+    </script>
+</head>
+
+<body>
+<input type="button" value="打开新窗口"/>
+<input type="button" value="关闭窗口"/>
+<input type="button" value="关闭新窗口"/>
+</body>
+</html>

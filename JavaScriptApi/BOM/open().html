@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script>
+        /*
+         BOM : Browser Object Model 浏览器对象模型
+         */
+        window.onload = function () {
+            var aInput = document.getElementsByTagName('input');
+            var opener = null;
+
+            aInput[0].onclick = function () {
+
+                // open( 页面地址，打开方式 ) 打开一个新窗口
+                // 如果url为空，则默认打开一个空的页面
+                // 如果打开方式为空，默认为新窗口方式打开
+
+                // window.open('http://www.baidu.com', '_self');
+
+                opener = window.open(); // 返回值 返回的新开页面的window对象
+
+                // alert(opener == window)  false
+
+                opener.document.body.style.background = 'red';
+
+            };
+
+        }
+    </script>
+</head>
+
+<body>
+<input type="button" value="打开新窗口"/>
+</body>
+</html>
