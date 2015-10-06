@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        #div1 { width: 100px; height: 200px; border: 1px solid red; display: none; }
+    </style>
+    <script>
+        window.onload = function () {
+
+            /*
+                阻止冒泡 : 当前要阻止冒泡的事件函数中调用 event.cancelBubble = true;
+             */
+
+            var oBtn = document.getElementById('btn');
+            var oDiv = document.getElementById('div1');
+
+            oBtn.onclick = function (ev) {
+                var oEvent = ev || event;
+
+                oEvent.cancelBubble = true;// 阻止当前对象的当前事件的冒泡
+
+                oDiv.style.display = 'block';
+            };
+            // 这个mouseover事件也会冒泡
+            oBtn.onmouseover = function (ev) {
+                var oEvent = ev || event;
+
+                oEvent.cancelBubble = true; // 阻止当前按钮的mouseover
+            };
+
+            document.onclick = function () {
+                oDiv.style.display = 'none';
+            };
+
+        }
+    </script>
+</head>
+
+<body>
+<input type="button" value="按钮" id="btn"/>
+
+<div id="div1"></div>
+
+</body>
+</html>

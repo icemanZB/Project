@@ -58,13 +58,20 @@ var addDate = function (date, days) {
 // alert(addDate('2015/07/07',31));
 
 var getScrollPos = function (ev) {
-    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+    var scrollTop = getPageScroll().scrollTop;
+    var scrollLeft = getPageScroll().scrollLeft;
     return {
         x: ev.clientX + scrollLeft,
         y: ev.clientY + scrollTop
     };
 };
+
+function getPageScroll() {
+    var json = {scrollTop: 0, scrollLeft: 0};
+    json.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    json.scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
+    return json;
+}
 
 var distinctArr = function (arr) {
     var aResult = [];
