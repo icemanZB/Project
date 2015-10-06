@@ -228,6 +228,10 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 #whatQQ .side li.active a { color: #0089fe; font-size: 12px; line-height: 36px; font-weight: normal;
     background: url(../img/sj_right.jpg) no-repeat right 5px; padding-right: 10px; }
 
+#whatQQ .side ul li a:hover{  color: #0089fe;}
+
+#whatQQ .side img{ padding-top: 12px;}
+
 #brief { float: left; padding-left: 25px; margin-top: 12px; }
 
 #brief h2 { width: 654px; height: 38px; line-height: 38px; background: #f2f7fc; color: #222222; font-size: 16px;
@@ -271,7 +275,7 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 #brief .tab td { height: 37px; background: #f1f7fc; border: 1px solid #ffffff; text-align: left;
     padding: 3px 8px; }
 
-#brief .tab td.active { color: #4d97dc;; }
+#brief .tab td.active { color: #4d97dc; }
 
 #brief .tab td .info { background: #f0f0f0; border: 1px solid #ccc; padding: 12px 0 0 6px; line-height: 22px;
     margin-bottom: 8px; }
@@ -298,3 +302,17 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
     padding: 0 6px; margin-bottom: 22px; font-size: 14px;}
 
 #notice p{ color: #935a08; line-height: 24px; font-size: 12px;}
+
+#brief .install{ width: 653px; padding-bottom: 6px;}
+
+#brief .install li{ width: 325px; float: left; }
+
+#brief .install li a{ color: #3d78a5; line-height: 30px;}
+
+#brief .install li a:hover,
+#brief .install li a.active{  color: #4d97dc;}
+
+#brief .install_info{  text-align: center;}
+#brief .install_info .img{ width: 559px; height: 357px; margin: 28px auto 13px;}
+
+#brief .install_info img{ margin: 0;}
