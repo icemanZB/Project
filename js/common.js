@@ -9,10 +9,19 @@ var addEvent = function (id, event, fn) {
     if (el.addEventListener) {
         el.addEventListener(event, fn, false);
     } else {
-        el.attachEvent('on' + event, fn);
+        el.attachEvent('on' + event, function () {
+            fn.call(el);
+        });
     }
 };
 
+var removeEvent = function (obj, evname, fn) {
+    if (obj.detachEvent) {
+        obj.detachEvent('on' + evname, fn);
+    } else {
+        obj.removeEventListener(evname, fn, false);
+    }
+};
 
 /*
  * 事件代理 ( 委托 ) 绑定在父元素上,使其子元素也拥有这个事件
