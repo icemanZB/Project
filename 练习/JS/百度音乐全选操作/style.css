@@ -1,0 +1,19 @@
+ul, li { margin: 0; padding: 0; list-style: none; }
+
+button { margin: 0; padding: 0; }
+
+#box { border: 1px solid #000; width: 320px; height: 216px; }
+
+ul { font-size: 12px; }
+
+li { width: 294px; height: 30px; line-height: 30px; padding-left: 16px; position: relative; }
+
+li input { position: relative; top: 2px; }
+
+li span { position: absolute; left: 207px; }
+
+#tool { border-top: 1px solid #dedede; width: 294px; height: 34px; padding-left: 16px; font-size: 12px; }
+
+#tool input { margin-top: 6px; position: relative; top: 2px; }
+
+#tool button { border: 0; width: 65px; height: 25px; font-size: 12px; margin-right: 7px; padding-left: 28px; position: relative; left: 23px; }
