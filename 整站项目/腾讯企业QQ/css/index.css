@@ -22,10 +22,6 @@ textarea { resize: none; overflow: auto; }
 
 .clearfix:after { content: ""; display: block; clear: both; }
 
-/* end public css */
-
-body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-family: "微软雅黑"; font-size: 12px; }
-
 /* header */
 #header { background: url(../img/head_bg.jpg) no-repeat center 0; }
 
@@ -51,6 +47,36 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
     background: url(../img/nav_hover.png) no-repeat center 50px; }
 
 #nav a:hover, #nav .active { background-position: center 0; }
+
+/* footer */
+#footer { background: linear-gradient(#fefefe, #d9e2ce); height: 160px; text-align: center; line-height: 24px; }
+
+#footer .link { padding-top: 46px; }
+
+#footer a { margin: 0 3px; }
+
+#footer a,
+#footer p { color: #808080; }
+
+/* 侧边栏 */
+#whatQQ { width: 256px; float: left; background: url(../img/whatQQ_bg.png) repeat-y; margin-top: 12px; }
+
+#whatQQ .side { padding: 14px 0 0 42px; position: relative; }
+
+#whatQQ .side ul li { line-height: 36px; }
+
+#whatQQ .side ul li a { color: #1a5d96; font-size: 12px; }
+
+#whatQQ .side li.active a { color: #0089fe; font-size: 12px; line-height: 36px; font-weight: normal;
+    background: url(../img/sj_right.jpg) no-repeat right 5px; padding-right: 10px; }
+
+#whatQQ .side ul li a:hover { color: #0089fe; }
+
+#whatQQ .side img { padding-top: 12px; }
+
+/* end public css */
+
+body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-family: "微软雅黑"; font-size: 12px; }
 
 /* banner */
 #banner { width: 960px; height: 285px; overflow: hidden; position: relative; }
@@ -207,31 +233,7 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 
 .report li a { color: #1a5d96; line-height: 27px; }
 
-#footer { background: linear-gradient(#fefefe, #d9e2ce); height: 160px; text-align: center; line-height: 24px; }
-
-#footer .link { padding-top: 46px; }
-
-#footer a { margin: 0 3px; }
-
-#footer a,
-#footer p { color: #808080; }
-
 /* product */
-#whatQQ { width: 256px; float: left; background: url(../img/whatQQ_bg.png) repeat-y; margin-top: 12px; }
-
-#whatQQ .side { padding: 14px 0 0 42px; position: relative; }
-
-#whatQQ .side ul li { line-height: 36px; }
-
-#whatQQ .side ul li a { color: #1a5d96; font-size: 12px; }
-
-#whatQQ .side li.active a { color: #0089fe; font-size: 12px; line-height: 36px; font-weight: normal;
-    background: url(../img/sj_right.jpg) no-repeat right 5px; padding-right: 10px; }
-
-#whatQQ .side ul li a:hover{  color: #0089fe;}
-
-#whatQQ .side img{ padding-top: 12px;}
-
 #brief { float: left; padding-left: 25px; margin-top: 12px; }
 
 #brief h2 { width: 654px; height: 38px; line-height: 38px; background: #f2f7fc; color: #222222; font-size: 16px;
@@ -282,10 +284,10 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 
 #brief .tab td .info span { display: block; }
 
-#main .down{ padding: 39px 0 0 41px;}
+#main .down { padding: 39px 0 0 41px; }
 
 #download_left { width: 568px; height: 308px; float: left; background: url(../img/download_left_bg.jpg) no-repeat;
-     position: relative; }
+    position: relative; }
 
 #download_left a.download { position: absolute; left: 82px; top: 214px; width: 126px; height: 46px; text-indent: -999px; }
 
@@ -296,23 +298,24 @@ body { background: #d9e2ce url(../img/bg.gif) repeat-x; min-width: 960px; font-f
 
 #download_right a.download { position: absolute; left: 87px; top: 214px; width: 126px; height: 45px; text-indent: -999px; }
 
-#notice{ margin: 50px 0 0 56px;}
+#notice { margin: 50px 0 0 56px; }
 
-#notice h3{ width: 73px; height: 25px; background: #f9e7bf; color: #222222; line-height: 25px; border-radius: 3px;
-    padding: 0 6px; margin-bottom: 22px; font-size: 14px;}
+#notice h3 { width: 73px; height: 25px; background: #f9e7bf; color: #222222; line-height: 25px; border-radius: 3px;
+    padding: 0 6px; margin-bottom: 22px; font-size: 14px; }
 
-#notice p{ color: #935a08; line-height: 24px; font-size: 12px;}
+#notice p { color: #935a08; line-height: 24px; font-size: 12px; }
 
-#brief .install{ width: 653px; padding-bottom: 6px;}
+#brief .install { width: 653px; padding-bottom: 6px; }
 
-#brief .install li{ width: 325px; float: left; }
+#brief .install li { width: 325px; float: left; }
 
-#brief .install li a{ color: #3d78a5; line-height: 30px;}
+#brief .install li a { color: #3d78a5; line-height: 30px; }
 
 #brief .install li a:hover,
-#brief .install li a.active{  color: #4d97dc;}
+#brief .install li a.active { color: #4d97dc; }
 
-#brief .install_info{  text-align: center;}
-#brief .install_info .img{ width: 559px; height: 357px; margin: 28px auto 13px;}
+#brief .install_info { text-align: center; }
 
-#brief .install_info img{ margin: 0;}
+#brief .install_info .img { width: 559px; height: 357px; margin: 28px auto 13px; }
+
+#brief .install_info img { margin: 0; }
