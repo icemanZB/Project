@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        #div1 { width: 100px; height: 100px; background: red; position: absolute; z-index: 2; }
+
+        #div2 { width: 100px; height: 100px; background: blue; position: absolute; left: 500px; top: 200px; }
+    </style>
+    <script>
+        window.onload = function () {
+
+            var oDiv = document.getElementById('div1');
+            var oDiv2 = document.getElementById('div2');
+
+            drag(oDiv);
+
+            function drag(obj) {
+
+                obj.onmousedown = function (ev) {
+                    var oEvent = ev || event;
+
+                    var disX = oEvent.clientX - this.offsetLeft;
+                    var disY = oEvent.clientY - this.offsetTop;
+
+                    if (obj.setCapture) {
+                        obj.setCapture();
+                    }
+
+                    document.onmousemove = function (ev) {
+                        var oEvent = ev || event;
+
+                        var L = oEvent.clientX - disX;
+                        var T = oEvent.clientY - disY;
+
+                        var L1 = L;
+                        var R1 = L + obj.offsetWidth;
+                        var T1 = T;
+                        var B1 = T + obj.offsetHeight;
+
+                        var L2 = oDiv2.offsetLeft;
+                        var R2 = L2 + oDiv2.offsetWidth;
+                        var T2 = oDiv2.offsetTop;
+                        var B2 = T2 + oDiv2.offsetHeight;
+
+                        if (R1 < L2 || L1 > R2 || B1 < T2 || T1 > B2) {
+                            obj.style.background = 'red';
+                        } else {
+                            obj.style.background = 'gray';  // 碰到了
+                        }
+
+                        obj.style.left = L + 'px';
+                        obj.style.top = T + 'px';
+
+                    };
+
+                    document.onmouseup = function () {
+                        document.onmousemove = document.onmouseup = null;
+                        if (obj.releaseCapture) {
+                            obj.releaseCapture();
+                        }
+                    };
+
+                    return false;
+
+                }
+
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>
