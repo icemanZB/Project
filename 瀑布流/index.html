@@ -4,55 +4,63 @@
     <meta charset="UTF-8">
     <title>瀑布流</title>
     <style>
-		body, div {
-			margin: 0;
-			padding: 0
-		}
-		img {
-			border: 0
-		}
-		#container {
-			text-align: center
-		}
-		#container .cell {
-			padding: 5px 5px 0;
-			border: 1px solid #E3E3E3;
-			background: #F5F5F5;
-			margin-top: 10px
-		}
-		#container p {
-			line-height: 20px;
-			margin-top: 5px;
-		}
-	</style>
+        body, div {
+            margin: 0;
+            padding: 0
+        }
+
+        img {
+            border: 0
+        }
+
+        #container {
+            text-align: center
+        }
+
+        #container .cell {
+            padding: 5px 5px 0;
+            border: 1px solid #E3E3E3;
+            background: #F5F5F5;
+            margin-top: 10px
+        }
+
+        #container p {
+            line-height: 20px;
+            margin-top: 5px;
+        }
+    </style>
     <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript">
-    	var opt = {
-    		// index为已加载次数,render 为渲染接口函数,接受一个 dom 集合或 jquery 对象作为参数。通过
-    		// ajax 等异步方法得到的数据可以传入该接口进行渲染，如 render(elem)
-    		getResource: function(index, render) {
-    			var html = '';
-    			for (var i = 0; i < 20; i++) {
-    				var k = i;
-    				k = '0' + (String(k).length == 1 ? '0' : '') + k;
-    				var src = "http://yl.sofedu.com/Public/images/images/p_" + k + ".jpg";
-    				html += '<div class="cell"><img src="' + src + '" /><p>' + k + '</p></div>';
-    			}
-    			return $(html);
-    		},
-    		auto_imgHeight: true,
-    		insert_type: 1
-    	}
-    	$(function(){
-    		$('#container').waterfall(opt);
-    	});
+        var opt = {
+            // index为已加载次数,render 为渲染接口函数,接受一个 dom 集合或 jquery 对象作为参数。通过
+            // ajax 等异步方法得到的数据可以传入该接口进行渲染，如 render(elem)
+            getResource: function (index, render) {
+                var html = '';
+                for (var i = 0; i < 20; i++) {
+                    var k = i;
+                    k = '0' + (String(k).length == 1 ? '0' : '') + k;
+                    var src = "http://yl.sofedu.com/Public/images/images/p_" + k + ".jpg";
+                    html += '<div class="cell"><img src="' + src + '" /><p>' + k + '</p></div>';
+                }
+                return $(html);
+            },
+            auto_imgHeight: true,
+            insert_type: 1
+        };
+        $(function () {
+            $('#container').waterfall(opt);
+        });
 
     </script>
 </head>
 <body>
 <!--
+
+瀑布流特点 ： 盒子等宽不等高
+
 1.先计算当前屏幕最多能容纳几列瀑布,其值为 "向下取整(屏幕可见区域宽度/(格子宽度+间距))";
+
 2.为了保证容器的居中,将容器的宽度设置为 列数* (格子宽度+间距) – 间距,这里需要注意的是 当容器的宽度计算出来之后再显示
 否则会造成页面宽度的抖动影响体验
 3.排序开始,先把前N（N为列数）个格子分别放到每一列中,然后每次寻找高度最小的一列
@@ -85,27 +93,67 @@ getResource:function(index,render){ } 获取动态资源函数必须返回一个
             它可以接受一个砖头元素集合作为参数,如果是使用 ajax 加载数据,则得到数据后要手动调用该函数来进行渲染
             每次到达瀑布流底部时会自动触发该函数来加载更多资源
 -->
-	<div id="container">
-		<div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_000.jpg" /><p>00</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_001.jpg" /><p>01</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_002.jpg" /><p>02</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_003.jpg" /><p>03</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_004.jpg" /><p>04</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_005.jpg" /><p>05</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_006.jpg" /><p>06</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_007.jpg" /><p>07</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_008.jpg" /><p>08</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_009.jpg" /><p>09</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_010.jpg" /><p>10</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_011.jpg" /><p>11</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_012.jpg" /><p>12</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_013.jpg" /><p>13</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_014.jpg" /><p>14</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_015.jpg" /><p>15</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_016.jpg" /><p>16</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_017.jpg" /><p>17</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_018.jpg" /><p>18</p></div>
-	    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_019.jpg" /><p>19</p></div>
-	</div>
+<div id="container">
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_000.jpg"/>
+
+        <p>00</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_001.jpg"/>
+
+        <p>01</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_002.jpg"/>
+
+        <p>02</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_003.jpg"/>
+
+        <p>03</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_004.jpg"/>
+
+        <p>04</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_005.jpg"/>
+
+        <p>05</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_006.jpg"/>
+
+        <p>06</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_007.jpg"/>
+
+        <p>07</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_008.jpg"/>
+
+        <p>08</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_009.jpg"/>
+
+        <p>09</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_010.jpg"/>
+
+        <p>10</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_011.jpg"/>
+
+        <p>11</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_012.jpg"/>
+
+        <p>12</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_013.jpg"/>
+
+        <p>13</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_014.jpg"/>
+
+        <p>14</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_015.jpg"/>
+
+        <p>15</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_016.jpg"/>
+
+        <p>16</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_017.jpg"/>
+
+        <p>17</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_018.jpg"/>
+
+        <p>18</p></div>
+    <div class="cell"><img src="http://yl.sofedu.com/Public/images/images/p_019.jpg"/>
+
+        <p>19</p></div>
+</div>
 </body>
 </html>
