@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title></title>
+    <script type="text/javascript" src="../../js/jquery-1.11.0.min.js"></script>
     <style type="text/css">
         * { padding: 0; margin: 0; }
 
@@ -17,31 +18,59 @@
         /* 等宽不等高 */
     </style>
     <script type="text/javascript">
-        window.onload = function () {
-            waterfall('main', 'box');
-        };
-
-        function waterfall(parent, box) {
-            var oParent = document.getElementById(parent);
-            var aBox = getClassObj(oParent, box);
-            // 计算整个页面显示的列数( 页面宽/box宽 )
-            var oBoxWidth = aBox[0].offsetWidth;  // 202 = 165+10*2(padding)+2(border) + 15(盒子内填充)
-            var clos = Math.floor(document.documentElement.clientWidth / oBoxWidth); // 6列
-            // 设置main的宽度，为了固定列数
-            oParent.style.width = oBoxWidth * clos + 'px';
-        }
-
-        function getClassObj(parent, className) {
-            var obj = parent.getElementsByTagName('*');//获取 父级的所有子集
-            var arr = [];//创建一个数组 用于收集子元素
-            for (var i = 0; i < obj.length; i++) {//遍历子元素、判断类别、压入数组
-                if (obj[i].className == className) {
-                    arr.push(obj[i]);
+        // 等待页面加载完才能获取高度，有性能问题
+        // 每次拿完新的数据，页面需要重排，性能问题
+        // 拉动滚动条就会加载一次，性能问题
+        $(window).on('load', function () {
+            waterfall();
+            var data = {'data': [{'src': '1.jpg'}, {'src': '2.jpg'}, {'src': '3.jpg'}, {'src': '4.jpg'}]};
+            window.onscroll = function () {
+                if (checkScroll()) {
+                    var strHtml = '';
+                    $.each(data.data, function (index, value) {
+                        strHtml += '<div class="box"><div class="pic"><img src="../images/' + value.src + '"/></div></div>';
+                    });
+                    $("#main").append(strHtml);
+                    waterfall();
                 }
             }
+        });
 
-            return arr;
+        function checkScroll() {
+            var $lastBox = $("#main").children('div').last();
+            var lastBoxDis = $lastBox.position().top + Math.floor($lastBox.outerHeight() / 2);
+            var scrollTop = $(window).scrollTop();
+            var documentHeight = $(document).width();
+            return lastBoxDis < scrollTop + documentHeight;
         }
+
+        function waterfall() {
+            var oParent = $("#main");
+            var $aBox = oParent.children('div');
+            var oBoxWidth = $aBox.first().outerWidth();
+            var clos = Math.floor($(window).width() / oBoxWidth);
+            oParent.width(oBoxWidth * clos);
+
+            var aPicHeight = [];
+
+            $aBox.each(function (index) {
+                if (index < clos) {
+                    aPicHeight[index] = $(this).outerHeight();
+                } else {
+                    var minH = Math.min.apply(null, aPicHeight);
+                    var minHIndex = $.inArray(minH, aPicHeight);
+                    $(this).css({
+                        "position": "absolute",
+                        "left": oBoxWidth * minHIndex + 'px',
+                        "top": minH + 'px'
+                    });
+                    aPicHeight[minHIndex] += $(this).outerHeight();
+                }
+            });
+
+        }
+
+
     </script>
 </head>
 <body>

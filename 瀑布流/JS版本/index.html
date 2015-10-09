@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <style type="text/css">
+        * { padding: 0; margin: 0; }
+
+        #main { position: relative; margin: 0 auto; }
+
+        .box { padding: 15px 0 0 15px; float: left; }
+
+        .pic { padding: 10px; border: 1px solid #ccc; box-shadow: 0 0 5px #ccc; border-radius: 5px; }
+
+        .box img { width: 165px; height: auto; }
+
+        /* 等宽不等高 */
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            waterfall('main', 'box');
+            var data = {'data': [{'src': '1.jpg'}, {'src': '2.jpg'}, {'src': '3.jpg'}, {'src': '4.jpg'}]};
+
+            window.onscroll = function () {
+                if (checkScroll()) {
+                    var oParent = document.getElementById('main');
+                    for (var i = 0; i < data.data.length; i++) {
+                        var oBox = document.createElement('div');
+                        oBox.className = 'box';
+                        oParent.appendChild(oBox);
+                        var oPic = document.createElement('div');
+                        oPic.className = 'pic';
+                        oBox.appendChild(oPic);
+                        var oImg = document.createElement('img');
+                        oImg.src = '../images/' + data.data[i].src;
+                        oPic.appendChild(oImg);
+                    }
+                    waterfall('main', 'box');
+                }
+            }
+        };
+
+        function checkScroll() {
+            var oParent = document.getElementById('main');
+            var aBox = getClassObj(oParent, 'box');
+            // 最后一个盒子的距离网页顶部 + 自身高的一半(实现未滚到底就开始加载，最后一个盒子到一半的时候)
+            var lastBoxHeight = aBox[aBox.length - 1].offsetTop + Math.floor(aBox[aBox.length - 1].offsetHeight / 2);
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;// 滚动条滚动的高度
+            var documentHeight = document.documentElement.clientHeight || document.body.clientHeight;// 页面高度 ( 可视取的高度 )
+            return lastBoxHeight < scrollTop + documentHeight;// 条件成立返回true，触发waterfall()函数
+        }
+
+        function waterfall(parent, box) {
+            var oParent = document.getElementById(parent);
+            var aBox = getClassObj(oParent, box);
+            // 计算整个页面显示的列数( 页面宽/box宽 )
+            var oBoxWidth = aBox[0].offsetWidth;  // 202 = 165+10*2(padding)+2(border) + 15(盒子内填充)
+            var documentWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var clos = Math.floor(documentWidth / oBoxWidth); // 6列
+            // 设置main的宽度，为了固定列数
+            oParent.style.width = oBoxWidth * clos + 'px';
+
+            var aPicHeight = []; // 用于存储 每列中的所有块框相加的高度，第一次存的是第一行的每一列高度
+            for (var i = 0; i < aBox.length; i++) {// 遍历所有class为box的数组
+                if (i < clos) {
+                    aPicHeight[i] = aBox[i].offsetHeight; // 先把第一行的每一列高度存到数组中
+                } else {
+                    var minH = Math.min.apply(null, aPicHeight);// 数组中的最小值minH
+                    var minHIndex = getMinIndex(aPicHeight, minH);
+                    aBox[i].style.position = 'absolute';// 设置绝对定位
+                    aBox[i].style.top = minH + 'px';
+                    aBox[i].style.left = oBoxWidth * minHIndex + 'px';
+                    // 修改数组，存放每一列的高
+                    aPicHeight[minHIndex] += aBox[i].offsetHeight; // 更新最小高度( 等于排除以查找到的最小高度 )
+                }
+            }
+        }
+
+        function getMinIndex(arr, minH) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] == minH) {
+                    return i;
+                }
+            }
+        }
+
+        function getClassObj(parent, className) {
+            var obj = parent.getElementsByTagName('*');
+            var arr = [];
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i].className === className) {
+                    arr.push(obj[i]);
+                }
+            }
+
+            return arr;
+        }
+    </script>
+</head>
+<body>
+<div id="main">
+    <div class="box">
+        <div class="pic">
+            <img src="../images/1.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/2.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/3.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/4.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/5.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/6.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/7.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/8.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/9.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/10.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/11.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/12.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/13.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/14.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/15.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/16.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/17.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/18.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/19.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/20.jpg"/>
+        </div>
+    </div>
+    <div class="box">
+        <div class="pic">
+            <img src="../images/21.jpg"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
