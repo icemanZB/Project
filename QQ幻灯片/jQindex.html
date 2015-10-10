@@ -16,64 +16,69 @@
                     $oBtnPrev = $("#btn_prev"),
                     $oBtnNext = $("#btn_next"),
                     iNow = 0,
-                    dis = 0;
+                    dis = 0,
+                    timer = null;
 
 
             $oIcoUl.on("click", "li", function () {
                 iNow = $(this).index();
+                animate();
+            });
 
+            $oBtnNext.click(autoPlay);
+
+            function animate() {
                 $aIcoLi.removeClass('active').eq(iNow).addClass('active');
                 $aTextLi.find('h2').removeClass('show').eq(iNow).addClass('show');
                 $aPicLi.removeClass('active').stop().animate({"opacity": 0}, 500)
                         .eq(iNow).addClass('active').stop().animate({"opacity": 1}, 500);
-            });
+            }
 
-            $oBtnNext.click(function () {
-                if (dis < $aIcoLi.length - 7) {
+
+            function autoPlay() {
+                if (iNow >= $aIcoLi.length / 2 - 1) {
                     dis++;
+                    $oIcoUl.stop().animate({"left": -$aIcoLi.outerWidth() * dis + 'px'}, 800);
                 }
 
+                iNow++;
 
-                iNow >= $aIcoLi.length - 1 ? iNow = $aIcoLi.length - 1 : iNow++;
-
-                $oIcoUl.stop().animate({"left": -$aIcoLi.outerWidth() * dis + 'px'}, 800);
-
-                $aIcoLi.removeClass('active').eq(iNow).addClass('active');
-
-                $aTextLi.find('h2').removeClass('show').eq(iNow).addClass('show');
-
-                $aPicLi.removeClass('active').stop().animate({"opacity": 0}, 500)
-                        .eq(iNow).addClass('active').stop().animate({"opacity": 1}, 500);
-
-                if (iNow === $aIcoLi.length - 1) {
-                    $(this).removeClass('showBtn');
+                if (iNow === $aIcoLi.length) {
+                    iNow = 0;
+                    $oIcoUl.stop().animate({"left": 0}, 800);
+                    dis = 0;
                 }
-                $oBtnPrev.addClass('showBtn');
 
-            });
+                animate();
+
+            }
 
             $oBtnPrev.click(function () {
 
-                if (dis > 0) {
-                    dis--;
+                if (iNow <= $aIcoLi.length / 2 && iNow > 0) {
+                    dis = iNow - 7 ? 0 : iNow - 7;
+                    $oIcoUl.stop().animate({"left": -$aIcoLi.outerWidth() * dis + 'px'}, 800);
                 }
 
-                iNow === 0 ? iNow = 0 : iNow--;
+                iNow--;
 
-                $oIcoUl.stop().animate({"left": -$aIcoLi.outerWidth() * dis + 'px'}, 800);
-
-                $aIcoLi.removeClass('active').eq(iNow).addClass('active');
-                $aTextLi.find('h2').removeClass('show').eq(iNow).addClass('show');
-                $aPicLi.removeClass('active').stop().animate({"opacity": 0}, 500)
-                        .eq(iNow).addClass('active').stop().animate({"opacity": 1}, 500);
-
-
-                if (iNow === 0) {
-                    $(this).removeClass('showBtn');
+                if (iNow < 0) {
+                    iNow = $aIcoLi.length - 1;
+                    $oIcoUl.stop().animate({"left": -$aIcoLi.outerWidth() * $aIcoLi.length / 2 + 'px'}, 800);
                 }
-                $oBtnPrev.addClass('showBtn');
+
+                animate();
 
             });
+
+
+            timer = setInterval(autoPlay, 2000);
+
+            $oBox.hover(function () {
+                clearInterval(timer);
+            }, function () {
+                timer = setInterval(autoPlay, 2000);
+            })
 
         });
     </script>
@@ -161,7 +166,7 @@
             <li><a href="#"><img src="img/ico_14.jpg"/></a></li>
         </ul>
     </div>
-    <a href="#" id="btn_prev" class="btn"></a>
+    <a href="#" id="btn_prev" class="btn showBtn"></a>
     <a href="#" id="btn_next" class="btn showBtn"></a>
 </div>
 </body>
