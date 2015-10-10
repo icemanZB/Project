@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>on()</title>
+    <script type="text/javascript" src="../jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            /**
+             * on()函数并不是为当前 jQuery 对象匹配的元素绑定事件处理函数,而是为它们的后代元素中符合
+             * 选择器 selector 参数的元素绑定事件处理函数。on()函数并不是直接为这些后代元素挨个绑定
+             * 事件,而是委托给当前jQuery对象的匹配元素来处理。
+             */
+            // 为所有p元素绑定click事件处理程序(注意：这里省略了selector参数)
+            // n2、n3、n5均可触发该事件
+            $("p").on("click", function () {
+                // 这里的this指向触发点击事件的p元素(Element)
+                console.log($(this).text());
+            });
+
+            // 为div中的所有p元素绑定click事件处理程序
+            // 只有n2、n3可以触发该事件
+            $("div").on("click", "p", function () {
+                console.log($(this).text());
+            });
+
+            // 后添加的n6也可以触发上述click事件，因为它也是div中的p元素
+            $("#n1").append('<p id="n6">上述绑定的click事件对此元素也生效!</p>');
+
+            /**
+             * 同时绑定多个事件,并为事件处理函数传递一些附加的数据
+             * 通过 jQuery 为事件处理函数传入的参数 event (Event事件对象)来进行处理
+             */
+
+            var data = {
+                id: 5,
+                name: "张三"
+            };
+
+            // 为n5绑定 mouseenter mouseleave两个事件,并为其传入附加数据data
+            // 附加数据可以是任意类型
+            $("body").on("mouseenter mouseleave", "#n5", data, function (event) {
+                var $me = $(this);
+                var options = event.data; // 这就是传入的附加数据
+                if (event.type == "mouseenter") {
+                    $me.html("你好，" + options.name + "!");
+                } else if (event.type == "mouseleave") {
+                    $me.html("再见!");
+                }
+            });
+
+            /**
+             * 参数 events 还支持为事件类型附加额外的命名空间
+             * 当为同一元素绑定多个相同类型的事件处理函数时,使用命名空间
+             * 可以在触发事件、移除事件时限定触发或移除的范围
+             */
+
+            function clickHandler(event) {
+                console.log("触发时的命名空间:[" + event.namespace + "]");
+            }
+
+            var $p = $("p");
+
+            // A：为所有p元素绑定click事件，定义在foo和bar两个命名空间下
+            $p.on("click.foo.bar", clickHandler);
+
+            // B：为所有p元素绑定click事件，定义在test命名空间下
+            $p.on("click.test", clickHandler);
+
+            var $n2 = $("#n2");
+
+            // 触发所有click事件
+            $n2.trigger("click"); // 触发A和B (event.namespace = "")
+
+            // 触发定义在foo命名空间下的click事件
+            $n2.trigger("click.foo"); // 触发A (event.namespace = "foo")
+
+            // 触发定义在bar命名空间下的click事件
+            $n2.trigger("click.bar"); // 触发A (event.namespace = "bar")
+
+            // 触发同时定义在foo和bar两个命名空间下的click事件
+            $n2.trigger("click.foo.bar"); // 触发A (event.namespace = "bar.foo")
+
+            // 触发定义在test命名空间下的click事件
+            $n2.trigger("click.test"); // 触发B (event.namespace = "test")
+
+            // 移除所有p元素定义在foo命名空间下的click事件处理函数
+            $p.off("click.foo"); // 移除A
+
+            /**
+             * 用 "属性->值" 的方式指定多个"事件类型-处理函数"
+             */
+            var events = {
+                "mouseenter": function (event) {
+                    $(this).html("你好，" + event.data.name + "!");
+                },
+
+                "mouseleave": function (event) {
+                    $(this).html("再见!");
+                }
+            };
+
+            // 为n5绑定mouseenter mouseleave两个事件，并为其传入附加数据data
+            $("body").on(events, "#n5", data);
+
+        });
+    </script>
+</head>
+<body>
+<div id="n1">
+    <p id="n2"><span>p1</span></p>
+
+    <p id="n3"><span>span</span></p>
+    <em id="n4">http://www.baidu.com</em>
+</div>
+<p id="n5">Google</p>
+</body>
+</html>

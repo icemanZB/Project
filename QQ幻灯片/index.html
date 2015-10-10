@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <title></title>
-    <link href="miaov.css" rel="stylesheet"/>
-    <script src="miaov.js"></script>
+    <link href="style.css" rel="stylesheet"/>
+    <script src="move.js"></script>
     <script>
         window.onload = function () {
             var oDiv = document.getElementById('box');
@@ -29,7 +29,7 @@
             function fixUlLeft() {
                 oBtnPrev.className = iNowUlLeft == 0 ? 'btn' : 'btn showBtn';
                 oBtnNext.className = iNowUlLeft == (aIcoLi.length - 7) ? 'btn' : 'btn showBtn';
-                miaovStartMove(oIcoUl, {left: -aIcoLi[0].offsetWidth * iNowUlLeft}, MIAOV_MOVE_TYPE.BUFFER);
+                startMove(oIcoUl, {left: -aIcoLi[0].offsetWidth * iNowUlLeft}, MIAOV_MOVE_TYPE.BUFFER);
             }
 
             oBtnNext.onclick = function () {
@@ -59,11 +59,11 @@
                     aTxtLi[i].getElementsByTagName('h2')[0].className = '';
                     aPicLi[i].style.filter = 'alpha(opacity:0)';
                     aPicLi[i].style.opacity = 0;
-                    miaovStopMove(aPicLi[i]);
+                    stopMove(aPicLi[i]);
                 }
                 aIcoLi[iNow].className = 'active';
                 aTxtLi[iNow].getElementsByTagName('h2')[0].className = 'show';
-                miaovStartMove(aPicLi[iNow], {opacity: 100}, MIAOV_MOVE_TYPE.BUFFER);
+                startMove(aPicLi[iNow], {opacity: 100}, MIAOV_MOVE_TYPE.BUFFER);
             }
 
             function autoPlay() {
@@ -101,46 +101,46 @@
 <div id="box">
     <ul id="pic_list">
         <li class="active">
-            <a href="javascript:void(0);"><img src="img/pic_1.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_1.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_2.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_2.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_3.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_3.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_4.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_4.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_5.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_5.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_6.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_6.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_7.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_7.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_8.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_8.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_9.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_9.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_10.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_10.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_11.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_11.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_12.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_12.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_13.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_13.jpg" /></a>
         </li>
         <li>
-            <a href="javascript:void(0);"><img src="img/pic_14.jpg" alert="妙味课堂_js精品课程"/></a>
+            <a href="javascript:void(0);"><img src="img/pic_14.jpg" /></a>
         </li>
     </ul>
     <div class="mark"></div>

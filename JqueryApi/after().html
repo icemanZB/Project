@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>after()</title>
+    <script type="text/javascript" src="../jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        // 使用函数来插入内容 使用函数在被选元素之后插入指定的内容
+        // 生成的 html <p>This is a paragraph.</p><p>Hello world!</p>
+        $(document).ready(function () {
+            $("button").click(function () {
+                // after() 方法在被选元素后插入指定的内容
+                $("p").after("<p>Hello world!</p>");
+            });
+        });
+    </script>
+</head>
+<body>
+<p>This is a paragraph.</p>
+<button>在每个 p 元素后插入内容</button>
+</body>
+</html>

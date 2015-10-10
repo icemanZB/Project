@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>insertAfter()</title>
+    <script type="text/javascript" src="../jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        // insertAfter() 方法在被选元素之后插入 HTML 标记或已有的元素
+        // 注释：如果该方法用于已有元素，这些元素会被从当前位置移走，然后被添加到被选元素之后
+        // html <p>这是一个段落。</p><span>Hello world!</span>
+        // <p>这是一个段落。</p><span>Hello world!</span>
+        $(document).ready(function(){
+            $("btn").click(function(){
+                // 在每个 p 元素之后插入 span 元素
+                $("<span>Hello world!</span>").insertAfter("p");
+            });
+
+            // h1会被移走,添加到被选元素之后
+            $("#btn").click(function(){
+                $("h1").insertAfter("div");
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+<p>这是一个段落。</p>
+<p>这是另一个段落。</p>
+<button>在每个 p 元素之后插入 span 元素</button>
+
+
+<h1>这是一个标题</h1>
+<div>这是一个段落。</div>
+<div>这是另一个段落。</div>
+<button id="btn">在每个 p 元素之后插入 h1 元素</button>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>append()</title>
+    <script type="text/javascript" src="../jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        // append() 方法在被选元素的结尾(仍然在内部)插入指定内容。
+        // 在每个 p 元素结尾插入内容
+        // html <p>This is a paragraph.<b>Hello world!</b></p>
+        // <p>This is a paragraph.<b>Hello world!</b></p>
+        // $(selector).append(function(index,html)) 可以使用函数构建html
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("p").append(" <b>Hello world!</b>");
+            });
+        });
+    </script>
+</head>
+<body>
+<p>This is a paragraph.</p>
+<p>This is another paragraph.</p>
+<button>在每个 p 元素后插入内容</button>
+</body>
+</html>

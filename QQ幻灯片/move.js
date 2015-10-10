@@ -16,6 +16,7 @@ function css(obj, attr, value) {
             case 'paddingRight':
             case 'paddingBottom':
                 value = Math.max(value, 0);
+                obj.style[attr] = value + 'px';
                 break;
             case 'left':
             case 'top':
@@ -32,10 +33,6 @@ function css(obj, attr, value) {
             default:
                 obj.style[attr] = value;
         }
-
-    return function (attr_in, value_in) {
-        css(obj, attr_in, value_in)
-    };
 }
 
 var MIAOV_MOVE_TYPE = {
@@ -43,11 +40,11 @@ var MIAOV_MOVE_TYPE = {
     FLEX: 2
 };
 
-function miaovStopMove(obj) {
+function stopMove(obj) {
     clearInterval(obj.timer);
 }
 
-function miaovStartMove(obj, oTarget, iType, fnCallBack, fnDuring) {
+function startMove(obj, oTarget, iType, fnCallBack, fnDuring) {
     var fnMove = null;
     if (obj.timer) {
         clearInterval(obj.timer);
@@ -55,10 +52,10 @@ function miaovStartMove(obj, oTarget, iType, fnCallBack, fnDuring) {
 
     switch (iType) {
         case MIAOV_MOVE_TYPE.BUFFER:
-            fnMove = miaovDoMoveBuffer;
+            fnMove = doMoveBuffer;
             break;
         case MIAOV_MOVE_TYPE.FLEX:
-            fnMove = miaovDoMoveFlex;
+            fnMove = doMoveFlex;
             break;
     }
 
@@ -67,7 +64,7 @@ function miaovStartMove(obj, oTarget, iType, fnCallBack, fnDuring) {
     }, 30);
 }
 
-function miaovDoMoveBuffer(obj, oTarget, fnCallBack, fnDuring) {
+function doMoveBuffer(obj, oTarget, fnCallBack, fnDuring) {
     var bStop = true;
     var speed = 0;
 
@@ -93,7 +90,7 @@ function miaovDoMoveBuffer(obj, oTarget, fnCallBack, fnDuring) {
     }
 }
 
-function miaovDoMoveFlex(obj, oTarget, fnCallBack, fnDuring) {
+function doMoveFlex(obj, oTarget, fnCallBack, fnDuring) {
     var bStop = true;
 
     for (var attr in oTarget) {
