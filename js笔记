@@ -169,3 +169,10 @@ window.onload = function() {
     <div id="div2">分享到</div>
 </div>
 
+7、 return false阻止的是  obj.on事件名称=fn 所触发的默认行为
+    addEventListener绑定的事件需要通过event下面的preventDefault();
+
+    if (ev.preventDefault) {
+        ev.preventDefault();
+    }
+    return false;
