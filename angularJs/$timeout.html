@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+
+        function Aaa($scope, $timeout) {
+            $scope.name = 'hello';
+            // 延迟2秒执行 ( setTimeout )
+            $timeout(function () {
+                $scope.name = 'hi';
+            }, 2000);
+        }
+
+    </script>
+</head>
+
+<body>
+
+<div ng-controller="Aaa">
+    <p>{{name}}</p>
+</div>
+
+</body>
+</html>

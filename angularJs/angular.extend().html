@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+        // angular.extend();   对象继承 ( 类似 jQuery 中的 extend )
+
+        var a = {
+            name: 'hello'
+        };
+        var b = {
+            age: '20'
+        };
+
+        var c = angular.extend(b, a);
+
+        console.log(b);  // age:20,name:'hello'
+        console.log(c); // 同上
+
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

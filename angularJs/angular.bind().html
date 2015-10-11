@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset=“utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+
+        // angular.bind(); -> 类似jquery中的 $.proxy() : 改this指向
+
+        function show(n1, n2) {
+            console.log(n1);
+            console.log(n2);
+            console.log(this);
+        }
+
+        angular.bind(document, show, 3)(4);
+        // angular.bind(document, show, 3,4);
+
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

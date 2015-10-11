@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+
+        /*
+         module 定义模块  'myApp' 就是html 上面的value
+         var m1 = angular.module('myApp',[]);
+         // 调用 但这种写法不支持js压缩
+         m1.controller('Aaa',function($scope){
+         $scope.name = 'hello';
+         });
+         m1.controller('Bbb',function($scope){
+         $scope.name = 'hi';
+         });
+         */
+        var m1 = angular.module('myApp', []);
+        // 这种方式可以解决压缩的问题
+        m1.controller('Aaa', ['$scope', function ($scope) {
+            $scope.name = 'hello';
+        }]);
+        m1.controller('Bbb', ['$scope', function ($scope) {
+            $scope.name = 'hi';
+        }]);
+
+
+    </script>
+</head>
+
+<body>
+<div ng-controller="Aaa">
+    <p>{{name}}</p>
+</div>
+<div ng-controller="Bbb">
+    <p>{{name}}</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+
+        function Aaa($scope) {
+            $scope.name = 'hello';
+        }
+
+    </script>
+</head>
+
+<body>
+<div ng-controller="Aaa">
+    <p>{{name}}</p> <!--  要输出name 加个引号就可以了 {{'name'}} -->
+</div>
+
+</body>
+</html>

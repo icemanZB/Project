@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+
+        // angular.copy();  //拷贝对象
+
+        var a = {
+            name: 'hello'
+        };
+        var b = {
+            age: '20'
+        };
+        var aCopy = angular.copy(a);
+
+        console.log(aCopy);  // 直接copy了 a
+
+        var c = angular.copy(a, b);   // a 把所有值覆盖给了 b
+
+        console.log(b);
+
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

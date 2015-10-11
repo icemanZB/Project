@@ -12,6 +12,7 @@ WebStorm 配置node  File -> Settings -> 搜索栏输入node -> Node.js and NPM 
 
 WebStorm 配置支持 Node.js 智能提示  File -> Settings -> 搜索栏输入node -> Node.js and NPM -> Configure -> Directory
                                   (选择在node.js 官网中Downloads下,下载 Source Code 并解压出来) -> Edit usage scope -> ok
+File->setting->language and frameworks->javascript->libraries->勾选要用到的库
 
 File Encodings 设置工程的编码为 utf-8
 
@@ -19,6 +20,7 @@ nodejs 和 javascript 的不同点
 nodejs 顶层对象为 global  ( 没有 window 对象 )
 javascript 顶层对象为 window
 
+http://my.oschina.net/klausgao/blog/380351  智能提示技巧
 
 nodeapi.ucdok.com/api/globals.html nodejs中文 api 文档
 lzw.me/pages/ecmascript/  ECMA概括
