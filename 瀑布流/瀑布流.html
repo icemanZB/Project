@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        * { margin: 0; padding: 0; }
+
+        #container { border: 1px solid red; position: relative; margin: 50px auto 0; }
+
+        #container img { position: absolute; }
+
+        #loader { width: 100%; height: 60px; background: url(images/loader.gif) no-repeat center #FFF; position: fixed; bottom: 0; left: 0; display: none; }
+    </style>
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script>
+        /*
+         固定列：浮动布局
+         定位
+         */
+        $(function () {
+
+            var oContainer = $('#container');
+            var iCells = 0;  // 当前的列数
+            var iWidth = 200;  // 当前每一列占位的宽度
+            var iSpace = 10;  // 图片的间隙( 间隔宽 )
+            var iOuterWidth = iWidth + iSpace;  // 整体容器的宽度 ( 实际宽度 )
+            var sUrl = 'http://www.wookmark.com/api/json/popular?callback=?';
+            var arrT = [];
+            var arrL = [];  // 存放每一列的left值 [0,210,420,630 ]
+            var iPage = 0;
+            var iBtn = true;
+
+            // 计算列数
+            function setCell() {
+                // 可视区的宽度 / 占位宽
+                iCells = Math.floor($(window).innerWidth() / iOuterWidth);
+                if (iCells < 3) {
+                    iCells = 3;
+                } else if (iCells > 6) {
+                    iCells = 6;
+                }
+                // 设置整个容器的宽度，并且减掉最后一个占位宽
+                oContainer.css('width', iCells * iOuterWidth - iSpace);
+            }
+
+            setCell();
+
+            // 初始化列的left 和 top
+            for (var i = 0; i < iCells; i++) {
+                arrT[i] = 0; // 初始化的时候都是0
+                arrL[i] = iOuterWidth * i;
+            }
+
+            function getData() {
+                if (!iBtn) {
+                    return;
+                }
+                iBtn = false;
+                iPage++;
+                // 获取数据
+                $.getJSON(sUrl, {page: iPage}, function (jData) {
+                    $('#loader').show();
+                    $.each(jData, function (index, obj) {
+
+                        var oImg = $('<img />');
+
+                        // 计算高度 等比计算 iWidth / obj.width 这就是缩小的比例
+                        // 防止图片还未加载出来，图片的高度获取不正确
+                        var iHeight = obj.height * (iWidth / obj.width);
+                        // 给图片设置宽高
+                        oImg.css({
+                            width: iWidth,
+                            height: iHeight
+                        });
+
+                        var _index = getMin();  // 获取arrT最小值所在的位置
+                        // 设置图片的定位
+                        oImg.css({
+                            left: arrL[_index],
+                            top: arrT[_index]
+                        });
+
+                        arrT[_index] += iHeight + iSpace;
+
+                        oContainer.append(oImg); // 把图片添加到容器里
+
+                        var objImg = new Image();
+                        objImg.onload = function () {
+                            oImg.attr('src', this.src);
+                        };
+                        objImg.src = obj.preview;
+
+                        setTimeout(function () {
+                            $('#loader').hide();
+                        }, 1000);
+
+                        iBtn = true;
+
+                    })
+
+                });
+            }
+
+            getData();
+            //arrT = [11,23,5,7];
+            // 获取arrT最短的
+            function getMin() {
+                var v = arrT[0];
+                var _index = 0;
+
+                for (var i = 1; i < arrT.length; i++) {
+                    if (arrT[i] < v) {
+                        v = arrT[i];
+                        _index = i;
+                    }
+                }
+                // 返回当前的索引
+                return _index;
+            }
+
+            $(window).on('scroll', function () {
+                var _index = getMin();
+                var iH = $(window).scrollTop() + $(window).innerHeight();
+                document.title = iH + ':' + (arrT[_index] + 50);
+                if (arrT[_index] + oContainer.offset().top < iH) {
+                    getData();
+                }
+
+            });
+
+            // 窗口发生变化触发
+            $(window).on('resize', function () {
+                var iLen = iCells;  // 记录原来的列
+                setCell(); // 算出当前的列出
+                // 看下当前的列和原来的列是否发生改变，不改变就不去重新计算位置
+                if (iLen == iCells) {
+                    return;
+                }
+                // 重新初始化
+                arrT = [];
+                arrL = [];
+                for (var i = 0; i < iCells; i++) {
+                    arrT[i] = 0;
+                    arrL[i] = iOuterWidth * i;
+                }
+                // 获取所有图片
+                oContainer.find('img').each(function () {
+                    // 设置位置
+                    var _index = getMin();
+
+                    $(this).animate({
+                        left: arrL[_index],
+                        top: arrT[_index]
+                    }, 1000);
+
+                    arrT[_index] += $(this).height() + iSpace;
+
+                });
+            })
+
+
+        })
+    </script>
+</head>
+
+<body>
+<div id="container"></div>
+<div id="loader"></div>
+</body>
+</html>

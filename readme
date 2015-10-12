@@ -1,14 +1,5 @@
 jquery prop 方法解析 http://blog.csdn.net/chaiyining007/article/details/8218038
 
-事件绑定好处  可以绑定多个事件且不会覆盖
-
-dom.onclick=function(){ console.log(1); };
-dom.onclick=function(){ console.log(2); };  最终结果是 输出2
-
-scrollTop是什么及用法说明 http://blog.csdn.net/gang_gang_gang/article/details/4233044
-
-scrollTop指的是"元素中的内容"超出"元素上边界"的那部分的高度,向上滚动的数值 scrollTop 如果li中没有内容 scrollTop数值不变
-
 jQuery中跳出 each 循环  continue 可以使用 return true
                         break    可以使用 return false
 
@@ -22,22 +13,6 @@ if (/active/.test(aLi[i].className)) {}
 javascript中top、clientTop、scrollTop、offsetTop的讲解
 http://www.cnblogs.com/trlanfeng/archive/2012/11/04/2753280.html
 
-offsetHeight:为计算后盒子的整体高度 style.top:为绝对定位后的 top 值
-
-offsetTop: 盒子顶部相对定位父级顶部的高度 如果父级没有定位,那就相对于整个页面
-offsetTop 只能获取到有定位的父级
-
-offsetTop 和 style.top 的区别
-1、offsetTop 返回的是数字,而 style.top 返回的是字符串,除了数字外还带有单位: px
-2、offsetTop 只读 而 style.top 可读写
-3、如果没有给 HTML 元素指定过 top 样式,则 style.top 返回的是空字符串。
-
-jQuery中的.height()、.innerHeight()和.outerHeight()
-.height() 是没有计算过的  不包括padding,不包括边框
-获取计算后的整个高度  aLi.outerHeight() = offsetHeight
-.innerHeight()  包括padding但不包括border  document.getElementById("div1").clientHeight
-.outerHeight()  包括padding和border  还可以接受一个参数,该参数代表是否计算外边距,如果为true则表示计算外边距
-js 写法 div1.offsetHeight + parseInt(div1.style.marginTop) + parseInt(div1.style.marginBottom);
 js中 offsetHeight 是动态获取值
 http://www.kuqin.com/shuoit/20140113/337572.html
 
@@ -61,13 +36,6 @@ arr.push(arr.shift()); // 3   arr => [2, 3, 1]
 
 Math.random()  random() 方法可返回介于 0 ~ 1 之间的一个随机数
 
-js 中 appendChild 带有剪切功能,并不是复制(可向节点的子节点列表的末尾添加新的子节点)
-
-appendChild 方法是在父级节点中的子节点的末尾添加新的节点(相对于父级节点 来说)
-于jquery中的 appendTo() 是一样的
-
-jquery insertBefore() 方法：可在已有的子节点前插入一个新的子节点 (拥有剪切功能)
-        insertAfter() 插入到后面 于 insertBefore() 相反
 
 appendChild于insertBefore http://www.cnblogs.com/ATree/archive/2011/09/26/JS-appendChild-insertBefore.html
 
@@ -350,3 +318,5 @@ http://cssreset.com/   normalize.css
 把整站做的js效果提炼出来
 
 js中 窗口尺寸还需整理一下
+
+js中 数组不相等

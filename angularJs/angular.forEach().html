@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var value = ['a', 'b', 'c'];
+        angular.forEach(value, function (val, i) {
+            console.log(val);
+            console.log(i);
+        });
+
+        var result = [];
+        var json = {'name': 'hello', 'age': '20'};
+        angular.forEach(json, function (val, i) {
+            // this 指的是传入的result 数组
+            this.push(value + i);
+        }, result);
+        console.log(result);
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

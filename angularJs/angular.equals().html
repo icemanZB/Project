@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var a = [];
+        var b = [];
+        var c = NaN;
+        var d = NaN;
+        // 在原生js中 []!=[] 因为他们的引用地址是不相等的
+        console.log(angular.equals(a, b)); // 判断两个元素是否相等  true 两个数组是相等的
+        // 在原生js中是不相等的
+        console.log(angular.equals(c,d)); // true
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

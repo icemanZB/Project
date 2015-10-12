@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+
+        var m1 = angular.module('myApp1', []);
+        var m2 = angular.module('myApp2', []);
+        m1.controller('Aaa', ['$scope', function ($scope) {
+            $scope.name = 'hello';
+        }]);
+        m2.controller('Bbb', ['$scope', function ($scope) {
+            $scope.name = 'hi';
+        }]);
+
+        document.onclick = function () {
+            var aDiv = document.getElementsByTagName('div');
+            // 动态初始化 就是 ng-app 的功能
+            // angular.bootstrap(document, ['myApp1']);  就是等于在页面上 <html ng-app="myApp1"></html>
+            angular.bootstrap(aDiv[0], ['myApp1']);
+            angular.bootstrap(aDiv[1], ['myApp2']);
+
+        };
+
+    </script>
+</head>
+
+<body>
+<!-- 多个初始化，就只会针对一个，只输出hello。如果需要多个初始化，必须使用js的方式 -->
+<div ng-controller="Aaa">  <!-- ng-app="myApp1" -->
+    <p>{{name}}</p>
+</div>
+<div ng-controller="Bbb">  <!-- ng-app="myApp2" -->
+    <p>{{name}}</p>
+</div>
+
+</body>
+</html>

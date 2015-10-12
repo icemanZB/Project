@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+        // 这两个方法是用来默认值操作的
+        var str = 'hello';
+        console.log(angular.identity(str));  // hello
+        function identity(str) {
+            return str;
+        }
+        console.log(angular.noop());  // undefined
+        function noop() {
+        }
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

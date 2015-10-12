@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="angular.min.js"></script>
+</head>
+
+<body>
+<div id="div1">aaaaaaaa</div>
+<script>
+    var oDiv = document.getElementById('div1');
+
+    angular.element(oDiv).css('background', 'red');
+    // $('#div1').css('background', 'red'); === angular.element("#div1").css('background', 'red');
+    // 当引入了jquery库以后 angular.element === $
+</script>
+</body>
+</html>

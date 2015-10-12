@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+        // JSON.parse() JSON.stringify()
+
+        var str = '{"name":"hello","age":"20"}';
+
+        var json = angular.fromJson(str);
+
+        console.log(json);
+
+        var json1 = {"name": "hello", "age": "20"};
+
+        var str1 = angular.toJson(json1, true);  // 第二个参数就是类似与格式化，方便阅读
+
+        console.log(str1);
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>
