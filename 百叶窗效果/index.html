@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>百叶窗效果</title>
+    <style>
+        body, ul, h2, p { margin: 0; padding: 0; }
+
+        li { list-style: none; }
+
+        a { text-decoration: none; }
+
+        .wrap { width: 430px; background: #ebcfd0; margin: 30px auto; }
+
+        .header { width: 400px; height: 66px; border-bottom: 2px solid #caa4a7; background: url(img/header_bg.png) no-repeat 0 24px; margin: 0 25px 0 6px; }
+
+        .header h2 { font-weight: normal; font-size: 24px; line-height: 66px; text-indent: 30px; color: #7d5556; float: left; }
+
+        .header a { width: 78px; height: 24px; text-indent: -999px; float: right; background: url(img/more.png) no-repeat; margin-top: 24px; }
+
+        #news_ul { width: 400px; height: auto; float: left; background: #ebcfd0; padding: 0 25px 22px 6px; }
+
+        #news_ul li { width: 100%; height: 45px; line-height: 45px; overflow: hidden; position: relative; border-bottom: 1px dashed #c7a6a7; background: url(img/li_bg.png) no-repeat 12px 18px; text-indent: 30px; color: #78565a; font-weight: bold; }
+
+        #news_ul li:hover { background: #f9eff1 url(img/li_bg.png) no-repeat 12px 18px; }
+
+        #news_ul li div { width: 100%; position: absolute; top: -45px; }
+
+        /* 看到一半的div中的内容 */
+
+        #news_ul li div p { height: 45px; }
+
+        #news_ul li span { position: absolute; right: 0; color: #c09899; padding-right: 30px; }
+    </style>
+    <script src="../js/move_new.js"></script>
+    <script>
+        window.onload = function () {
+            var oUl = document.getElementById('news_ul'),
+                    aDiv = oUl.getElementsByTagName('div'),
+                    iNow = 0,
+                    timer = null,
+                    bBtn = true;
+
+            setInterval(function () {
+
+                timer = setInterval(function () {
+
+                    if (iNow === aDiv.length) {
+                        clearInterval(timer);
+                        iNow = 0;
+                        bBtn = !bBtn;
+                    } else {
+                        startMove(aDiv[iNow], {top: bBtn ? 0 : -45});
+                        iNow++;
+                    }
+                }, 100)
+
+            }, 3000);
+
+        };
+    </script>
+
+</head>
+<body>
+<div class="wrap">
+    <div class="header">
+        <h2>最近新鲜事</h2>
+        <a href="javascript:void(0);">more</a>
+    </div>
+
+    <ul id="news_ul">
+        <li>
+            <div>
+                <p>阿里前端面试题<span>2015-10-12</span></p>
+
+                <p>上课地点<span>2015-10-11</span></p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <p>解析google地图前端实现原理<span>2015-10-12</span></p>
+
+                <p>CSS最新开班时间<span>2015-10-11</span></p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <p>Windows计算器简易版<span>2015-10-12</span></p>
+
+                <p>CSS3最新课程<span>2015-10-11</span></p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <p>手风琴缓动效果<span>2015-10-12</span></p>
+
+                <p>JavaScript最新开班时间<span>2015-10-11</span></p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <p>JavaScript实现3D球面标签<span>2015-10-12</span></p>
+
+                <p>个人网站上线<span>2015-10-11</span></p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <p>课上抓拍<span>2015-10-12</span></p>
+
+                <p>零基础网页制作<span>2015-10-11</span></p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <p>生活小点滴<span>2015-10-12</span></p>
+
+                <p>推出JavaScript最新课程<span>2015-10-11</span></p>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
