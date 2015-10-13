@@ -113,6 +113,20 @@ var getByClassName = function (parent, className) {
     return aResult;
 };
 
+var getByClass = function (oParent, sClass) {
+    var aEle = oParent.getElementsByTagName('*');
+    var result = [];
+    var re = new RegExp('\\b' + sClass + '\\b', 'i');
+
+    for (var i = 0; i < aEle.length; i++) {
+        if (re.test(aEle[i].className)) {
+            result.push(aEle[i]);
+        }
+    }
+
+    return result;
+};
+
 var addClass = function (obj, className) {
     if (obj.className === '') {
         obj.className = className;
