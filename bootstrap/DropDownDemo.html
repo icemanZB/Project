@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap-3.3.5/css/bootstrap.min.css"/>
+</head>
+<body>
+<!--所有的图标类，必须在span标签中，并且不能与其他class混用-->
+<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+<!-- 下拉菜单 -->
+<div class="container">
+    <!--下拉菜单的位置要再加父级上 pull-right-->
+    <div class="dropdown pull-right">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+            下拉菜单
+            <!-- span就是向下的小箭头 -->
+            <span class="caret"></span>
+        </button>
+        <!-- aria-labelledby="dropdownMenu1"这个属性可以不指定 role="menuitem"可以不加 -->
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+            <!--role="presentation" 这个属性可以不指定-->
+            <li role="presentation" class="dropdown-header">大写一到四</li>
+            <li><a href="#" role="menuitem">一</a></li>
+            <li><a href="#" role="menuitem">二</a></li>
+            <li class="disabled"><a href="#" role="menuitem">三</a></li>
+            <li><a href="#" role="menuitem">四</a></li>
+            <li class="dropdown-header">大写1到4</li>
+            <li><a href="#" role="menuitem">1</a></li>
+            <li><a href="#" role="menuitem">2</a></li>
+            <li><a href="#" role="menuitem">3</a></li>
+            <li><a href="#" role="menuitem">4</a></li>
+            <li class="divider"></li>
+            <li><a href="#" role="menuitem">5</a></li>
+            <li><a href="#" role="menuitem">6</a></li>
+            <li><a href="#" role="menuitem">7</a></li>
+            <li><a href="#" role="menuitem">8</a></li>
+        </ul>
+    </div>
+</div>
+
+<script src="../js/jquery-2.0.2.js"></script>
+<script src="bootstrap-3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>
