@@ -4,6 +4,10 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
     <title></title>
     <link rel="stylesheet" href="bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <style>
+        h4{ margin: 40px 0 10px;}
+        .nav-tabs{ margin-bottom: 15px;}
+    </style>
 </head>
 <body>
 <div class="container">
@@ -50,6 +54,33 @@
             </ul>
         </li>
     </ul>
+
+    <h4>Tabs</h4>
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+        <li><a href="#myhome" data-toggle="tab">MyHome</a></li>
+        <li class="dropdown">
+            <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">DropDown<b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDropDown">
+                <li><a href="#fat" tabindex="-1" data-toggle="tab">@fat</a></li>
+                <li><a href="#mdo" tabindex="-1" data-toggle="tab">@mdo</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane active" id="home">
+            <p>www.baidu.com</p>
+        </div>
+        <div class="tab-pane fade" id="myhome">
+            <p>www.baidu.com</p>
+        </div>
+        <div class="tab-pane" id="fat">
+            <p>www.baidu.com</p>
+        </div>
+        <div class="tab-pane" id="mdo">
+            <p>www.baidu.com</p>
+        </div>
+    </div>
 </div>
 <script src="../js/jquery-2.0.2.js"></script>
 <script src="bootstrap-3.3.5/js/bootstrap.min.js"></script>
