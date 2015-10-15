@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+    <title>侧边栏停靠</title>
+    <link rel="stylesheet" href="bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <style>
+        .affixed-element-top.affix { top: 10px; }
+
+        .affixed-element-top.affix-bottom { position: relative; }
+
+        .affixed-element-bottom.affix { bottom: 10px; }
+
+        .affixed-element-bottom.affix-bottom { position: relative; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-3">
+        <ul class="list-group affixed-element-top js-affixed-element-top">
+            <li class="list-group-item">1</li>
+            <li class="list-group-item">2</li>
+            <li class="list-group-item">3</li>
+            <li class="list-group-item">4</li>
+            <li class="list-group-item">5</li>
+            <li class="list-group-item">6</li>
+        </ul>
+    </div>
+    <div class="col-md-6 js-conent">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea
+        exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea
+        nam neque tempora.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea
+        exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea
+        nam neque tempora.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti,
+        dolore ea exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet
+        blanditiis ea nam neque tempora.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut
+        consectetur deleniti, dolore ea exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente
+        tempora temporibus? Amet blanditiis ea nam neque tempora.Lorem ipsum dolor sit amet, consectetur adipisicing
+        elit. Aliquam aut consectetur deleniti, dolore ea exercitationem, fugit laudantium, nulla quas quasi
+        reprehenderit sapiente tempora temporibus? Amet blanditiis ea nam neque tempora.Lorem ipsum dolor sit amet,
+        consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea exercitationem, fugit laudantium,
+        nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea nam neque tempora.Lorem ipsum
+        dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea exercitationem, fugit
+        laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea nam neque
+        tempora.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea
+        exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea
+        nam neque tempora.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti,
+        dolore ea exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet
+        blanditiis ea nam neque tempora.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut
+        consectetur deleniti, dolore ea exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente
+        tempora temporibus? Amet blanditiis ea nam neque tempora.Lorem ipsum dolor sit amet, consectetur adipisicing
+        elit. Aliquam aut consectetur deleniti, dolore ea exercitationem, fugit laudantium, nulla quas quasi
+        reprehenderit sapiente tempora temporibus? Amet blanditiis ea nam neque tempora.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea
+        exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea
+        nam neque tempora.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea
+        exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea
+        nam neque tempora.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea
+        exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea
+        nam neque tempora.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aut consectetur deleniti, dolore ea
+        exercitationem, fugit laudantium, nulla quas quasi reprehenderit sapiente tempora temporibus? Amet blanditiis ea
+        nam neque tempora.
+    </div>
+    <div class="col-md-3">
+        <ul class="list-group affixed-element-bottom js-affixed-element-bottom">
+            <li class="list-group-item">1</li>
+            <li class="list-group-item">2</li>
+            <li class="list-group-item">3</li>
+            <li class="list-group-item">4</li>
+            <li class="list-group-item">5</li>
+            <li class="list-group-item">6</li>
+        </ul>
+    </div>
+</div>
+<script src="../js/jquery-2.0.2.js"></script>
+<script src="bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('.js-affixed-element-top').affix({
+            offset: {}
+        });
+        $('.js-affixed-element-bottom').affix({
+            offset: {
+                bottom: 200
+            }
+        });
+    });
+</script>
+</body>
+</html>

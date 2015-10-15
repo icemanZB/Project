@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>过渡效果</title>
+    <link rel="stylesheet" href="bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <style>
+        #box{ width: 100px; height: 100px; background-color: red; -webkit-transition: width 2s;}
+        #box:hover{ width: 400px;}
+    </style>
+</head>
+<body>
+<div id="box"></div>
+
+
+<script>
+    document.getElementById('box').addEventListener('transitionend',function(ev){
+        this.innerHTML='过渡事件出发--过渡已完成';
+    })
+</script>
+</body>
+</html>
