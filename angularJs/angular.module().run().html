@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var m1 = angular.module('myApp', []);
+        // run() 的作用是初始化一些全局的数据，只能挂载在全局作用域下
+        m1.run(['$rootScope', function ($rootScope) {
+            $rootScope.name = 'hello';
+        }]);
+
+
+    </script>
+</head>
+
+<body>
+<div>
+    <p>{{name}}</p>
+</div>
+
+
+</body>
+</html>

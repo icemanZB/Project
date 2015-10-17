@@ -1,25 +1,29 @@
 /*
- * 事件绑定
+ * 事件绑定 ( 解决了无法解绑的问题 )
  * addEvent('id','click',function(){ console.log(1);  });
  * addEvent('id','click',function(){ console.log(2);  });
  *
  * */
 var addEvent = function (id, event, fn) {
-    var el = document.getElementById(id) || document;
-    if (el.addEventListener) {
-        el.addEventListener(event, fn, false);
+    var obj = document.getElementById(id) || document;
+    obj['bind' + event] = obj['bind' + event] || {};
+    obj['bind' + event]['bind' + fn] = obj['bind' + event]['bind' + fn] || function () {
+        fn.call(obj);
+    };
+    if (obj.addEventListener) {
+        obj.addEventListener(event, obj['bind' + event]['bind' + fn], false);
     } else {
-        el.attachEvent('on' + event, function () {
-            fn.call(el);
-        });
+        obj.attachEvent('on' + event, obj['bind' + event]['bind' + fn]);
     }
 };
 
-var removeEvent = function (obj, evname, fn) {
-    if (obj.detachEvent) {
-        obj.detachEvent('on' + evname, fn);
-    } else {
-        obj.removeEventListener(evname, fn, false);
+var removeEvent = function (obj, event, fn) {
+    if (obj['bind' + event] && obj['bind' + event]['bind' + fn]) {
+        if (obj.detachEvent) {
+            obj.detachEvent('on' + event, obj['bind' + event]['bind' + fn]);
+        } else {
+            obj.removeEventListener(event, obj['bind' + event]['bind' + fn], false);
+        }
     }
 };
 
@@ -292,8 +296,7 @@ function toArray(obj) {
     } catch (e) {
         var arr = [];
         for (var i = 0, len = obj.length; i < len; i++) {
-            // arr.push(s[i]);
-            arr[i] = s[i]; // 这样比push快
+            arr[i] = obj[i]; // 这样比push快
         }
         return arr;
     }

@@ -41,7 +41,7 @@
 
         /*document.addEventListener('click', fn1, false);
          document.addEventListener('click', fn2, false);*/
-
+        // 这种绑定的方式无法解绑，在兼容性问题里面会阐述
         function bind(obj, evname, fn) {
             if (obj.addEventListener) {
                 obj.addEventListener(evname, fn, false);
