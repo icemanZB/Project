@@ -1,10 +1,10 @@
-HTML面试整理：
+HTML 面试整理：
 
 1、 在怪异模式和传统模式下区别？ [ 详细解释待定 ]
 
-    可以看到 IE 盒子模型的范围也包括 margin、border、padding、content 和 标准 W3C 盒子模型不同的是:
+    IE和标准的盒模型是由：margin、border、padding、content 组成
 
-    IE 盒子模型的 content 部分包含了 border 和 padding
+    IE 盒子模型的 content 部分包含了 border 和 padding  即宽度包含了border和padding
 
     W3C盒子模型的 content 部分不包含其他部分
 
@@ -465,7 +465,6 @@ L-V-H-A :  a:link {} a:visited {} a:hover {} a:active {}
 解析：对加载到的资源( HTML、JS、CSS等 )进行语法解析，建议相应的内部数据结构( 比如HTML的DOM树，JS的( 对象 )属性表，CSS的样式规则等等）
 
 
-
 50、块级元素和行内元素都有哪些？    [ 详细解释待定 ]
 块级元素：div、p、h1-h6、ul、ol、dl、form、hr
 行内元素：a、b、i、span、strong、em、font
@@ -474,10 +473,7 @@ L-V-H-A :  a:link {} a:visited {} a:hover {} a:active {}
 
 
 
-
-
-
-JS面试整理：
+JavaScript 面试整理：
 
 1、事件委托是什么？
 
@@ -610,7 +606,7 @@ GET  - 从指定的资源请求数据。
 POST - 向指定的资源提交要被处理的数据。
 传输方式的区别
 1).	Get通过url地址传输
-2).	Post通过浏览器内部传输
+2).	POST请求则是作为HTTP消息的实体内容发送给Web服务器的,这种传递是对用户不可见的
 3).	Get可以被缓存
 传输数据量
 1). Get有数据量限制，每个浏览器都不同 ( 2048个字符 )
@@ -830,20 +826,414 @@ var module1 = (function(){
 
 
 
+jQuery 面试整理：
+
+1、CDN（内容分发网络）是什么？
+
+在开发Web页面，考虑最多的问题之一是页面在客户端电脑的响应：时间越短，用户体验越好。
+而制约用户体验的关键因素之一是浏览器下载Web文件大小，包括*.html、图片、*.js、*.css等文件。
+为了最大化复用和节约带宽，故CDN应运而生：其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，
+使内容传输的更快、更稳定。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。
+
+
+2、jQuery中的.height()、.innerHeight()和.outerHeight() ？
+
+.height() 是没有计算过的  不包括padding,不包括边框
+获取计算后的整个高度  aLi.outerHeight() = offsetHeight
+.innerHeight()  包括 padding 但不包括 border  document.getElementById("div1").clientHeight
+.outerHeight()  包括 padding 和 border  还可以接受一个参数,该参数代表是否计算外边距,如果为 true 则表示计算外边距
+
+
+3、jQuery的美元符号$有什么作用？
+
+$只是 jQuery 的别名，它是 jQuery 的选择器，当然你也可以用jQuery来代替$
+$() 函数用于将任何对象包裹成 jQuery 对象
+
+
+4、body中的onload()函数和jQuery中的document.ready()有什么区别？
+
+1). 我们可以在页面中使用多个document.ready()，但只能使用一次onload()。
+2). document.ready()函数在页面DOM元素加载完以后就会被调用，而onload()函数则要在所有的关联资源( 包括图像、音频 )加载完毕后才会调用。
+
+
+5、查找页面所有类是 Edit 的 Input 且 type 是 text 的元素,遍历它们,并返回它们的 Value 数组。
+
+var values = [];
+$("input[type=text][.Edit]").each(function (i, d) {
+    values.push($(d).val());
+});
+或者
+var values = [];
+$("input[type=text]").filter(".Edit").each(function(i,d){
+    values.push($(d).val());
+});
+
+
+6、 jquery对象和dom对象是怎样转换的？
+
+1). jQuery对象是一个数组对象，可以通过[index]得到相应的对象
+2). 通过get[index]去得到相应的DOM对象
+
+
+7、检查<input type="hidden" id="id" name="id" />元素在网页上是否存在。
+
+if($("#id").length > 0) { // do something... }
+
+
+8、页面中有三个元素 <div>div标签</div><span>span标签</span><p>p标签</p>，如果这三个标签要触发同一个事件？
+
+$("div,span,p").click(function(){   // ...   });
+
+
+9、页面中有一个select标签，要使"选项四"选中？
+<select id="sel">
+   <option value="0">请选择</option>
+   <option value="1">选项一</option>
+   <option value="2">选项二</option>
+   <option value="3">选项三</option>
+   <option value="4">选项四</option>
+</select>
+
+$("#sel").val("4");
+
+注：找到所有 HTML select 标签的选中项？ $('[name=NameOfSelectedTag] :selected')
+
+
+10、页面中有一个性别单选按钮，请设置”男”为选中状态？
+
+<input type="radio" name="sex"> 男
+<input type="radio" name="sex"> 女
+
+$(":radio[name=sex]:eq(0)").attr("checked",true);
+
+
+12、执行下面代码，请写出打印结果 ？
+
+$(document).ready(function () {
+   var array = ['墨家', '墨子'];
+   var str = "[";
+   $.each(array, function (parm1, parm2) {
+       str += "{parm1: " + parm1 + "," + "parm2: " + parm2 + "},";
+   });
+   str = str.substring(0, str.length - 1) + "]";
+   alert(str);
+});
+
+结果： "[{parm1: 0,parm2: 墨家},{parm1: 1,parm2: 墨子}]"
+
+
+13、执行下面代码，写出result结果？    $.extend()
+
+ $(document).ready(function () {
+    var result = $.extend(
+        {},
+        {name: "Tom", age: 21},
+        {sex: "boy", age: 27, email: "ydw@163.com"}
+        );
+    alert(result);
+ });
+
+结果： Object {name: "Tom", age: 27, sex: "boy", email: "ydw@163.com"}
+
+
+14、当DOM加载完成后要执行的函数,下面哪个是正确的？(单选)
+
+   A、jQuery(expression, [context])  B、jQuery(html, [ownerDocument])
+   C、jQuery(callback)    D、jQuery(elements)
+
+   考点: jquery的核心函数 (C)
+
+
+15、下面哪一个是用来追加到指定元素的末尾的？(单选)
+
+   A、insertAfter() B、append() C、appendTo() D、after()
+
+   考点:jquery的核心函数 (C)
+
+
+16、如果想在一个指定的元素后添加内容，下面哪个是实现该功能的？(单选)
+
+   A、append(content) B、appendTo(content) C、insertAfter(content) D、after(content)
+
+   考点: jquery的文档处理 (D)
+
+
+17、下面哪一个是用来追加到指定元素的末尾的？     ( A )
+    A、insertAfter()  B、append()  C、appendTo()  D、after()
+
+ 1).append()在被选元素的结尾插入内容。
+ 2).appendTo() 在被选元素的结尾(仍然在内部)插入指定内容。 (是把所有匹配的元素追加到另一个指定的元素元素集合中)
+ 3).insertAfter() 在被选元素之后插入 HTML 标记或已有的元素。(将所有匹配元素插入到指定元素的后面) 用来追加到指定元素的末尾的
+ 4).after() - 在被选元素之后插入内容  (在指定元素末尾添加   HTML标签或内容)
+
+
+18、现有一个表格,如果想要匹配所有行数为偶数的，用________实现，奇数的用_______实现。
+
+   考点: jquery的选择器 （even,odd）
+
+
+19、当一个文本框中的内容被选中时,想要执行指定的方法时,可以使用下面哪个事件来实现？(单选)
+
+   A、click(fn) B、change(fn) C、select(fn) D、bind(fn)
+
+   考点：jquery的事件处理 (C)
+
+
+20、在一个表单中,用600毫秒缓慢的将段落滑上,用_______________来实现。
+
+   考点: jquery的页面效果 $("p").slideUp("slow")
+
+
+21、彻底将jQuery变量还原,可以使用___________________方法实现。
+
+   考点: jquery的多库共存 ($.noConflict(extreme))
+   $.noConflict();
+   jQuery("p").text("I am jquery and I am working&hellip;");
+
+
+22、 jquery 阻止这些默认的行为方法是哪个？
+
+    可以用 event.preventDefault() 或 在事件处理函数中返回false 即 return false;
+
+
+23、 jQuery 阻止冒泡事件的方法是哪个？
+
+     事件冒泡是从里面的往外面开始触发，event.stopPropagation() 方法可以停止冒泡
+
+
+24、jQuery中的 hover() 和 toggle()有什么区别？
+
+hover() 和 toggle()都是 jQuery 中两个合成事件。
+hover() 方法用于模拟光标悬停事件、toggle()方法是连续点击事件。
+
+
+25、在ajax中data参数主要有几种方式？
+
+有三种 1、html拼接的 2、json数组 3、form表单serialize()序列化的。
+
+
+26、jQuery是如何处理缓存的？
+
+1).  通过$.post() 方法来获取数据，那么默认就是禁用缓存的。
+2).  通过$.get()方法 来获取数据，可以通过设置时间戳来避免缓存。
+例 $.get('ajax.xml?random=new Date().getTime(),function () { ... });
+3).  通过$.ajax 方法来获取数据，只要设置cache:false即可。
+
+
+27、你觉得beforeSend方法有什么用？
+
+发送请求前可以修改XMLHttpRequest对象的函数，在beforeSend中如果返回false，可以取消本次的Ajax请求。
+XMLHttpRequest对象是唯一的参数,所以在这个方法里可以做验证。
+
+
+28、在jquery中可以替换节点吗？
+
+可以，在jQuery中有两者替换节点的方式   replaceWith() 和 replaceAll()
+
+例: 在<p title="hao are you">hao are you</p>替换成<strong>I am fine<strong>
+
+    $('p').replaceWith('<strong>I am fine</strong>');
+
+    replaceAll() 与 replaceWith() 的用法前后调换一下即可。
+
+
+29、你jquery中有哪些方法可以遍历节点？
+
+children() 取得匹配元素的子元素集合,只考虑子元素不考虑后代元素
+next()     取得匹配元素后面紧邻的同辈元素
+prev()     取得匹配元素前面紧邻的同辈元素
+siblings() 取得匹配元素前后的所有同辈元素
+closest()  取得最近的匹配元素
+find()     取得匹配元素中的元素集合 包括子代和后代
+
+
+30、你使用过jquery中的动画吗，是怎样用的？   [ 详细解释待定 ]
+
+hide() 和 show() 同时修改多个样式属性。像高度、宽度、不透明度。
+fadeIn() 和 fadeOut() fadeTo() 只改变不透明度
+slideUp() 和 slideDown() slideToggle() 只改变高度
+animate() 属于自定义动画的方法
+
+
+30、在 jQuery 中你有没有编写过插件，插件有什么好处？你编写过那些插件？它应该注意那些？
+
+插件的好处:对已有的一系列方法或函数的封装，以便在其他地方重新利用，方便后期维护和提高开发效率
+插件的分类：封装对象方法插件、封装全局函数插件、选择器插件
+注意的地方： 1). 插件的文件名推荐命名为jQuery.[插件名].js，以免和其他的 JavaScript 库插件混淆
+           2). 所有的对象方法都应当附加到jQuery.fn对象上，而所有的全局函数都应当附加到jQuery对象本身上
+           3). 插件应该返回一个jQuery对象，以保证插件的可链式操作
+           4). 避免在插件内部使用$作为jQuery对象的别名，而应使用完整的jQuery来表示，这样可以避免冲突或使用闭包来避免
+           5). 所有的方法或函数插件，都应当以分号结尾,否则压缩的时候可能出现问题。在插件头部加上分号，这样可以避免他人的不规范代码给插件带来影响
+           6). 在插件中通过$.extent({})封装全局函数，选择器插件，扩展已有的object对象，通过$.fn.extend({})封装对象方法插件
+
+
+31、下面不属于ajax事件的是？  ( C )   解析 ： $.post() 是方法
+
+    A、ajaxComplete(callback) B、ajaxSuccess(callback) C、$.post(url) D、ajaxSend(callback)
+
+
+32、在jquery中，如果想要获取当前窗口的宽度值，下面哪个是实现该功能的？     ( A )
+    A、width()  B、width(val)  C、width  D、innerWidth()
+
+
+$(window).height();   浏览器当前窗口可视区域高度
+$(document).height(); 浏览器当前窗口文档的高度
+$(document.body).height(); 浏览器当前窗口文档body的高度
+$(document.body).outerHeight(true);  浏览器当前窗口文档body的总高度 包括border padding margin
+$(window).width();   浏览器当前窗口可视区域宽度
+$(document).width(); 浏览器当前窗口文档对象宽度
+$(document.body).width();  浏览器当前窗口文档body的高度
+$(document.body).outerWidth(true); 浏览器当前窗口文档body的总宽度 包括border padding margin
+
+
+33、 下列哪个操作是W3C标准定义的阻止事件向父容器传递？ ( C )
+
+    A. e.preventDefault()       B. e.cancelBubble=true
+
+    C. e.stopPropagation()      D. e.stopImmediatePropagation()
+
+------------------------------------------------------------------------------------------------
+bind() 研究下
+
+封装函数 f，使 f 的 this 指向指定的对象
+输入例子:
+
+bindThis(function(a, b)
+    {return this.test + a + b}
+    , {test: 1})
+(2, 3)
+
+function bindThis(f, oTarget) {
+   return f.bind(oTarget);
+}
+
+function bindThis(f, oTarget) {
+    return function(){
+
+            var arg=Array.prototype.slice.call(arguments,0);
+
+        return f.apply(oTarget,arg);
+    }
+}
+
+输出例子:
+
+6
+
+
+题目描述
+获取 url 中的参数
+1. 指定参数名称，返回该参数的值 或者 空字符串
+2. 不指定参数名称，返回全部的参数对象 或者 {}
+3. 如果存在多个同名参数，则返回数组
+输入例子:
+
+getUrlParam('http://www.nowcoder.com?key=1&key=2&key=3&test=4#hehe', 'key')
+
+
+输出例子:
+
+['1', '2', '3']
+
+function getUrlParam(sUrl, sKey) {
+    var pram=sUrl.split("?")[1].split("#")[0].split("&");
+    var json={};
+
+    for(var i=0;i<pram.length;i++){
+        var key=pram[i].split('=')[0];
+        var value=pram[i].split('=')[1];
+
+        if(!json[key]){
+            json[key]=[];
+        }
+        json[key].push(value);
+    }
+
+    if(sKey){
+        return json[sKey].length>1?json[sKey]:json[sKey].join("");
+    }else{
+    	return json;
+    }
+
+}
+
+牛人  a，模式的匹配项；k，第一个捕获组的匹配项；v，第二个捕获组的匹配项。
+function getUrlParam(sUrl,sKey){
+    var result = {};
+    sUrl.replace(/\??(\w+)=(\w+)&?/g,function(a,k,v){
+        if(result[k] !== void 0){
+            var t = result[k];
+            result[k] = [].concat(t,v);
+        }else{
+            result[k] = v;
+        }
+    });
+    if(sKey === void 0){
+        return result;
+    }else{
+        return result[sKey] || '';
+    }
+}
+
+
+题目描述
+查找两个节点的最近的一个共同父节点，可以包括节点自身
+输入描述:
+
+oNode1 和 oNode2 在同一文档中，且不会为相同的节点
+
+function commonParentNode(oNode1, oNode2) {
+    if(oNode1.contains(oNode2)){
+        return oNode1;
+    }else{
+        return arguments.callee(oNode1.parentNode,oNode2);
+    }
+}
+
+
+
+题目描述
+为 Array 对象添加一个去除重复项的方法
+输入例子:
+
+[false, true, undefined, null, NaN, 0, 1, {}, {}, 'a', 'a', NaN].uniq()
+
+
+输出例子:
+
+[false, true, undefined, null, NaN, 0, 1, {}, {}, 'a']
+
+Array.prototype.uniq = function () {
+     var resArr = [];
+   var flag = true;
+
+   for(var i=0;i<this.length;i++){
+       if(resArr.indexOf(this[i]) == -1){
+           if(this[i] != this[i]){   //排除 NaN
+              if(flag){
+                   resArr.push(this[i]);
+                   flag = false;
+              }
+           }else{
+                resArr.push(this[i]);
+           }
+       }
+   }
+    return resArr;
+}
+
+
+if(! "a" in window){
+    var a = 1;
+}
+alert(a);
+请问 a 的结果是什么？
+undefined
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+填写内容让下面代码支持a.name = “name1”; b.name = “name2”;
 
 
