@@ -17,6 +17,12 @@ var addEvent = function (id, event, fn) {
     }
 };
 
+/**
+ * removeEvent
+ * @param obj
+ * @param event
+ * @param fn
+ */
 var removeEvent = function (obj, event, fn) {
     if (obj['bind' + event] && obj['bind' + event]['bind' + fn]) {
         if (obj.detachEvent) {
@@ -65,8 +71,8 @@ var addDate = function (date, days) {
     if (day < 10) {
         day = "0" + day;
     }
-    var result = d.getFullYear() + "/" + month + "/" + day;
-    return result;
+    return d.getFullYear() + "/" + month + "/" + day;
+
 };
 // alert(addDate('2015/07/07',31));
 
