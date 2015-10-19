@@ -8,7 +8,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 h1, p, h2 { margin: 0; font-weight: normal; }
 
-a, input { -webkit-tap-highlight-color: rgba(255, 0, 0, 0); }
+a, input { -webkit-tap-highlight-color: rgba(255, 0, 0, 0); /* 去掉点击后留下来的阴影 */ }
 
 img { border: none; vertical-align: top; }
 
@@ -38,7 +38,7 @@ body { margin: 0; position: relative; font-family: Arial, "微软雅黑"; color:
 
 .scrollWrap { position: relative; height: 100%; min-height: 1136px; overflow: hidden; }
 
-/*#index:active .info{-webkit-transform:scale(1); opacity:1;}*/
+/*#index:active .info{-webkit-transform:scale(1); opacity:1;} 移动端没有hover */
 
 /* 欢迎页，透明度在.7s中逐渐变为0 */
 #welcome { transition: .7s; }
@@ -187,6 +187,7 @@ body { margin: 0; position: relative; font-family: Arial, "微软雅黑"; color:
 
 .picMask nav a.active { opacity: 1; }
 
+/* 评分 */
 #score { line-height: 60px; padding: 17px 0 22px 26px; border-bottom: 1px solid #e5e5e5; }
 
 #score h2 { font-size: 28px; }
@@ -195,10 +196,11 @@ body { margin: 0; position: relative; font-family: Arial, "微软雅黑"; color:
 
 #score nav { position: absolute; left: 187px; top: 12px; }
 
-#score nav a { float: left; background: url(../img/star.png) no-repeat -38px 0; width: 38px; height: 36px; margin-right: 39px; transition: .3s; }
+#score nav a { float: left; background: url(../img/star.png) no-repeat -38px 0; width: 38px; height: 36px; margin-right: 39px; transition: .3s; /* 加上动画效果 */ }
 
 #score nav .active { background-position: 0 0; }
 
+/* 表单模拟 */
 .tags { padding: 21px 0 0 26px; }
 
 .tags h2 { line-height: 54px; font-size: 28px; }
@@ -213,7 +215,7 @@ body { margin: 0; position: relative; font-family: Arial, "微软雅黑"; color:
 
 #mask { background: rgba(0, 0, 0, 0.7) url(../img/mask.png) no-repeat center 300px; transition: 1s; opacity: 0; }
 
-.newsBtn { position: absolute; top: 20px; right: 20px; width: 56px; height: 56px; padding: 11px 11px; font-size: 22px; line-height: 28px; letter-spacing: 2px; text-align: center; background: rgba(230, 0, 18, 0.6); color: #fff; text-decoration: none; border-radius: 39px; font-size: 21px; -webkit-animation: newsBtn 2s alternate infinite; }
+.newsBtn { position: absolute; top: 20px; right: 20px; width: 56px; height: 56px; padding: 11px 11px; font-size: 22px; line-height: 28px; letter-spacing: 2px; text-align: center; background: rgba(230, 0, 18, 0.6); color: #fff; text-decoration: none; border-radius: 39px; -webkit-animation: newsBtn 2s alternate infinite; }
 
 /*.newsBtn{position:absolute;top:20px;right:20px;width:78px;height:78px; }
 .newsBtn em{width:56px;height:56px;padding:11px 11px; font-size:22px; line-height:28px; letter-spacing:2px; text-align:center; background:rgba(230,0,18,0.5);color:#fff; text-decoration:none; border-radius:39px; font-size:21px;z-index:2; position:absolute;left:0;top:0;}

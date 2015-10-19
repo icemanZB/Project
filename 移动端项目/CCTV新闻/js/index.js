@@ -161,7 +161,7 @@ function fnScore() {
         var aNav = oLi.getElementsByTagName("a");
         var oInput = oLi.getElementsByTagName("input")[0];
         for (var i = 0; i < aNav.length; i++) {
-            aNav[i].index = i;
+            aNav[i].index = i;  // 用来判断当前的星星在前面还是在后面
             bind(aNav[i], "touchstart", function () {
                 for (var i = 0; i < aNav.length; i++) {
                     if (i <= this.index) {
@@ -193,6 +193,7 @@ function fnIndex() {
     var oBtn = oIndex.getElementsByClassName("btn")[0];
     var oInfo = oIndex.getElementsByClassName("info")[0];
     var bScore = false;
+    // 手指抬起触发
     bind(oBtn, "touchend", fnEnd);
 
     function fnEnd() {
@@ -231,6 +232,7 @@ function fnIndex() {
     }
 }
 
+// 首页跳出
 function fnIndexOut() {
     var oMask = id("mask");
     var oIndex = id("index");
@@ -238,10 +240,12 @@ function fnIndexOut() {
     addClass(oMask, "pageShow");
     addClass(oNew, "pageShow");
     fnNews();
+    // 这里加定时器的原因是：一个元素从display:none->block，有个元素渲染的过程，在这个过程transition是不起效果的
     setTimeout(function () {
         oMask.style.opacity = 1;
-        oIndex.style.WebkitFilter = oIndex.style.filter = "blur(5px)";
+        oIndex.style.WebkitFilter = oIndex.style.filter = "blur(5px)"; // 模糊处理
     }, 14);
+    // 这边不用transitionend ，因为需要多显示一会
     setTimeout(function () {
         oNew.style.transition = "0.5s";
         oMask.style.opacity = 0;
