@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>concat</title>
+    <script type="text/javascript">
+         // concat() 方法用于连接两个或多个数组。
+        // 该方法不会改变现有的数组,返回被连接后的数组
+        var arr = [1, 2, 3];
+        console.info(arr);  // [1,2,3]
+        console.info(arr.concat(4, 5));  // [1,2,3,4,5]
+
+        var arr2 = ['George', 'John', 'Thomas'];
+        var arr3 = ['James', 'Adrew', 'Martin'];
+
+        console.info(arr2.concat(arr3));  // ["George", "John", "Thomas", "James", "Adrew", "Martin"]
+
+        var arr4 = ['William', 'Franklin'];
+        // 链接3个数组
+        console.info(arr2.concat(arr3, arr4));
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

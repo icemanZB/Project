@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>splice</title>
+    <script type="text/javascript">
+        // 这里表示从第0个位置取2个(会删除原来的数组中的元素)  说明是引用
+        // 如果从 arrayObject 中删除了元素，则返回的是含有被删除的元素的数组。
+        // splice 会改变原来的数组
+        var arr1 = ['Iceman', 25, 'ShangHai', 'Computer'];
+        var arr15 = arr1.splice(0, 2);
+        console.info(arr15); // ["Iceman", 25]
+        console.info(arr1); // ["ShangHai", "Computer"]
+
+        // 从第1个插入点插入元素，0表示不删除 (插入)
+        var arr17 = ['Iceman', 25, 'ShangHai', 'Computer'];
+        var arr16 = arr17.splice(1, 1, 'IT');
+        console.info(arr16); // [25]
+        console.info(arr17); // ["Iceman", "IT", "ShangHai", "Computer"]
+
+
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        arr.splice(1, 0); // 返回 []
+        // 现在arr的值还是 [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        arr.splice(1, 0, 10); // => []  0表示插入
+        // arr => [1, 10, 2, 3, 4, 5, 6, 7, 8, 9] 在下标为1的元素上插入10
+
+        arr.splice(1, 1, 11); // => [10], 10被替换掉  1 就是代表删除了一个元素
+        // arr => [1, 11, 2, 3, 4, 5, 6, 7, 8, 9] 在下标为1的元素上删除它 然后在插入11
+
+        arr.splice(1, 9, 12); // => [11, 2, 3, 4, 5, 6, 7, 8, 9] 返回被替换的9个元素
+        // 删除从下标1开始的9个元素
+        // arr 最后arr为 [1, 12]
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>string-join</title>
+    <script type="text/javascript">
+        /*
+         * join()  是对于值进行操作的
+         *
+         * */
+        var arr = ['Iceman', 25, 'Shanghai', new Date()];
+
+        console.info(arr.join('')); 	// 数组转换为字符串
+        console.info(typeof arr.join(''));  // string
+
+        var arr2 = ['Iceman', 25, 'Shanghai'];
+        console.info(arr2.join('|'));  // 方法运行过后返回按|分割的字符串
+        console.info(typeof arr2.join('|'));
+        console.info(typeof arr2);  // 原数组没有任何变化,类型还是object
+
+    </script>
+</head>
+<body>
+</body>
+</html>

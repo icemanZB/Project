@@ -1,0 +1,108 @@
+http://web.jobbole.com/82251/ js 面试题目
+
+http://blog.jobbole.com/29269/
+
+http://www.cnblogs.com/muyou/archive/2012/06/26/2563930.html
+
+JavaScript权威指南
+
+5、JavaScript中如何对一个对象进行深度clone?
+
+19、兼容写法 (能力检测)
+
+20、 css计数器
+
+21、 js 中 in 操作符
+
+26、 jquery 动画 animate(params, options) slideUp()
+
+http://www.cnblogs.com/dolphinX/p/3524977.html
+
+37 http://www.cnblogs.com/dolphinX/p/3529249.html 有待研究
+
+http://www.zhangxinxu.com/wordpress/2013/05/%E7%90%86%E8%A7%A3another-javascript-quiz-%E9%A2%98%E7%9B%AE/
+
+
+js 浏览器兼容性？？
+Bootstrap???
+
+cmd 和 amd 的区别？？？
+nodejs 看下
+准备下自我介绍
+
+请描述你经历过的JavaScript单元测试？？？  Quint jQuery的单位测试框架
+
+数组排序
+http://wteamxq.com/testDemo/array.html
+
+position 有多少个属性
+标签语义化
+absolute 父级没有 relative 怎么办
+
+css3 用的最多的  Transition  圆角 图片撑满的那个属性 background-size:contain;
+box-sizing:border-box;  怪异核模型
+设置元素居中
+nth-of-type()
+
+on方法 中判断是哪个对象 ev 中的
+
+argument 有什么其他属性方法
+
+js 循环输出最终结果的原理  js是单线程
+
+setTimeout() 原理
+
+// 不要一边创建元素，一边给元素添加属性或事件处理函数
+var aBtn = document.getElementsByTagName('input');
+for (var i=0; i<3; i++) {
+	// 只有第三个函数有事件 innerHTML 会先清空页面上所有的按钮在创建
+	document.body.innerHTML = document.body.innerHTML + '<input type="button" value="按钮" />';
+	// 第一个按钮 = 没有事件处理函数了  0
+	// 第二个按钮 = 没有事件处理函数了	 1
+	// 第三个按钮 = 有事件处理函数了	 1
+	aBtn[i].onclick = function () {
+		alert(123);
+	};
+}
+
+inline-block 加在块元素上是没有效果的
+
+// 第一次for循环为 第一个按钮绑定了事件处理函数，但是函数没有执行，函数执行就只有点击的时候才会执行
+// 后面几次循环都是一样，那么你点击完以后 i 就已经是 3了
+for(var i=0;i<aBtn.length;i++){
+
+    aBtn[i].onclick=function(){
+        alert(i);  // 3
+    }
+
+}
+
+camtasia studio
+手机端H5上传图片
+能调摄像头 本地相册
+
+https://github.com/think2011/localResizeIMG4
+
+
+http://my.oschina.net/sevenhdu/blog/332014
+http://www.cnblogs.com/yexiaochai/p/3567597.html
+DOM2级事件规定事件包括三个阶段：
+
+1、 事件捕获阶段
+
+2、处于目标阶段
+
+3、事件冒泡阶段
+
+很多人我都会问他，上个项目用到什么技术，为什么用这个，有什么优缺点，有什么替代方案
+对MVC有什么了解，MVVM呢，有没有自己搭过项目架构
+
+熟悉TCP/IP、HTTP基本工作原理？？
+HTTP协议
+TCP三次握手
+web性能瓶颈
+代码打包都没试过，sass、less、grunt
+
+了解前端 MVC 开发模式
+
+ecma 5  http://www.open-open.com/lib/view/open1331175932452.html

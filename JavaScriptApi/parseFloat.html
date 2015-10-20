@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>字符串转为浮点类型，处理小数</title>
+    <script type="text/javascript">
+        /*
+         * 显示类型转换
+         * parseFloat 与 parseInt 原理一致
+         * 返回的是浮点小数
+         * 若不清楚要转的字符串是整数还是小数,都用 parseFloat 即可
+         *
+         * */
+
+        var str = "3.1";
+
+        console.info(parseFloat(str)); // 3.1
+
+        var num = '123.4.5';
+        console.info(parseFloat(num)); // 123.4
+
+        var num1 = '123.56';
+        console.info(parseFloat(num1));
+
+    </script>
+</head>
+<body>
+</body>
+</html>

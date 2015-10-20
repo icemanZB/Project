@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+       /*
+         * NaN :  Not a number  非数字
+         *
+         * 任何一个数字 + NaN = NaN
+         *
+         * NaN 和 NaN 是不相等的
+         *
+         * 判断是否是 NaN 用Javascript 自带的函数 isNaN
+         *
+         * */
+        var a = parseInt('a');
+        var b = parseInt('b');
+
+        console.info(a == b); // false
+
+        console.info(isNaN(a)); // true
+
+
+        var box = NaN + 1;
+
+        alert(NaN); // 与NaN 运算都为 NaN
+
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
