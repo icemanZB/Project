@@ -96,6 +96,7 @@ function fnTab() {
     bind(oTab, "touchmove", fnMove); // 手指移动 ( 相当于onmousemove )
     bind(oTab, "touchend", fnEnd); // 手指抬起来 ( 相当于onmouseup )
     auto();
+    // 防止重复调用
     if (!window.BfnScore) {
         fnScore();
         window.BfnScore = true;
@@ -262,7 +263,7 @@ function fnNews() {
     aInput[0].onchange = function () {
         if (this.files[0].type.split("/")[0] == "video") {
             fnNewsOut();
-            this.value = "";
+            this.value = "";  // 提交成功就至为空
         } else {
             fnInfo(oInfo, "请上传视频");
         }
@@ -281,7 +282,7 @@ function fnNewsOut() {
     var oNews = id("news");
     var oForm = id("form");
     addClass(oForm, "pageShow");
-    oNews.style.cssText = "";
+    oNews.style.cssText = "";  // 清空行间样式
     removeClass(oNews, "pageShow");
     formIn();
 }

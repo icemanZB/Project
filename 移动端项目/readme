@@ -133,7 +133,8 @@ html{ font-size:32px; }
 换算 iphone5 rem基础值为32px，渲染一张64*64的div，则用 2rem*2rem去渲染
 width:px/rem 基值  height:px/rem 基值
 
-
+iphone5 宽高比为9:16
+iphone4 宽高比为3:4
 
 
 鼠标事件例如: onclick 在实际的手机上有半秒的延迟(300ms)
