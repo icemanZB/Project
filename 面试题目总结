@@ -368,8 +368,68 @@ transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);/*
 BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。
 (W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。)
 
+触发元素的 BFC( 块级格式化上下文 ) 来达到清浮动，该元素内部布局和定位和外部元素互不影响( 除非内部盒子建立了新的BFC )
+可以理解为 BFC 建立了一个隔离的独立容器
+触发 BFC 的属性  1、float 的值不为 none;
+               2、overflow 值不为 visible;
+               3、display 值为 table-cell 、 table-caption 、inline-block 之一
+               4、position 值不为 static 或 relative 其中一个
 
-38、清除浮动的几种方法？   [ 详细解释待定 ]
+
+
+38、清除浮动的几种方法？
+1)、 .clear{zoom:1;}
+     .clear:after{content:"";display:block;clear:both;}
+     <div class="box clear">
+        <div class="div"></div>
+     </div>
+
+2)、在浮动元素下加 <br clear="all"/>  但是不符合w3c的标准
+    <div class="box">
+        <div class="div"></div>
+        <br clear="all"/>
+    </div>
+
+3)、浮动元素的父级有宽度(高度)就不用清除浮动
+
+4)、overflow:hidden 清除浮动 加在父级上的样式 IE6 不支持(如果没有触发haslayout)，需要在父级上宽度 或者配合 zoom:1; (不常用)
+
+5)、给父级加上浮动 就可以清除浮动 (这个方法不是很好,会使margin失效)
+    .box{ width:300px;margin:0 auto;border:10px solid #000; float:left;}
+    .div{ width:200px;height:200px;background:red;float:left;}
+    /*
+        清浮动
+        1.给父级也加浮动(不居中了)
+    */
+
+    <div class="box">
+        <div class="div"></div>
+    </div>
+
+6)、给父级加inline-block 他可以不脱离文档流,达到清除浮动的效果,这个时候如果给这个父级的inline-block
+    在加个父级,那么他就可以撑开父级的高度,问题是他还是会使margin失效,想让他居中,还得在父级加text-algin:center
+
+7)、通过给浮动元素的父级加position:absolute; 或 position:fixed; 来清浮动
+    通常用于某个元素是绝对定位,里面的那些元素有浮动,那就不需要在浮动元素的父级清除浮动
+
+    #box1{border:30px solid red; position:absolute;}
+    #box2{ width:300px; height:300px; background:blue; float:left;}
+    <div id="box1">
+        <div id="box2"></div>
+    </div>
+
+8、在浮动元素下加<div class="clear"></div>
+  .clear{ height:0px;overflow:hidden;clear:both;}
+  但是在ie6下,块元素有最小高度，即当height<19px时，默认为19px，解决方法：font-size:0;或overflow:hidden;
+    .box{ width:300px;margin:0 auto;border:10px solid #000;}
+    .div{ width:200px;height:200px;background:red;float:left;}
+    .clear{ height:0px;font-size:0;clear:both;}
+
+    <div class="box">
+        <div class="div"></div>
+        <div class="clear"></div>
+    </div>
+
 
 
 39、html5有哪些新特性、移除了那些元素？如何处理HTML5新标签的浏览器兼容问题？
@@ -450,9 +510,11 @@ g.	伪类和伪元素： a:hover ，你应该记住浏览器处理选择器是�
 注：CSS选择器 [attribute~=value] 	[title~=flower] 	选择 title 属性包含单词 "flower" 的所有元素。
              [attribute|=value] [lang|=en] 	选择 lang 属性值以 "en" 开头的所有元素。
              [attribute^=value] a[src^="https"] 	选择其 src 属性值以 "https" 开头的每个 <a> 元素。
-             element1~element2 	p~ul 	选择前面有 <p> 元素的每个 <ul> 元素。
              [attribute$=value] 	a[src$=".pdf"] 	选择其 src 属性以 ".pdf" 结尾的所有 <a> 元素。 	3
              [attribute*=value] 	a[src*="abc"] 	选择其 src 属性中包含 "abc" 子串的每个 <a> 元素。
+             element+element 	div+p 	选择紧接在 <div> 元素之后的所有 <p> 元素。
+             element1~element2 	p~ul 	选择前面有 <p> 元素的每个 <ul> 元素。
+
 
 43、前端开发的优化问题 ？
 1). 减少http请求次数：css spirit,data uri
@@ -1046,10 +1108,6 @@ $(document).ready(function () {
 
    考点: jquery的文档处理 (D)
 
-
-17、下面哪一个是用来追加到指定元素的末尾的？     ( A )
-    A、insertAfter()  B、append()  C、appendTo()  D、after()
-
  1).append()在被选元素的结尾插入内容。 $("p").append(" <b>Hello world!</b>");
  2).appendTo() 在被选元素的结尾(仍然在内部)插入指定内容。 $("<b>Hello World!</b>").appendTo("p");
  3).insertAfter() 在被选元素之后插入 HTML 标记或已有的元素。(将所有匹配元素插入到指定元素的后面) 用来追加到指定元素的末尾的
@@ -1319,9 +1377,6 @@ if(! "a" in window){
 alert(a);
 请问 a 的结果是什么？
 undefined
-
-
-
 
 
 填写内容让下面代码支持a.name = “name1”; b.name = “name2”;
