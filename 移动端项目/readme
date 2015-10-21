@@ -188,7 +188,28 @@ android 只会触发一次touchstart，一次touchmove，touchend 不触发 4.0 
 }
 
 
+适配：
+<meta name="viewport" content="width=device-width,user-scalable=no,target-densitydpi=medium-dpi" />
 
+安卓主流分辨率:240*320(一般不考虑)、320*480、480*800(多)、640*960(多) 480*854 1280*720 800*1280 1080*1920
+
+target-densitydpi=medium-dpi  一般在 320 - 480 之间
+
+A.页面设置固定宽度320px，margin居中，左右留白用背景填充
+
+B.通过media，根据不同的分辨率去设置不同的样式
+
+C.通过100%、flex或rem等手段，等比例缩放 1rem= 1个html上设置的字体大小
+
+在高dpi情况下图片会有发虚失真 640 320 处理办法，如果一张图片是240*240的，那么页面定义就是120*120 在设置 background-size:contain;
+
+touch事件
+
+touchstart == mousedown
+
+touchmove == mousemove
+
+touchend == mouseup
 
 
 
