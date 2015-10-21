@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>cloneNode的应用</title>
+    <script type="text/javascript">
+        /*
+         * 鼠标单击Button1后将Button1移动到Button2的后面
+         *
+         * */
+        // 思路:先克隆一个,然后挂上,然后删除原来的那个
+        function moveBtn(obj) {
+            var clone = obj.cloneNode(true);
+            var parent = obj.parentNode;
+            parent.appendChild(clone);
+            parent.removeChild(obj);
+        }
+    </script>
+</head>
+<body>
+<div>
+    <input type="button" id="button1" value="1" onclick="moveBtn(this);">
+    <input type="button" id="button2" value="2"/>
+</div>
+</body>
+</html>

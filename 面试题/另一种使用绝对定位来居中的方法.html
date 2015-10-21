@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>另一种使用绝对定位来居中的方法</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .parent {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            position: relative;
+        }
+
+        .child {
+            /* 宽度与高度必须是固定的 */
+            width: 100px;
+            height: 100px;
+            background: #000;
+            position: absolute;
+            /* left 与 right 必须配对出现来控制水平方向 */
+            left: 0;
+            /* top 与 bottom 必须配对出现来控制垂直方向 */
+            right: 0;
+            top: 0;
+            bottom: 0;
+            /* 这句也是必不可少的 */
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <div class="child"></div>
+</div>
+</body>
+</html>

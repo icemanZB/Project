@@ -106,3 +106,19 @@ web性能瓶颈
 了解前端 MVC 开发模式
 
 ecma 5  http://www.open-open.com/lib/view/open1331175932452.html
+
+
+http://www.jb51.net/article/43261.htm 浮动
+http://blog.csdn.net/return_false/article/details/11203025 清除浮动
+
+border 研究三角??
+
+
+http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  css选择器
+
+http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812 margin负值
+
+
+压缩要学习下
+
+bind() 研究下

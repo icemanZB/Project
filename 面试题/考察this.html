@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>考察this</title>
+    <script type="text/javascript">
+        var length = 10;
+        function fn() {
+            console.log(this.length);
+        }
+
+        var obj = {
+            length: 5,
+            method: function (fn) {
+                fn(); // 10
+                arguments[0](); // 2
+            }
+        };
+
+        obj.method(fn, 1);
+
+        /*
+         * 我们知道取对象属于除了点操作符还可以用中括号,所以第二次执行时相当于arguments调用方法,
+         * this指向arguments,而这里传了两个参数,故输出arguments长度为2
+         *
+         * */
+
+        window.onload = function () {
+            function JSClass() {
+                this.m_Text = 'division element';
+                this.m_Element = document.createElement('div');
+                this.m_Element.innerHTML = this.m_Text;
+                this.m_Element.addEventListener('click', this.func);
+                // this.m_Element.onclick = this.func;
+                // this.m_Element.m_Text = 'hello world';
+            }
+
+            JSClass.prototype.Render = function () {
+                document.body.appendChild(this.m_Element);
+            };
+
+            JSClass.prototype.func = function () {
+                console.info(this.m_Text);
+            };
+
+            var jc = new JSClass();
+            jc.Render();  // add div
+            jc.func();  // 输出 division element
+            // click添加的div元素division element会输出 undefined，为什么？
+
+            /*
+             * this其实已经指向了this.m_Element,因为是this.m_Element调用的addEventListener函数
+             * 所以内部的this全指向它了。可以试着加上一行代码 this.m_Element.m_Text = 'hello world';
+             * 就会alert出hello world了。
+             *
+             * */
+
+        };
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

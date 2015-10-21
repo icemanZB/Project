@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>var和函数的提前声明</title>
+    <script type="text/javascript">
+        function fn(a) {
+            console.log(a);
+            var a = 2;
+
+            function a() {
+            }
+
+            console.log(a);
+        }
+
+        fn(1); // function(){}   2
+
+        /*
+         *
+         * var和function是会提前声明的,而且function是优先于var声明的(如果同时存在的话)
+         * 所以提前声明后输出的a是个function，然后代码往下执行a进行重新赋值了,故第二次输出是2
+         *
+         * */
+
+        /*
+         *
+         * 函数声明优于变量声明
+         *
+         * */
+
+        console.log(typeof fn);
+
+        function fn() {
+        }
+        ;
+        var fn;
+
+
+        if (a in window) {
+            var a = 10;
+        }
+        alert(a); // 10
+
+        /*
+         *
+         * function和var会提前声明,而其实{...}内的变量也会提前声明。
+         * 于是代码还没执行前,a变量已经被声明，于是 'a' in window 返回true,所以a就会被赋值。
+         *
+         * */
+        var x = 1;
+        if (function f() {
+                }) {
+            // alert(f) // ReferenceError: f is not defined
+            x += typeof f;
+        }
+        console.log(x); // '1undefined'
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

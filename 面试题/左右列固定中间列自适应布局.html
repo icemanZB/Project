@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>左右列固定中间列自适应布局</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            min-width: 600px;
+        }
+
+        .main {
+            float: left;
+            width: 100%;
+        }
+
+        .main_body {
+            margin: 0 210px;
+            background: #888;
+            height: 200px;
+        }
+
+        .left, .right {
+            float: left;
+            width: 200px;
+            height: 200px;
+            background: #F60;
+        }
+
+        .left {
+            margin-left: -100%;
+        }
+
+        .right {
+            margin-left: -200px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="main_body">
+        此例适用于左右栏宽度固定,中间栏宽度自适应的布局。
+        由于网页的主体部分一半在中间,很多网页都需要中间列优先加载,而这种布局刚好满足此需求。
+    </div>
+</div>
+<div class="left">Left</div>
+<div class="right">Right</div>
+</body>
+</html>

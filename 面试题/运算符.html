@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>运算符</title>
+    <script type="text/javascript">
+        console.log(2 + 4); // 6
+        console.log("2" + "4"); // "24"
+        console.log(2 + "4"); // "24"
+        console.log(2 + new Date()); // "2Mon Jan 20 2014 17:15:01 GMT+0800"
+        console.log(+"4"); // 4
+
+        /*
+         * 在两个操作数都是数字的时候,会做加法运算
+         * 两个参数都是字符串或在有一个参数是字符串的情况下会把另外一个参数转换为字符串做字符串拼接
+         * 在参数有对象的情况下会调用其valueOf或toString
+         * 在只有一个字符串参数的时候会尝试将其转换为数字
+         * 在只有一个数字参数的时候返回其正数值
+         *
+         * */
+
+        // 运算从左到右执行
+        // w=x+y+z;
+        // w=(x+y)+z;
+
+        // 运算从右到左执行
+        // w=x=y=z;
+        // w=(x=(y=z));
+        // w=a:b:c?d:e?f:g;
+        // w=a?b:(c?d:(e?f:g));
+
+        // typeof的优先级相当的高,比加减乘除神马的都高
+        // typeof 2*3; // NaN
+        // typeof (2*3); // "number"
+        // typeof 2+3; // "number3"
+
+        var a = 0, b = 0;
+        // a++ + b;//0
+        // a; // 1，++优先级比+高，所以相当于(a++)+b
+        // b; //0
+
+        var a = 1;
+        b = (a = 3) + a++;  // 6
+
+        /*
+         * 这个例子中运算顺序是这样的
+         * 计算b
+         * a＝3
+         * a++(设为c)
+         * 计算a(这时候a变成了4已经，不是再最后才变得，但表达式使用的是a++的结果c，也就是a原来的值)
+         * 计算3+c
+         * 把3+c赋值给b
+         *
+         * */
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

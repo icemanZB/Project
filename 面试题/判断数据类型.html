@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>判断数据类型</title>
+    <script type="text/javascript">
+        typeof undefined; //"undefined"
+        typeof null; // "object"
+        typeof true; // "boolean"
+        typeof 0; //"number"
+        typeof NaN; //"number"
+        typeof "string"; //"string"
+        typeof function () {
+        }; //"function"
+        typeof []; //"object"
+        typeof new Date(); //"object"
+
+        /*
+         * 有几个看起来比较蹊跷需要我们注意
+         *
+         * 1、typeof是运算符,不是方法,也就是说和加减号一样用,不考虑优先级问题,
+         *    没必要给操作数加括号,当然加了也没事儿
+         * 2、typeof返回值都是小写字符串
+         * 3、null的类型不是null，而是"object"
+         * 4、NaN这个不是数字的类型也是"number"
+         * 5、function明明也是对象,但是typeof却给了"function"类型
+         * 6、其它对象都返回"object",很没有识别性
+         *
+         * */
+        // 具体识别对象类型使用instanceof 操作符,对于基本类型 instanceof 永远返回false
+        1 instanceof Number; // false
+        new Number(1) instanceof Number; // true
+    </script>
+</head>
+<body>
+
+</body>
+</html>

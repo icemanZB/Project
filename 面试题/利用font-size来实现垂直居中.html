@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>利用font-size来实现垂直居中</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .parent {
+            /* font-size 的值为这个元素的高度除以1.14得到的结果,这里就是200/1.14=175.4 IE6,7 使用 font-size 的方法 */
+            *font-size: 175.4px;
+            display: table-cell;
+            /* IE8+,chrome,firefox 等使用 table-cell 的方法 */
+            vertical-align: middle;
+            /* 有一个固定高度才能计算出相应的 font-size 值 */
+            height: 200px;
+            width: 200px;
+            border: 1px solid red;
+            text-align: center;
+        }
+
+        .child {
+            /* 这句是必须的 */
+            *vertical-align: middle;
+            *zoom: 1;
+            /*
+                在IE6,7中让该元素变成一个 inline-block 元素,如果该元素本身就是一个 inline 或 inline-block 元素则不需要此步了
+             */
+            display: inline;
+            /* 让元素恢复正常的 font-size */
+            font-size: 12px;
+            width: 50px;
+            height: 50px;
+            background-color: #00f;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <div class="child">
+        如果父元素高度是已知的,要把它里面的子元素进行水平垂直居中,则可以使用这种方法,且子元素的宽度或高度都不必知道
+        <br/> font-size 方法只对 IE6,7 有效 。 该方法的要点是给父元素设一个合适的font-size的值,
+        这个值的取值为该父元素的高度除以1.14得到的值,并且子元素必须 是一个inline或inline-block元素,
+        需要加上vertical-align:middle属性。至于为什么是除以1.14而不是其他的数,还真没有人知道。
+    </div>
+</div>
+</body>
+</html>

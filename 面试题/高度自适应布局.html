@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>高度自适应布局</title>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+        }
+
+        body, div {
+            margin: 0;
+            padding: 0;
+            color: #ff0;
+        }
+
+        * html {
+            padding-top: 100px; /* for ie6 */
+        }
+
+        .top {
+            background-color: #36c;
+            height: 100px;
+        }
+
+        /* for ie6 */
+        * html .top {
+            background: #36C;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        .main {
+            background-color: #f90;
+            width: 100%;
+            position: absolute; /* 把 top 设为100px, bottom 设为0,就达到了高度自适应 */
+            top: 100px;
+            bottom: 0;
+        }
+
+        /* for ie6 */
+        * html .main {
+            background: #F90;
+            position: static;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="top">我是top</div>
+<div class="main">
+    我是main,是绝对定位元素,把我的top设为100px,bottom设为0,就达到了高度的自适应<br>
+    高度自适应就是高度能跟随浏览器窗口的大小改变而改变,
+    典型的运用在一些后台界面中上面一栏高度固定用作菜单栏或导航栏,
+    下面一栏高度自适应用于显示内容。 <br>
+    在IE6中的思路是,把 html 和 body 元素的高度设定为100%,即浏览器窗口的高度
+    然后利用 padding-top 在 html 元素上挤出一点空间来,因为绝对定位的最高参照物是参照 html 元素的
+    所以可以把顶栏绝对定位在 html 的 padding-top 那块空间上
+    这时 body 的高度就是 html 的高度(也是浏览器窗口的高度)减去 html 的 padding-top 的值
+    IE6 非常奇怪的一个特性,因为按照 W3C 盒模型来讲,增加了 html 元素的 padding-top , 则 html 元素的高度也会相应增加
+    这时浏览器窗口应该会出现垂直滚动条了。但IE6不会,html 的增加了 padding-top 后,整个 html 元素的高度还是保持不变
+    即浏览器窗口的高度,变化的是 body 的高度减小了,用来抵消 html 的 padding-top
+    <p style="height:500px;"></p>
+</div>
+</body>
+</html>

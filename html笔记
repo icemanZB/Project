@@ -191,8 +191,8 @@ div span p{ background:red}  /* 只选中p3的样式 */
 4、 class 选择符, 可以认为 是10 级别的
 
 5、 .list{background:red;}/* 10 */ .list1{background:yellow;}/* 10 */
-    <li class="list li1"></li> <li class="list1 list"></li>  结果 : yellow
-    <li class="list li1"></li> <li class="list1 list"></li>  结果 : yellow
+    <li class="list list1"></li> <li class="list1 list"></li>  结果 : yellow
+    <li class="list list1"></li> <li class="list1 list"></li>  结果 : yellow
     名字的先后顺序和样式的先后顺序是没有任何关系的,样式的优先级是根据样式的权重和抒写顺序是有关系的
     .list1 写在后面,所以他优先级高
 
@@ -247,19 +247,19 @@ span,div{background:blue; width:100px; height:100px; display:inline-block;}
 <div>块</div>
 
 实际上那点间歇也就是一个空格的大小,那么空格的大小就是页面文字大小的一半
-如果页面的文字大小为12px,那么空格的大小就为6px (浮动可以解决?)
-IE6 7 不支持块属性标签的inline-block; (浮动可以解决? 貌似支持)
+如果页面的文字大小为12px,那么空格的大小就为6px (浮动可以解决，不用inline-block)
+IE6 7 不支持块属性标签的inline-block;
 
 
 前端规范 : 1、注释规范 <!-- html -->  /* css */ 要有空格 否则在IE6下可能会出错
-         2、拥有父子级关系的标签
+          2、拥有父子级关系的标签
              <ul>
                <li></li>
                <div></div>  这是不能写div js 查找元素的时候可能会出错
              </ul>
-         3、p,dt,h 不能嵌套块属性标签 <p><div></div>/p> 这样就会出错
-            p{width:100px;height:100px;background:red;}
-            span{display:block;}
+          3、p,dt,h 不能嵌套块属性标签 <p><div></div>/p> 这样就会出错
+             p{width:100px;height:100px;background:red;}
+             span{display:block;}
             <p>
                 <h3></h3>  <!-- 出现两个p,由于没有遵守标签嵌套规范 -->
             </p>
@@ -268,12 +268,12 @@ IE6 7 不支持块属性标签的inline-block; (浮动可以解决? 貌似支持
                 <span></span>   <!-- 转成块和块标签对于浏览器解析还是有区别的,这里没有出现问题 -->
             </p>
 
-         4、a不能嵌套a
-         5、内联元素不能嵌套块 （w3c）
-         6、p标签里面不能包含块标签(如果把span转为块,外面包了一个p，是不会出错的。浏览器解析机制的问题)
+          4、a不能嵌套a
+          5、内联元素不能嵌套块 （w3c）
+          6、p标签里面不能包含块标签(如果把span转为块,外面包了一个p，是不会出错的。浏览器解析机制的问题)
 
 
-浮动 :  1、使块元素在同一行显示
+浮动：  1、使块元素在同一行显示
        2、使内嵌元素支持宽高
        3、没有宽度的时候，内容撑开宽度
        4、脱离文档流 (页面中可显示的对象在排列时所占用的位置叫文档流)
@@ -320,16 +320,16 @@ IE6 7 不支持块属性标签的inline-block; (浮动可以解决? 貌似支持
            在加个父级,那么他就可以撑开父级的高度,问题是他还是会使margin失效,想让他居中,还得在父级加text-algin:center
 
         8、在浮动元素下加<div class="clear"></div>
-          .clear{ height:0px;overflow:hidden;clear:both;}
-          但是在ie6下,块元素有最小高度，即当height<19px时，默认为19px，解决方法：font-size:0;或overflow:hidden;
-        .box{ width:300px;margin:0 auto;border:10px solid #000;}
-        .div{ width:200px;height:200px;background:red;float:left;}
-        .clear{ height:0px;font-size:0;clear:both;}
+           .clear{ height:0px;overflow:hidden;clear:both;}
+           但是在ie6下,块元素有最小高度，即当height<19px时，默认为19px，解决方法：font-size:0;或overflow:hidden;
+            .box{ width:300px;margin:0 auto;border:10px solid #000;}
+            .div{ width:200px;height:200px;background:red;float:left;}
+            .clear{ height:0px;font-size:0;clear:both;}
 
-        <div class="box">
-            <div class="div"></div>
-                <div class="clear"></div>
-        </div>
+            <div class="box">
+                <div class="div"></div>
+                    <div class="clear"></div>
+            </div>
 
         9、 通过给浮动元素的父级加position:absolute; 或 position:fixed; 来清浮动
             通常用于某个元素是绝对定位,里面的那些元素有浮动,那就不需要在浮动元素的父级清除浮动
@@ -438,7 +438,7 @@ IE6 兼容问题
       }
       <div class="floats"></div>
 
-    9、 IE6 有个特性, 父级一定能保住子级,在标准浏览器下子集会突破父级 ( 不建议子集的宽高吵过父级的宽高 )
+    9、 IE6 有个特性, 父级一定能保住子级,在标准浏览器下子集会突破父级 ( 不建议子集的宽高超过父级的宽高 )
         解决方案： 在父级上加 overflow:hidden;
         #box1{width:500px; height:300px; background:blue; } /* overflow:hidden; */
         #box2{width:300px; height:500px; background:yellow;}
@@ -484,7 +484,7 @@ IE6 兼容问题
         <input type="radio" name="sex" id="man" /><label for="man">男</label>
         <input type="radio" name="sex" id="woman" /><label for="woman">女</label>
 
-    13、 在IE6 下 input中的值的长度大于自身的宽度时候,input背景会跑  背景加fixed 即可解决
+    13、 在IE6 下 input中的值的长度大于自身的宽度时候,input背景会跑  背景加fixed 即可解决(IE7下背景元素定位会出问题，不建议使用)
          input{margin:0;padding:0;}
         .text{
             width:300px; height:40px; border:1px solid blue;
@@ -863,12 +863,19 @@ position:absolute;top:50%;left:50%; margin-top:-102px; margin-left:-202px;} /* �
     下拉选框一般就给 宽度 ，高度是有兼容性问题的
 
 
+
+总结：
+
 元素的宽度由内容撑开
 1、 display:inline; 内嵌 (不支持高度)
 2、 display:inline-block; 不支持块标签在IE6 7下有兼容问题
 3、 float 元素浮动后,不设宽度,宽度也是内容撑开
 5、 position:absolute;
 6、 position:fixed;
+
+
+
+
 
 css 精灵
 
@@ -1127,14 +1134,10 @@ input 设置宽度的时候，需要边框重新设置下，在设置宽度，�
 不要把所有的代码包在一个div里面,因为页面解析的时候，在body下面每读完一个标签，把一个标签里面的内容整体的渲染出来
 如果说整个页面里面的内容都套在一个div里面，这样会有性能问题，用户等待的时候会有一段空白
 
-
 样式尽量加给块标签 如 <h3><a></a></h3>  设置字体等都加在h3上，颜色加在a上面
 
 设置行高的时候，尽量行高大于字体大小。不同的字体在各个浏览器下有不同的差异
 标准下，行高和字体大小一样，字体的上面会空出1px，但在IE6下没有这个问题，有行高的时候高度是可有可无的
-
-http://www.jb51.net/article/43261.htm 浮动
-http://blog.csdn.net/return_false/article/details/11203025 清除浮动
 
 希望把某个元素移除你的视线：
 
@@ -1145,8 +1148,6 @@ http://blog.csdn.net/return_false/article/details/11203025 清除浮动
   5、left \ top
   6、拿一个白色DIV盖住它
   7、margin负值
-   ...?
-   border 研究三角??
 
 border 两条边框不相交的情况是一条直线，相交的情况是梯形
 border-color: 上 右 下 左
@@ -1172,7 +1173,7 @@ border-color: 上 右 下 左
     <div class="div"></div>
 </div>
 
-一般用在 ： 1、清浮动 ( 标注里面并没有 ) 包含浮动元素，根据子元素的情况自适应高度
+一般用在： 1、清浮动 ( 标注里面并没有 ) 包含浮动元素，根据子元素的情况自适应高度
           2、 不被浮动元素覆盖
           3、阻止父子元素的 margin 折叠 ( 子元素 margin 会传递到父元素 )
 
@@ -1252,9 +1253,3 @@ body{margin:0; height:100%;overflow:auto;}  // overflow:auto; 滚动条就在bod
 .div{width:100px;height:100px;background:red; position:fixed;left:100px;top:100px;
 _position:absolute;_top:expression(eval(document.documentElement.scrollTop+100));
 }
-
-http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  css选择器
-
-http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812 margin负值
-
-http://space.b.qq.com/ 腾讯企业QQ

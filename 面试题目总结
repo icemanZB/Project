@@ -536,7 +536,22 @@ g.	伪类和伪元素： a:hover ，你应该记住浏览器处理选择器是�
 IE浏览器的内核 Trident、Mozilla 的 Gecko、Chrome的 Blink( WebKit的分支)、Opera内核原为Presto，现为Blink；
 
 
-45、 兼容问题？   [ 详细解释待定 ]
+45、 兼容问题？
+
+1)、 IE6 下最小高度为19px  ( overflow:hidden; )
+2)、 IE6 下元素浮动，并排在同一行的元素都要加浮动，否则IE6会将两个元素之间多出3个像素的距离
+3)、 IE6 下面有双边距的bug 产生条件 : 1、块元素 2、浮动 3、横向的margin 值   ( display:inline; )
+4)、 IE6 7下 li的几px间隙问题, 在IE6 7 下 li本身没有浮动,但是内容浮动了,那么li就会多出来4px的间隙  ( vertical-align:top; )
+5)、 IE6 有个特性，子元素会撑开父级设置好的宽高、在标准浏览器下子元素不会撑开父级设置好的宽高 ( overflow:hidden; 不建议子集的宽高超过父级的宽高 )
+6)、 IE6 父级的 overflow:hidden; 是包不住子级的相对定位的  解决方案：父子级加相对定位即可(让父级变成定位元素，加绝对定位也是可以的)
+7)、 IE6 绝对定位的定位父级的宽高都为奇数的话，right 和bottom都会有1像素的偏差  解决方案: 避免宽高设置为奇数
+8)、 IE6 如果宽度需要内容撑开，就给它里面的块元素加上浮动 ( 问题的产生:由于块元素默认撑满整行,IE6下子元素默认会撑开父级设置好的宽度 )
+9)、 解决margin传递到父级的问题  解决方案：父子级中有一个浮动即可,在IE6下也没问题
+10)、当IE6下最小高度问题，和 li 的间隙问题共存的时候     解决方案：给li加浮动
+11)、IE6  绝对定位元素和浮动元素并列，绝对定位元素消失    解决方案：所以咱们只要让他们俩不处于同级就可以避免这个bug
+12)、IE6 input 空隙问题      解决方案：给input元素添加float
+13)、IE6 margin 负值的bug    margin 负值移出去的部分在IE6下都被父级给截掉了，加 position:relative; 即可
+
 
 
 46、超链接访问过后hover样式就不出现了，被点击访问过的超链接样式不在具有hover和active了？
@@ -580,12 +595,138 @@ a:active {color: #0000FF} /* 被选择的链接 */
 解析：对加载到的资源( HTML、JS、CSS等 )进行语法解析，建议相应的内部数据结构( 比如HTML的DOM树，JS的( 对象 )属性表，CSS的样式规则等等）
 
 
-50、块级元素和行内元素都有哪些？    [ 详细解释待定 ]
+50、块级元素和行内元素都有哪些？
 块级元素：div、p、h1-h6、ul、ol、dl、form、hr
 行内元素：a、b、i、span、strong、em、font
 
+内联元素 : 1、 默认同行,可以继续跟同类型标签
+          2、 内容撑开宽度
+          3、 不支持宽高
+          4、 不支持上下margin和padding
+          5、 代码换行被解析
+
+块： 1、默认独占一行显示
+    2、没有宽度时，默认撑满一排
+
+img 既不是块也不是内联 它其实是 inline-block(能在一行显示，并且支持宽高 可以内容撑开宽度)
+
+inline-block(一行内的块) : 1、能在一行显示
+                          2、行内属性标签支持宽高
+                          3、没有宽度的时候,内容撑开宽度
+
+但 inline-block 标签换行会被解析(会有间隙)
+span,div{background:blue; width:100px; height:100px; display:inline-block;}
+
+<span>区分样式</span>
+<span>区分样式</span>
+<span>区分样式</span>
+<div>块</div>
+<div>块</div>
+<div>块</div>
+
+实际上那点间歇也就是一个空格的大小,那么空格的大小就是页面文字大小的一半
+如果页面的文字大小为12px,那么空格的大小就为6px (浮动可以解决，不用inline-block)
+IE6 7 不支持块属性标签的inline-block;
 
 
+
+51、background 同时设置了背景颜色和背景图片的话,背景图片的优先级是高于背景颜色的
+
+background-position:left; 如果第二个值不设置,默认是居中;反过来设置了bottom,没有设置第一个值,默认也是居中显示
+                          如果给定的是一个数值100px,识别不了x、y,那么默认是x,y居中
+                          如果给定的值是center,那么就是默认center center
+                          如果写成 bottom left 浏览器解析也会变成 left bottom
+                          设置数值是根据padding的左上角开始计算的
+
+
+52、样式优先级 :
+
+<ol>
+    <li class="list list1" id="box" style="background:purple;"></li>
+    <li class="list1 list"></li>
+    <li class="list"></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ol>
+
+1、类型(1)  <  class(10)  <  id(100)  <  style行间样式(1000) < js
+
+2、就近原则,同级样式默认后者覆盖前者 li{backgroud:green;} li{background:red;}  结果是 red
+
+3、ol li{background:green;} li{background:red;} 结果是 green
+
+  类型原则符有自己的优先级 : ol li /* 相当于 1+1 */  li /* 相当于1 */
+
+4、 class 选择符, 可以认为 是10 级别的
+
+5、 .list{background:red;}/* 10 */ .list1{background:yellow;}/* 10 */
+    <li class="list list1"></li> <li class="list1 list"></li>  结果 : yellow
+    <li class="list list1"></li> <li class="list1 list"></li>  结果 : yellow
+    名字的先后顺序和样式的先后顺序是没有任何关系的,样式的优先级是根据样式的权重和抒写顺序是有关系的
+    .list1 写在后面,所以他优先级高
+
+6、 高级选择符多的，样式优先级高 比如 #aa #bb #ccc >#dd #ww .qq
+
+
+53、 浮动的特点
+
+浮动：  1、使块元素在同一行显示
+       2、使内嵌元素支持宽高
+       3、没有宽度的时候，内容撑开宽度
+       4、脱离文档流 (页面中可显示的对象在排列时所占用的位置叫文档流)
+
+
+54、内容撑开宽度： 浮动、内联元素、inline-block、position:absolute，fixed;、table
+
+55、使内嵌元素支持宽高：  position:absolute;、 float:left;
+
+56、希望把某个元素移除你的视线：
+
+  1、display:none;				显示为无
+  2、visibility:hidden;	隐藏 （ 保留文档位置 ）
+  3、width \ height:0;
+  4、透明度
+  5、left \ top
+  6、拿一个白色DIV盖住它
+  7、margin负值
+
+57、不定宽高的元素水平垂直居中
+.wrap{
+    position:absolute;top:50%;left:50px;-webkit-transform:translate(-50%,-50%);
+}
+
+58、单行文本溢出，显示省略号
+.inaline{
+    width:200px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+59、多行文本溢出
+.intwoline{
+    display:-webkit-box !important;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    word-break:break-all;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+}
+
+
+60、模拟固定定位
+<style>
+ // 这方法不是很好
+ // 滚动条在document上面,给html设置overflow:hidden; 隐藏了滚动条
+html{height:100%;overflow:hidden;}
+body{margin:0; height:100%;overflow:auto;}  // overflow:auto; 滚动条就在body上面了
+.box{height:2000px;}
+.div{width:100px;height:100px;background:red; position:absolute;left:100px;top:100px;}
+</style>
+<div class="box">
+	<div class="div"></div>
+</div>
 
 
 JavaScript 面试整理：
@@ -1241,7 +1382,7 @@ $(document.body).outerWidth(true); 浏览器当前窗口文档body的总宽度 �
     C. e.stopPropagation()      D. e.stopImmediatePropagation()
 
 ------------------------------------------------------------------------------------------------
-bind() 研究下
+
 
 封装函数 f，使 f 的 this 指向指定的对象
 输入例子:
@@ -1257,8 +1398,7 @@ function bindThis(f, oTarget) {
 
 function bindThis(f, oTarget) {
     return function(){
-
-            var arg=Array.prototype.slice.call(arguments,0);
+        var arg=Array.prototype.slice.call(arguments,0);
 
         return f.apply(oTarget,arg);
     }

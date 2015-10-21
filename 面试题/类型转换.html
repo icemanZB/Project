@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>类型转换</title>
+    <script type="text/javascript">
+        var a = [0], b = a, b = [1];
+        console.log(a + b); // 01
+
+        /*
+         * 这个时候我们调用的是数组的toString方法,实际是'0'+'1'='01'
+         * 在平常使用中,在"显示"相关操作中会优先调用toString方法,
+         * 而在运算相关操作中会优先调用valueOf方法
+         *
+         * JavaScript很多操作符都能引发隐式的类型转换 :
+         *
+         * 1+"234";  // "1234"
+         * 5+"";    // String(5)
+         * +"5";   // 5，变成了数字 Number("5")
+         * "5"-0;    // 5,也是数字
+         * !!1   // true
+         *
+         * 显式的类型转换:
+         *
+         * parseInt()
+         * parseFloat()
+         * Number("3");   // 3
+         * String(false);   // false
+         * Boolean([]);   // true
+         * Object(3);    // new Number(3)
+         *
+         * */
+    </script>
+</head>
+<body>
+
+</body>
+</html>
