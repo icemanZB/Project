@@ -66,11 +66,12 @@ body, #page { width: 100%; height: 100%; background: #000; position: absolute; o
 
 #wrap { width: 100%; position: absolute; top: 0.45rem; bottom: 0.55rem; overflow: auto; }
 
-.picList { width: 100%; position: absolute; }
+.picList { width: 100%; position: relative; }
 
-.picList li { background-size: cover; border: 1px solid #000; background-repeat: no-repeat; box-sizing: border-box; float: left; width: 1rem; height: 1rem; opacity: 0.2; }
+/* transition 需要在元素整个渲染完成以后，才会有效果 */
+.picList li { background-size: cover; border: 1px solid #000; background-repeat: no-repeat; box-sizing: border-box; width: 1rem; height: 1rem; position: absolute; transition:.5s left,.5s top;left:0;top:0; }
 
-.picList li.show { opacity: 1; }
+/*.picList li.show { opacity: 1; }*/
 
 /*.picList li:nth-of-type(1){ background-image:url(video/1.jpg);}
 .picList li:nth-of-type(2){ background-image:url(video/2.jpg);}
@@ -88,7 +89,7 @@ body, #page { width: 100%; height: 100%; background: #000; position: absolute; o
 .picList li:nth-of-type(14){ background-image:url(video/14.jpg);}
 .picList li:nth-of-type(15){ background-image:url(video/15.jpg);}
 .picList li:nth-of-type(16){ background-image:url(video/16.jpg);}
-*/
+
 .picBox { position: absolute; z-index: 2; perspective: 500px; overflow: hidden; }
 
 .picBox div { -webkit-transform-style: preserve-3d; transform-style: preserve-3d; position: absolute; width: 1rem; height: 1rem; top: 0; background-size: cover; -webkit-transform: rotateY(0deg); -moz-transform: rotateY(0deg); transform: rotateY(0deg); }
@@ -97,7 +98,7 @@ body, #page { width: 100%; height: 100%; background: #000; position: absolute; o
 
 .picBoxOpen div { -webkit-transform-origin: center 80%; -moz-transform-origin: center 80%; transform-origin: center 80%; -webkit-transform: rotateY(-30deg) rotateX(5deg); -moz-transform: rotateY(-30deg) rotateX(5deg); transform: rotateY(-30deg) rotateX(5deg); }
 
-.picBoxOpen > div { left: 50% !important; -webkit-transform: rotateY(-30deg) rotateX(2deg); -moz-transform: rotateY(-30deg) rotateX(2deg); transform: rotateY(-30deg) rotateX(2deg); }
+.picBoxOpen > div { left: 50% !important; -webkit-transform: rotateY(-30deg) rotateX(2deg); -moz-transform: rotateY(-30deg) rotateX(2deg); transform: rotateY(-30deg) rotateX(2deg); }*/
 
 /* left: calc(50% - 0.6rem) 父级宽度的一半(#page) - 自身宽度一半  左右空格不能少  top: 100%;隐藏 */
 #recycle, #recycle2 { width: 1.2rem; height: 1.2rem; background: url(img/recycle2.png) no-repeat center 0; background-size: contain; position: absolute; z-index: 1; left: calc(50% - 0.6rem); top: 100%; transition: .5s; }

@@ -82,7 +82,7 @@ function fnLoad() {
         }
 
         function end2() {
-            var i = 0;
+            // var i = 0;
             this.removeEventListener("webkitTransitionEnd", end2, false);
             this.removeEventListener("transitionend", end2, false);
             arr = arr.sort(function (a, b) {

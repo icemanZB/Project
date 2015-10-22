@@ -8,17 +8,18 @@
         var iWidth = document.documentElement.clientWidth;
         //  字体大小刚好是屏幕的1/3，一个图片的宽高是 1rem
         document.getElementsByTagName("html")[0].style.fontSize = iWidth / 3 + "px";
+        var aData = [];
+        for (var i = 1; i <= 16; i++) {
+            aData[i - 1] = "video/" + i + ".jpg";
+        }
     </script>
-    <script src="mTouch.js"></script>
     <link rel="stylesheet" href="style.css"/>
-    <script src="index.js"></script>
-
 </head>
 <body>
 <article id="page">
     <header id="header">
-        <a href="javascript:;" id="btn2" class="btn">删除</a> 相机相册
-        <a href="javascript:;" id="btn" class="btn">选择</a>
+        <a href="javascript:;" class="btn">删除</a> 相机相册
+        <a href="javascript:;" class="btn">选择</a>
     </header>
     <div id="wrap">
         <ul class="picList">
@@ -47,6 +48,6 @@
     <span id="recycle"></span>
     <span id="recycle2"></span>
 </article>
-
+<script src="main.js"></script>
 </body>
 </html>
