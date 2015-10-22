@@ -50,14 +50,12 @@ border:none;表示边框样式无;border:0;表示边框宽度为0;
    考点：css的文本Text （ text-layout-flow，horizontal、vertical-ideographic）
 
 
-10、DOCTYPE( 文档类型 )的作用是什么？你知道多少种文档类型？
+10、DOCTYPE( 文档类型 )的作用是什么？严格模式与混杂模式如何区分？它们有何意义?
 
 <!DOCTYPE>声明位于文档中的最前面的位置，处于<html>标签之前，此标签可告知浏览器文档使用哪种 HTML 或 XHTML 规范。
-该标签可声明三种 DTD 类型，分别表示严格版本、过渡版本以及基于框架的 HTML 文档。
-HTML 4.01 规定了三种文档类型：Strict、Transitional 以及 Frameset。
-XHTML 1.0 规定了三种 XML 文档类型：Strict、Transitional 以及 Frameset。
-Standards ( 标准 )模式(也就是严格呈现模式 )用于呈现遵循最新标准的网页,而
-Quirks( 包容 )模式( 也就是松散呈现模式或者兼容模式 )用于呈现为传统浏览器而设计的网页。
+Standards ( 标准 )模式(也就是严格呈现模式 )用于呈现遵循最新标准的网页，严格模式的排版 和 JS 运作模式是以该浏览器支持的最高标准运行
+而在混杂模式中，页面以宽松的向后兼容的方式显示。模拟老式浏览器的行为以防止站点无法工作，用于呈现为传统浏览器而设计的网页
+
 
 
 11、CSS hacks技巧？
@@ -143,7 +141,6 @@ absolute 的 "根元素" 是可以设置的，而 fixed 的 "根元素" 固定�
 3、块属性标签内容撑开宽度
 4、如果有定位父级相对于定位父级发生偏移,没有定位父级相对于整个文档发生偏移
 absolute 父级没有 relative ，相对于浏览器左上角进行定位(html)，如果清楚了body,html的默认margin,padding值，那么是一样的
-
 
 
 17、瀑布流布局 或者 流式布局 是否有了解？
@@ -245,7 +242,7 @@ animation-fill-mode: forwards;   用来定义元素在动画结束后的样子,�
 animation-iteration-count:1;     动画只播放一次
 
 
-26、-webkit-mask 的使用方式，原理是什么？  [ 详细解释待定 ]
+26、-webkit-mask 的使用方式，原理是什么？
 蒙板可以是CSS3渐变或者半透明的PNG图片。蒙板元素的alpha值为0的时候会覆盖下面的元素，为1的时候会完全显示下面的内容
 遮罩层
 .box{
@@ -370,7 +367,7 @@ BFC就是页面上的一个隔离的独立容器，容器里面的子元素不�
 
 触发元素的 BFC( 块级格式化上下文 ) 来达到清浮动，该元素内部布局和定位和外部元素互不影响( 除非内部盒子建立了新的BFC )
 可以理解为 BFC 建立了一个隔离的独立容器
-触发 BFC 的属性  1、float 的值不为 none;
+触发 BFC 的属性 1、float 的值不为 none;
                2、overflow 值不为 visible;
                3、display 值为 table-cell 、 table-caption 、inline-block 之一
                4、position 值不为 static 或 relative 其中一个
@@ -378,6 +375,10 @@ BFC就是页面上的一个隔离的独立容器，容器里面的子元素不�
 
 
 38、清除浮动的几种方法？
+
+Float是一种布局方式，它定义元素在哪个方向浮动。以往这个属性总应用于图像，使文本围绕在图像周围，不过在 CSS 中任何元素都可以浮动。
+浮动元素会生成一个块级框，而不论它本身是何种元素。 在布局过程中也经常会使用它来达到左右并排布局的效果。
+
 1)、 .clear{zoom:1;}
      .clear:after{content:"";display:block;clear:both;}
      <div class="box clear">
@@ -541,7 +542,7 @@ IE浏览器的内核 Trident、Mozilla 的 Gecko、Chrome的 Blink( WebKit的分
 1)、 IE6 下最小高度为19px  ( overflow:hidden; )
 2)、 IE6 下元素浮动，并排在同一行的元素都要加浮动，否则IE6会将两个元素之间多出3个像素的距离
 3)、 IE6 下面有双边距的bug 产生条件 : 1、块元素 2、浮动 3、横向的margin 值   ( display:inline; )
-4)、 IE6 7下 li的几px间隙问题, 在IE6 7 下 li本身没有浮动,但是内容浮动了,那么li就会多出来4px的间隙  ( vertical-align:top; )
+4)、 IE6 7下 li的几px间隙问题, 在IE6 7 下 li本身没有浮动,但是内容浮动了,那么li就会多出来4px的间隙  (li加 vertical-align:top; )
 5)、 IE6 有个特性，子元素会撑开父级设置好的宽高、在标准浏览器下子元素不会撑开父级设置好的宽高 ( overflow:hidden; 不建议子集的宽高超过父级的宽高 )
 6)、 IE6 父级的 overflow:hidden; 是包不住子级的相对定位的  解决方案：父子级加相对定位即可(让父级变成定位元素，加绝对定位也是可以的)
 7)、 IE6 绝对定位的定位父级的宽高都为奇数的话，right 和bottom都会有1像素的偏差  解决方案: 避免宽高设置为奇数
@@ -579,7 +580,7 @@ a:active {color: #0000FF} /* 被选择的链接 */
 3). 使用iframe之前需要考虑这两个缺点。如果需要使用iframe，最好是通过JavaScript，动态给iframe添加src属性值，这样可以可以绕开以上两个问题。
 
 
-49、一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？（流程说的越详细越好）
+49、一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？( 流程说的越详细越好 )
 
 1).  查找浏览器缓存
 2).  DNS解析、查找该域名对应的IP地址、重定向( 301 )、发出第二个GET请求
@@ -589,10 +590,8 @@ a:active {color: #0000FF} /* 被选择的链接 */
 6).	 html文档开始下载
 7).	 文档树建立，根据标记请求所需指定MIME类型的文件
 8).	 文件显示
-
-注： 浏览器这边做的工作大致分为以下几步：
-加载：根据请求的URL进行域名解析，向服务器发起请求，接收文件（HTML、JS、CSS、图象等）。
-解析：对加载到的资源( HTML、JS、CSS等 )进行语法解析，建议相应的内部数据结构( 比如HTML的DOM树，JS的( 对象 )属性表，CSS的样式规则等等）
+    加载：根据请求的URL进行域名解析，向服务器发起请求，接收文件（HTML、JS、CSS、图象等）。
+    解析：对加载到的资源( HTML、JS、CSS等 )进行语法解析，建议相应的内部数据结构( 比如HTML的DOM树，JS的( 对象 )属性表，CSS的样式规则等等 )
 
 
 50、块级元素和行内元素都有哪些？
@@ -696,6 +695,18 @@ background-position:left; 如果第二个值不设置,默认是居中;反过来�
     position:absolute;top:50%;left:50px;-webkit-transform:translate(-50%,-50%);
 }
 
+知道宽高的居中方法
+div {
+    width: 100px;
+    height: 100px;
+    background: red;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px; /* 宽度的一半 */
+    margin-top: -50px; /* 高度的一半 */
+}
+
 58、单行文本溢出，显示省略号
 .inaline{
     width:200px;
@@ -727,6 +738,44 @@ body{margin:0; height:100%;overflow:auto;}  // overflow:auto; 滚动条就在bod
 <div class="box">
 	<div class="div"></div>
 </div>
+
+
+61、如果需要手动写动画，你认为最小时间间隔是多久，为什么？
+
+多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60*1000ms ＝ 16.7ms
+
+
+62、display:inline-block 什么时候会显示间隙？
+
+移除空格、使用margin负值、使用font-size:0、letter-spacing、word-spacing
+
+
+63、position跟display margin，collapse，overflow，float这些特性相互叠加后会怎样
+
+总的来说，可以把它看作是一个类似优先级的机制， "position:absolute" 和 "position:fixed" 优先级最高，有它存在的时候，浮动不起作用，
+'display' 的值也需要调整； 其次，元素的 'float' 特性的值不是 "none" 的时候或者它是根元素的时候，调整 'display' 的值；
+最后，非根元素，并且非浮动元素，并且非绝对定位的元素，'display' 特性值同设置值。
+1). 'display' 的值为 'none'，那么 'position' 和 'float' 不起作用。在这种情况下，元素不产生框,因此浮动和定位无效。
+2). 'position' 的值是 'absolute' 或 'fixed'，框就是绝对定位的，'float' 计算后的值应该是 'none'
+     也就是说，当元素是绝对定位时，浮动失效，display:block。
+
+
+
+
+
+bootstrap 面试题整理：
+
+1、以下说法正确的是 (  A B C D   )
+
+A、<kbd>来表示用户输入      B、<var>用来表示变量       C、list-inline类会将所有的元素放置于同一行     D、<code>表示代码片段
+
+
+2、哪些可以给文字加上背景？  ( A B C D )
+
+A、bg-primary        B、bg-success        C、bg-info       D、bg-warning
+
+
+
 
 
 JavaScript 面试整理：
@@ -983,11 +1032,14 @@ Window 对象表示浏览器中打开的窗口
 Navigator 对象包含有关浏览器的信息
 
 
-23、new 关键字做了什么？
+23、new 关键字做了什么？谈谈This对象的理解。
 
 1)、创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
 2)、属性和方法被加入到 this 引用的对象中。
 3)、新创建的对象由 this 所引用并且最后隐式的返回 this 。
+
+this是js的一个关键字，随着函数使用场合不同，this的值会发生变化。但是有一个总原则，那就是this指的是调用函数的那个对象。
+this一般情况下：是全局对象Global。 作为方法调用，那么this就是指这个对象
 
 
 24、编写JavaScript代码，以实现单击按钮时弹出按钮上数字所对应的阶乘( 从1乘至按钮上所在数字的结果 )
@@ -1031,7 +1083,8 @@ function factorial( n ){
 2).	sessionStorage 和 localStorage 的存储空间更大；
 3).	sessionStorage 和 localStorage 有更多丰富易用的接口；
 4). sessionStorage 和 localStorage 各自独立的存储空间；
-
+5)、localStorage    长期存储数据，浏览器关闭后数据不丢失；
+6)、sessionStorage  数据在浏览器关闭后自动删除。
 
 
 27、Javascript 里面的继承怎么实现，如何避免原型链上面的对象共享？
@@ -1104,6 +1157,67 @@ var module1 = (function(){
 2).	垃圾回收器定期扫描对象，并计算引用了每个对象的其他对象的数量。如果一个对象的引用数量为 0( 没有其他对象引用过该对象 )，那么该对象的内存即可回收。
 3）.setTimeout() 的第一个参数使用字符串而非函数的话，会引发内存泄漏。
 4).闭包、循环( 在两个对象彼此引用且彼此保留时，就会产生一个循环 )
+
+
+31、JavaScript原型，原型链 ? 有什么特点？
+
+
+32、eval是做什么的？
+
+它的功能是把对应的字符串解析成JS代码并运行；
+应该避免使用eval，不安全，非常耗性能（2次，一次解析成js语句，一次执行）。
+
+
+33、null，undefined 的区别？
+
+null和undefined基本是同义的，只有一些细微的差别
+null表示"没有对象"，即该处不应该有值。典型用法是：
+1)、 作为函数的参数，表示该函数的参数不是对象。2)、 作为对象原型链的终点。
+
+undefined表示"缺少值"，就是此处应该有一个值，但是还没有定义。典型用法是：
+
+1)、变量被声明了，但没有赋值时，就等于undefined。2)、 调用函数时，应该提供的参数没有提供，该参数等于undefined。
+3)、对象没有赋值的属性，该属性的值为undefined。4)、函数没有返回值时，默认返回undefined。
+var i;
+i // undefined
+
+function f(x){console.log(x)}
+f() // undefined
+
+var  o = new Object();
+o.p // undefined
+
+var x = f();
+x // undefined
+
+
+34、IE与火狐的事件机制有什么区别？ 如何阻止冒泡？
+
+事件处理机制：IE是事件冒泡、火狐是 事件捕获；
+ev.stopPropagation();
+
+
+35、如何判断一个对象是否属于某个类？  待定  数组判断需要特殊的方法
+
+使用 instanceof
+if(a instanceof Person){
+   alert('yes');
+}
+
+36、Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？
+
+hasOwnProperty()
+
+
+37、js中的 "use strict" 做了什么？使用严格模式有什么优点
+标记 严格模式后
+其一：如果在语法检测时发现语法问题，则整个代码块失效，并导致一个语法异常。
+其二：如果在运行期出现了违反严格模式的代码，则抛出执行异常。
+注：经过测试IE6,7,8,9均不支持严格模式。
+
+缺点：
+现在网站的JS 都会进行压缩，一些文件用了严格模式，而另一些没有。这时这些本来是严格模式的文件，被 merge 后，这个串就到了文件的中间，
+不仅没有指示严格模式，反而在压缩后浪费了字节。
 
 
 
@@ -1380,6 +1494,23 @@ $(document.body).outerWidth(true); 浏览器当前窗口文档body的总宽度 �
     A. e.preventDefault()       B. e.cancelBubble=true
 
     C. e.stopPropagation()      D. e.stopImmediatePropagation()
+
+
+34、jquery 中如何将数组转化为json字符串，然后再转化回来？
+
+jQuery中没有提供这个功能，所以你需要先编写两个jQuery的扩展：
+
+$.extend({
+    stringifyArray:function(array) {
+        return JSON.stringify(array)
+    },
+    parseArray:function(array) {
+        return JSON.parse(array)
+    }
+});
+然后调用：$stringifyArray(array)
+
+
 
 ------------------------------------------------------------------------------------------------
 

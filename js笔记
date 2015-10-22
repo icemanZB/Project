@@ -5,10 +5,23 @@
 console.log(document.body.offsetHeight);
 
 
-7、 return false阻止的是  obj.on事件名称=fn 所触发的默认行为
+ return false阻止的是  obj.on事件名称=fn 所触发的默认行为
     addEventListener绑定的事件需要通过event下面的preventDefault();
 
     if (ev.preventDefault) {
         ev.preventDefault();
     }
     return false;
+
+
+ /*
+    元素宽高的区别
+     width
+     style.width :   样式宽
+     clientWidth :   可视区宽
+     offsetWidth :   占位宽
+ */
+
+console.log(oDiv.style.width);	// 100px
+console.log(oDiv.clientWidth);	// 样式宽 + padding = 120  没有单位的
+console.log(oDiv.offsetWidth);	// 样式宽 + padding + border + 可视区宽 + 边框	 = 122

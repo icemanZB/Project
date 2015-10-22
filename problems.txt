@@ -122,3 +122,134 @@ http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812 margin负值
 压缩要学习下
 
 bind() 研究下
+
+http://www.phperz.com/article/14/0925/25668.html  不错面试题目
+
+http://blog.csdn.net/dyllove98/article/details/8981433 好文章 有深度的 css
+
+http://www.ruanyifeng.com  不错
+
+
+
+JQuery的源码看过吗？能不能简单说一下它的实现原理？
+
+
+写一个通用的事件侦听器函数。
+
+    // event(事件)工具集，来源：github.com/markyun
+    markyun.Event = {
+        // 页面加载完成后
+        readyEvent : function(fn) {
+            if (fn==null) {
+                fn=document;
+            }
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = fn;
+            } else {
+                window.onload = function() {
+                    oldonload();
+                    fn();
+                };
+            }
+        },
+        // 视能力分别使用dom0||dom2||IE方式 来绑定事件
+        // 参数： 操作的元素,事件名称 ,事件处理程序
+        addEvent : function(element, type, handler) {
+            if (element.addEventListener) {
+                //事件类型、需要执行的函数、是否捕捉
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent('on' + type, function() {
+                    handler.call(element);
+                });
+            } else {
+                element['on' + type] = handler;
+            }
+        },
+        // 移除事件
+        removeEvent : function(element, type, handler) {
+            if (element.removeEnentListener) {
+                element.removeEnentListener(type, handler, false);
+            } else if (element.datachEvent) {
+                element.detachEvent('on' + type, handler);
+            } else {
+                element['on' + type] = null;
+            }
+        },
+        // 阻止事件 (主要是事件冒泡，因为IE不支持事件捕获)
+        stopPropagation : function(ev) {
+            if (ev.stopPropagation) {
+                ev.stopPropagation();
+            } else {
+                ev.cancelBubble = true;
+            }
+        },
+        // 取消事件的默认行为
+        preventDefault : function(event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
+        },
+        // 获取事件目标
+        getTarget : function(event) {
+            return event.target || event.srcElement;
+        },
+        // 获取event对象的引用，取到事件的所有信息，确保随时能使用event；
+        getEvent : function(e) {
+            var ev = e || window.event;
+            if (!ev) {
+                var c = this.getEvent.caller;
+                while (c) {
+                    ev = c.arguments[0];
+                    if (ev && Event == ev.constructor) {
+                        break;
+                    }
+                    c = c.caller;
+                }
+            }
+            return ev;
+        }
+    };
+
+对前端界面工程师这个职位是怎么样理解的？它的前景会怎么样？
+
+     前端是最贴近用户的程序员，比后端、数据库、产品经理、运营、安全都近。
+    1、实现界面交互
+    2、提升用户体验
+    3、有了Node.js，前端可以实现服务端的一些事情
+
+前端是最贴近用户的程序员，前端的能力就是能让产品从 90分进化到 100 分，甚至更好，
+
+ 参与项目，快速高质量完成实现效果图，精确到1px；
+
+ 与团队成员，UI设计，产品经理的沟通；
+
+ 做好的页面结构，页面重构和用户体验；
+
+ 处理hack，兼容、写出优美的代码格式；
+
+ 针对服务器的优化、拥抱最新前端技术。
+
+加班的看法？
+
+加班就像借钱，原则应当是------救急不救穷
+
+
+平时如何管理你的项目？
+
+先期团队必须确定好全局样式（globe.css），编码模式(utf-8) 等；
+
+编写习惯必须一致（例如都是采用继承式的写法，单样式都写成一行）；
+
+标注样式编写人，各模块都及时标注（标注关键样式调用的地方）；
+
+页面进行标注（例如 页面 模块 开始和结束）；
+
+CSS跟HTML 分文件夹并行存放，命名都得统一（例如style.css）；
+
+JS 分文件夹存放 命名以该JS功能为准的英文翻译。
+
+图片采用整合的 images.png png8 格式文件使用 尽量整合在一起使用方便将来的管理
