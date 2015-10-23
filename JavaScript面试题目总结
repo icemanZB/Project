@@ -1,0 +1,877 @@
+JavaScript 面试整理：
+
+1、事件委托是什么？
+
+让利用事件冒泡的原理，让自己的所触发的事件，让他的父元素代替执行。
+
+
+2、闭包是什么,有什么特性,对页面有什么影响？
+
+闭包允许一个函数定义在另一个外部函数的作用域内，即便作用域内的其他东西都消失了，它仍可以访问该外部函数内的变量。
+
+function say667() {
+    var num = 666;
+    var sayAlert = function() { alert(num); }
+    num++;
+    return sayAlert;
+}
+
+var sayAlert = say667();
+
+sayAlert(); // 执行结果应该弹出的 667
+
+解释：执行 say667() 后，say667() 闭包内部变量会存在，而闭包内部函数的内部变量不会存在。使得 JavaScript 的垃圾回收机制( GC )
+不会收回 say667() 所占用的资源，因为 say667() 的内部函数的执行需要依赖 say667() 中的变量。
+
+
+3、如何阻止事件冒泡和默认事件？
+
+当前要阻止冒泡的事件函数中调用 event.cancelBubble = true;   阻止默认事件事：return false;
+
+
+4、冒泡原理？
+
+事件冒泡： 当一个元素接收到事件的时候，会把他接收到的所有的事件传递给他的父级，一直到顶层window对象
+
+
+5、解释 jsonP 的原理，以及为什么不是真正的Ajax？
+
+原理： 动态创建script标签,因为用script标签加载资源是没有跨域问题的，在资源加载进来之前定义好一个函数，这个函数接收一个参数(数据)
+然后通过script标签加载对应远程文件资源,当远程的文件资源被加载进来的时候，就会去执行我们前面定义好的函数，并且把数据当作这个函数的参数传入进去。
+其中 1.js 中内容是
+fn([1,2,3]);
+<script src="1.js"></script>
+<script>
+    function fn(data){
+        console.log(data);  // [1,2,3]
+    }
+</script>
+
+script标签的src属性是没有跨域的限制的。这样说来这种跨域方式其实与 Ajax  XmlHttpRequest协议无关了。所以不是Ajax
+
+
+6、 jsonP的优缺点？
+
+jsonP优点：不受同源策略的影响，它的兼容性更好，在更加古老的浏览器中都可以运行，不需要XMLHttpRequest或ActiveX的支持;
+          并且在请求完毕后可以通过调用callback的方式回传结果。
+jsonP缺点：它只支持GET请求而不支持POST等其它类型的HTTP请求；它只支持跨域HTTP请求这种情况，不能解决不同域的两个页面之间如何进行JavaScript调用的问题。
+
+
+7、 请解释一下跨域的问题？
+
+域：域名
+跨域请求(访问)：一个域名下的文件请求另外一个域名下的资源,就产生了跨域
+跨域问题简单的理解就是因为JS同源策略的限制（安全性限制），a.com域名下的JS无法操作b.com或c.a.com下的对象。
+
+
+8、请解释一下 JavaScript 的同源策略？
+
+所谓同源：就是指域名(store.company.com)、协议(http)、端口相同(:81)，防止其他网页对本网页的非法篡改
+
+http://store.company.com/dir/page.html同源检测的示例:
+URL 	                                                结果 	原因
+http://store.company.com/dir2/other.html 	            成功
+http://store.company.com/dir/inner/another.html 	    成功
+https://store.company.com/secure.html 	                失败 	协议不同
+http://store.company.com:81/dir/etc.html 	            失败 	端口不同
+http://news.company.com/dir/other.html              	失败 	主机名不同
+
+
+9、XMLHttpRequest对象是什么？
+
+XmlHttp提供客户端同 http 服务器通讯的协议。客户端可以通过 XmlHttp 对象向 http 服务器发送请求并使用 XML 文档对象模型处理回应。
+
+
+10、什么是Ajax，它的优点是什么？
+
+Ajax就是异步的 JavaScript 和 XML : Asynchronous JavaScript and XML
+优点：
+1).节省用户操作，提高用户体验，减少数据请求
+2).无刷新的方式传输获取数据(用JavaScript异步形式去操作xml 文档或对象)
+
+
+11、Ajax 过程？
+
+1). 打开浏览器，创建 Ajax 对象
+var xhr=null;
+if(window.XMLHttpRequest){
+    xhr=new XMLHttpRequest();
+}else{  // IE6兼容
+    xhr=new ActiveXOject('Microsoft.XMLHttp');
+}
+2).在地址栏输入地址 ( get 提交 )
+xhr.open('get','1.php?username=iceman'+new Date().getTime(),true);  // true 为异步 false 为同步 加上时间戳去掉浏览器缓存
+3).提交发送请求
+xhr.send();
+
+其中post 提交
+xhr.open('post','2.php');
+xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+xhr.send('username=iceman');
+
+4).等待服务器返回内容
+/*
+    onreadystatechange： 当 readyState 改变时触发
+    readyState：Ajax 工作状态
+                0 ( 初始化 ) 还没有调用 open() 方法
+                1 ( 载入 ) 已调用send() 方法，正在发送请求
+                2 ( 载入完成 ) send() 方法完成，已收到全部相应内容
+                3 ( 解析 ) 正在解析相应内容
+                4 ( 完成 ) 响应内容解析完成，可以在客户端调用了
+    status：服务器状态码 ( 404 Not Found )
+    responseText：Ajax请求返回内容就被存放到这个属性下面( string 类型 )
+*/
+xhr.onreadystatechange=function(){
+    if(xhr.readyState==4){
+        if(xhr.status==200){
+            console.log(xhr.responseText);
+        }else{
+            console.log('出错了，Err'+xhr.status);
+        }
+    }
+};
+
+
+12、Get 和 Post 的区别 ？
+
+在客户端和服务器之间进行请求-响应时，两种最常被用到的方法是：GET 和 POST。
+GET  - 从指定的资源请求数据。
+POST - 向指定的资源提交要被处理的数据。
+传输方式的区别
+1).	Get通过url地址传输
+2).	POST请求则是作为HTTP消息的实体内容发送给Web服务器的,这种传递是对用户不可见的
+3).	Get可以被缓存
+传输数据量
+1). Get有数据量限制，每个浏览器都不同 ( 2048个字符 )
+2). Post理论上无限
+3). 不能被缓存
+GET	与 POST 相比, GET 更简单也更快,并且在大部分情况下都能用。
+然而,在以下情况中使用 POST 请求:
+1).	无法使用缓存文件( 更新服务器上的文件或数据库 )
+2).	向服务器发送大量数据( POST 没有数据量限制 )
+3).	发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠
+
+
+13、JavaScript 有哪几种数据类型？
+基本: Number、Boolean、String、Null、undefined
+引用: Object、Array、Function
+
+
+14、document.write() 和 innerHTML的区别
+document.write只能重绘整个页面，innerHTML可以重绘页面的一部分
+
+
+15、URL的编码和解码？
+
+encodeURIComponent(url) 和 decodeURIComponent(url)
+
+
+16、如何禁用浏览器的前进后退按钮？
+
+<script type="text/javascript">
+$(document).ready(function() {
+    window.history.forward(1);
+    window.history.forward(-1);
+});
+</script>
+
+
+17、 offsetTop 和 style.top 的区别
+
+offsetTop: 盒子顶部相对定位父级顶部的高度 如果父级没有定位,那就相对于整个页面
+offsetTop 只能获取到有定位的父级
+
+1)、offsetTop 返回的是数字，而 style.top 返回的是字符串，数字加单位。
+2)、offsetTop 只读 而 style.top 可读写。
+3)、如果没有给 HTML 元素指定过 top 样式，则 style.top 返回的是空字符串。
+
+
+18、数据类型转换
+
+[]+1+3  结果为 "13"
+[1]+3   结果为 "13"
+null+1+3  结果为 4
+
+转换成数字
++x  使用一个一元的加号运算符，这是最快的方法
+x-0 或 x*1 另一种形式
+Number(x)  使用不带new的数字构造函数进行转换
+
+对象和函数总是被转换成NaN, undefined 也会被转换成 NaN, 但 null 会被转换成 0
++[]  结果为 0 ( 隐式类型转换成了数字0 )
++[1] 结果为1
++[1,2] 结果为 NaN
++new Array(1) 结果为0 ( 只是 new 了一个 Array 对象，并没有初始化该数组 )
++new Array(1,2) 结果为NaN
+
+
+19、form中的input可以设置为readonly和disable，请问两者有什么区别？
+
+readonly不可编辑,但可以选择和复制；值可以传递到后台
+disabled不能编辑,不能复制,不能选择；值不可以传递到后台
+
+
+20、for(i=0, j=0; i<10, j<6; i++, j++){
+     k = i + j;
+   }  问结果是多少？
+
+i 与 j 都是从0 到5 执行了6次
+
+第1次：k=i+j=0+0
+第2次：k=i+j=1+1
+第3次：k=i+j=2+2
+第4次：k=i+j=3+3
+第5次：k=i+j=4+4
+第6次：k=i+j=5+5
+
+第6次执行完之后，i++, j++，此时i=6,j=6,因为j=6不再小于6，所以for循环结束
+
+此时 k=i+j=5+5 保持不变，即k=10
+
+结果：10
+
+
+21、什么是变量提升( Variable Hoisting ) ？
+
+变量提升指的是，无论是哪里的变量在一个范围内声明的，那么 JavaScript 引擎会将这个声明移到范围的顶部。
+如果在函数中间声明一个变量，例如在某一行中赋值一个变量
+function foo(){
+    var a = "abc";
+}
+实际上会这样运行代码：
+function foo(){
+    var a;
+    a = "abc";
+}
+
+
+22、 JavaScript 内部对象的描述？
+History 对象包含用户（在浏览器窗口中）访问过的 URL
+Location 对象包含有关当前 URL 的信息
+Window 对象表示浏览器中打开的窗口
+Navigator 对象包含有关浏览器的信息
+
+
+23、new 关键字做了什么？谈谈This对象的理解。
+
+1)、创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
+2)、属性和方法被加入到 this 引用的对象中。
+3)、新创建的对象由 this 所引用并且最后隐式的返回 this 。
+
+this是js的一个关键字，随着函数使用场合不同，this的值会发生变化。但是有一个总原则，那就是this指的是调用函数的那个对象。
+this一般情况下：是全局对象Global。 作为方法调用，那么this就是指这个对象
+
+
+24、编写JavaScript代码，以实现单击按钮时弹出按钮上数字所对应的阶乘( 从1乘至按钮上所在数字的结果 )
+
+HTML：
+<input type="button" value="1">
+<input type="button" value="2">
+<input type="button" value="3">
+<input type="button" value="4">
+<input type="button" value="5">
+<input type="button" value="6">
+<input type="button" value="7">
+<input type="button" value="8">
+<input type="button" value="9">
+<input type="button" value="10">
+
+JavaScript：
+
+function factorial( n ){
+    return ( n <= 1 ) ? 1 : n * factorial( n-1 );
+}
+
+
+25、cookie的优缺点
+优点：
+1). 极高的扩展性和可用性
+2). 通过加密和安全传输技术（SSL），减少cookie被破解的可能性
+3). 只在cookie中存放不敏感数据，即使被盗也不会有重大损失
+4). 控制cookie的生命期，使之不会永远有效。偷盗者很可能拿到一个过期的cookie。
+5). cookie可以跨越一个域名下的多个网页，可用在保存用户登录状态、跟踪用户行为、定制页面、创建购物车等。
+缺点：
+1).cookie 数量和长度的限制。每个domain 最多只能有20条cookie，每个cookie长度不能超过4KB，否则会被截掉。
+2).安全性问题。如果cookie被人拦截了，那人就可以取得所有的session信息。即使加密也与事无补，因为拦截者并不需要知道cookie的意义，
+他只要原样转发cookie就可以达到目的了。
+3).有些状态不可能保存在客户端
+4). cookie 不可以跨域
+
+
+26、	请描述一下 cookies，sessionStorage 和 localStorage 的区别？
+1).	cookie在浏览器和服务器间来回传递。 sessionStorage 和 localStorage不会
+2).	sessionStorage 和 localStorage 的存储空间更大；
+3).	sessionStorage 和 localStorage 有更多丰富易用的接口；
+4). sessionStorage 和 localStorage 各自独立的存储空间；
+5)、localStorage    长期存储数据，浏览器关闭后数据不丢失；
+6)、sessionStorage  数据在浏览器关闭后自动删除。
+
+
+27、Javascript 里面的继承怎么实现，如何避免原型链上面的对象共享？
+
+用构造函数和原型链的混合模式去实现继承，避免对象共享可以参考经典的extend()函数，很多前端框架都有封装的，就是用一个空函数当做中间变量
+
+function Fruit(name){
+    this.name=name;
+}
+Fruit.prototype.getName=function(){
+    console.log(this.name);
+};
+
+function Apple(name){
+    Fruit.call(this,name);
+}
+ var F = function () {};
+Apple.prototype=Fruit.prototype;
+Apple.prototype=new F();
+Apple.prototype.constructor=Apple;
+
+
+
+28、CMD 与 AMD 的区别
+1)、从官方推荐的写法上面得出：
+CMD ----- 依赖就近
+// CMD
+define(function(require,exports,module){
+        var a = require('./a');
+        a.doSomthing();
+});
+AMD ----- 依赖前置
+// AMD
+define(['./a','./b'],function(a,b){
+       a.doSomthing();
+       b.doSomthing();
+});
+当然AMD也支持CMD的写法。
+
+2)、执行顺序上：
+•   CMD是延迟执行，推崇的是 as lazy as possible
+•	AMD是提前执行，requireJS 从2.0开始可以延迟执行
+
+3)、api设计角度：
+•	CMD 的 API 推崇职责单一，没有全局的require
+•	AMD 的 API 默认是一个当多个用：比如require有全局的和局部的
+
+
+29、	模块化怎么做？
+
+模块化解决两个问题： 1 变量冲突问题  2 各个js文件依赖问题
+立即执行函数,不暴露私有成员
+var module1 = (function(){
+　　　var _count = 0;
+　　　var m1 = function(){
+　　　　　//...
+　　　};
+　　　var m2 = function(){
+　　　　　//...
+　　　};
+　　　return {
+　　　　　m1 : m1,
+　　　　　m2 : m2
+　　　};
+})();
+
+
+30、什么是内存泄露，那些操作会造成内存泄漏？
+1).	内存泄漏指任何对象在不再拥有或需要它之后仍然存在。
+2).	垃圾回收器定期扫描对象，并计算引用了每个对象的其他对象的数量。如果一个对象的引用数量为 0( 没有其他对象引用过该对象 )，那么该对象的内存即可回收。
+3）.setTimeout() 的第一个参数使用字符串而非函数的话，会引发内存泄漏。
+4).闭包、循环( 在两个对象彼此引用且彼此保留时，就会产生一个循环 )
+
+
+31、JavaScript原型，原型链 ? 有什么特点？
+
+
+32、eval是做什么的？
+
+它的功能是把对应的字符串解析成JS代码并运行；
+应该避免使用eval，不安全，非常耗性能（2次，一次解析成js语句，一次执行）。
+
+
+33、null，undefined 的区别？
+
+null和undefined基本是同义的，只有一些细微的差别
+null表示"没有对象"，即该处不应该有值。典型用法是：
+1)、 作为函数的参数，表示该函数的参数不是对象。2)、 作为对象原型链的终点。
+
+undefined表示"缺少值"，就是此处应该有一个值，但是还没有定义。典型用法是：
+
+1)、变量被声明了，但没有赋值时，就等于undefined。2)、 调用函数时，应该提供的参数没有提供，该参数等于undefined。
+3)、对象没有赋值的属性，该属性的值为undefined。4)、函数没有返回值时，默认返回undefined。
+var i;
+i // undefined
+
+function f(x){console.log(x)}
+f() // undefined
+
+var  o = new Object();
+o.p // undefined
+
+var x = f();
+x // undefined
+
+
+34、IE与火狐的事件机制有什么区别？ 如何阻止冒泡？
+
+事件处理机制：IE是事件冒泡、火狐是 事件捕获；
+ev.stopPropagation();
+
+
+35、如何判断一个对象是否属于某个类？
+
+使用 instanceof
+if(a instanceof Person){
+   alert('yes');
+}
+数组判断需要特殊的方法 Object.prototype.toString.call(obj) === 'object Array'
+
+
+36、Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？
+
+hasOwnProperty()
+
+
+37、js中的 "use strict" 做了什么？使用严格模式有什么优点
+标记 严格模式后
+其一：如果在语法检测时发现语法问题，则整个代码块失效，并导致一个语法异常。
+其二：如果在运行期出现了违反严格模式的代码，则抛出执行异常。
+注：经过测试IE6,7,8,9均不支持严格模式。
+
+缺点：
+现在网站的JS 都会进行压缩，一些文件用了严格模式，而另一些没有。这时这些本来是严格模式的文件，被 merge 后，这个串就到了文件的中间，
+不仅没有指示严格模式，反而在压缩后浪费了字节。
+
+
+
+jQuery 面试整理：
+
+1、CDN（内容分发网络）是什么？
+
+在开发Web页面，考虑最多的问题之一是页面在客户端电脑的响应：时间越短，用户体验越好。
+而制约用户体验的关键因素之一是浏览器下载Web文件大小，包括*.html、图片、*.js、*.css等文件。
+为了最大化复用和节约带宽，故CDN应运而生：其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，
+使内容传输的更快、更稳定。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。
+
+
+2、jQuery中的.height()、.innerHeight()和.outerHeight() ？
+
+.height() 是没有计算过的  不包括padding,不包括边框
+获取计算后的整个高度  aLi.outerHeight() = offsetHeight
+.innerHeight()  包括 padding 但不包括 border  document.getElementById("div1").clientHeight
+.outerHeight()  包括 padding 和 border  还可以接受一个参数,该参数代表是否计算外边距,如果为 true 则表示计算外边距
+
+
+3、jQuery的美元符号$有什么作用？
+
+$只是 jQuery 的别名，它是 jQuery 的选择器，当然你也可以用jQuery来代替$
+$() 函数用于将任何对象包裹成 jQuery 对象
+
+
+4、body中的onload()函数和jQuery中的document.ready()有什么区别？
+
+1). 我们可以在页面中使用多个document.ready()，但只能使用一次onload()。
+2). document.ready()函数在页面DOM元素加载完以后就会被调用，而onload()函数则要在所有的关联资源( 包括图像、音频 )加载完毕后才会调用。
+
+
+5、查找页面所有类是 Edit 的 Input 且 type 是 text 的元素,遍历它们,并返回它们的 Value 数组。
+
+var values = [];
+$("input[type=text][.Edit]").each(function (i, d) {
+    values.push($(d).val());
+});
+或者
+var values = [];
+$("input[type=text]").filter(".Edit").each(function(i,d){
+    values.push($(d).val());
+});
+
+
+6、 jquery对象和dom对象是怎样转换的？
+
+1). jQuery对象是一个数组对象，可以通过[index]得到相应的对象
+2). 通过get[index]去得到相应的DOM对象
+
+
+7、检查<input type="hidden" id="id" name="id" />元素在网页上是否存在。
+
+if($("#id").length > 0) { // do something... }
+
+
+8、页面中有三个元素 <div>div标签</div><span>span标签</span><p>p标签</p>，如果这三个标签要触发同一个事件？
+
+$("div,span,p").click(function(){   // ...   });
+
+
+9、页面中有一个select标签，要使"选项四"选中？
+<select id="sel">
+   <option value="0">请选择</option>
+   <option value="1">选项一</option>
+   <option value="2">选项二</option>
+   <option value="3">选项三</option>
+   <option value="4">选项四</option>
+</select>
+
+$("#sel").val("4");
+$("#sel  option:selected").text();
+注：找到所有 HTML select 标签的选中项？ $('[name=NameOfSelectedTag] :selected')
+
+checkbox:
+全选反选例子：
+function selectAll() {
+    var checkboxs=$("input[name='checkname']");
+    for (var i=0;i<checkboxs.length;i++) {
+        var e=checkboxs[i];
+        e.checked=!e.checked;
+    }
+}
+
+
+10、页面中有一个性别单选按钮，请设置”男”为选中状态？
+
+<input type="radio" name="sex"> 男
+<input type="radio" name="sex"> 女
+
+$(":radio[name=sex]:eq(0)").attr("checked",true);
+$('input[name="sex"]:checked').val();
+
+
+12、执行下面代码，请写出打印结果 ？
+
+$(document).ready(function () {
+   var array = ['墨家', '墨子'];
+   var str = "[";
+   $.each(array, function (parm1, parm2) {
+       str += "{parm1: " + parm1 + "," + "parm2: " + parm2 + "},";
+   });
+   str = str.substring(0, str.length - 1) + "]";
+   alert(str);
+});
+
+结果： "[{parm1: 0,parm2: 墨家},{parm1: 1,parm2: 墨子}]"
+
+
+13、执行下面代码，写出result结果？    $.extend()
+
+ $(document).ready(function () {
+    var result = $.extend(
+        {},
+        {name: "Tom", age: 21},
+        {sex: "boy", age: 27, email: "ydw@163.com"}
+        );
+    alert(result);
+ });
+
+结果： Object {name: "Tom", age: 27, sex: "boy", email: "ydw@163.com"}
+
+
+14、当DOM加载完成后要执行的函数,下面哪个是正确的？(单选)
+
+   A、jQuery(expression, [context])  B、jQuery(html, [ownerDocument])
+   C、jQuery(callback)    D、jQuery(elements)
+
+   考点: jquery的核心函数 (C)
+
+
+15、下面哪一个是用来追加到指定元素的末尾的？(单选)
+
+   A、insertAfter() B、append() C、appendTo() D、after()
+
+   考点:jquery的核心函数 (C)
+
+
+16、如果想在一个指定的元素后添加内容，下面哪个是实现该功能的？(单选)
+
+   A、append(content) B、appendTo(content) C、insertAfter(content) D、after(content)
+
+   考点: jquery的文档处理 (D)
+
+ 1).append()在被选元素的结尾插入内容。 $("p").append(" <b>Hello world!</b>");
+ 2).appendTo() 在被选元素的结尾(仍然在内部)插入指定内容。 $("<b>Hello World!</b>").appendTo("p");
+ 3).insertAfter() 在被选元素之后插入 HTML 标记或已有的元素。(将所有匹配元素插入到指定元素的后面) 用来追加到指定元素的末尾的
+                  $("<span>Hello world!</span>").insertAfter("p");
+ 4).after() - 在被选元素之后插入内容  (在指定元素末尾添加   HTML标签或内容)  $("p").after("<p>Hello world!</p>");
+
+
+18、现有一个表格,如果想要匹配所有行数为偶数的，用________实现，奇数的用_______实现。
+
+   考点: jquery的选择器 （even,odd）
+
+
+19、当一个文本框中的内容被选中时,想要执行指定的方法时,可以使用下面哪个事件来实现？(单选)
+
+   A、click(fn) B、change(fn) C、select(fn) D、bind(fn)
+
+   考点：jquery的事件处理 (C)
+
+
+20、在一个表单中,用600毫秒缓慢的将段落滑上,用_______________来实现。
+
+   考点: jquery的页面效果 $("p").slideUp("slow")
+
+
+21、彻底将jQuery变量还原,可以使用___________________方法实现。
+
+   考点: jquery的多库共存 ($.noConflict(extreme))
+   $.noConflict();
+   jQuery("p").text("I am jquery and I am working&hellip;");
+
+
+22、 jquery 阻止这些默认的行为方法是哪个？
+
+    可以用 event.preventDefault() 或 在事件处理函数中返回false 即 return false;
+
+
+23、 jQuery 阻止冒泡事件的方法是哪个？
+
+     事件冒泡是从里面的往外面开始触发，event.stopPropagation() 方法可以停止冒泡
+
+
+24、jQuery中的 hover() 和 toggle()有什么区别？
+
+hover() 和 toggle()都是 jQuery 中两个合成事件。
+hover() 方法用于模拟光标悬停事件、toggle()方法是连续点击事件。
+
+
+25、在ajax中data参数主要有几种方式？
+
+有三种 1、html拼接的 2、json数组 3、form表单serialize()序列化的。
+
+
+26、jQuery是如何处理缓存的？
+
+1).  通过$.post() 方法来获取数据，那么默认就是禁用缓存的。
+2).  通过$.get()方法 来获取数据，可以通过设置时间戳来避免缓存。
+例 $.get('ajax.xml?random=new Date().getTime(),function () { ... });
+3).  通过$.ajax 方法来获取数据，只要设置cache:false即可。
+
+
+27、你觉得beforeSend方法有什么用？
+
+发送请求前可以修改XMLHttpRequest对象的函数，在beforeSend中如果返回false，可以取消本次的Ajax请求。
+XMLHttpRequest对象是唯一的参数,所以在这个方法里可以做验证。
+
+
+28、在jquery中可以替换节点吗？
+
+可以，在jQuery中有两者替换节点的方式   replaceWith() 和 replaceAll()
+
+例: 在<p title="hao are you">hao are you</p>替换成<strong>I am fine<strong>
+
+    $('p').replaceWith('<strong>I am fine</strong>');
+
+    replaceAll() 与 replaceWith() 的用法前后调换一下即可。
+
+
+29、你jquery中有哪些方法可以遍历节点？
+
+children() 取得匹配元素的子元素集合,只考虑子元素不考虑后代元素
+next()     取得匹配元素后面紧邻的同辈元素
+prev()     取得匹配元素前面紧邻的同辈元素
+siblings() 取得匹配元素前后的所有同辈元素
+closest()  取得最近的匹配元素
+find()     取得匹配元素中的元素集合 包括子代和后代
+
+
+30、你使用过jquery中的动画吗，是怎样用的？   [ 详细解释待定 ]
+
+hide() 和 show() 同时修改多个样式属性。像高度、宽度、不透明度。
+fadeIn() 和 fadeOut() fadeTo() 只改变不透明度
+slideUp() 和 slideDown() slideToggle() 只改变高度
+animate() 属于自定义动画的方法
+
+
+30、在 jQuery 中你有没有编写过插件，插件有什么好处？你编写过那些插件？它应该注意那些？
+
+插件的好处:对已有的一系列方法或函数的封装，以便在其他地方重新利用，方便后期维护和提高开发效率
+插件的分类：封装对象方法插件、封装全局函数插件、选择器插件
+注意的地方： 1). 插件的文件名推荐命名为jQuery.[插件名].js，以免和其他的 JavaScript 库插件混淆
+           2). 所有的对象方法都应当附加到jQuery.fn对象上，而所有的全局函数都应当附加到jQuery对象本身上
+           3). 插件应该返回一个jQuery对象，以保证插件的可链式操作
+           4). 避免在插件内部使用$作为jQuery对象的别名，而应使用完整的jQuery来表示，这样可以避免冲突或使用闭包来避免
+           5). 所有的方法或函数插件，都应当以分号结尾,否则压缩的时候可能出现问题。在插件头部加上分号，这样可以避免他人的不规范代码给插件带来影响
+           6). 在插件中通过$.extent({})封装全局函数，选择器插件，扩展已有的object对象，通过$.fn.extend({})封装对象方法插件
+
+
+31、下面不属于ajax事件的是？  ( C )   解析 ： $.post() 是方法
+
+    A、ajaxComplete(callback) B、ajaxSuccess(callback) C、$.post(url) D、ajaxSend(callback)
+
+
+32、在jquery中，如果想要获取当前窗口的宽度值，下面哪个是实现该功能的？     ( A )
+    A、width()  B、width(val)  C、width  D、innerWidth()
+
+
+$(window).height();   浏览器当前窗口可视区域高度
+$(document).height(); 浏览器当前窗口文档的高度
+$(document.body).height(); 浏览器当前窗口文档body的高度
+$(document.body).outerHeight(true);  浏览器当前窗口文档body的总高度 包括border padding margin
+$(window).width();   浏览器当前窗口可视区域宽度
+$(document).width(); 浏览器当前窗口文档对象宽度
+$(document.body).width();  浏览器当前窗口文档body的高度
+$(document.body).outerWidth(true); 浏览器当前窗口文档body的总宽度 包括border padding margin
+
+
+33、 下列哪个操作是W3C标准定义的阻止事件向父容器传递？ ( C )
+
+    A. e.preventDefault()       B. e.cancelBubble=true
+
+    C. e.stopPropagation()      D. e.stopImmediatePropagation()
+
+
+34、jquery 中如何将数组转化为json字符串，然后再转化回来？
+
+jQuery中没有提供这个功能，所以你需要先编写两个jQuery的扩展：
+
+$.extend({
+    stringifyArray:function(array) {
+        return JSON.stringify(array)
+    },
+    parseArray:function(array) {
+        return JSON.parse(array)
+    }
+});
+然后调用：$stringifyArray(array)
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+封装函数 f，使 f 的 this 指向指定的对象
+输入例子:
+
+bindThis(function(a, b)
+    {return this.test + a + b}
+    , {test: 1})
+(2, 3)
+
+function bindThis(f, oTarget) {
+   return f.bind(oTarget);
+}
+
+function bindThis(f, oTarget) {
+    return function(){
+        var arg=Array.prototype.slice.call(arguments,0);
+
+        return f.apply(oTarget,arg);
+    }
+}
+
+输出例子:
+
+6
+
+
+题目描述
+获取 url 中的参数
+1. 指定参数名称，返回该参数的值 或者 空字符串
+2. 不指定参数名称，返回全部的参数对象 或者 {}
+3. 如果存在多个同名参数，则返回数组
+输入例子:
+
+getUrlParam('http://www.nowcoder.com?key=1&key=2&key=3&test=4#hehe', 'key')
+
+
+输出例子:
+
+['1', '2', '3']
+
+function getUrlParam(sUrl, sKey) {
+    var pram=sUrl.split("?")[1].split("#")[0].split("&");
+    var json={};
+
+    for(var i=0;i<pram.length;i++){
+        var key=pram[i].split('=')[0];
+        var value=pram[i].split('=')[1];
+
+        if(!json[key]){
+            json[key]=[];
+        }
+        json[key].push(value);
+    }
+
+    if(sKey){
+        return json[sKey].length>1?json[sKey]:json[sKey].join("");
+    }else{
+    	return json;
+    }
+
+}
+
+牛人  a，模式的匹配项；k，第一个捕获组的匹配项；v，第二个捕获组的匹配项。
+function getUrlParam(sUrl,sKey){
+    var result = {};
+    sUrl.replace(/\??(\w+)=(\w+)&?/g,function(a,k,v){
+        if(result[k] !== void 0){
+            var t = result[k];
+            result[k] = [].concat(t,v);
+        }else{
+            result[k] = v;
+        }
+    });
+    if(sKey === void 0){
+        return result;
+    }else{
+        return result[sKey] || '';
+    }
+}
+
+
+题目描述
+查找两个节点的最近的一个共同父节点，可以包括节点自身
+输入描述:
+
+oNode1 和 oNode2 在同一文档中，且不会为相同的节点
+
+function commonParentNode(oNode1, oNode2) {
+    if(oNode1.contains(oNode2)){
+        return oNode1;
+    }else{
+        return arguments.callee(oNode1.parentNode,oNode2);
+    }
+}
+
+
+
+题目描述
+为 Array 对象添加一个去除重复项的方法
+输入例子:
+
+[false, true, undefined, null, NaN, 0, 1, {}, {}, 'a', 'a', NaN].uniq()
+
+
+输出例子:
+
+[false, true, undefined, null, NaN, 0, 1, {}, {}, 'a']
+
+Array.prototype.uniq = function () {
+     var resArr = [];
+   var flag = true;
+
+   for(var i=0;i<this.length;i++){
+       if(resArr.indexOf(this[i]) == -1){
+           if(this[i] != this[i]){   //排除 NaN
+              if(flag){
+                   resArr.push(this[i]);
+                   flag = false;
+              }
+           }else{
+                resArr.push(this[i]);
+           }
+       }
+   }
+    return resArr;
+}
+
+
+if(! "a" in window){
+    var a = 1;
+}
+alert(a);
+请问 a 的结果是什么？
+undefined
+
+
+填写内容让下面代码支持a.name = “name1”; b.name = “name2”;
+
+

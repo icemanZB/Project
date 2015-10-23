@@ -314,7 +314,7 @@ function toArray(obj) {
  * @return Boolean
  */
 function isArray(obj) {
-    return Object.prototype.toString.call(obj) === 'object Array';
+    return Object.prototype.toString.call(obj) === 'object Array';  // Array.isArray(obj);  ecma5
 }
 
 /**

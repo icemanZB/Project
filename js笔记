@@ -25,3 +25,91 @@ console.log(document.body.offsetHeight);
 console.log(oDiv.style.width);	// 100px
 console.log(oDiv.clientWidth);	// 样式宽 + padding = 120  没有单位的
 console.log(oDiv.offsetWidth);	// 样式宽 + padding + border + 可视区宽 + 边框	 = 122
+
+
+使用for-in遍历一个对象内部属性的时候注意检查属性
+
+下面的代码片段能够避免在遍历一个对象属性的时候访问原型的属性
+
+for (var name in object) {
+    if (object.hasOwnProperty(name)) {
+
+// do something with name
+    }
+}
+
+
+从数组中获取一个随机项
+
+var items = [12, 548 , 'a' , 2 , 5478 , 'foo' , 8852, , 'Doe' , 2145 , 119];
+var  randomItem = items[Math.floor(Math.random() * items.length)];
+
+
+在特定范围内获取一个随机数
+var x = Math.floor(Math.random() * (max - min + 1)) + min;
+
+
+在0和设定的最大值之间生成一个数字数组
+
+var numbersArray = [] , max = 100;
+
+for( var i=1; numbersArray.push(i++) < max;);
+// numbers = [0,1,2,3 ... 100]
+
+
+生成一个随机的数字字母字符串
+// 特意查了一下Math.random()生成0到1之间的随机数，number.toString(36)是将这个数字转换成36进制（0-9，a-z），最后substr去掉前面的“0.”字符串
+function generateRandomAlphaNum(len) {
+    var rdmstring = "";
+    for( ; rdmString.length &lt; len; rdmString  += Math.random().toString(36).substr(2));
+    return  rdmString.substr(0, len);
+}
+
+
+String的trim函数
+String.prototype.trim = function(){return this.replace(/^\s+|\s+$/g, "");};
+
+
+附加（append）一个数组到另一个数组上
+
+var array1 = [12 , "foo" , {name: "Joe"} , -2458];
+
+var array2 = ["Doe" , 555 , 100];
+Array.prototype.push.apply(array1, array2);
+/* array1 will be equal to  [12 , "foo" , {name "Joe"} , -2458 , "Doe" , 555 , 100] */
+
+
+验证参数是否是数字（number）
+function isNumber(n){
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
+在调用 isFinite()之前验证参数
+isFinite(null);
+// true  !!!
+
+
+ 一个HTML转义函数
+
+function escapeHTML(text) {
+    var replacements= {"<": "<", ">": ">","&": "&", "\"": """};
+    return text.replace(/[<>&"]/g, function(character) {
+        return replacements[character];
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

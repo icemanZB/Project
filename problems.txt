@@ -4,6 +4,17 @@ http://blog.jobbole.com/29269/
 
 http://www.cnblogs.com/muyou/archive/2012/06/26/2563930.html
 
+HTML全局属性(global attribute)有哪些
+参考资料：[MDN: html global attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes)或者[W3C HTML global-attributes](http://www.w3.org/TR/html-markup/global-attributes.html#common.attrs.core)
+
+](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction)**:
+
+### 如何进行网站性能优化
+
+[雅虎Best Practices for Speeding Up Your Web Site](https://developer.yahoo.com/performance/rules.html)：
+
+SGML？？？？
+
 JavaScript权威指南
 
 5、JavaScript中如何对一个对象进行深度clone?
@@ -129,6 +140,7 @@ http://blog.csdn.net/dyllove98/article/details/8981433 好文章 有深度的 css
 
 http://www.ruanyifeng.com  不错
 
+http://blog.jobbole.com/54495/  不错js技巧
 
 
 JQuery的源码看过吗？能不能简单说一下它的实现原理？
@@ -253,3 +265,6 @@ CSS跟HTML 分文件夹并行存放，命名都得统一（例如style.css）；
 JS 分文件夹存放 命名以该JS功能为准的英文翻译。
 
 图片采用整合的 images.png png8 格式文件使用 尽量整合在一起使用方便将来的管理
+
+
+KISSY.？？？？
