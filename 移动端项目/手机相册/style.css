@@ -1,33 +1,34 @@
-@-webkit-keyframes shake {
+/* 模仿重物下落 */
+@-webkit-keyframes show {
     0% {
         top: calc(100% - 0.6rem);
     }
-    60% {
-        top: calc(100% - 0.5rem);
+    50% {
+        top: calc(100% - 0.3rem);
     }
     100% {
         top: calc(100% - 0.6rem);
     }
 }
 
-@-moz-keyframes shake {
+@-moz-keyframes show {
     0% {
         top: calc(100% - 0.6rem);
     }
-    60% {
-        top: calc(100% - 0.5rem);
+    50% {
+        top: calc(100% - 0.3rem);
     }
     100% {
         top: calc(100% - 0.6rem);
     }
 }
 
-@keyframes shake {
+@keyframes show {
     0% {
         top: calc(100% - 0.6rem);
     }
-    60% {
-        top: calc(100% - 0.5rem);
+    50% {
+        top: calc(100% - 0.3rem);
     }
     100% {
         top: calc(100% - 0.6rem);
@@ -69,42 +70,23 @@ body, #page { width: 100%; height: 100%; background: #000; position: absolute; o
 .picList { width: 100%; position: relative; }
 
 /* transition 需要在元素整个渲染完成以后，才会有效果 */
-.picList li { background-size: cover; border: 1px solid #000; background-repeat: no-repeat; box-sizing: border-box; width: 1rem; height: 1rem; position: absolute; transition:.5s left,.5s top;left:0;top:0; }
+.picList li { background-size: cover; border: 1px solid #000; background-repeat: no-repeat; box-sizing: border-box; width: 1rem; height: 1rem; position: absolute; transition: .5s left, .5s top; left: 0; top: 0; }
 
-/*.picList li.show { opacity: 1; }*/
+.picBox { width: 1rem; height: 1rem; -webkit-perspective: 800px; -moz-perspective: 800px; perspective: 800px; position: absolute; background: no-repeat -1000px 0; overflow: hidden; z-index: 2; }
 
-/*.picList li:nth-of-type(1){ background-image:url(video/1.jpg);}
-.picList li:nth-of-type(2){ background-image:url(video/2.jpg);}
-.picList li:nth-of-type(3){ background-image:url(video/3.jpg);}
-.picList li:nth-of-type(4){ background-image:url(video/4.jpg);}
-.picList li:nth-of-type(5){ background-image:url(video/5.jpg);}
-.picList li:nth-of-type(6){ background-image:url(video/6.jpg);}
-.picList li:nth-of-type(7){ background-image:url(video/7.jpg);}
-.picList li:nth-of-type(8){ background-image:url(video/8.jpg);}
-.picList li:nth-of-type(9){ background-image:url(video/9.jpg);}
-.picList li:nth-of-type(10){ background-image:url(video/10.jpg);}
-.picList li:nth-of-type(11){ background-image:url(video/11.jpg);}
-.picList li:nth-of-type(12){ background-image:url(video/12.jpg);}
-.picList li:nth-of-type(13){ background-image:url(video/13.jpg);}
-.picList li:nth-of-type(14){ background-image:url(video/14.jpg);}
-.picList li:nth-of-type(15){ background-image:url(video/15.jpg);}
-.picList li:nth-of-type(16){ background-image:url(video/16.jpg);}
+/* background-image: inherit; 继承父级 */
+.picBox div { width: 0.1rem; height: 1rem; position: absolute; left: 0.1rem; top: 0; background-repeat: no-repeat; background-image: inherit; background-size: cover; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; -webkit-transform-origin: left 0.8rem; -moz-transform-origin: left 0.8rem; transform-origin: left 0.8rem; }
 
-.picBox { position: absolute; z-index: 2; perspective: 500px; overflow: hidden; }
+.picBox > div { left: 0; }
 
-.picBox div { -webkit-transform-style: preserve-3d; transform-style: preserve-3d; position: absolute; width: 1rem; height: 1rem; top: 0; background-size: cover; -webkit-transform: rotateY(0deg); -moz-transform: rotateY(0deg); transform: rotateY(0deg); }
+.picBox div.show { -webkit-transform: rotateY(-60deg) rotateX(5deg); }
 
-.picBox > div { left: 0 !important; }
-
-.picBoxOpen div { -webkit-transform-origin: center 80%; -moz-transform-origin: center 80%; transform-origin: center 80%; -webkit-transform: rotateY(-30deg) rotateX(5deg); -moz-transform: rotateY(-30deg) rotateX(5deg); transform: rotateY(-30deg) rotateX(5deg); }
-
-.picBoxOpen > div { left: 50% !important; -webkit-transform: rotateY(-30deg) rotateX(2deg); -moz-transform: rotateY(-30deg) rotateX(2deg); transform: rotateY(-30deg) rotateX(2deg); }*/
+.picBox > div.show { -webkit-transform: rotateY(-60deg) rotateX(5deg) translateX(1rem); }
 
 /* left: calc(50% - 0.6rem) 父级宽度的一半(#page) - 自身宽度一半  左右空格不能少  top: 100%;隐藏 */
-#recycle, #recycle2 { width: 1.2rem; height: 1.2rem; background: url(img/recycle2.png) no-repeat center 0; background-size: contain; position: absolute; z-index: 1; left: calc(50% - 0.6rem); top: 100%; transition: .5s; }
+.recycle { width: 1.2rem; height: 1.2rem; background: url(img/recycle.png) no-repeat; background-size: cover; position: absolute; left: calc(50% - 0.6rem); top: 100%; transition: 0.5s; z-index: 3; }
 
-#recycle2 { background: url(img/recycle.png) center bottom no-repeat; z-index: 3; background-size: contain; }
+.recycle:nth-of-type(1) { background-image: url(img/recycle2.png); z-index: 1; }
 
-#page .recycleUp { top: calc(100% - 0.4rem); }
+.recycleShow { -webkit-animation: .3s show; -moz-animation: .3s show; animation: .3s show; }
 
-#page .recycleUp2 { transition: .2s; top: calc(100% - 0.6rem); -webkit-animation: .3s .66s shake; -moz-animation: .3s .66s shake; animation: .3s .66s shake; }
