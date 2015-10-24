@@ -100,7 +100,124 @@ function escapeHTML(text) {
 }
 
 
+反转字符串
+str.split('').reverse().join('')
 
+## 正则表达式
+  把字符串的单词放到数组中
+ arr =  str.split(/\s+/);
+
+ 取出html标签中的内容
+str.replace(/<\/?[^>]+>/gi, "");
+
+
+数组去重
+
+```
+   var arr = this, len=this.length, obj={}, newArr=[];
+     while(--len>=0){
+      if(obj[ arr[len] ] !== arr[len]{
+        obj[arr[len]] = arr[len];
+        newArr.push( arr[len]);
+     }
+   }
+   return newArr.reverse();
+
+```
+
+
+### XMLHttpRequest通用属性和方法
+
+1. `readyState`:表示请求状态的整数，取值：
+  - UNSENT（0）：对象已创建
+  - OPENED（1）：open()成功调用，在这个状态下，可以为xhr设置请求头，或者使用send()发送请求
+  - HEADERS_RECEIVED(2)：所有重定向已经自动完成访问，并且最终响应的HTTP头已经收到
+  - LOADING(3)：响应体正在接收
+  - DONE(4)：数据传输完成或者传输产生错误
+3. `onreadystatechange`：readyState改变时调用的函数
+4. `status`：服务器返回的HTTP状态码（如，200， 404）
+5. `statusText`:服务器返回的HTTP状态信息（如，OK，No Content）
+6. `responseText`:作为字符串形式的来自服务器的完整响应
+6. `responseXML`: Document对象，表示服务器的响应解析成的XML文档
+7. `abort()`:取消异步HTTP请求
+8. `getAllResponseHeaders()`: 返回一个字符串，包含响应中服务器发送的全部HTTP报头。每个报头都是一个用冒号分隔开的名/值对，并且使用一个回车/换行来分隔报头行
+9. `getResponseHeader(headerName)`:返回headName对应的报头值
+10. `open(method, url, asynchronous [, user, password])`:初始化准备发送到服务器上的请求。method是HTTP方法，不区分大小写；url是请求发送的相对或绝对URL；asynchronous表示请求是否异步；user和password提供身份验证
+11. `setRequestHeader(name, value)`:设置HTTP报头
+12. `send(body)`:对服务器请求进行初始化。参数body包含请求的主体部分，对于POST请求为键值对字符串；对于GET请求，为null
+
+
+```
+localStorage.setItem('x', 1); // storge x->1
+localStorage.getItem('x); // return value of x
+
+// 枚举所有存储的键值对
+for (var i = 0, len = localStorage.length; i < len; ++i ) {
+    var name = localStorage.key(i);
+    var value = localStorage.getItem(name);
+}
+
+localStorage.removeItem('x'); // remove x
+localStorage.clear();  // remove all data
+```
+
+
+
+### ===运算符判断相等的流程是怎样的
+
+1. 如果两个值不是相同类型，它们不相等
+2. 如果两个值都是null或者都是undefined，它们相等
+3. 如果两个值都是布尔类型true或者都是false，它们相等
+4. 如果其中有一个是**NaN**，它们不相等
+5. 如果都是数值型并且数值相等，他们相等， -0等于0
+6. 如果他们都是字符串并且在相同位置包含相同的16位值，他它们相等；如果在长度或者内容上不等，它们不相等；两个字符串显示结果相同但是编码不同==和===都认为他们不相等
+7. 如果他们指向相同对象、数组、函数，它们相等；如果指向不同对象，他们不相等
+
+### ==运算符判断相等的流程是怎样的
+
+1. 如果两个值类型相同，按照===比较方法进行比较
+2. 如果类型不同，使用如下规则进行比较
+  1. 如果其中一个值是null，另一个是undefined，它们相等
+  2. 如果一个值是**数字**另一个是**字符串**，将**字符串转换为数字**进行比较
+  3. 如果有布尔类型，将**true转换为1，false转换为0**，然后用==规则继续比较
+  4. 如果一个值是对象，另一个是数字或字符串，将对象转换为原始值然后用==规则继续比较
+  5. **其他所有情况都认为不相等**
+
+### 对象到字符串的转换步骤
+
+1. 如果对象有toString()方法，javascript调用它。如果返回一个原始值（primitive value如：string number boolean）,将这个值转换为字符串作为结果
+2. 如果对象没有toString()方法或者返回值不是原始值，javascript寻找对象的valueOf()方法，如果存在就调用它，返回结果是原始值则转为字符串作为结果
+3. 否则，javascript不能从toString()或者valueOf()获得一个原始值，此时throws a TypeError
+
+
+### 对象到数字的转换步骤
+
+    1. 如果对象有valueOf()方法并且返回元素值，javascript将返回值转换为数字作为结果
+    2. 否则，如果对象有toString()并且返回原始值，javascript将返回结果转换为数字作为结果
+    3. 否则，throws a TypeError
+
+### <,>,<=,>=的比较规则
+
+所有比较运算符都支持任意类型，但是**比较只支持数字和字符串**，所以需要执行必要的转换然后进行比较，转换规则如下:
+1. 如果操作数是对象，转换为原始值：如果valueOf方法返回原始值，则使用这个值，否则使用toString方法的结果，如果转换失败则报错
+2. 经过必要的对象到原始值的转换后，如果两个操作数都是字符串，按照字母顺序进行比较（他们的16位unicode值的大小）
+3. 否则，如果有一个操作数不是字符串，**将两个操作数转换为数字**进行比较
+
+### +运算符工作流程
+1. 如果有操作数是对象，转换为原始值
+2. 此时如果有**一个操作数是字符串**，其他的操作数都转换为字符串并执行连接
+3. 否则：**所有操作数都转换为数字并执行加法**
+
+
+
+### 请用代码写出(今天是星期x)其中x表示当天是星期几,如果当天是星期一,输出应该是"今天是星期一"
+
+```
+var days = ['日','一','二','三','四','五','六'];
+var date = new Date();
+
+console.log('今天是星期' + days[date.getDay()]);
+```
 
 
 

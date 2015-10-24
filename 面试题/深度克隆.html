@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../js/common.js"></script>
+    <script>
+        function A() {
+            this.a = a;
+        }
+
+        var a = {
+            name: 'qiu',
+            birth: new Date(),
+            pattern: /qiu/gim,
+            container: document.body,
+            hobbys: ['book', new Date(), /aaa/gim, 111]
+        };
+
+        var c = new A();
+        var b = deepClone(c);
+        console.log(c.a === b.a);
+        console.log(c, b);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

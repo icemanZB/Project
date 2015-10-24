@@ -9,6 +9,8 @@ JavaScript 面试整理：
 
 闭包允许一个函数定义在另一个外部函数的作用域内，即便作用域内的其他东西都消失了，它仍可以访问该外部函数内的变量。
 
+闭包常见用途：1. 创建特权方法用于访问控   2. 事件处理程序及回调
+
 function say667() {
     var num = 666;
     var sayAlert = function() { alert(num); }
@@ -62,6 +64,18 @@ jsonP缺点：它只支持GET请求而不支持POST等其它类型的HTTP请求�
 域：域名
 跨域请求(访问)：一个域名下的文件请求另外一个域名下的资源,就产生了跨域
 跨域问题简单的理解就是因为JS同源策略的限制（安全性限制），a.com域名下的JS无法操作b.com或c.a.com下的对象。
+
+跨域通信：js进行DOM操作、通信时如果目标与当前窗口不满足同源条件，浏览器为了安全会阻止跨域操作。跨域通信通常有以下方法
+
+- 如果是简单单项通信，新建<img>、<script>、<link>、<iframe>元素，通过src、href 属性设置为目标url，实现跨域请求
+- 如果请求 json 数据，使用<script>进行jsonp请求
+- 现代浏览器中，多窗口通信使用HTML5规范的 targetWindow.postMessage(data, origin);
+  其中 data 是需要发送的对象，origin 是目标窗口的 origin，window.addEventListener('message', handler, false);
+  handler 的 event.data 是 postMessage 发送来的数据，event.origin 是发送窗口的 origin，event.source 是发送消息的窗口引用
+- 内部服务器代理请求跨域url，然后返回数据
+- 跨域请求数据，现代浏览器可使用 HTML5 规范的 CORS(跨域资源共享) 功能，只要目标服务器返回HTTP头部
+  Access-Control-Allow-Origin 即可像普通ajax一样访问跨域资源
+
 
 
 8、请解释一下 JavaScript 的同源策略？
@@ -155,7 +169,7 @@ GET	与 POST 相比, GET 更简单也更快,并且在大部分情况下都能用
 13、JavaScript 有哪几种数据类型？
 基本: Number、Boolean、String、Null、undefined
 引用: Object、Array、Function
-
+symbol(ES6)
 
 14、document.write() 和 innerHTML的区别
 document.write只能重绘整个页面，innerHTML可以重绘页面的一部分
@@ -300,11 +314,18 @@ function factorial( n ){
 
 26、	请描述一下 cookies，sessionStorage 和 localStorage 的区别？
 1).	cookie在浏览器和服务器间来回传递。 sessionStorage 和 localStorage不会
-2).	sessionStorage 和 localStorage 的存储空间更大；
-3).	sessionStorage 和 localStorage 有更多丰富易用的接口；
-4). sessionStorage 和 localStorage 各自独立的存储空间；
-5)、localStorage    长期存储数据，浏览器关闭后数据不丢失；
-6)、sessionStorage  数据在浏览器关闭后自动删除。
+2). 有效期：cookie在设置的有效期内有效，默认为浏览器关闭；sessionStorage在窗口关闭前有效，localStorage长期有效，直到用户删除
+3). cookie有path概念，子路径可以访问父路径cookie，父路径不能访问子路径cookie
+4). 共享：sessionStorage 不能共享，localStorage 在同源文档之间共享，cookie在同源且符合path规则的文档之间共享
+5). localStorage的修改会促发其他文档窗口的update事件
+6). cookie有secure属性要求HTTPS传输
+7). 浏览器不能保存超过300个cookie，单个服务器不能超过20个，每个cookie不能超过4k。web storage大小支持能达到5M
+8). localStorage 有效期为永久，sessionStorage 有效期为顶层窗口关闭前
+8). 同源文档可以读取并修改 localStorage 数据，sessionStorage 只允许同一个窗口下的文档访问，如通过iframe引入的同源文档
+9). Storage 对象通常被当做普通 javascript 对象使用：通过设置属性来存取字符串值，也可以通过setItem(key, value)设置，getItem(key)读取
+    removeItem(key) 删除，clear() 删除所有数据，length 表示已存储的数据项数目，key(index)返回对应索引的key
+
+
 
 
 27、Javascript 里面的继承怎么实现，如何避免原型链上面的对象共享？
@@ -440,6 +461,109 @@ hasOwnProperty()
 缺点：
 现在网站的JS 都会进行压缩，一些文件用了严格模式，而另一些没有。这时这些本来是严格模式的文件，被 merge 后，这个串就到了文件的中间，
 不仅没有指示严格模式，反而在压缩后浪费了字节。
+
+
+37、 DOM元素e的e.getAttribute(propName)和e.propName有什么区别？
+
+e.getAttribute(propName); 方法 获取指定元素的指定属性的值
+1). 用e.propName和[propName和]的形式无法操作元素的自定义属性，getAttribute可以操作元素的自定义属性
+2). e.getAttribute()可以获取元素属性实际的值，IE7下还是会返回资源的绝对路径( 如可以获取元素属性实际的值 )
+    e.propName  会获取到当前图片所在的绝对路径
+
+
+
+38、offsetWidth/offsetHeight、clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别？
+
+- offsetWidth/offsetHeight返回值包含 content + padding + border ，效果与e.getBoundingClientRect()相同
+- clientWidth/clientHeight返回值只包含 content + padding，如果有滚动条，也不包含滚动条
+- scrollWidth/scrollHeight返回值包含 content + padding + 溢出内容的尺寸
+
+
+
+39、focus/blur 与 focusin/focusout 的区别与联系？
+
+1). focus/blur不冒泡，focusin/focusout冒泡
+2). focus/blur兼容性好，focusin/focusout在除FireFox外的浏览器下都保持良好兼容性，如需使用事件托管，可考虑在FireFox下使用事件捕获
+    elem.addEventListener('focus', handler, true)
+3). 可获得焦点的元素：
+    1. window
+    2. 链接被点击或键盘操作
+    3. 表单空间被点击或键盘操作
+    4. 设置 tabindex 属性的元素被点击或键盘操作
+
+
+
+40、mouseover/mouseout 与 mouseenter/mouseleave 的区别与联系？
+
+1). mouseover/mouseout 是标准事件，所有浏览器都支持；mouseenter/mouseleave 是IE5.5引入的事件，后来被DOM3标准采纳，现代标准浏览器也支持
+2). mouseover/mouseout 是冒泡事件；mouseenter/mouseleave不冒泡
+3). 标准事件模型中 event.target 表示发生移入/出的元素，event.relatedTarget 对应移出元素；
+    在老IE中 event.srcElement 表示发生移入/出的元素，event.toElement 表示移出的目标元素，event.fromElement 表示移入时的来源元素
+
+
+
+41、函数内部 arguments 变量有哪些特性,有哪些属性,如何将它转换为数组？
+
+- arguments 所有函数中都包含的一个局部变量，是一个类数组对象，对应函数调用时的实参。如果函数定义同名参数会在调用时覆盖默认对象
+- arguments[index]分别对应函数调用时的实参，并且通过 arguments 修改，实参时会同时修改实参
+- arguments.length 为实参的个数( Function.length 表示形参长度 )
+- arguments.callee 为当前正在执行的函数本身，使用这个属性进行递归调用时需注意 this 的变化
+- 转换为数组：var args = Array.prototype.slice.call(arguments, 0);
+
+
+
+42、DOM事件模型是如何的？  待定
+
+DOM2级事件规定事件包括三个阶段：
+
+1、 事件捕获阶段
+
+2、处于目标阶段
+
+3、事件冒泡阶段
+
+- DOM事件包含捕获( capture )和冒泡( bubble )两个阶段：捕获阶段事件从 window 开始触发事件然后通过祖先节点一次传递到触发事件的DOM元素上；
+  冒泡阶段事件从初始元素依次向祖先节点传递直到 window
+
+- 标准事件监听 elem.addEventListener(type, handler, capture)/elem.removeEventListener(type, handler, capture)
+  handler 接收保存事件信息的 event 对象作为参数，event.target为触发事件的对象，handler调用上下文this为绑定监听器的对象
+  event.preventDefault() 取消事件默认行为，event.stopPropagation()/event.stopImmediatePropagation()取消事件传递
+
+- 老版本IE事件监听 elem.attachEvent('on'+type, handler)/elem.detachEvent('on'+type, handler)
+  handler 不接收 event 作为参数，事件信息保存在 window.event中，触发事件的对象为 event.srcElement，
+  handler 执行上下文 this 为 window 使用闭包中调用 handler.call(elem, event) 可模仿标准模型，然后返回闭包，保证了监听器的移除。
+  event.returnValue 为 false 时取消事件默认行为，event.cancleBubble为true 时取消时间传播
+
+- 通常利用事件冒泡机制托管事件处理程序提高程序性能。
+
+
+
+43、下面这段代码想要循环延时输出结果0 1 2 3 4,请问输出结果是否正确,如果不正确,请说明为什么,并修改循环内的代码使其输出正确结果
+
+```
+for (var i = 0; i < 5; ++i) {
+  setTimeout(function () {
+    console.log(i + ' ');
+  }, 100);
+}
+```
+
+不能输出正确结果，因为循环中 setTimeout 接受的参数函数通过闭包访问变量i。javascript运行环境为单线程，
+setTimeout注册的函数需要等待线程空闲才能执行，此时for循环已经结束，i值为5.五个定时输出都是5
+
+修改方法：将setTimeout放在函数立即调用表达式中，将i值作为参数传递给包裹函数，创建新闭包
+
+```
+for (var i = 0; i < 5; ++i) {
+  (function (i) {
+    setTimeout(function () {
+      console.log(i + ' ');
+    }, 100);
+  }(i));
+}
+```
+
+
 
 
 
@@ -761,60 +885,6 @@ function bindThis(f, oTarget) {
 
 6
 
-
-题目描述
-获取 url 中的参数
-1. 指定参数名称，返回该参数的值 或者 空字符串
-2. 不指定参数名称，返回全部的参数对象 或者 {}
-3. 如果存在多个同名参数，则返回数组
-输入例子:
-
-getUrlParam('http://www.nowcoder.com?key=1&key=2&key=3&test=4#hehe', 'key')
-
-
-输出例子:
-
-['1', '2', '3']
-
-function getUrlParam(sUrl, sKey) {
-    var pram=sUrl.split("?")[1].split("#")[0].split("&");
-    var json={};
-
-    for(var i=0;i<pram.length;i++){
-        var key=pram[i].split('=')[0];
-        var value=pram[i].split('=')[1];
-
-        if(!json[key]){
-            json[key]=[];
-        }
-        json[key].push(value);
-    }
-
-    if(sKey){
-        return json[sKey].length>1?json[sKey]:json[sKey].join("");
-    }else{
-    	return json;
-    }
-
-}
-
-牛人  a，模式的匹配项；k，第一个捕获组的匹配项；v，第二个捕获组的匹配项。
-function getUrlParam(sUrl,sKey){
-    var result = {};
-    sUrl.replace(/\??(\w+)=(\w+)&?/g,function(a,k,v){
-        if(result[k] !== void 0){
-            var t = result[k];
-            result[k] = [].concat(t,v);
-        }else{
-            result[k] = v;
-        }
-    });
-    if(sKey === void 0){
-        return result;
-    }else{
-        return result[sKey] || '';
-    }
-}
 
 
 题目描述

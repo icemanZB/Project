@@ -291,6 +291,45 @@ function parseUrlQueryString(url) {
 }
 
 /**
+ * 获取 url 中的参数
+ 1. 指定参数名称，返回该参数的值 或者 空字符串
+ 2. 不指定参数名称，返回全部的参数对象 或者 {}
+ 3. 如果存在多个同名参数，则返回数组
+ console.log(getUrlParam('http://www.nowcoder.com?key=1&key=2&key=3&test=4#hehe', 'key'));
+ * @param  sUrl
+ * @param  sKey
+ * @return object
+ *
+ * */
+function getUrlParam(sUrl, sKey) {
+    var json = {};
+    // 如果不是字符串返回空对象
+    if (typeof sUrl !== 'string') {
+        return json;
+    }
+
+    var pram = sUrl.split("?")[1].split("#")[0].split("&");
+
+
+    for (var i = 0; i < pram.length; i++) {
+        var key = pram[i].split('=')[0];
+        var value = pram[i].split('=')[1];
+
+        if (!json[key]) {
+            json[key] = [];
+        }
+        json[key].push(value);
+    }
+
+    if (sKey) {
+        return json[sKey].length > 1 ? json[sKey] : json[sKey].join("");
+    } else {
+        return json;
+    }
+
+}
+
+/**
  * 类数组转换为数组
  * @param  obj
  * @return Array arr
@@ -314,7 +353,30 @@ function toArray(obj) {
  * @return Boolean
  */
 function isArray(obj) {
-    return Object.prototype.toString.call(obj) === 'object Array';  // Array.isArray(obj);  ecma5
+    try {
+        return Array.isArray(obj);  // Array.isArray(obj);  ecma5
+    } catch (e) {
+        return Object.prototype.toString.call(obj) === 'object Array';
+    }
+
+}
+
+/**
+ * 判断对象是否为函数，如果当前运行环境对可调用对象(如正则表达式)
+ * 的typeof返回'function'，采用通用方法，否则采用优化方法
+ *
+ * @param arg 需要检测是否为函数的对象
+ * @return {boolean} 如果参数是函数，返回true，否则false
+ */
+function isFunction(arg) {
+    if (arg) {
+        if (typeof (/./) !== 'function') {
+            return typeof arg === 'function';
+        } else {
+            return Object.prototype.toString.call(arg) === '[object Function]';
+        }
+    }
+    return false;
 }
 
 /**
@@ -333,3 +395,63 @@ function arrayDistinct(arr) {
     }
     return aResult; // JSON.stringify() 把数组转为json
 }
+
+function deepClone(obj) {
+    var _toString = Object.prototype.toString;
+
+    // null, undefined, non-object, function
+    if (!obj || typeof obj !== 'object') {
+        return obj;
+    }
+
+    // DOM Node
+    if (obj.nodeType && 'cloneNode' in obj) {
+        return obj.cloneNode(true);
+    }
+
+    // Date
+    if (_toString.call(obj) === '[object Date]') {
+        return new Date(obj.getTime());
+    }
+
+    // RegExp
+    if (_toString.call(obj) === '[object RegExp]') {
+        var flags = [];
+        if (obj.global) {
+            flags.push('g');
+        }
+        if (obj.multiline) {
+            flags.push('m');
+        }
+        if (obj.ignoreCase) {
+            flags.push('i');
+        }
+
+        return new RegExp(obj.source, flags.join(''));
+    }
+
+    var result = Array.isArray(obj) ? [] :
+        obj.constructor ? new obj.constructor() : {};
+
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            result[key] = deepClone(obj[key]);
+        }
+    }
+
+    return result;
+}
+
+/**
+ *  使用{}作为转义标记，中间的数字表示替换目标，format实参用来替换模板内标记
+ *
+ *  var t = new fn('<p><a href="{0}">{1}</a><span>{2}</span></p>');
+    console.log(t.format('http://www.alibaba.com', 'Alibaba', 'Welcome'));
+ *
+ * */
+function stringFormat(str) {
+    var arg = Array.prototype.slice.call(arguments, 0);
+    return this.str.replace(/\{\s*(\d+)\s*\}/g, function (a, b) {
+        return arg[b] || '';
+    });
+};
