@@ -9,8 +9,6 @@ JavaScript 面试整理：
 
 闭包允许一个函数定义在另一个外部函数的作用域内，即便作用域内的其他东西都消失了，它仍可以访问该外部函数内的变量。
 
-闭包常见用途：1. 创建特权方法用于访问控   2. 事件处理程序及回调
-
 function say667() {
     var num = 666;
     var sayAlert = function() { alert(num); }
@@ -100,8 +98,8 @@ XmlHttp提供客户端同 http 服务器通讯的协议。客户端可以通过 
 
 Ajax就是异步的 JavaScript 和 XML : Asynchronous JavaScript and XML
 优点：
-1).节省用户操作，提高用户体验，减少数据请求
-2).无刷新的方式传输获取数据(用JavaScript异步形式去操作xml 文档或对象)
+1). 节省用户操作，提高用户体验，减少数据请求
+2). 无刷新的方式传输获取数据(用JavaScript异步形式去操作xml 文档或对象)
 
 
 11、Ajax 过程？
@@ -153,7 +151,7 @@ GET  - 从指定的资源请求数据。
 POST - 向指定的资源提交要被处理的数据。
 传输方式的区别
 1).	Get通过url地址传输
-2).	POST请求则是作为HTTP消息的实体内容发送给Web服务器的,这种传递是对用户不可见的
+2).	POST请求则是作为HTTP消息的实体内容发送给Web服务器的，这种传递是对用户不可见的
 3).	Get可以被缓存
 传输数据量
 1). Get有数据量限制，每个浏览器都不同 ( 2048个字符 )
@@ -266,7 +264,7 @@ Window 对象表示浏览器中打开的窗口
 Navigator 对象包含有关浏览器的信息
 
 
-23、new 关键字做了什么？谈谈This对象的理解。
+23、new 关键字做了什么？谈谈this对象的理解。
 
 1)、创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
 2)、属性和方法被加入到 this 引用的对象中。
@@ -328,7 +326,7 @@ function factorial( n ){
 
 
 
-27、Javascript 里面的继承怎么实现，如何避免原型链上面的对象共享？
+27、Javascript 里面的继承怎么实现，如何避免原型链上面的对象共享？  [详细解释]
 
 用构造函数和原型链的混合模式去实现继承，避免对象共享可以参考经典的extend()函数，很多前端框架都有封装的，就是用一个空函数当做中间变量
 
@@ -400,16 +398,13 @@ var module1 = (function(){
 4).闭包、循环( 在两个对象彼此引用且彼此保留时，就会产生一个循环 )
 
 
-31、JavaScript原型，原型链 ? 有什么特点？
-
-
-32、eval是做什么的？
+31、eval是做什么的？
 
 它的功能是把对应的字符串解析成JS代码并运行；
 应该避免使用eval，不安全，非常耗性能（2次，一次解析成js语句，一次执行）。
 
 
-33、null，undefined 的区别？
+32、null，undefined 的区别？
 
 null和undefined基本是同义的，只有一些细微的差别
 null表示"没有对象"，即该处不应该有值。典型用法是：
@@ -432,27 +427,25 @@ var x = f();
 x // undefined
 
 
-34、IE与火狐的事件机制有什么区别？ 如何阻止冒泡？
+33、IE与火狐的事件机制有什么区别？ 如何阻止冒泡？
 
 事件处理机制：IE是事件冒泡、火狐是 事件捕获；
 ev.stopPropagation();
 
 
-35、如何判断一个对象是否属于某个类？
+34、如何判断一个对象是否属于某个类？
 
 使用 instanceof
 if(a instanceof Person){
    alert('yes');
 }
-数组判断需要特殊的方法 Object.prototype.toString.call(obj) === 'object Array'
+数组判断需要特殊的方法 Array.prototype.toString.call(obj) === 'object Array'
 
 
-36、Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？
-
-hasOwnProperty()
+35、Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？  hasOwnProperty()
 
 
-37、js中的 "use strict" 做了什么？使用严格模式有什么优点
+36、js中的 "use strict" 做了什么？使用严格模式有什么优点
 标记 严格模式后
 其一：如果在语法检测时发现语法问题，则整个代码块失效，并导致一个语法异常。
 其二：如果在运行期出现了违反严格模式的代码，则抛出执行异常。
@@ -488,7 +481,7 @@ e.getAttribute(propName); 方法 获取指定元素的指定属性的值
 3). 可获得焦点的元素：
     1. window
     2. 链接被点击或键盘操作
-    3. 表单空间被点击或键盘操作
+    3. 表单控件被点击或键盘操作
     4. 设置 tabindex 属性的元素被点击或键盘操作
 
 
@@ -532,7 +525,7 @@ DOM2级事件规定事件包括三个阶段：
 - 老版本IE事件监听 elem.attachEvent('on'+type, handler)/elem.detachEvent('on'+type, handler)
   handler 不接收 event 作为参数，事件信息保存在 window.event中，触发事件的对象为 event.srcElement，
   handler 执行上下文 this 为 window 使用闭包中调用 handler.call(elem, event) 可模仿标准模型，然后返回闭包，保证了监听器的移除。
-  event.returnValue 为 false 时取消事件默认行为，event.cancleBubble为true 时取消时间传播
+  event.returnValue 为 false 时取消事件默认行为，event.cancleBubble为true 时取消事件传播
 
 - 通常利用事件冒泡机制托管事件处理程序提高程序性能。
 
@@ -623,7 +616,7 @@ if($("#id").length > 0) { // do something... }
 
 8、页面中有三个元素 <div>div标签</div><span>span标签</span><p>p标签</p>，如果这三个标签要触发同一个事件？
 
-$("div,span,p").click(function(){   // ...   });
+$("div,span,p").click(function(){   // dosomething..   });
 
 
 9、页面中有一个select标签，要使"选项四"选中？
@@ -932,16 +925,4 @@ Array.prototype.uniq = function () {
    }
     return resArr;
 }
-
-
-if(! "a" in window){
-    var a = 1;
-}
-alert(a);
-请问 a 的结果是什么？
-undefined
-
-
-填写内容让下面代码支持a.name = “name1”; b.name = “name2”;
-
 

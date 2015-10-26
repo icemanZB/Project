@@ -1,6 +1,6 @@
 HTML 面试整理：
 
-1、 在怪异模式和传统模式下区别？ [ 详细解释待定 ]
+1、 在怪异模式和传统模式下区别？
 
     IE和标准的盒模型是由：margin、border、padding、content 组成
 
@@ -57,7 +57,7 @@ border:none;表示边框样式无;border:0;表示边框宽度为0;
 2). <!doctype>不是一个HTML标签，是一个用于告诉浏览器当前 HTML 文档使用哪种 HTML 或 XHTML 规范
 
 3). 现代浏览器的 HTML 布局引擎通过检查 doctype 决定使用兼容模式还是标准模式对文档进行渲染
-    Standards ( 标准 )模式(也就是严格呈现模式 )用于呈现遵循最新标准的网页，严格模式的排版 和 JS 运作模式是以该浏览器支持的最高标准运行
+    Standards ( 标准 )模式( 也就是严格呈现模式 )用于呈现遵循最新标准的网页，严格模式的排版 和 JS 运作模式是以该浏览器支持的最高标准运行
     而在混杂模式中( 兼容模式 )，页面以宽松的向后兼容的方式显示。模拟老式浏览器的行为以防止站点无法工作，用于呈现为传统浏览器而设计的网页
 
 4). 在HTML4.01中<!doctype>声明指向一个DTD，由于HTML4.01基于SGML，所以 DTD 指定了标记规则以保证浏览器正确渲染内容
@@ -129,32 +129,32 @@ firefox称这种查找方式为 keyselector (关键字查询),所谓的关键字
 
 1). link 属于 HTML 标签，而@import是CSS提供的
 2). 页面被加载的时，link 会同时被加载，而 @import 引用的 CSS 会等到页面被加载完再加载
-3). 由于@import是CSS2.1提出的所以老的浏览器不支持，@import只有在IE5以上的才能识别，而link标签无此问题。
+3). 由于@import是CSS2.1提出的，所以老的浏览器不支持，@import只有在IE5以上的才能识别，而link标签无此问题
 4). link 方式的样式的权重高于 @import 的权重
-5). 使用dom控制样式时的差别。当使用javascript控制dom去改变样式的时候，只能使用link标签，因为@import不是dom可以控制的。
+5). 使用 dom 控制样式时的差别，当使用 JavaScript 控制 dom 去改变样式的时候，只能使用 link 标签，因为@import不是 dom 可以控制的
 
 
 16、position 的 absolute 与 fixed 共同点与不同点？
 共同点：
     1). 改变行内元素的呈现方式，display 被置为 block
-    2). 让元素脱离普通流，不占据空间
+    2). 让元素脱离文档流，不占据空间
     3). 默认会覆盖到非定位元素上
 不同点:
 absolute 的 "根元素" 是可以设置的，而 fixed 的 "根元素" 固定为浏览器窗口。当你滚动网页，fixed元素与浏览器窗口之间的距离是不变的
 
 相对定位 : position:relative
 1、不影响元素本身的特性 (该是块还是块,是内嵌还是内嵌)
-2、不使元素脱离文档流 (文档流就是页面中所占的位置,存在就是没有脱离文档流)
-3、如果没有定位偏移量,对元素本身没有任何影响
+2、不使元素脱离文档流 (文档流就是页面中所占的位置，存在就是没有脱离文档流)
+3、如果没有定位偏移量，对元素本身没有任何影响
 4、默认撑满整行
 5、不能使内嵌支持宽高
 
-绝对定位 :
+绝对定位 ( absolute ) :
 1、使元素脱离文档流
 2、使内嵌元素支持宽高
 3、块属性标签内容撑开宽度
-4、如果有定位父级相对于定位父级发生偏移,没有定位父级相对于整个文档发生偏移
-absolute 父级没有 relative ，相对于浏览器左上角进行定位(html)，如果清楚了body,html的默认margin,padding值，那么是一样的
+4、如果有定位父级相对于定位父级发生偏移，没有定位父级相对于整个文档发生偏移
+absolute 父级没有 relative ，相对于浏览器左上角进行定位(html)，如果清楚了body，html的默认margin、padding值，那么是一样的
 
 
 17、瀑布流布局 或者 流式布局 是否有了解？
@@ -185,7 +185,7 @@ E > F 子元素选择器,匹配所有E元素的子元素F
 
 px   像素  像素px是相对于显示器屏幕分辨率而言的
 1em = 16px  em是相对长度单位。相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。
-em有如下特点：1). em的值并不是固定的;2). em会继承父级元素的字体大小。
+em有如下特点：1). em的值并不是固定的  2). em 会继承父级元素的字体大小
 %   百分比
 
 
@@ -348,16 +348,16 @@ letter-spacing、word-spacing、text-transform。
 
 33、CSS中能够将对象从文档流中抽出的方式 ？
 1). absolute fixed
-2). float也脱离文档流。浮动元素脱离文档流，不占据空间。
+2). float也脱离文档流。浮动元素脱离文档流，不占据空间
 
 
 34、relative 和 absolute 定位原点是？
 
-1). absolute 生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。
-2). fixed 相对于浏览器窗口进行定位。
-3). relative 生成相对定位的元素，相对于其正常位置进行定位。
-4).	static 默认值。没有定位，元素出现在正常的流中
-5).	inherit 规定从父元素继承 position 属性的值。
+1). absolute 生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位
+2). fixed 相对于浏览器窗口进行定位
+3). relative 生成相对定位的元素，相对于其正常位置进行定位
+4).	static 默认值 没有定位，元素出现在正常的流中
+5).	inherit 规定从父元素继承 position 属性的值
 
 
 35、CSS3有哪些新特性？
@@ -377,26 +377,16 @@ transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);/*
 
 37、对BFC规范的理解？
 BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。
-(W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。)
+(W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用 )
 
 触发元素的 BFC( 块级格式化上下文 ) 来达到清浮动，该元素内部布局和定位和外部元素互不影响( 除非内部盒子建立了新的BFC )
 可以理解为 BFC 建立了一个隔离的独立容器
 触发 BFC的属性  1)、float 的值不为 none;
                2)、overflow 值不为 visible;
-               3)、display 值为 table-cell 、 table-caption 、inline-block 之一
-               4)、position 值不为 static 或 relative 其中一个
+               3)、display 取值为 inline-block、table-cell、table-caption、flex、inline-flex 之一的元素
+               4)、绝对定位元素 ( position 取值为 absolute 或 fixed )
 
 BFC 作用     1). 可以包含浮动元素     2). 不被浮动元素覆盖    3). 阻止父子元素的margin折叠
-
-如何创建块级格式化上下文(block formatting context),BFC有什么用
-创建规则：
-1). 根元素
-2). 浮动元素 ( float 不是 none )
-3). 绝对定位元素 ( position 取值为 absolute 或 fixed )
-4). display 取值为 inline-block、table-cell、table-caption、flex、inline-flex 之一的元素
-5). overflow 不是 visible 的元素
-
-
 
 
 
@@ -472,7 +462,7 @@ Float是一种布局方式，它定义元素在哪个方向浮动。以往这个
 9). 表单控件 ( calendar、date、time、email、url、search )
 10). 新的技术 webworker、 websocket、 Geolocation
 HTML 5 移除的元素
-1). 纯表现的元素：basefont、big、center、font；
+1). 纯表现的元素：basefont、big、center、font
 2). 对可用性产生负面影响的元素：frame、frameset、noframes；
 HTML5兼容问题：
 IE8/IE7/IE6支持通过document.createElement方法产生的标签，可以利用这一特性让这些浏览器支持HTML5新标签，
@@ -481,7 +471,7 @@ IE8/IE7/IE6支持通过document.createElement方法产生的标签，可以利�
 
 40、什么叫优雅降级和渐进增强 ？
 
-优雅降级：Web站点在所有新式浏览器中都能正常工作，如果用户使用的是老式浏览器，则代码会检查以确认它们是否能正常工作。
+优雅降级：Web站点在所有新式浏览器中都能正常工作，如果用户使用的是老式浏览器，则代码会检查以确认它们是否能正常工作
 由于IE独特的盒模型布局问题，针对不同版本的IE的hack实践过优雅降级了，为那些无法支持功能的浏览器增加候选方案
 在旧式浏览器上以某种形式降级体验却不至于完全失效。
 
@@ -636,9 +626,9 @@ a:active {color: #0000FF} /* 被选择的链接 */
 
 48、	frame有那些缺点？
 
-1). iframe 会阻塞主页面的onload事件；
-2). iframe 和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载。
-3). 使用iframe之前需要考虑这两个缺点。如果需要使用iframe，最好是通过JavaScript，动态给iframe添加src属性值，这样可以可以绕开以上两个问题。
+1). iframe 会阻塞主页面的onload事件
+2). iframe 和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载
+3). 使用iframe之前需要考虑这两个缺点。如果需要使用iframe，最好是通过JavaScript，动态给iframe添加src属性值，这样可以可以绕开以上两个问题
 
 
 49、一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？( 流程说的越详细越好 )
@@ -747,17 +737,17 @@ span,div{background:blue; width:100px; height:100px; display:inline-block;}
 <div>块</div>
 <div>块</div>
 
-实际上那点间歇也就是一个空格的大小,那么空格的大小就是页面文字大小的一半
-如果页面的文字大小为12px,那么空格的大小就为6px (浮动可以解决，不用inline-block)
+实际上那点间歇也就是一个空格的大小，那么空格的大小就是页面文字大小的一半
+如果页面的文字大小为12px，那么空格的大小就为6px (浮动可以解决，不用inline-block)
 IE6 7 不支持块属性标签的inline-block;
 
 
 
-51、background 同时设置了背景颜色和背景图片的话,背景图片的优先级是高于背景颜色的
+51、background 同时设置了背景颜色和背景图片的话，背景图片的优先级是高于背景颜色的
 
-background-position:left; 如果第二个值不设置,默认是居中;反过来设置了bottom,没有设置第一个值,默认也是居中显示
-                          如果给定的是一个数值100px,识别不了x、y,那么默认是x,y居中
-                          如果给定的值是center,那么就是默认center center
+background-position:left; 如果第二个值不设置，默认是居中;反过来设置了bottom，没有设置第一个值，默认也是居中显示
+                          如果给定的是一个数值100px，识别不了x、y，那么默认是x、y居中
+                          如果给定的值是center，那么就是默认center center
                           如果写成 bottom left 浏览器解析也会变成 left bottom
                           设置数值是根据padding的左上角开始计算的
 
@@ -787,11 +777,11 @@ background-position:left; 如果第二个值不设置,默认是居中;反过来�
     <li class="list list1"></li> <li class="list1 list"></li>  结果 : yellow
     <li class="list list1"></li> <li class="list1 list"></li>  结果 : yellow
     名字的先后顺序和样式的先后顺序是没有任何关系的,样式的优先级是根据样式的权重和抒写顺序是有关系的
-    .list1 写在后面,所以他优先级高
+    .list1 写在后面，所以他优先级高
 
 6、 高级选择符多的，样式优先级高 比如 #aa #bb #ccc >#dd #ww .qq
 
-7、 相同的样式在CSS规则后添加了!important的优先于没有添加的。
+7、 相同的样式在CSS规则后添加了!important的优先于没有添加的
 
 
 53、 浮动的特点
@@ -896,6 +886,8 @@ body{margin:0; height:100%;overflow:auto;}  // overflow:auto; 滚动条就在bod
     visibility: hidden;是继承属性，子孙节点消失由于继承了hidden，通过设置visibility: visible;可以让子孙节点显式
 
 3). 修改常规流中元素的 display 通常会造成文档重排。修改 visibility 属性只会造成本元素的重绘
+
+    重排、重绘：http://blog.jobbole.com/46722/
 
 4). 读屏器不会读取 display: none;元素内容；会读取visibility: hidden;元素内容
 
@@ -1024,14 +1016,15 @@ Flash Of Unstyled Content：用户定义样式表加载之前浏览器使用默�
 
 72、<img> 的 title 和 alt 有什么区别？
 
-1. title 是[global attributes](http://www.w3.org/TR/html-markup/global-attributes.html#common.attrs.core)之一，用于为元素提供附加的advisory information。通常当鼠标滑动到元素上的时候显示。
-2. `alt`是`<img>`的特有属性，是图片内容的等价描述，用于图片无法加载时显示、读屏器阅读图片。可提图片高可访问性，除了纯装饰图片外都必须设置有意义的值，搜索引擎会重点分析。
+1. title 是[global attributes]之一，用于为元素提供附加的 advisory information。通常当鼠标滑动到元素上的时候显示。
+2. alt是<img>的特有属性，是图片内容的等价描述，用于图片无法加载时显示、读屏器阅读图片。可提图片高可访问性
+   除了纯装饰图片外都必须设置有意义的值，搜索引擎会重点分析。
 
 
 
 73、css sprite是什么，有什么优缺点？
 
-概念：将多个小图片拼接到一个图片中，通过background-position 和元素尺寸调节需要显示的背景图、
+概念：将多个小图片拼接到一个图片中，通过background-position 和元素尺寸调节需要显示的背景图
 优点：
 1). 减少HTTP请求数，极大地提高页面加载速度
 2). 增加图片信息重复度，提高压缩比，减少图片大小
