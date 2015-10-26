@@ -386,9 +386,7 @@ BFC就是页面上的一个隔离的独立容器，容器里面的子元素不�
                3)、display 值为 table-cell 、 table-caption 、inline-block 之一
                4)、position 值不为 static 或 relative 其中一个
 
-BFC作用：    1). 可以包含浮动元素
-            2). 不被浮动元素覆盖
-            3). 阻止父子元素的margin折叠
+BFC 作用     1). 可以包含浮动元素     2). 不被浮动元素覆盖    3). 阻止父子元素的margin折叠
 
 如何创建块级格式化上下文(block formatting context),BFC有什么用
 创建规则：
@@ -731,8 +729,7 @@ a:active {color: #0000FF} /* 被选择的链接 */
           4、 不支持上下margin和padding
           5、 代码换行被解析
 
-块： 1、默认独占一行显示
-    2、没有宽度时，默认撑满一排
+块： 1、默认独占一行显示   2、没有宽度时，默认撑满一排
 
 img 既不是块也不是内联 它其实是 inline-block(能在一行显示，并且支持宽高 可以内容撑开宽度)
 
@@ -1093,4 +1090,36 @@ A、<kbd>来表示用户输入      B、<var>用来表示变量       C、list-i
 2、哪些可以给文字加上背景？  ( A B C D )
 
 A、bg-primary        B、bg-success        C、bg-info       D、bg-warning
+
+
+3、有一个元素，需要在pc端显示而在手机端隐藏，需要使用的方法是？  ( B )
+
+A、visible-xs-8 hidden-md    B、visible-md-8 hidden-xs    C、visible-md-8 hidden-sm    D、visible-sm-8 hidden-md
+
+
+4、关于栅格系统，以下说法正确的是   ( A C D )
+
+A、会有自动的padding样式    B、会有自动的margin样式     C、其字体默认为14px    D、其box-sizing默认为border-box
+
+
+5、下列关于btn标签的说法正确的是  ( A B C D )
+
+A、btn-group能将按钮组成按钮组    B、btn-toolbar能将btn做成复杂组件
+
+C、btn-group可以嵌套使用         D、可以使用btn-group-lg，btn-group-sm来调整按钮大小
+
+
+6、为了在input两侧添加额外元素，以下说法正确的是     ( A B D )
+
+A、使用input-group来封装控件    B、使用input-group-addon来添加前置元素
+
+C、使用input-group-tailon来添加后置元素   D、必须为input添加form-control类
+
+
+7、假设当前屏幕分别率为1024×768，定义一个居中的占屏幕一半大小的表格的语句是  ( A B C D )
+
+A、<TABLE ALIGN=”CENTER” WIDTH=”50%”></TABLE>    B、<TABLE ALIGN=”CENTER” WIDTH=”512″></TABLE>
+
+C、<DIV ALIGN=”CENTER”><TABLE WIDTH=”512″></TABLE></DIV>     D、<CENTER><TABLE WIDTH=”50%”></TABLE></CENTER>
+
 
