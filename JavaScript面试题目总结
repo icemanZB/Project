@@ -345,7 +345,7 @@ function Apple(name){
     Fruit.call(this,name);
 }
  var F = function () {};
-Apple.prototype=Fruit.prototype;
+F.prototype=Fruit.prototype;
 Apple.prototype=new F();
 Apple.prototype.constructor=Apple;
 

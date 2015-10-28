@@ -844,7 +844,7 @@ position:absolute;top:50%;left:50%; margin-top:-102px; margin-left:-202px;} /* �
 表格
 注意事项：
 1、不要给table,th,td以外的表格标签加样式
-2、table特性：不是内联不是块，他就是table,内容撑开宽度
+2、table特性：不是内联不是块，他就是table,内容撑开宽度，独占一行
 3、单元格默认平分table的宽度
 4、th里面的文字默认加粗，并且左右上下居中显示
 5、td里面的内容默认上下居中，左右距左显示
