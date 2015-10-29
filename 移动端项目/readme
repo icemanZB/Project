@@ -211,7 +211,9 @@ touchmove == mousemove
 
 touchend == mouseup
 
+不建议使用固定定位，会有很多兼容问题
 
+transition 需要在元素整个渲染完成以后，才会有效果
 
 
 
