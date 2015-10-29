@@ -7,20 +7,27 @@
 
 </head>
 <body>
-<!-- class="form-inline" 内联表单，他的宽度是auto自适应，一般适用于宽度最小是768px
-其中一定要设置label，class="sr-only隐藏label
- 可以通过栅格系统控制input大小
+<!--
+class="form-inline" 内联表单，当宽度小于768px会铺满一行( 为了适应移动端 )
+其中一定要设置label，class="sr-only隐藏label，可以通过栅格系统控制input大小
+
+注：只有正确设置了输入框的type 类型，才能被赋予正确的样式。支持的输入框控件
+包括：text、password、datetime、datetime-local、date、month、time、week、
+number、email、url、search、tel 和color。
+校验状态 has-success、has-warning
  -->
 <form action="" role="form" class="form-inline">
     <div class="form-group has-warning">
-        <label class="sr-only">用户名</label>
+        <!--control-label 可以同步has-warning，那么用户名的颜色就会变-->
+        <label class="control-label">用户名</label>
         <input type="date" class="form-control" placeholder="user"/>
         <span class="form-control-static">请按照我的格式输入</span>
     </div>
+    <!--has-feedback 配合小图标使用，作用类似于是加个position:relative;-->
     <div class="form-group has-success has-feedback">
         <label class="sr-only">Email</label>
         <input type="email" class="form-control" placeholder="Enter email"/>
-        <!-- 小图标 -->
+        <!-- 小图标 glyphicon-warning-sign glyphicon-remove -->
         <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
     </div>
@@ -38,8 +45,18 @@
         <input type="text" class="form-control"/>
         <textarea class="form-control" rows="5">hello</textarea>
     </div>
+
+    <div class="input-group">
+        <div class="input-group-addon">￥</div>
+        <input type="text" class="form-control">
+
+        <div class="input-group-addon">.00</div>
+    </div>
 </form>
-<!-- 水平排列的表单 -->
+<!--
+水平排列的表单form-horizontal
+.control-label 配合使用
+ -->
 <form class="form-horizontal" role="form" style="margin-top: 20px;">
     <div class="form-group">
         <label class="col-sm-2 control-label">Email</label>
@@ -56,25 +73,32 @@
         </div>
 
     </div>
-
+    <!--checkbox-->
     <div class="form-group">
         <div class="col-sm-10 col-sm-offset-2">
-            <div class="checkbox">
+            <!--disabled 只能加在div上 更在checkbox后才有效果-->
+            <div class="checkbox disabled">
                 <label>
-                    <input type="checkbox"/>运动
-                </label>
-                <label>
-                    <input type="checkbox"/>看书
-                </label>
-                <label>
-                    <input type="checkbox"/>玩游戏
+                    <input type="checkbox" disabled/>运动
                 </label>
             </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"/>篮球
+                </label>
+            </div>
+
+            <label class="checkbox-inline">
+                <input type="checkbox"/>看书
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox"/>玩游戏
+            </label>
 
         </div>
 
     </div>
-
+    <!--radio-->
     <div class="form-group">
         <div class="col-sm-10 col-sm-offset-2">
             <div class="radio">
@@ -89,7 +113,7 @@
         </div>
 
     </div>
-
+    <!--select-->
     <div class="form-group">
         <div class="col-sm-10 col-sm-offset-2">
             <select class="form-control">
@@ -102,6 +126,7 @@
         </div>
 
     </div>
+
     <div class="form-group">
         <div class="col-sm-10 col-sm-offset-2">
             <div class="checkbox">
