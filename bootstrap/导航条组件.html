@@ -7,8 +7,9 @@
 </head>
 <body>
 <!--
-默认固定在顶部
-navbar-fixed-bottom 导航在底部
+默认固定在顶部 navbar-fixed-top固定在顶部，页面内容要向下导航条的高度
+静态导航，和页面等宽的导航条，去掉了圆角
+<nav class="navbar navbar-default navbar-static-top">
 -->
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="collapse navbar-collapse">
@@ -27,6 +28,15 @@ navbar-fixed-bottom 导航在底部
                 </div>
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
+            <!--导航中使用按钮-->
+            <button class="btn btn-default navbar-btn navbar-left">按钮</button>
+            <!--导航中使用一段文本-->
+            <p class="navbar-text">
+                我是一段文本
+                <!--非导航链接，一般需要置入文本区域内-->
+                <a href="#" class="navbar-link">非导航链接</a>
+            </p>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
@@ -43,12 +53,12 @@ navbar-fixed-bottom 导航在底部
     </div>
 </nav>
 
-<!--路径导航-->
+<!--路径导航  breadcrumb 面包屑-->
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
     <ol class="breadcrumb">
         <li><a href="#">Home</a></li>
         <li><a href="#">Library</a></li>
-        <li><a href="#">Date</a></li>
+        <li class="active">Date</li>
     </ol>
 </nav>
 

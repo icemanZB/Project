@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <style>
+        .box {
+			height: 50px;
+			width: 200px;
+			border: 1px solid #ccc;
+			background-color: #eee;
+		}
+    </style>
+</head>
+<body>
+<div class="visible-xs-inline box">超小屏幕激活显示</div>
+<!--超小屏幕激活显示，当分辨率小于768就显示-->
+<span class="visible-xs-block box">超小屏幕激活显示</span>
+<!--超小屏幕激活隐藏，因为div本来就是块，所以就不用block-->
+<div class="hidden-xs box">超小屏幕激活隐藏</div>
+<!--注：对于显示的内容，有三种变体，分别为：block、inline-block、inline。-->
+
+</body>
+</html>

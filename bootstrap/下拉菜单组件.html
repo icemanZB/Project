@@ -6,8 +6,43 @@
     <link rel="stylesheet" href="bootstrap-3.3.5/css/bootstrap.min.css"/>
 </head>
 <body>
-<!--所有的图标类，必须在span标签中，并且不能与其他class混用-->
-<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+<!--
+基本格式：按钮和菜单需要包裹在.dropdown 的容器里，而作为被点击的元素按钮需要设置
+data-toggle="dropdown"才能有效。对于菜单部分，设置class="dropdown-menu"才能
+自动隐藏并添加固定样式。设置class="caret"表示箭头，可上可下。
+-->
+<div class="dropdown">  <!--open 默认菜单展开，一般不用  、  设置向上触发dropup     -->
+    <button class="btn btn-default" data-toggle="dropdown">
+        下拉菜单
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">   <!--菜单项居右对齐dropdown-menu dropdown-menu-right，默认值是dropdown-menu-left-->
+        <li class="dropdown-header">网站导航</li>
+        <!--设置菜单的标题dropdown-header，不要加超链接-->
+        <li><a href="#">首页</a></li>
+        <li><a href="#">资讯</a></li>
+        <li class="divider"></li>
+        <!--设置菜单的分割线divider-->
+        <li><a href="#">产品</a></li>
+        <li><a href="#">关于</a></li>
+    </ul>
+</div>
+
+<!--分裂式按钮下拉菜单-->
+<div class="btn-group">
+    <button type="button" class="btn btn-default">下拉菜单</button>
+    <button type="button" class="btn btn-default dropdown-toggle"
+            data-toggle="dropdown">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">资讯</a></li>
+        <li><a href="#">产品</a></li>
+        <li><a href="#">关于</a></li>
+    </ul>
+</div>
+
 <!-- 下拉菜单 -->
 <div class="container">
     <!--下拉菜单的位置要再加父级上 pull-right-->

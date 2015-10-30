@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <style>
+        .box {
+			height: 50px;
+			width: 200px;
+			border: 1px solid #ccc;
+			background-color: #eee;
+		}
+    </style>
+</head>
+<body>
+<!--注：这个浮动其实就是float，只不过使用了!important 加强了优先级。-->
+<div class="pull-left box">左边</div>
+<div class="pull-right box">右边</div>
+<!--注：就是margin:x auto；并且设置了display:block;。-->
+<div class="center-block box">居中</div>
+<!--清理浮动 注：这个div 可以放在需要清理浮动区块的前面即可。-->
+<div class="clearfix"></div>
+<!--显示和隐藏-->
+<div class="show">show</div>
+<div class="hidden">hidden</div>
+
+<div class="pull-left box">左边</div>
+<div class="clearfix"></div>
+<div class="box">右边</div>
+
+</body>
+</html>
