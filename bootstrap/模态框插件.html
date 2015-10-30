@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>模态框</title>
+    <link rel="stylesheet" href="bootstrap-3.3.5/css/bootstrap.min.css"/>
+</head>
+<body>
+<!--
+data-backdrop="false" 空白背景且点击不关闭
+data-keyboard="false" 按下esc 不关闭
+data-show="false" 初始化隐藏，如果是按钮点击触发，第一次点击则无法显示，第二次显示。 不常用 jQuery中用的比较多
+href="index.html" 加载一次index.html 到容器内
+-->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    启动模态框
+</button>
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-lg">
+    启动大模态框
+</button>
+
+<!-- data-whatever 获取当前的内容添加到输入框中-->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mod">
+    Open
+</button>
+
+<!--modal 模态声明  tabindex="-1" 光标焦点取消 fade 淡入淡出 -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--窗口声明-->
+    <div class="modal-dialog">
+        <!--内容声明-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--aria-label="Close"-->
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalTitle">
+                    标题 会员登入
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">1</div>
+                        <div class="col-md-4">2</div>
+                        <div class="col-md-4">3</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            这是一个大的模块框
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myExampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="example">
+                    标题
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Recipient</label>
+                        <input type="text" class="form-control" id="recipient-name"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../js/jquery-2.0.2.js"></script>
+<script src="bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        //通过jQuery 方式声明
+        /*$('#myModal').modal({
+         show: true,  true 是自动加载 一般设置false
+         backdrop: false,
+         keyboard: false,
+         remote: 'index.html'
+         });
+         点击显示弹窗
+         $('#btn').on('click', function () {
+         $('#myModal').modal('show');
+         });
+         */
+
+        /*模态框支持4 种时间，分别对应弹出前、弹出后、关闭前和关闭后。
+         show.bs.modal 在show 方法调用时立即触发。
+         shown.bs.modal
+         在模态框完全显示出来，并且等CSS 动画完成之后触
+         发。
+         hide.bs.modal 在hide 方法调用时，但还未关闭隐藏时触发。
+         hidden.bs.modal
+         在模态框完全隐藏之后，并且等CSS 动画完成之后触
+         发。
+         $('#myModal').on('show.bs.modal', function () {
+         alert('在show 方法调用时立即触发！');
+         });
+         $('#myModal').on('shown.bs.modal', function () {
+         alert('在模态框显示完毕后触发！');
+         });
+         $('#myModal').on('hide.bs.modal', function () {
+         alert('在hide 方法调用时立即触发！');
+         });
+         $('#myModal').on('hiden.bs.modal', function () {
+         alert('在模态框显示完毕后触发！');
+         });
+         // 默认的时候就已经加载了，不是按钮触发的
+         $('#myModal').on('loaded.bs.modal', function () {
+         alert('远程数据加载完毕后触发！');
+         });
+         */
+        $('#exampleModal').on('show.bs.modal', function (ev) {
+            var button = $(ev.relatedTarget);
+            var recipient = button.data('whatever');
+            var modal = $(this);
+            modal.find('.modal-title').text('New Message To' + recipient);
+            modal.find('.modal-body').find('input').val(recipient);
+        });
+    });
+</script>
+</body>
+</html>
