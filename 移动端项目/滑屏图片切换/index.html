@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" name="viewport" content="width=device-width,target-densitydpi=device-dpi,user-scalable=no">
+    <title></title>
+    <style>
+        body { background: #f3f2f3; margin: 0; font-size: 0.5rem; }
+
+        #picWrap { width: 100%; overflow: hidden; }
+
+        /* 一共4张图片，每张图占一屏，一屏是10rem  overflow: hidden;清楚浮动 */
+        #picList { width: 40rem; overflow: hidden; }
+
+        /*  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);设置的是a标签或者按钮按下的阴影颜色 */
+        #picList a { float: left; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+        #picList img { width: 10rem; }
+
+        #picBtns { height: 0.3rem; padding: 0.2rem 0; margin: 0; text-align: center; }
+
+        #picBtns span { width: 0.3rem; height: 0.3rem; margin: 0 0.1rem; border: 1px solid #000; display: inline-block; box-sizing: border-box; border-radius: 0.15rem; vertical-align: top; }
+
+        #picBtns .active { background: #f60; }
+    </style>
+    <script>
+        // 1rem是屏幕大小的1/10  window.screen.width:屏幕分辨率的宽度
+        document.getElementsByTagName("html")[0].style.fontSize = window.screen.width / 10 + "px";
+    </script>
+</head>
+<body>
+<section id="picWrap">
+    <nav id="picList">
+        <!--这里防止误触 判断是否有移动过，有移动过就不触发，没有移动过就触发-->
+        <a data-href="http://www.baidu.com" ontouchmove="this.s=1"
+           ontouchend="this.s||window.open(this.dataset.href),this.s=0">
+            <img src="img/1.jpg"/>
+        </a>
+        <a data-href="http://www.qq.com" ontouchmove="this.s=1"
+           ontouchend="this.s||window.open(this.dataset.href),this.s=0">
+            <img src="img/2.jpg"/>
+        </a>
+        <a data-href="http://www.miaov.com" ontouchmove="this.s=1"
+           ontouchend="this.s||window.open(this.dataset.href),this.s=0">
+            <img src="img/3.jpg"/>
+        </a>
+        <a data-href="http://www.163.com" ontouchmove="this.s=1"
+           ontouchend="this.s||window.open(this.dataset.href),this.s=0">
+            <img src="img/4.jpg"/>
+        </a>
+    </nav>
+</section>
+<p id="picBtns">
+    <span class="active"></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</p>
+<script>
+    document.ontouchmove = function (e) {
+        e.preventDefault();  // 防止某些手机图片不跟着手指走
+    };
+    window.onload = function () {
+        var oPicList = document.getElementById("picList");
+        var aBtns = document.getElementById("picBtns").children;
+        var iScroll = 0; // 就是控制 translateX(-100px)
+        var iStartX = 0;
+        var iStartTouchX = 0;
+        var iNow = 0;
+        bind(oPicList, 'touchstart', function (ev) {
+            iStartTouchX = ev.changedTouches[0].pageX;   // 当前手指的位置
+            iStartX = iScroll; // 当前元素的位置
+            oPicList.style.WebkitTransition = oPicList.style.MozTransition = oPicList.style.transition = "none";
+        });
+        bind(oPicList, 'touchmove', function (ev) {
+            var iDis = ev.changedTouches[0].pageX - iStartTouchX;
+            iScroll = iStartX + iDis;
+            setStyle();
+        });
+        bind(oPicList, 'touchend', function (ev) {
+            var iDis = ev.changedTouches[0].pageX - iStartTouchX;
+            iScroll = iStartX + iDis;
+            iNow = -iScroll / window.screen.width; // 这边这个 '-' 是取反的意思
+            // 判断iNow % 1 是否要小于 0.3，向下取整为0，向上取整正好为1
+            iNow = iNow % 1 < 0.3 ? Math.floor(iNow) : Math.ceil(iNow);
+            // 边界处理，防止用户拖出去
+            if (iNow < 0) {
+                iNow = 0;
+            }
+            if (iNow >= aBtns.length) {
+                iNow = aBtns.length - 1;
+            }
+            iScroll = -iNow * window.screen.width; // 控制图片走的距离，向前走是负数
+            // 不建议使用，可能多个transition时候，页面会闪一下，看不到页面渲染的过程 借助 tween() 自己加动画
+            oPicList.style.WebkitTransition = oPicList.style.MozTransition = oPicList.style.transition = ".5s";
+            for (var i = 0; i < aBtns.length; i++) {
+                aBtns[i].className = "";
+            }
+            aBtns[iNow].className = "active";
+            setStyle();
+        });
+
+        function setStyle() {
+            oPicList.style.WebkitTransform = oPicList.style.MozTransform = oPicList.style.transform = "translateX(" + iScroll + "px)";
+        }
+
+        function bind(obj, ev, fn) {
+            if (obj.addEventListener) {
+                obj.addEventListener(ev, fn, false);
+            } else {
+                obj.attachEvent('on' + ev, function () {
+                    fn.call(obj);
+                });
+            }
+        }
+    };
+</script>
+</body>
+</html>

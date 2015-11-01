@@ -59,7 +59,7 @@ Retina 屏 ( 高清屏 ) : dpr都是大于等于2
       1px=1dp 缩放0.5，根据设备的物理像素dp等于抽象像素px来设计。1像素边框和高清图片都不需要额外处理
 
 
-wport 手机可视区窗口的设置
+viewport 手机可视区窗口的设置
 
     ios的viewport 是 980px，把页面渲染在一个viewport当中，通过缩放可以看到整个页面，这就是viewport的效果
     1) 页面渲染在一个980px(ios)的viewport
@@ -205,16 +205,33 @@ C.通过100%、flex或rem等手段，等比例缩放 1rem= 1个html上设置的�
 
 touch事件
 
-touchstart == mousedown
+touchstart == mousedown   手指按下
 
-touchmove == mousemove
+touchmove == mousemove    手指移动
 
-touchend == mouseup
+touchend == mouseup       手指移开
+
+touchEvent
+1、touches 当前位置于屏幕上的所有手指的一个列表
+2、targetTouches 位于当前DOM元素上的手指的一个列表
+3、changedTouches 涉及当前事件的手指的一个列表  ( 建议使用这个，由于手指移开的时候，上面两个属性是获取不到的 )
+
+var oBox=document.getElementById("box");
+oBox.ontouchstart=function(e){
+	//console.log(e.touches);
+	console.log(e.targetTouches);
+};
+oBox.ontouchmove=function(){
+	console.log(e.touches);
+};
+oBox.ontouchend=function(e){
+	console.log(e.changedTouches);
+};
 
 不建议使用固定定位，会有很多兼容问题
 
 transition 需要在元素整个渲染完成以后，才会有效果
 
-
+ -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 设置的是a标签或者按钮按下的阴影颜色( 默认会有黑色半透明的阴影，不是很美观 )
 
 
