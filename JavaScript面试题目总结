@@ -862,7 +862,7 @@ $.extend({
         return JSON.parse(array)
     }
 });
-然后调用：$stringifyArray(array)
+然后调用：$.stringifyArray(array)
 
 
 
