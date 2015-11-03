@@ -1091,3 +1091,15 @@ function cssStyle2DomStyle(sName) {
             return b.toUpperCase() + c.toLowerCase();
         }).replace(/^\-/, '');
 }
+
+
+
+以下为一段浏览器中可运行的Javascript 代码，则运行该段Javascript代码的页面弹出框中显示的结果是：( D )
+
+var obj = {"key":"1","value":"2"};
+var newObj = obj;
+newObj.value += obj.key;
+alert(obj.value);
+
+A、2     B、12     C、3     D、21
+

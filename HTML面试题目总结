@@ -1137,4 +1137,14 @@ A、<TABLE ALIGN=”CENTER” WIDTH=”50%”></TABLE>    B、<TABLE ALIGN=”CE
 
 C、<DIV ALIGN=”CENTER”><TABLE WIDTH=”512″></TABLE></DIV>     D、<CENTER><TABLE WIDTH=”50%”></TABLE></CENTER>
 
+8、关于嵌套列的用法，错误的是 ( C )
+
+A、<div class=“row”><br>  <div class=“col-sm-1”>
+
+B、<div class=“col-sm-1”><br><div class=“row”><br>
+
+C、<div class=“row”><br>   <div class=“container”><br>    <div class=“col-xs-1”><br>
+
+D、<div class=“container”><br>   <div class=“row”><br>     <div class=“col-xs-1”>
+
 
