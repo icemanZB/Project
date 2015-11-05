@@ -445,7 +445,7 @@ ev.stopPropagation();
 if(a instanceof Person){
    alert('yes');
 }
-数组判断需要特殊的方法 Array.prototype.toString.call(obj) === 'object Array'
+数组判断需要特殊的方法 Object.prototype.toString.call(obj) === 'object Array'
 
 
 35、Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？  hasOwnProperty()
