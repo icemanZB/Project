@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+        var num1 = '1' > 2;
+        console.info(num1); // 会先将字符串转为数字在比较  false
+
+        var num2 = '3' > '22';
+        console.info(num2); // 两个都是字符串比较，只会对第一个字符进行比较  true
+
+        var num3 = 'a' > 'b';
+        console.info(num3); // 此时比较的是ASCII码 97>98  false
+
+        // 第二个是对象的时候,第一个如果是true,则返回第二个对象
+        // 否则返回false
+        var box = 0 && {};
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
