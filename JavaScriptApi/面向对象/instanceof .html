@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>instanceof</title>
+    <script>
+
+        // instanceof : 对象与构造函数在原型链上是否有关系
+
+        function Aaa() {
+        }
+
+        var a1 = new Aaa();
+
+        console.log(a1 instanceof Aaa);  // true  是否在同一个原型链上
+        console.log(a1 instanceof Array); // false
+        // 任何对象 instanceof Object 都为 true
+        console.log(a1 instanceof Object);  // true  每一个对象的最外层都是 Object.prototype
+
+        // 类型的判断  (不是最好的方法)
+        var arr = [];
+
+        console.log(arr instanceof Array);
+
+    </script>
+</head>
+
+<body>
+</body>
+</html>

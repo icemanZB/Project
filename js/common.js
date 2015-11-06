@@ -356,7 +356,7 @@ function isArray(obj) {
     try {
         return Array.isArray(obj);  // Array.isArray(obj);  ecma5
     } catch (e) {
-        return Object.prototype.toString.call(obj) === 'object Array';
+        return Object.prototype.toString.call(obj) === '[object Array]';
     }
 
 }
@@ -446,7 +446,7 @@ function deepClone(obj) {
  *  使用{}作为转义标记，中间的数字表示替换目标，format实参用来替换模板内标记
  *
  *  var t = new fn('<p><a href="{0}">{1}</a><span>{2}</span></p>');
-    console.log(t.format('http://www.alibaba.com', 'Alibaba', 'Welcome'));
+ console.log(t.format('http://www.alibaba.com', 'Alibaba', 'Welcome'));
  *
  * */
 function stringFormat(str) {
@@ -454,4 +454,11 @@ function stringFormat(str) {
     return this.str.replace(/\{\s*(\d+)\s*\}/g, function (a, b) {
         return arg[b] || '';
     });
-};
+}
+
+// 判断原型中有的属性
+function isProperty(obj, attr) {
+    return !obj.hasOwnProperty(attr) && (attr in obj);
+
+}
+
