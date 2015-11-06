@@ -8,10 +8,14 @@
 <body>
 <!--
 基本格式：按钮和菜单需要包裹在.dropdown 的容器里，而作为被点击的元素按钮需要设置
-data-toggle="dropdown"才能有效。对于菜单部分，设置class="dropdown-menu"才能
+data-toggle="dropdown"才能有效，一般是作为JavaScript关联。对于菜单部分，设置class="dropdown-menu"才能
 自动隐藏并添加固定样式。设置class="caret"表示箭头，可上可下。
+声明式用法的关键核心：
+1.外围容器使用class="dropdown"包裹；
+2.内部点击按钮事件绑定data-toggle="dropdown"；
+3.菜单元素使用class="dropdown-menu"。
 -->
-<div class="dropdown">  <!--open 默认菜单展开，一般不用  、  设置向上触发dropup     -->
+<div class="dropdown" id="dropdown">  <!--open 默认菜单展开，一般不用,设置向上触发dropup -->
     <button class="btn btn-default" data-toggle="dropdown">
         下拉菜单
         <span class="caret"></span>
@@ -76,5 +80,16 @@ data-toggle="dropdown"才能有效。对于菜单部分，设置class="dropdown-
 
 <script src="../js/jquery-2.0.2.js"></script>
 <script src="bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script>
+    /*
+    * show.bs.dropdown 在 show 方法调用时立即触发
+    * shown.bs.dropdown 在下拉菜单完全显示出来，并且等css动画完成之后触发
+    * hide.bs.dropdown 在 hide 方法调用时，但还未关闭隐藏时触发
+    * hiden.bs.dropdown 在下拉菜单完全隐藏之后，并且等css动画完成之后触发
+    * */
+    $('#dropdown').on('show.bs.dropdown', function () {
+        alert('在调用 show 方法时立即触发！');
+    });
+</script>
 </body>
 </html>
