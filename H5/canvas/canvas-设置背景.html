@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-设置背景</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            var yImg = new Image();
+
+            yImg.onload = function () {
+                draw(this);
+            };
+
+            yImg.src = '../img/拖放/miaov.png';
+
+            function draw(obj) {
+
+               // createPattern(img,'平铺方式') repeat-x repeat-y no-repeat
+                var bg = oGC.createPattern(obj, 'repeat');
+
+                // 把填充的对象bg填充到里面去
+                oGC.fillStyle = bg;
+
+                // 画一个填充方块
+                oGC.fillRect(0, 0, 300, 300);
+
+            }
+
+        };
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

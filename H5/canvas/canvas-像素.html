@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-像素</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            oGC.fillRect(0, 0, 100, 100);
+
+            // 获取图片的像素 getImageData(x,y,w,h)
+            var oImg = oGC.getImageData(0, 0, 100, 100);
+
+            //alert( oImg.width );  // 一行的像素个数
+            //alert( oImg.height );  // 一列的像素个数
+
+            //alert( oImg.data );  // 整体像素的数组集合
+            // 100*100=1w个像素 每个像素占4个位置
+            // oImg.data.length  4w
+
+            //alert( oImg.data[0] );  // 0 - 255 黑色到白色
+            //alert( oImg.data[1] );  // 0 - 255 黑色到白色
+            //alert( oImg.data[2] );  // 0 - 255 黑色到白色
+            //alert( oImg.data[3] );  // 0 - 255 透明到不透明
+
+            for (var i = 0; i < oImg.width * oImg.height; i++) {
+
+                oImg.data[4 * i] = 255;
+                oImg.data[4 * i + 1] = 0;
+                oImg.data[4 * i + 2] = 0;
+                oImg.data[4 * i + 3] = 100;
+
+            }
+
+            // 设置新的像素
+            // putImageData(oImg,x,y);
+            oGC.putImageData(oImg, 100, 100);
+
+        };
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

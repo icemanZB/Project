@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JSON.parse</title>
+    <script type="text/javascript">
+        /*
+        *  JSON.parse 和eval()的区别
+        *
+        *  eval :  可以解析任何字符串变成JS
+        *  parse : 只能解析JSON形式的字符串变成JS  (安全性要高一些) 经常对数据使用
+        *
+        *  var str = 'function show(){alert(123)}';
+
+           eval(str);
+
+           show();
+        *
+        * IE 6 7  不支持
+        * */
+        window.onload=function(){
+
+            // 字符串中的属性要严格的加上引号
+            var str = '{"name":"hello"}';   // 一定是严格的JSON形式
+
+            var json = JSON.parse(str);
+
+            alert( json.name );
+
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>

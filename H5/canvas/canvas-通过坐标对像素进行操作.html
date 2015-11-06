@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-通过坐标对像素进行操作</title>
+    <style>
+        body {
+            background: black;
+            color: white;
+            font-size: 30px;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            oGC.fillRect(0, 0, 100, 100);
+
+            var oImg = oGC.getImageData(0, 0, 100, 100);
+
+            //alert( getXY(oImg,3,5) );
+
+            //setXY( oImg,3,5,[255,0,0,255] );
+
+            // 循环一行
+            for (var i = 0; i < oImg.width; i++) {
+                setXY(oImg, i, 5, [255, 0, 0, 255]);
+            }
+
+            oGC.putImageData(oImg, 100, 100);
+
+            // 获取坐标 针对一行一列进行操作
+            function getXY(obj, x, y) {
+
+                var w = obj.width;
+                var h = obj.height;
+                var d = obj.data;
+
+                var color = [];
+
+                color[0] = d[4 * (y * w + x)];
+                color[1] = d[4 * (y * w + x) + 1];
+                color[2] = d[4 * (y * w + x) + 2];
+                color[3] = d[4 * (y * w + x) + 3];
+
+                return color;
+
+            }
+
+            function setXY(obj, x, y, color) {
+                var w = obj.width;
+                var h = obj.height;
+                var d = obj.data;
+
+
+                d[4 * (y * w + x)] = color[0];
+                d[4 * (y * w + x) + 1] = color[1];
+                d[4 * (y * w + x) + 2] = color[2];
+                d[4 * (y * w + x) + 3] = color[3];
+
+            }
+
+
+        };
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

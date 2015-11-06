@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-事件操作2</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            var c1 = new Shape(100, 100, 50);
+            var c2 = new Shape(200, 200, 50);
+
+            oC.onmousedown = function (ev) {
+                var ev = ev || window.event;
+                var point = {
+                    x: ev.clientX - oC.offsetLeft,
+                    y: ev.clientY - oC.offsetTop
+                };
+
+                c1.reDraw(point);
+                c2.reDraw(point);
+
+            };
+
+            // 做为回调函数
+            c1.click = function () {
+                alert(123);
+            };
+
+            c2.click = function () {
+                alert(456);
+            };
+
+            function Shape(x, y, r) {
+                this.x = x;
+                this.y = y;
+                this.r = r;
+
+                // 在构造函数中创建圆
+                oGC.beginPath();
+                oGC.arc(this.x, this.y, this.r, 0, 360 * Math.PI / 180, false);
+                oGC.closePath();
+                oGC.fill();
+            }
+
+            // 重绘图形 为了知道当前操作的图形是哪一个图形,只有重绘的图形才是最新的
+            Shape.prototype.reDraw = function (point) {
+                oGC.beginPath();
+                oGC.arc(this.x, this.y, this.r, 0, 360 * Math.PI / 180, false);
+                oGC.closePath();
+                oGC.fill();
+
+                if (oGC.isPointInPath(point.x, point.y)) {
+                    this.click();
+                }
+
+            };
+        };
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

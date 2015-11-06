@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-阴影</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            oGC.font = '60px impact';
+
+            oGC.textBaseline = 'top';  //middle bottom
+
+            oGC.shadowOffsetX = 10; // X轴偏移量
+            oGC.shadowOffsetY = 10; // Y轴偏移量
+            oGC.shadowBlur = 3; // 高斯模糊值
+
+            // alert(oGC.shadowColor);  // 默认颜色: 黑色透明
+
+            oGC.shadowColor = 'yellow'; // 阴影颜色 必须设置 否则看不出效果
+
+            var w = oGC.measureText('妙味课堂').width;
+
+            oGC.fillText('妙味课堂', (oC.width - w) / 2, (oC.height - 60) / 2);
+
+        };
+
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

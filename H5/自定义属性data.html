@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>自定义属性</title>
+    <script type="text/javascript">
+        // 好处: js和html分离
+        window.onload = function(){
+
+            var oDiv = document.getElementById('div1');
+
+            alert( oDiv.dataset.miaov );
+
+            // alert( oDiv.dataset.miaovAll );
+        };
+
+    </script>
+</head>
+<body>
+<div id="div1" data-miaov="妙味" data-miaov-all="妙味课堂">div</div>
+</body>
+</html>

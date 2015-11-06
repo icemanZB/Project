@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-jCanvaScript类库</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script src="../js/jCanvaScript.1.5.18.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            // 第一个参数 就是canvas的id
+            // 第二个参数: 代表重绘的意思,这样就可以执行点击事件
+            jc.start('c1', true);
+
+            // rect(x,y,w,h,color,isfill)
+            // 最后一个参数1表示填充、0 表示默认是边框
+            // jc.rect(100,100,50,50,'#ff0000',1);
+            // 画圆 circle(x,y,r,color,isfill)
+            jc.circle(100, 100, 50, '#ff0000', 1).click(function () {
+                alert(123);
+            });
+
+            // 结束
+            jc.start('c1');
+
+        };
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

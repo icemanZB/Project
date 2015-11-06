@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>classList</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oDiv = document.getElementById('div1');
+
+            // 得到所属class的列表
+
+            alert( oDiv.classList );  // 类数组的对象 box1 bxo2 box3
+
+            alert( oDiv.classList.length );  //3
+
+            // 如果存在添加的class,则不会重复添加
+            oDiv.classList.add('box4');
+
+            // 如果删除没有的class 则不会报错
+            oDiv.classList.remove('box2');
+
+            // toggle class如果在原有的列表中出现,就删除该class
+            // 如果没有出现就添加
+             oDiv.classList.toggle('box2');
+
+        };
+    </script>
+</head>
+<body>
+<div id="div1" class="box1 box2 box3">div</div>
+</body>
+</html>

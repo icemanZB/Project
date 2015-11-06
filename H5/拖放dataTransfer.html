@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>拖放dataTransfer</title>
+    <style>
+        li {
+            list-style: none;
+            width: 100px;
+            height: 30px;
+            background: yellow;
+            margin: 10px;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin: 200px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oUl = document.getElementsByTagName('ul')[0];
+            var aLi = oUl.getElementsByTagName('li');
+            var oDiv = document.getElementById('div1');
+            var oImg = document.getElementById('img1');
+
+            for (var i = 0; i < aLi.length; i++) {
+
+                aLi[i].ondragstart = function (ev) {
+
+                    var ev = ev || window.event;
+
+                    ev.dataTransfer.setData('name', 'hello');
+
+                    // 设置光标样式,移动到目标元素上的样式
+                    // none、copy、copyLink、copyMove、link、linkMove、move、all、uninitialized
+
+                    ev.dataTransfer.effectAllowed = 'link';
+
+                    // 设置当前拖拽的样式 (指定的元素,坐标x,坐标y) 有兼容问题?
+                    // ev.dataTransfer.setDragImage(oImg, 0, 0);
+
+                };
+
+
+                aLi[i].ondragend = function () {
+                    this.style.background = 'yellow';
+                };
+            }
+
+            oDiv.ondragenter = function () {
+                this.style.background = 'blue';
+            };
+
+            oDiv.ondragover = function (ev) {
+
+                ev.preventDefault();
+
+            };
+
+            oDiv.ondragleave = function () {
+                this.style.background = 'red';
+            };
+
+            oDiv.ondrop = function (ev) {
+            };
+
+        };
+    </script>
+</head>
+<body>
+<ul>
+    <li draggable="true">a</li>
+    <li draggable="true">b</li>
+    <li draggable="true">c</li>
+</ul>
+<div id="div1"></div>
+<img src="img/拖放/miaov.png" id="img1" style="display: none;" />
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>LBS</title>
+    <script type="text/javascript">
+
+        // LBS : 例如摇一摇 或者 寻找周围有什么内容
+        // 地理信息:    经度 南北极的连接线     维度 东西连接线
+        // 位置信息从何而来 ： IP地址 GPS WIFI 基站(3G)
+
+        window.onload = function () {
+            var oInput = document.getElementById('input1');
+            var oT = document.getElementById('t1');
+
+            oInput.onclick = function () {
+                // 单次定位请求
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    // 请求成功
+                    oT.value += '经度:' + position.coords.longitude + '\n';
+                    oT.value += '纬度 :' + position.coords.latitude + '\n';
+                    oT.value += '准确度 :' + position.coords.accuracy + '\n';
+                    oT.value += '海拔 :' + position.coords.altitude + '\n';
+                    oT.value += '海拔准确度 :' + position.coords.altitudeAcuracy + '\n';
+                    oT.value += '行进方向 :' + position.coords.heading + '\n';
+                    oT.value += '地面速度 :' + position.coords.speed + '\n';
+                    oT.value += '时间戳:' + new Date(position.timestamp) + '\n';
+
+
+                }, function (err) {
+
+                    //err.code // 失败所对应的编号
+                    /*
+                    *  0 : 不包括其他错误编号中的错误
+                    *  1 : 用户拒绝浏览器获取位置信息
+                    *  2 : 尝试获取用户信息,但失败了
+                    *  3 : 设置了timeout值,获取位置超时了
+                    *
+                    * */
+
+                    alert(err.code);
+
+                }, {
+                    // 数据回收方式
+                    enableHighAcuracy: true,  // 更精确的查找,默认false
+                    timeout: 5000, // 获取位置允许最长时间,默认 infinity
+                    maximumAge: 5000 // 位置可以缓存的最大时间,默认0
+                });
+
+            };
+
+        };
+
+    </script>
+</head>
+<body>
+<input type="button" value="请求" id="input1"/><br/>
+<textarea id="t1" style="width:400px; height:400px; border:1px #000 solid;">
+</textarea>
+</body>
+</html>

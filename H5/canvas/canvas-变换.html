@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-变换</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+            // x轴偏移 y轴偏移 偏移
+            oGC.translate(100,100);
+            // 以弧度为单位 旋转
+            // 以方块的左上角为中心点旋转
+            // 注意rotate 角度会累积
+            oGC.rotate(20*Math.PI/180);
+            oGC.rotate(25*Math.PI/180);
+            // 缩放
+            oGC.scale(2,2);
+
+            oGC.fillRect(0,0,100,100);
+        };
+
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

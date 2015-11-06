@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多次定位请求</title>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var oInput = document.getElementById('input1');
+            var oT = document.getElementById('t1');
+
+            var timer = null;
+
+            oInput.onclick = function () {
+
+                // 多次定位请求 移动设备有用,位置改变才会触发
+                timer = navigator.geolocation.watchPosition(function (position) {
+
+                    oT.value += '经度:' + position.coords.longitude + '\n';
+                    oT.value += '纬度 :' + position.coords.latitude + '\n';
+                    oT.value += '准确度 :' + position.coords.accuracy + '\n';
+                    oT.value += '海拔 :' + position.coords.altitude + '\n';
+                    oT.value += '海拔准确度 :' + position.coords.altitudeAcuracy + '\n';
+                    oT.value += '行进方向 :' + position.coords.heading + '\n';
+                    oT.value += '地面速度 :' + position.coords.speed + '\n';
+                    oT.value += '时间戳:' + new Date(position.timestamp) + '\n';
+
+
+                }, function (err) {
+
+                    //err.code // 失败所对应的编号
+
+                    alert(err.code);
+
+                    // 关闭定位请求
+                    navigator.geolocation.clearWatch(timer);
+
+                }, {
+                    enableHighAcuracy: true,
+                    timeout: 5000,
+                    maximumAge: 5000,
+                    frequency: 1000  // 更新频率
+                });
+
+            };
+
+        };
+
+    </script>
+</head>
+<body>
+<input type="button" value="请求" id="input1"/><br/>
+<textarea id="t1" style="width:400px; height:400px; border:1px #000 solid;">
+</textarea>
+</body>
+</html>

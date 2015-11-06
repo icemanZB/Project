@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>拖放</title>
+    <style>
+        li{ list-style:none; width:100px; height:30px; background:yellow; margin:10px;}
+        #div1{ width:100px; height:100px; background:red; margin:200px;}
+    </style>
+    <script type="text/javascript">
+        /*
+        * 事件的执行顺序: drop不触发的时候
+        * -dragstart > drag > dragenter > dragover > dragleave > dragend
+        *
+        * 事件的执行顺序: drop触发的时候(dragover的时候阻止默认事件)
+        * -dragstart > drag > dragenter > dragover > drop > dragend
+        *
+        * */
+        window.onload=function(){
+            var oUl = document.getElementsByTagName('ul')[0];
+            var aLi = oUl.getElementsByTagName('li');
+            var oDiv = document.getElementById('div1');
+            var iNow=0;
+            for(var i=0;i<aLi.length;i++){
+
+                aLi[i].index = i;
+
+                // 拖拽开始之前
+                aLi[i].ondragstart=function(ev){
+
+                    var ev = ev || window.event;
+                    // 兼容ff
+                    ev.dataTransfer.setData('name',this.index); // 设置数据
+
+                    this.style.background='green';
+                };
+                // 开始与结束连续触发
+                aLi[i].ondrag=function(){
+                   // document.title = iNow++;
+                };
+
+                // 拖拽结束触发
+                aLi[i].ondragend=function(){
+                    this.style.background='yellow';
+                };
+            }
+
+            // 目标元素
+
+            // 拖拽元素进入到目标元素触发
+            oDiv.ondragenter = function(){
+                this.style.background = 'blue';
+            };
+
+            // enter和leave之间连续触发
+            oDiv.ondragover = function(ev){
+
+                // 要想触发drop事件,就必须在dragover当中阻止默认事件
+
+                ev.preventDefault();
+            };
+
+            // 拖拽元素移开目标元素触发
+            oDiv.ondragleave = function(){
+                this.style.background = 'red';
+            };
+
+            // 在目标元素上释放鼠标触发
+            oDiv.ondrop = function(ev){
+                // 获取数据
+                // alert( ev.dataTransfer.getData('name') );
+
+                oUl.removeChild( aLi[ev.dataTransfer.getData('name')] );
+
+                // 重置 aLi[i].index 的值
+                for(var i=0;i<aLi.length;i++){
+                    aLi[i].index = i;
+                }
+
+            };
+        };
+    </script>
+</head>
+<body>
+<ul>
+    <li draggable="true">a</li>
+    <li draggable="true">b</li>
+    <li draggable="true">c</li>
+</ul>
+<div id="div1"></div>
+</body>
+</html>

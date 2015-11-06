@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-贝塞尔曲线</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            /*oGC.moveTo(100,200);
+
+             // quadraticCurveTo(dx,dy,x1,xy)
+             // 第一组控制点、第二组结束坐标
+             oGC.quadraticCurveTo(100,100,200,100);
+
+             oGC.stroke();*/
+
+            oGC.moveTo(100, 200);
+            // bezierCurveTo(dx1,dy1,dx2,dy2,x1,y1)
+            // 第一组控制点 第二组控制点 结束点
+            oGC.bezierCurveTo(100, 100, 200, 200, 200, 100);
+
+            oGC.stroke();
+
+        };
+
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

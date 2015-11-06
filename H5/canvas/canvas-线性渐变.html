@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-线性渐变</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+            // createLinearGradient(x1,y1,x2,y2) 起点坐标和终点坐标
+            var obj = oGC.createLinearGradient(150, 100, 250, 200);
+
+            // 起点的位置用0表示 终点的位置用1表示
+            obj.addColorStop(0, 'red');
+            obj.addColorStop(0.5, 'yellow');
+            obj.addColorStop(1, 'blue');
+
+            // 填充线性渐变
+            oGC.fillStyle = obj;
+
+            oGC.fillRect(150, 100, 100, 100);
+
+
+        };
+
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

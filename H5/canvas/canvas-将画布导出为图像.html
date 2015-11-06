@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-将画布导出为图像</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+
+        #img1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oImg = document.getElementById('img1');
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            oGC.fillRect(0, 0, 100, 100);
+
+            oGC.fillStyle = 'red';
+
+            oGC.globalCompositeOperation = 'xor';
+
+            oGC.fillRect(50, 50, 100, 100);
+
+            //alert( oC.toDataURL() );  64位图片信息
+
+            // 火狐右键可以直接导成图片
+            oImg.src = oC.toDataURL();
+
+        };
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+<img id="img1" src=""/>
+</body>
+</html>

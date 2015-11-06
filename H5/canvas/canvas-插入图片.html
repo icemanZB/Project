@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-插入图片</title>
+    <style>
+        body{ background:black;}
+        #c1{ background:white;}
+    </style>
+    <script type="text/javascript">
+       window.onload=function(){
+           var oC =document.getElementById('c1');
+           var oGC = oC.getContext('2d');
+
+           var yImg = new Image();
+
+           yImg.onload = function(){
+               draw(this);
+           };
+
+           yImg.src = '../img/拖放/miaov.png';
+
+           function draw(obj){
+               // 插入图片必须等图片加载完
+               // drawImage(oImg,x,y,w,h); x y 为图片的坐标 w,y为图片的宽高
+               // 如果最后两个参数不写,图片会自适应,图片有多大就显示多大
+               // 多余的部分将会不显示出来
+               oGC.drawImage(obj,0,0);
+           }
+       };
+
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

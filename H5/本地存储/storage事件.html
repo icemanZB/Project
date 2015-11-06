@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>storage事件</title>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var aInput = document.getElementsByTagName('input');
+
+            aInput[0].onclick = function () {
+
+                window.localStorage.setItem('name', aInput[3].value);
+
+            };
+
+            aInput[1].onclick = function () {
+
+                alert(window.localStorage.getItem('name'));
+
+            };
+
+            aInput[2].onclick = function () {
+
+                window.localStorage.removeItem('name');
+
+
+            };
+
+            // 当数据有修改或者删除的情况下,就会触发storage事件
+            // 在对数据进行改变的窗口对象上是不会触发的 (当前页面的事件不会触发)
+            // 自有共享的页面才会触发
+            // session同窗口才可以,iframe的操作
+            window.addEventListener('storage', function (ev) {
+
+                console.log(ev.key); // 修改或删除的key值,如果调用clear(),key为null
+                console.log(ev.newValue); // 新的值,如果调用removeStorage(),key为null
+                console.log(ev.oldValue);
+                console.log(ev.storageArea);  // 当前的storage对象
+                console.log(ev.url); // 触发该脚本变化的文档的url
+
+            }, false);
+
+        };
+
+    </script>
+</head>
+<body>
+<input type="button" value="设置"/>
+<input type="button" value="获取"/>
+<input type="button" value="删除"/>
+<input type="text"/>
+</body>
+</html>

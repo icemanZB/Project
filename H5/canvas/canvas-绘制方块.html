@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-绘制方块</title>
+    <style>
+        body {
+            background: black;
+        }
+        #c1 {
+            background: white;
+        }
+        span {
+            color: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            // 原点在左上角, 越往右边x越大,越往下y越大
+            // 填充默认是黑色
+            // oGC.fillRect(50,50,100,100); // (L,T,W,H)
+
+            // 边框的颜色是黑色,显示出来的大小是1px solid black
+
+            oGC.strokeRect(50.5,50.5,100,100); // 带边框的方块 50.5 为了避免显示出2px
+
+        };
+
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400">
+    <span>不支持canvas浏览器</span>
+</canvas>
+</body>
+</html>

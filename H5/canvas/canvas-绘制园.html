@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-绘制园</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+            oGC.moveTo(200, 200);
+            // 弧度 = 角度*Math.PI/180
+            // arc(X,Y,半径,起始弧度,结束弧度,旋转方向)
+            oGC.arc(200, 200, 150, 0, 90 * Math.PI / 180, true);
+
+            // oGC.closePath();
+
+            oGC.stroke(); // 画线
+        };
+
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

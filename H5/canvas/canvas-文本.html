@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-文本</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGC = oC.getContext('2d');
+
+            // 设置文字大小 impact: 文字样式(不能不写,宋体和楷体也是这个)
+            oGC.font = '60px impact';
+
+            // 设置文字以上为基准
+            oGC.textBaseline = 'top';  //middle bottom
+
+            // 添加文字 fillText('文字',x,y);
+            oGC.fillText('妙味课堂', 0, 0);
+
+            // 画线文字
+            oGC.strokeText('妙味课堂', 0, 200);
+
+        };
+
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-jCanvaScript类库draggable</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c1 {
+            background: white;
+        }
+    </style>
+    <script src="../js/jCanvaScript.1.5.18.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            jc.start('c1', true);
+
+            jc.circle(100,100,50,'#ff0000',1).draggable();
+
+            jc.start('c1');
+
+        };
+    </script>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+</body>
+</html>

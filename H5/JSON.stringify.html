@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JSON.stringify</title>
+    <script type="text/javascript">
+        // JSON 的新方法 把JSON 转为 JSON的字符串
+        // IE 6 7  不支持
+        window.onload=function(){
+
+            var json = {name : "hello"};
+
+            var str = JSON.stringify(json);
+
+            alert( str ); // {"name":"hello"}
+
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>
