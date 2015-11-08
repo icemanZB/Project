@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script>
+        function show(time) {
+            var dfd = $.Deferred();
+            setTimeout(function () {
+                console.log(time + '秒后:');
+                dfd.reject();  //  dfd.resolve();
+            }, time * 1000);
+            return dfd;
+        }
+
+        show(1).then(function () {
+            console.log('成功');
+        }, function () {
+            console.log('失败');
+        });
+
+        // done() 对应成功的回调函数
+        // fail() 对应的失败的回调函数
+        show(1).done(function () {
+            console.log('成功');
+        }).fail(function () {
+            console.log('失败');
+        });
+
+        function show1() {
+            var dfd = $.Deferred();
+            setTimeout(function () {
+                console.log('第一个');
+                dfd.resolve();
+            }, 2000);
+            return dfd;
+        }
+
+        function show2() {
+            var dfd = $.Deferred();
+            setTimeout(function () {
+                console.log('第二个');
+                dfd.resolve();
+            }, 5000);
+            return dfd;
+        }
+        // 类似 Promise.all() 等所有的异步都完成了调用
+        $.when(show1(), show2()).then(function () {
+            console.log('都成功才触发');
+        });
+
+    </script>
+</head>
+
+<body>
+</body>
+</html>

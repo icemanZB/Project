@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script>
+
+        // jquery中的 queue dequeue  队列操作就是利用的promise
+        var getJSON = function (url) {
+            return new Promise(function (resolve, reject) {
+                var client = new XMLHttpRequest();
+                client.open("GET", url);
+                client.onreadystatechange = handler;
+                client.responseType = "json";
+                client.setRequestHeader("Accept", "application/json");
+                client.send();
+
+                function handler() {
+                    if (this.status === 200) {
+                        resolve(this.response);
+                    } else {
+                        reject(new Error(this.statusText));
+                    }
+                };
+            });
+
+        };
+
+        getJSON("text.json").then(function (json) {
+            console.log('Contents: ' + json);
+        }, function (error) {
+            console.error('出错了', error);
+        });
+
+
+
+
+    </script>
+</head>
+
+<body>
+</body>
+</html>
