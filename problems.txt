@@ -1,5 +1,5 @@
 http://dengo.org/  不错的网站
-
+Mootools ？？
 css 预编译 模块化
 js 模板引擎
 js断流
@@ -7,7 +7,9 @@ js断流
          http://dengo.org/archives/1004
 jquery源码
 promise的问题    http://www.ruanyifeng.com/blog/2011/08/a_detailed_explanation_of_jquery_deferred_object.html
-                http://www.zhangxinxu.com/wordpress/2014/02/es6-javascript-promise-%E6%84%9F%E6%80%A7%E8%AE%A4%E7%9F%A5/
+ http://www.zhangxinxu.com/wordpress/2014/02/es6-javascript-promise-%E6%84%9F%E6%80%A7%E8%AE%A4%E7%9F%A5/
+
+jQuery性能： http://www.ruanyifeng.com/blog/2011/08/jquery_best_practices.html
 
 http://web.jobbole.com/82251/ js 面试题目
 

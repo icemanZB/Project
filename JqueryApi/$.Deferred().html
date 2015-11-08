@@ -5,6 +5,16 @@
     <title>无标题文档</title>
     <script src="../js/jquery-1.11.0.min.js"></script>
     <script>
+        // ajax新写法 回调函数可以添加任意多个，它们按照添加顺序执行
+        // done()相当于success方法，fail()相当于error方法
+        $.ajax("test.html").done(function () {
+            console.log("哈哈，成功了！");
+        }).fail(function () {
+            console.log("出错啦！");
+        }).done(function () {
+            console.log("第二个回调函数！");
+        });
+
         function show(time) {
             var dfd = $.Deferred();
             setTimeout(function () {
@@ -46,8 +56,55 @@
             return dfd;
         }
         // 类似 Promise.all() 等所有的异步都完成了调用
+        // 也就是为多个操作添加一个回调函数
         $.when(show1(), show2()).then(function () {
             console.log('都成功才触发');
+        });
+
+        $.when($.ajax("test1.html"), $.ajax("test2.html")).done(function () {
+            console.log("哈哈，成功了！");
+        }).fail(function () {
+            console.log("出错啦！");
+        });
+
+        var dtd = $.Deferred(); // 新建一个deferred对象
+        var wait = function (dtd) {
+            var tasks = function () {
+                console.log("执行完毕！");
+                dtd.resolve(); // 改变deferred对象的执行状态
+            };
+            setTimeout(tasks, 5000);
+            return dtd;
+        };
+
+        // 现在，wait()函数返回的是deferred对象，这就可以加上链式操作了
+        $.when(wait(dtd)).done(function () {
+            console.log("哈哈，成功了！");
+        }).fail(function () {
+            console.log("出错啦！");
+        });
+
+        // 上面这种写法，还是有问题。那就是dtd是一个全局对象，所以它的执行状态可以从外部改变
+        // 我在代码的尾部加了一行dtd.resolve()，这就改变了dtd对象的执行状态，因此导致done()方法立刻执行
+        // 跳出"哈哈，成功了！"的提示框，等5秒之后再跳出"执行完毕！"的提示框
+        dtd.resolve();
+
+        // 防止执行状态被外部改变的方法，是使用deferred对象的建构函数$.Deferred()。
+        // 这时，wait函数还是保持不变，我们直接把它传入$.Deferred()
+        // $.Deferred()可以接受一个函数名（注意，是函数名）作为参数
+        // $.Deferred()所生成的deferred对象将作为这个函数的默认参数
+        var waitFn = function (dtd) {
+            var tasks = function () {
+                console.log("执行完毕！");
+                dtd.resolve(); // 改变deferred对象的执行状态
+            };
+            setTimeout(tasks, 5000);
+            return dtd;
+        };
+        $.Deferred(waitFn).done(function () {
+            console.log("$.Deferred()哈哈，成功了！");
+        }).fail(function () {
+            console.log("$.Deferred()出错啦！");
         });
 
     </script>

@@ -5,7 +5,8 @@ $('li').html('hello'); // 所有的li里面的内容都为hello 当是一组元�
     <li>bbb</li>
     <li>ccc</li>
 </ul>
-
+如果结果集包含多个元素，那么赋值的时候，将对其中所有的元素赋值；
+取值的时候，则是只取出第一个元素的值 ( .text()例外，它取出所有元素的text内容 )
 
 has() 保包含的意思 所找的元素,是看他包含的内部当中是否有.box
 $('div').has('.box').css('background','red');  // 只会让第一个div变红
@@ -115,9 +116,27 @@ size() 像 length
 
 fadeIn()  fadeOut()   淡入淡出从0到1 默认400ms
 fadeOut() 即元素的不透明度的比例从100%逐渐减小到0%
-fadeTo(1000,0.6)  案例修改！ 淡入淡出到某个值
+fadeTo(1000,0.6)  淡入淡出到某个值
 slideUp() slideDown() 向上向下卷曲
 提示：如果元素已经隐藏，则该效果不产生任何变化
+除了.show()和.hide()，所有其他特效的默认执行时间都是400ms
+// 回调函数
+$('p').fadeOut(300, function() { $(this).remove(); });
+复杂的运动
+$('div').animate(
+    {
+        left : "+=50", //不断右移
+        opacity : 0.25 //指定透明度
+    },
+　　300, // 持续时间
+　　function() { alert('done!'); } //回调函数
+);
+stop() 默认只会阻止当前的运动    stop(true)  阻止后续的所有运动
+stop(true,true)  可以立即停止到指定的目标点,并阻止后续所有运动
+finish()  会立即停止到运动中的所有目标点
+delay(1000)  延迟一秒后在运动
+
+$.fx.off如果设置为true，则关闭所有网页特效。
 
 
 text()  获取的是所有元素的文本 (特例)
@@ -169,12 +188,6 @@ slice('起始位置','结束位置(不包括)')   $('li').slice(1,4).css('backgr
     <li></li>
     <li></li>
 </ul>
-
-
-stop() 默认只会阻止当前的运动    stop(true)  阻止后续的所有运动
-stop(true,true)  可以立即停止到指定的目标点,并阻止后续所有运动
-finish()  会立即停止到运动中的所有目标点
-delay(1000)  延迟一秒后在运动
 
 
 事件委托  优势提高性能   delegate()     undelegate()

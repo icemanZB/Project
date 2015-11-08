@@ -3,11 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>无标题文档</title>
+    <!--
+        让低版本的浏览器兼容Promise
+        https://github.com/jakearchibald/es6-promise/blob/master/README.md
+    -->
+    <script src="http://s3.amazonaws.com/es6-promises/promise-0.1.1.min.js"></script>
     <script>
         /*
          promise 是  commonJS下的一个规范 , 规范的就是JS中的异步操作方式
          thenjs  whenjs deferred(jq)  , 基于promise开发出的实际代码
-         ECS 6 - > ecmaScript 6中已经加入原生JS实现了promise( 解决异步处理方式 )
+         ES 6 - > ecmaScript 6中已经加入原生JS实现了promise( 解决异步处理方式 )
          */
         // 通过回调的处理，来保证运行顺序
         // 缺点：嵌套太多
