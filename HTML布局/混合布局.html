@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body { margin: 0; padding: 0; font-size: 30px; font-weight: bold }
+
+        div { text-align: center; line-height: 50px }
+
+        .clear { zoom: 1; }
+
+        .clear:after { content: ""; display: block; clear: both; }
+
+        .main { width: 960px; margin: 0 auto }
+
+        .head { height: 100px; background: #9CF }
+
+        .left { width: 220px; height: 600px; background: #ccc; float: left }
+
+        .right { width: 740px; height: 600px; background: #FCC; float: right }
+
+        .r_sub_left { width: 540px; height: 600px; background: #9C3; float: left }
+
+        .r_sub_right { width: 200px; height: 600px; background: #9FC; float: right }
+
+        .footer { height: 50px; background: #9F9; clear: both }
+    </style>
+</head>
+<body>
+<div class="head">head</div>
+<div class="main clear">
+    <div class="left">left</div>
+    <div class="right clear">
+        <div class="r_sub_left">sub_left
+        </div>
+        <div class=" r_sub_right">sub_right
+        </div>
+    </div>
+</div>
+<div class="footer">footer</div>
+</body>
+</html>
