@@ -1,3 +1,105 @@
+秒 转 分
+
+var s=1234;
+
+alert(parseInt(s/60)+'分'+s%60+'秒');
+
+
+
+全局变量 是window上面的属性
+
+var a=12;
+window.alert(window.a);  //window 可以省略
+
+
+// 没有定义的变量 --- 报错
+
+// 没有定义的属性 ---  undefined
+
+变量不属于任何人  属性属于一个对象  其实 变量=属性
+
+任何对象都能加属性
+
+var arr=[1,2,3,4];
+
+arr.a=12;
+alert(arr.a);
+
+arr.aaa=function ()
+{
+alert('abc');
+};
+
+arr.aaa();
+同理 函数 是自由的 方法是属于某个对象
+
+但不能在系统的对象中随意的添加属性方法 否则会覆盖原来的内容
+
+
+var str='abcdef';
+
+alert(str.search('de')); // 3  de在原字符串中从第三个开始
+
+// 找到并且返回字符串出现的位置，没找到为-1
+
+// 获取字符串第一个
+var str='12345';   等于讲把字符串看成数组了
+
+alert(str[0]);  不兼容IE7
+
+
+//  charAt()  全兼容
+alert(str.charAt(0)); //获取字符串某一位的值
+
+
+var arr=[1,2,3,5,6,7];
+
+arr.length=3;
+
+alert(arr); // 1,2,3
+
+arr.push(8);  //数组添加 在末尾
+
+arr.pop();  // 删除数组的尾部
+arr.shift();  //头部删除元素
+arr.unshift(); // 添加头部元素
+
+清空数组 arr.length=0;
+
+//删除元素
+arr.splice(2，3);  // 起点(下标)，长度(个数)
+
+arr.splice(2,0,'a','b','c');  //插入元素 (起点,长度,元素...)
+
+//数组链接
+
+var a=[1,2,3]; var b=[4,5,6];
+
+alert(a.concat(b));
+
+var arr=[1,2,3,4];
+
+alert(arr.join('-'));  // 1-2-3-4
+
+
+//数组排序  (字符串)
+
+var arr=['float','width','alpha','zoom','left'];
+
+arr.sort();
+
+alert(arr);
+
+
+//排数字
+
+var arr=[12,8,99,19,112];
+
+
+arr.sort(function (n1,n2){
+	return n1-n2;
+});
+
 26、JavaScript在IE浏览器和Firefox浏览器中的差异总结
 
     (1) HTML对象的 id 作为对象名的问题

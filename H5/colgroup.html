@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<table border="1" style="width:300px;">
+    <!--<caption>元素给表格添加一个标题。-->
+    <caption>这是一个表格</caption>
+    <tfoot>
+    <tr>
+        <td colspan="3">统计：共两人</td>
+    </tr>
+    </tfoot>
+
+    <tbody>
+    <tr style="background:red;">
+        <td>张三</td>
+        <td>男</td>
+        <td>未婚</td>
+    </tr>
+    <tr>
+        <td>李四</td>
+        <td>女</td>
+        <td>已婚</td>
+    </tr>
+    </tbody>
+
+    <thead>
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>婚否</th>
+    </tr>
+    </thead>
+
+</table>
+
+<br>
+
+<table border="1" style="width:300px;">
+    <!--<colgroup>元素是为了处理某个列，span 属性定义处理哪些列。1 表示第一列，
+    2 表示前两列。如果要单独设置第二列，那么需要声明两个，先处理第一个，将列点移入第
+    二位，再处理第二个即可。-->
+    <colgroup style="background:white;" span="1"></colgroup>
+    <colgroup style="background:red;" span="1"></colgroup>
+
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>婚否</th>
+    </tr>
+    <tr>
+        <td>张三</td>
+        <td>男</td>
+        <td>未婚</td>
+    </tr>
+    <tr>
+        <td>李四</td>
+        <td>女</td>
+        <td>已婚</td>
+    </tr>
+</table>
+
+<br>
+
+<table border="1" style="width:300px;">
+
+    <colgroup>
+        <!--<col>元素表示单独一列，一个表示一列，控制更加灵活。如果设置了span 则，控制多列。-->
+        <col>
+        <col style="background:red;">
+    </colgroup>
+
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>婚否</th>
+    </tr>
+    <tr>
+        <td>张三</td>
+        <td>男</td>
+        <td>未婚</td>
+    </tr>
+    <tr>
+        <td>李四</td>
+        <td>女</td>
+        <td>已婚</td>
+    </tr>
+</table>
+</body>
+</html>

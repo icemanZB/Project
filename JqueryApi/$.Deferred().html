@@ -61,11 +61,12 @@
             console.log('都成功才触发');
         });
 
-        $.when($.ajax("test1.html"), $.ajax("test2.html")).done(function () {
-            console.log("哈哈，成功了！");
-        }).fail(function () {
-            console.log("出错啦！");
-        });
+        $.when($.ajax("http://service.finance365.com/api/Company/COMPANY201509071053058314317")
+                , $.ajax("http://service.finance365.com/api/book/GetBookByBookNo/2061")).done(function () {
+                    console.log("哈哈，成功了！");
+                }).fail(function () {
+                    console.log("出错啦！");
+                });
 
         var dtd = $.Deferred(); // 新建一个deferred对象
         var wait = function (dtd) {

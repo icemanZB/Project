@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>video标签</title>
+    <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //获取veido对象
+
+            var jqVedio = $('#vedio').get(0); // jquery 获取的vedio 对象是一个数组，取第一个元素
+
+            $("#btn").click(function () {
+                var jqVedio = $('#vedio');
+
+                alert(jqVedio[0].id);
+
+                var jsVedio = document.getElementById("vedio");
+
+            });
+
+            $("#full").click(function () {
+
+                jqVedio.webkitEnterFullScreen();   // webkit 浏览器
+                jqVedio.mozRequestFullScreen();	  // firefox 浏览器
+            });
+
+            return;
+
+
+            jqVedio.load();  			     // 自动载入视频
+            jqVedio.play();  			    // 播放视频
+            jqVedio.pause(); 		       // 暂停
+            jqVedio.currentTime += 10;     // 快进10秒 ,最小单位是秒
+            jqVedio.playbackRate++;      // 播放速度增加,默认播放速度增加1
+            jqVedio.playbackRate += 0.1;  // 播放速度增加0.1
+            jqVedio.volume += 0.1;	   // 音量增加
+            jqVedio.muted = true;		  // 静音
+        })
+    </script>
+</head>
+<body>
+<!--
+容器格式        视频编解码       音频编解码       IE9+     Firefox5+       Chrome13+
+WebM            VP8             Vorbis          ×       √               √
+OGG             Theora          Vorbis          ×       √               √
+MPEG-4          H.264           AAC             √       ×               √
+还有Safari5+支持MPEG-4,Opera11 支持WebM 和OGG，通过这组数据，只要备好MP4 和OGG 格式的即可，但对于新的高清标准WebM，当然是非常必要
+的。因为WebM 不但清晰度高，而且免费，不受限制许可的使用源码和专利权。目前Chrome 浏览器，为了推广WebM 格式的视频。声称未来将放弃H.264 编码的视频，
+所以有可能在以后的版本中无法播放MP4 的视频。当然，目前演示的版本还是支持的。
+-->
+<video id="vedio" controls="controls" src=""></video>
+<!--
+浏览器不支持Html5视频播放功能 就会显示这些文字，controls="controls" 默认一些播放按钮
+poster="loading.jpg" 视频打开之前或者视频还没有载入成功之前，默认显示的图片(属性规定视频下载时显示的图像，或者在用户点击播放按钮前显示的图像。
+如果未设置该属性，则使用视频的第一帧来代替。)
+-->
+<video controls="controls" src="">
+    浏览器不支持Html5的视频播放功能
+</video>
+<!--
+如果浏览器不支持某一些视频解码,浏览器不支持video/ogg 这个模式 会自动跳到第二个mp4模式
+属性：autoplay="autoplay"  自动播放属性 如果出现该属性，则视频在就绪后马上播放一般不建议使用，因为可能页面还没有全部打开就开始播放了用户体验非常不好
+     loop="2"   循环播放2次
+     preload="auto"  音频加载完后才开始播放,如果设置了 autoplay 属性，则忽略该属性。(不建议使用，用户体验不好)
+-->
+<video width="300" controls="controls">
+    <source src="" type="video/ogg"/>
+    <source src="" type="video/mp4"/>
+</video>
+
+<a href="http://www.php100.com/html/webkaifa/HTML5/2012/0716/10684.html" target="_blank">
+    TML5 视频标签的方法、属性和事件
+</a>
+
+<input type="button" value="获取vedio" id="btn"/>
+
+<input type="button" value="全屏显示" id="full"/>
+
+</body>
+</html>
