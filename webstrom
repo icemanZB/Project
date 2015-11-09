@@ -17,8 +17,32 @@ git配置： File -> settings -> Editor -> github，进去改github的账户
 
 注释在行首而不是紧接着代码? Code Style > Javascript > Wrapping and Braces > comment at first column 取消勾选
 
-选中的文本背景色：Selection background 2769B1
+自定义主题的设置
 
+General
+选中的文本背景色：Selection background #2769B1
+
+Identifier under caret  设置双击时候高亮  Effects Bordered 加边框
+
+General的设置
+普通文本：default text
+折叠文本: Folded text
+光标: Caret
+光标所在行: Caret row
+行号: Line number
+TODO: TODO default
+光标下变量高亮：Search result
+搜索结果：Text search result
+匹配的括号：Matched brace
+不匹配的括号：Unmatched brace
+未使用的符号：Unused symbol
+左边空隙（行号，断点）：Gutter background
+选中的文本背景色：Selection background
+选中的文本前景色：Selection foreground
+
+快捷键
 F2 或Shift+F2	高亮错误或警告快速定位
 
-选中文本，按Ctrl+Shift+F7、ALT+F3	高亮显示所有该文本，按Esc高亮消失
+选中文本，按Ctrl+Shift+F7	高亮显示所有该文本，按Esc高亮消失
+
+勾选上图中的Use Soft Wraps就启用了WebStorm的自动换行的功能，即过长的代码行不会超出屏幕，不会出现横向的滚动条
