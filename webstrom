@@ -1,3 +1,24 @@
 http://blog.fens.me/angularjs-webstorm-ide/  webstrom 支持angularjs 提示
 
 File->Settings->Plugins->点击 “Browse Repositories”->选中 “AngularJS(ScaffAngular)” 双击->选择 “Yes”-> 重启WebStorm
+
+webstrom js提示比较迟缓 File -> Code Completion -> Autopopup in 下 1000改为0
+
+主题更换 http://my.oschina.net/lee2013/blog/314051   http://qianduanblog.com/post/webstorm-portal-1-themes-and-colors.html
+
+如何完美显示中文： File -> Settings->Appearance中勾选Override default fonts by (not recommended)，设置 Name:NSimSun，Size:12
+如何显示行号： File -> Settings->Editor，”Show line numbers”打上勾，就显示行号了
+如何代码自动换行： File -> settings -> Editor “Use Soft Wraps in editor” 打上钩，代码就自动换行了
+如何点击光标，显示在本行末尾： File -> Settings->Editor “Allow placement of caret after end of line”去掉勾就行了。
+如何修改快键键： File -> Settings->Keymap，然后双击要修改快捷的功能会有提示框出来，按提示操作 换成自己熟悉编辑器的快键键
+javascript类库提示。 File -> settings -> Javascript -> Libraries -> 然后在列表里选择自己经常用到的javascript类库，最后Download and Install
+git配置： File -> settings -> Editor -> github，进去改github的账户
+
+
+注释在行首而不是紧接着代码? Code Style > Javascript > Wrapping and Braces > comment at first column 取消勾选
+
+选中的文本背景色：Selection background 2769B1
+
+F2 或Shift+F2	高亮错误或警告快速定位
+
+选中文本，按Ctrl+Shift+F7、ALT+F3	高亮显示所有该文本，按Esc高亮消失
