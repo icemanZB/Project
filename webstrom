@@ -30,7 +30,6 @@ General的设置
 光标: Caret
 光标所在行: Caret row
 行号: Line number
-TODO: TODO default
 光标下变量高亮：Search result
 搜索结果：Text search result
 匹配的括号：Matched brace
@@ -46,3 +45,13 @@ F2 或Shift+F2	高亮错误或警告快速定位
 选中文本，按Ctrl+Shift+F7	高亮显示所有该文本，按Esc高亮消失
 
 勾选上图中的Use Soft Wraps就启用了WebStorm的自动换行的功能，即过长的代码行不会超出屏幕，不会出现横向的滚动条
+
+file status
+added  git add 文件的颜色 #629755
+unknow 添加一个文件 但是git没有add的颜色  D5756C
+merged with conflicts   D5756C
+merged width property conflicts
+merged with text and property conflicts
+changelist conflict   D5756C
+modify  #6897BB
+modify in not active changelist  #6897BB
