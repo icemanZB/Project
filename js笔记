@@ -125,6 +125,23 @@ str.replace(/<\/?[^>]+>/gi, "");
 
 ```
 
+秒 转 分
+
+var s=1234;
+
+alert(parseInt(s/60)+'分'+s%60+'秒');
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### XMLHttpRequest通用属性和方法
 

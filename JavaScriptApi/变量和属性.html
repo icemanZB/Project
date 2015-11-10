@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        // 全局变量 是window上面的属性
+
+        var a=12;
+        window.alert(window.a);  // window 可以省略
+
+        /**
+         * 没有定义的变量 --- 报错
+         * 没有定义的属性 ---  undefined
+         * 变量不属于任何人  属性属于一个对象  其实 变量=属性
+         * 任何对象都能加属性，jQuery中的get() 就是这个原理
+         * */
+
+        var arr=[1,2,3,4];
+
+        arr.a=12;
+        console.log(arr.a);
+
+        arr.aaa=function () {
+            console.log('abc');
+        };
+        // 不能在系统的对象中随意的添加属性方法 否则会覆盖原来的内容
+        arr.aaa(); // 同理 函数 是自由的 方法是属于某个对象
+    </script>
+</head>
+<body>
+
+</body>
+</html>
