@@ -972,25 +972,25 @@ IE会先加载整个HTML文档的DOM，然后再去导入外部的CSS文件，�
 
 6). :link、：visited、：hover、：active、：focus 链接状态：选择特定状态的链接元素，L-V-H-A ，兼容性: IE4+
 
-7). 直接兄弟选择器(X + Y)：在X之后第一个兄弟节点中选择满足Y选择器的元素，兼容性： IE7+ ( div + p 选择紧接在 <div> 元素之后的所有 <p> 元素 )
+7). 直接兄弟选择器(X + Y)：在X之后第一个兄弟节点中选择满足Y选择器的元素，兼容性： IE7+ ( div + p 选择紧接在 <div> 元素之后的所有 <p> 元素 )     CSS2
 
-8).子选择器(X > Y)：选择X的子元素中满足Y选择器的元素，兼容性： IE7+   ( div > p 选取父元素是 <div> 元素的每个 <p> 元素 )
+8).子选择器(X > Y)：选择X的子元素中满足Y选择器的元素，兼容性： IE7+   ( div > p 选取父元素是 <div> 元素的每个 <p> 元素 )  CSS2
 
-9).兄弟(X ~ Y)：选择X之后所有兄弟节点中满足Y选择器的元素，兼容性： IE7+
+9).兄弟(X ~ Y)：选择X之后所有兄弟节点中满足Y选择器的元素，兼容性： IE7+        CSS3
 
 10).[attr]：选择所有设置了 attr 属性的元素，兼容性IE7+
 
 11).[attr=value]：选择属性值刚好为value的元素
 
-12).[attr~=value]：选择属性值刚好是value的元素
+12).[attr~=value]：选择属性值刚好是value的元素      CSS2
 
-13).[attr|=value]：选择属性值刚好为 value 或者 value- 开头的元素
+13).[attr|=value]：选择属性值刚好为 value 或者 value- 开头的元素    CSS2
 
-14).[attr^=value]：选择属性值以 value 开头的元素
+14).[attr^=value]：选择属性值以 value 开头的元素    CSS3
 
-15).[attr$=value]：选择属性值以 value 结尾的元素
+15).[attr$=value]：选择属性值以 value 结尾的元素    CSS3
 
-16).[attr*=value]：选择属性值中包含 value 的元素
+16).[attr*=value]：选择属性值中包含 value 的元素    CSS3
 
 17).[:checked]：选择单选框，复选框，下拉框中选中状态下的元素，兼容性：IE9+
 
@@ -999,6 +999,35 @@ IE会先加载整个HTML文档的DOM，然后再去导入外部的CSS文件，�
 19). :hover ：鼠标移入状态的元素，兼容性a标签IE4+， 所有元素IE7+
 
 20). :not(selector) ：选择不符合selector的元素，不参与计算优先级，兼容性：IE9+
+
+/*伪类都需要加上前置选择器来限制范围*/
+:first-child 子元素选择器选择元素中第一个子元素      CSS2
+
+:last-child 子元素选择器选择元素中最后一个子元素     CSS3
+
+:nth-of-type(n) 选择器匹配属于父元素的特定类型的第 N 个子元素的每个元素.  CSS3
+
+:enabled UI 选择器选择启用状态的元素        CSS3
+
+:disabled UI 选择器选择禁用状态的元素       CSS3
+
+:checked UI 选择器选择被选中input 勾选元素   CSS3
+
+::selection {color: red;}
+解释：这是一个伪元素选择器，当选择文字时触发选择。CSS3
+
+:nth-child(n)系列
+ul > li:nth-child(2) {
+color: red;
+}
+解释：选择子元素的第二个元素。
+
+ul > li:nth-last-child(2) {
+color: red;
+}
+解释：选择子元素倒数第二个元素。
+
+
 
 
 70、解释一下外边距折叠( collapsing margins )，有什么规则？

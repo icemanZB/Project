@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>HTML5 form 智能表单</title>
+		<style type="text/css">
+			#demo p{position:relative;margin:10px 0}
+			#demo p label{position:absolute;left:0;display:block;width:160px;font-weight:bolder}
+			#demo p input{width:200px;margin:0 8px 0 160px }
+			#demo p span{color:#555}
+			#demo p input[type=search]{
+				-webkit-appearance:textfield;
+				-webkit-box-sizing: content-box;
+				font-family: inherit;
+				font-size: 100%;
+				}
+			input::-webkit-search-decoration,
+			input::-webkit-search-cancel-button {
+			display: none;
+			}
+		</style>
+		<script src="js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(function(){
+				$("#btn").click(function(){
+					alert($("#email").val());
+				});
+			})
+		</script>
+	</head>
+	<body>
+        <div id="demo">
+			<form method="get" id="foo" action="">
+				<p>
+					<label for="email">email类型：</label>
+					<input type="email" name="email" id="email" placeholder="请输入正确mail地址" required="required" />
+					<span>placeholder属性为文本框中的灰色文字(Google中输入文字才消失)，required：必填项</span>
+				</p>
+				<p>
+					<label for="url">url类型：</label>
+					<input type="url" id="url" />
+					<span>验证URL地址,label 标签中的for ,对应input中的id，点击文字光标会停在input中</span>
+				</p>
+				<p>
+					<label for="date">date类型：</label>
+					<input type="date" id="date" />
+					<span style="color: red;">FF 不兼容</span>
+				</p>
+				<p>
+					<label for="number">number类型：</label>
+					<input type="number" name="number" id="number" />
+					<span>只能输入数字</span>
+				</p>
+				<p>
+					<label for="range">range类型：</label>
+					<input type="range" id="range" min="0" max="10" step="1" />
+					<span>min="0" max="10" step="1" step 阶数 </span>
+				</p>
+				<p>
+					<label for="search">search类型：</label>
+					<input type="search" results="n"  id="search" placeholder="输入搜索内容"/>
+					<span>result='n' 会出现放大镜样式(Google)</span>
+				</p>
+				<p>
+					<label for="color">color类型：</label>
+					<input type="color" id="color" />
+					<span>不同浏览器效果不同</span>
+				</p>
+				<p>
+					<label for="pattern">pattern属性：</label>
+					<input type="text" name="pattern" id="pattern" placeholder="输入邮政编码" required="required" pattern="^[1-9]\d{5}$" />
+					<span>正则表达式</span>
+				</p>		
+				<p>
+					<label for="list">list属性：</label>
+					<input type="text" id="list" list="ilist" placeholder="热门电影排行" />
+					<span>FF 不支持</span>
+					<datalist id="ilist">
+						<option label="Top1" value="让子弹飞">
+						<option label="Top2" value="非诚勿扰2">
+						<option label="Top3" value="大笑江湖">
+						<option label="Top4" value="赵氏孤儿">
+        				<option label="Top5" value="初恋这件小事">
+					</datalist>
+				</p>
+				<input type="submit" value="sub" />
+				<input type="button" value="提交" id="btn" />
+			</form>
+			<input type="text" form="foo" name="test" />
+		</div>
+	</body>
+</html>
