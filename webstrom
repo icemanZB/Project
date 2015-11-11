@@ -55,3 +55,7 @@ merged with text and property conflicts
 changelist conflict   D5756C
 modify  #6897BB
 modify in not active changelist  #6897BB
+
+webstrom 搜索encoding 设置创建的文件格式为utf-8
+webstrom css->other->keep single-line blocks css保持显示一行
+         css->appearance->show css color

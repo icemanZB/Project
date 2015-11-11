@@ -2,19 +2,8 @@ Mootools ？？
 css 预编译 模块化
 js 模板引擎
 js断流
-高阶函数  http://www.cnblogs.com/dojo-lzz/p/4576083.html
-         http://dengo.org/archives/1004
-jquery源码
-promise的问题    http://www.ruanyifeng.com/blog/2011/08/a_detailed_explanation_of_jquery_deferred_object.html
- http://www.zhangxinxu.com/wordpress/2014/02/es6-javascript-promise-%E6%84%9F%E6%80%A7%E8%AE%A4%E7%9F%A5/
+KISSY.？？？？
 
-jQuery性能： http://www.ruanyifeng.com/blog/2011/08/jquery_best_practices.html
-
-http://web.jobbole.com/82251/ js 面试题目
-
-http://blog.jobbole.com/29269/
-
-http://www.cnblogs.com/muyou/archive/2012/06/26/2563930.html
 
 HTML全局属性(global attribute)有哪些
 参考资料：[MDN: html global attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes)或者[W3C HTML global-attributes](http://www.w3.org/TR/html-markup/global-attributes.html#common.attrs.core)
@@ -27,8 +16,6 @@ HTML全局属性(global attribute)有哪些
 
 SGML？？？？
 
-JavaScript权威指南
-
 5、JavaScript中如何对一个对象进行深度clone?
 
 19、兼容写法 (能力检测)
@@ -39,24 +26,13 @@ JavaScript权威指南
 
 26、 jquery 动画 animate(params, options) slideUp()
 
-http://www.cnblogs.com/dolphinX/p/3524977.html
 
-37 http://www.cnblogs.com/dolphinX/p/3529249.html 有待研究
-
-http://www.zhangxinxu.com/wordpress/2013/05/%E7%90%86%E8%A7%A3another-javascript-quiz-%E9%A2%98%E7%9B%AE/
-
-
-js 浏览器兼容性？？
-Bootstrap???
 
 cmd 和 amd 的区别？？？
 nodejs 看下
-准备下自我介绍
+
 
 请描述你经历过的JavaScript单元测试？？？  Quint jQuery的单位测试框架
-
-数组排序
-http://wteamxq.com/testDemo/array.html
 
 position 有多少个属性
 标签语义化
@@ -100,17 +76,6 @@ for(var i=0;i<aBtn.length;i++){
 
 }
 
-camtasia studio
-手机端H5上传图片
-能调摄像头 本地相册
-
-https://github.com/think2011/localResizeIMG4
-
-
-http://my.oschina.net/sevenhdu/blog/332014
-http://www.cnblogs.com/yexiaochai/p/3567597.html
-DOM2级事件规定事件包括三个阶段：
-
 1、 事件捕获阶段
 
 2、处于目标阶段
@@ -128,31 +93,14 @@ web性能瓶颈
 
 了解前端 MVC 开发模式
 
-ecma 5  http://www.open-open.com/lib/view/open1331175932452.html
-
-
-http://www.jb51.net/article/43261.htm 浮动
-http://blog.csdn.net/return_false/article/details/11203025 清除浮动
-
 border 研究三角??
 
-
-http://www.cnblogs.com/webblog/archive/2009/07/07/1518274.html  css选择器
-
-http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812 margin负值
 
 
 压缩要学习下
 
 bind() 研究下
 
-http://www.phperz.com/article/14/0925/25668.html  不错面试题目
-
-http://blog.csdn.net/dyllove98/article/details/8981433 好文章 有深度的 css
-
-http://www.ruanyifeng.com  不错
-
-http://blog.jobbole.com/54495/  不错js技巧
 
 
 JQuery的源码看过吗？能不能简单说一下它的实现原理？
@@ -279,7 +227,6 @@ JS 分文件夹存放 命名以该JS功能为准的英文翻译。
 图片采用整合的 images.png png8 格式文件使用 尽量整合在一起使用方便将来的管理
 
 
-KISSY.？？？？
 
 
 
@@ -986,3 +933,222 @@ EventUtil.on(nav, 'click', function (event) {
         IE: 有效
         Firefox: 无效
         解决方法: 统一使用obj.style.height = imgObj.height + 'px';
+
+
+
+
+
+
+5.  UML 是什么？在软件开发中怎么使用？
+	* 有哪几种关系？    泛化（Generalization）,实现（Realization），关联（Association)，聚合（Aggregation）
+	，组合(Composition)，依赖(Dependency)
+	* 用例图，包含的元素。参与者，用例，子系统，关系
+
+
+
+73、HTML全局属性(global attribute)有哪些
+
+- class:为元素设置类标识，多个类名用空格分开，CSS和javascript可通过class属性获取元素
+- `accesskey`:设置快捷键，提供快速访问元素如<a href="#" accesskey="a">aaa</a>在windows下的firefox中按``alt + shift + a``可激活元素
+
+- `contenteditable`: 指定元素内容是否可编辑
+- `contextmenu`: 自定义鼠标右键弹出菜单内容
+- `data-*`: 为元素增加自定义属性
+- `dir`: 设置元素文本方向
+- `draggable`: 设置元素是否可拖拽
+- `dropzone`: 设置元素拖放类型： copy, move, link
+- `hidden`: 表示一个元素是否与文档。样式上会导致元素不显示，但是不能用这个属性实现样式效果
+- `id`: 元素id，文档内唯一
+- `lang`: 元素内容的的语言
+- `spellcheck`: 是否启动拼写和语法检查
+- `style`: 行内css样式
+- `tabindex`: 设置元素可以获得焦点，通过tab可以导航
+- `title`: 元素相关的建议信息
+- `translate`: 元素和子孙节点内容是否需要本地化
+
+
+
+
+### HTTP method
+
+1. 一台服务器要与HTTP1.1兼容，只要为资源实现**GET**和**HEAD**方法即可
+2. **GET**是最常用的方法，通常用于**请求服务器发送某个资源**。
+3. **HEAD**与GET类似，但**服务器在响应中值返回首部，不返回实体的主体部分**
+4. **PUT**让服务器**用请求的主体部分来创建一个由所请求的URL命名的新文档，或者，如果那个URL已经存在的话，就用干这个主体替代它**
+5. **POST**起初是用来向服务器输入数据的。实际上，通常会用它来支持HTML的表单。表单中填好的数据通常会被送给服务器，然后由服务器将其发送到要去的地方。
+6. **TRACE**会在目的服务器端发起一个环回诊断，最后一站的服务器会弹回一个TRACE响应并在响应主体中携带它收到的原始请求报文。TRACE方法主要用于诊断，用于验证请求是否如愿穿过了请求/响应链。
+7. **OPTIONS**方法请求web服务器告知其支持的各种功能。可以查询服务器支持哪些方法或者对某些特殊资源支持哪些方法。
+8. **DELETE**请求服务器删除请求URL指定的资源
+
+
+### HTTP request报文结构是怎样的
+[rfc2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html)中进行了定义：
+
+1. 首行是**Request-Line**包括：**请求方法**，**请求URI**，**协议版本**，**CRLF**
+2. 首行之后是若干行**请求头**，包括**general-header**，**request-header**或者**entity-header**，每个一行以CRLF结束
+3. 请求头和消息实体之间有一个**CRLF分隔**
+4. 根据实际请求需要可能包含一个**消息实体**
+一个请求报文例子如下：
+
+```
+GET /Protocols/rfc2616/rfc2616-sec5.html HTTP/1.1
+Host: www.w3.org
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36
+Referer: https://www.google.com.hk/
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: zh-CN,zh;q=0.8,en;q=0.6
+Cookie: authorstyle=yes
+If-None-Match: "2cc8-3e3073913b100"
+If-Modified-Since: Wed, 01 Sep 2004 13:24:52 GMT
+
+name=qiu&age=25
+```
+
+
+### HTTP状态码及其含义
+
+参考[RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)
+
+- 1XX：信息状态码
+    - **100 Continue**：客户端应当继续发送请求。这个临时相应是用来通知客户端它的部分请求已经被服务器接收，且仍未被拒绝。客户端应当继续发送请求的剩余部分，或者如果请求已经完成，忽略这个响应。服务器必须在请求万仇向客户端发送一个最终响应
+    - **101 Switching Protocols**：服务器已经理解力客户端的请求，并将通过Upgrade消息头通知客户端采用不同的协议来完成这个请求。在发送完这个响应最后的空行后，服务器将会切换到Upgrade消息头中定义的那些协议。
+- 2XX：成功状态码
+    - **200 OK**：请求成功，请求所希望的响应头或数据体将随此响应返回
+    - **201 Created**：
+    - **202 Accepted**：
+    - **203 Non-Authoritative Information**：
+    - **204 No Content**：
+    - **205 Reset Content**：
+    - **206 Partial Content**：
+- 3XX：重定向
+    - **300 Multiple Choices**：
+    - **301 Moved Permanently**：
+    - **302 Found**：
+    - **303 See Other**：
+    - **304 Not Modified**：
+    - **305 Use Proxy**：
+    - **306 （unused）**：
+    - **307 Temporary Redirect**：
+- 4XX：客户端错误
+    - **400 Bad Request**:
+    - **401 Unauthorized**:
+    - **402 Payment Required**:
+    - **403 Forbidden**:
+    - **404 Not Found**:
+    - **405 Method Not Allowed**:
+    - **406 Not Acceptable**:
+    - **407 Proxy Authentication Required**:
+    - **408 Request Timeout**:
+    - **409 Conflict**:
+    - **410 Gone**:
+    - **411 Length Required**:
+    - **412 Precondition Failed**:
+    - **413 Request Entity Too Large**:
+    - **414 Request-URI Too Long**:
+    - **415 Unsupported Media Type**:
+    - **416 Requested Range Not Satisfiable**:
+    - **417 Expectation Failed**:
+- 5XX: 服务器错误
+    - **500 Internal Server Error**:
+    - **501 Not Implemented**:
+    - **502 Bad Gateway**:
+    - **503 Service Unavailable**:
+    - **504 Gateway Timeout**:
+    - **505 HTTP Version Not Supported**:
+
+
+
+### css hack原理及常用hack
+
+原理：利用**不同浏览器对CSS的支持和解析结果不一样**编写针对特定浏览器样式。常见的hack有1）属性hack。2）选择器hack。3）IE条件注释
+
+- IE条件注释：适用于[IE5, IE9]常见格式如下
+
+```
+<!--[if IE 6]>
+Special instructions for IE 6 here
+<![endif]-->
+```
+
+- 选择器hack：不同浏览器对选择器的支持不一样
+
+```
+/***** Selector Hacks ******/
+
+/* IE6 and below */
+* html #uno  { color: red }
+
+/* IE7 */
+*:first-child+html #dos { color: red }
+
+/* IE7, FF, Saf, Opera  */
+html>body #tres { color: red }
+
+/* IE8, FF, Saf, Opera (Everything but IE 6,7) */
+html>/**/body #cuatro { color: red }
+
+/* Opera 9.27 and below, safari 2 */
+html:first-child #cinco { color: red }
+
+/* Safari 2-3 */
+html[xmlns*=""] body:last-child #seis { color: red }
+
+/* safari 3+, chrome 1+, opera9+, ff 3.5+ */
+body:nth-of-type(1) #siete { color: red }
+
+/* safari 3+, chrome 1+, opera9+, ff 3.5+ */
+body:first-of-type #ocho {  color: red }
+
+/* saf3+, chrome1+ */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+ #diez  { color: red  }
+}
+
+/* iPhone / mobile webkit */
+@media screen and (max-device-width: 480px) {
+ #veintiseis { color: red  }
+}
+
+/* Safari 2 - 3.1 */
+html[xmlns*=""]:root #trece  { color: red  }
+
+/* Safari 2 - 3.1, Opera 9.25 */
+*|html[xmlns*=""] #catorce { color: red  }
+
+/* Everything but IE6-8 */
+:root *> #quince { color: red  }
+
+/* IE7 */
+*+html #dieciocho {  color: red }
+
+/* Firefox only. 1+ */
+#veinticuatro,  x:-moz-any-link  { color: red }
+
+/* Firefox 3.0+ */
+#veinticinco,  x:-moz-any-link, x:default  { color: red  }
+```
+
+- 属性hack：不同浏览器解析bug或方法
+
+```
+/* IE6 */
+#once { _color: blue }
+
+/* IE6, IE7 */
+#doce { *color: blue; /* or #color: blue */ }
+
+/* Everything but IE6 */
+#diecisiete { color/**/: blue }
+
+/* IE6, IE7, IE8 */
+#diecinueve { color: blue\9; }
+
+/* IE7, IE8 */
+#veinte { color/*\**/: blue\9; }
+
+/* IE6, IE7 -- acts as an !important */
+#veintesiete { color: blue !ie; } /* string after ! can be anything */
+```

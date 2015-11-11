@@ -52,7 +52,7 @@ border : 一般用直线 dashed(像素设置比较大的话,各个浏览器样�
     font-style          文字倾斜 (一般不用斜体文字，用户体验很差)
     text-decoration     文字修饰 (line-through 删除线;)
     letter-spacing      字母间距 (不常用) 通常情况下文字右边会有1px间隙，如果设置letter-spacing:5px;实际测量出来是6px
-    word-spacing        单词间距 (不常用，以空格为解析单位，区分是否是一个单词)
+    word-spacing        单词间距 (不常用，以空格为解析单位，区分是否是一个英文单词)
     white-space:nowrap; 强制文本不换行
     word-wrap:break-word 设置如果文本超出容器宽度，强制断行 ( 只限英文单词和数字 )
     word-break:break-all; 把英文单词和数字排列整齐
@@ -80,6 +80,9 @@ background-position:left; 如果第二个值不设置,默认是居中;反过来�
 background-repeat: repeat-x;  x轴平铺,如果设置了background-position:40px; 那么左边那部分会补上图片,不会空出来
 
 font-size : 页面中的中文文字大小最小为12px，一般均为偶数，不用奇数(奇数会有问题)
+            font-size设置百分比是根据body来计算的
+body{ font-size:50px; }
+p{ font-size:200%; /* 相当于设置了100px，包括设置了 larger、smaller等一样相对于body计算 */ }
 
 font-family : 字体一般用 微软雅黑,Arial; 前面一个字库不认识的话，会用逗号后面的
               默认是宋体，尽量用常规的字体，以防他人电脑没有这种字库
@@ -93,6 +96,14 @@ line-height : 1、文字是在行高的上下居中: 计算行高间隙 30行高
 text-indent : 1、2em; 相当于首行缩进2个字 自动检索文字大小，进行相应的缩进  ( 1em=1个文字大小 )
               如果字体大小是16px的话,那么首行缩进2个字符的话也可以设置为text-indent:32px;
               2、特殊应用 : text-indent:-999px; 隐藏文字
+
+text-transform: uppercase/lowercase/capitalize( 首字母大写 ) / none
+
+white-space:nowrap; /* 空白符被压缩，强制文本不换行 */   white-space:pre; /* 空白符被保留，遇到" 回车 "换行符在换行 */
+
+white-space:pre-line; /* 空白符被压缩，文本排满的情况下自动换行或者遇到换行符 */
+
+white-space:pre-wrap; /* 空白符被保留，文本排满的情况下自动换行或者遇到换行符 */
 
 border 同一个元素两边边框相交的地方是斜线 ( 即设置了border的全部样式,又单独设置了border-top样式就会相交 )
 
