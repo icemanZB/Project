@@ -38,6 +38,7 @@ General的设置
 左边空隙（行号，断点）：Gutter background
 选中的文本背景色：Selection background
 选中的文本前景色：Selection foreground
+injected language fragment 背景颜色去掉，就是<!--[if IE 6]><![endif]--> 这样注释的背景色
 
 快捷键
 F2 或Shift+F2	高亮错误或警告快速定位
@@ -57,5 +58,17 @@ modify  #6897BB
 modify in not active changelist  #6897BB
 
 webstrom 搜索encoding 设置创建的文件格式为utf-8
-webstrom css->other->keep single-line blocks css保持显示一行
+webstrom css->other->keep single-line blocks css保持显示一行 code style css
          css->appearance->show css color
+
+Reformat Code  格式化代码
+
+
+WebStorm 配置node  File -> Settings -> 搜索栏输入node -> Node.js and NPM -> 配置node.exe 安装路径
+在hello.js 中 右键 Run hello.js 即可
+
+WebStorm 配置支持 Node.js 智能提示  File -> Settings -> 搜索栏输入node -> Node.js and NPM -> Configure -> Directory
+                                  (选择在node.js 官网中Downloads下,下载 Source Code 并解压出来) -> Edit usage scope -> ok
+File->setting->language and frameworks->javascript->libraries->勾选要用到的库
+
+File Encodings 设置工程的编码为 utf-8

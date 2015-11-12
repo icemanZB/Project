@@ -7,15 +7,6 @@ node -v  查看node的版本
 运行 hello.js    node + D:\Study\GitHub\nodejs ( 文件路径 )
                  或者进入到这个文件的目录 d: + cd Study + cd GitHub\nodejs + node hello.js
 
-WebStorm 配置node  File -> Settings -> 搜索栏输入node -> Node.js and NPM -> 配置node.exe 安装路径
-在hello.js 中 右键 Run hello.js 即可
-
-WebStorm 配置支持 Node.js 智能提示  File -> Settings -> 搜索栏输入node -> Node.js and NPM -> Configure -> Directory
-                                  (选择在node.js 官网中Downloads下,下载 Source Code 并解压出来) -> Edit usage scope -> ok
-File->setting->language and frameworks->javascript->libraries->勾选要用到的库
-
-File Encodings 设置工程的编码为 utf-8
-
 nodejs 和 javascript 的不同点
 nodejs 顶层对象为 global  ( 没有 window 对象 )
 javascript 顶层对象为 window
