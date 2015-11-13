@@ -259,3 +259,33 @@ $('div').drag();
 // this.setting 默认配置参数  this.getSetting() 用户自定义参数
 // this.setting, this.getSetting() 都是json对象
 $.extend(this.setting, this.getSetting());
+
+
+给 jQuery 命名空间下添加全局函数，也称为静态方法
+jQuery.myPlugin=function(){};
+例如:$.ajax()、$.extend()
+
+对象级别组件开发
+即挂载在 jQuery 原型下的方法，这样通过选择器获取的 jQuery 对象实例也能共享该方法，也称为动态方法
+$.fn.myPlugin=function(){};  这里的$.fn===$.prototype
+例如 addClass() attr() 等，需要创建实例来调用
+
+链式调用： $.fn.myPlugin=function(){
+                return this.each(function(){ // do something });
+          };
+代码说明： return this 返回当前对象，来维护插件的链式调用
+         each   循环实现每个元素的访问
+
+单例模式：
+$.fn.myPlugin=function(){
+    var me=$(this),
+        instance=me.data('myPlugin');
+    if(!instance){
+        me.data('myPlugin',(instance=new myPlugin()));
+    }
+};
+
+代码说明：1、如果实例存在则不需要重新创建实例 2、利用data()来存放插件对象的实例
+
+
+

@@ -77,6 +77,17 @@ background-position:left; 如果第二个值不设置,默认是居中;反过来�
                           如果写成 bottom left 浏览器解析也会变成 left bottom
                           设置数值是根据padding的左上角开始计算的
 
+background-position	规定背景图像的位置。
+
+background-size	规定背景图片的尺寸。  cover 扩展图片来填满元素（保持像素的长宽比）
+                                  contain 缩小图片来适应元素的尺寸（保持像素的长宽比）
+
+cover：此值是将图片放大，以适合铺满整个容器，这个主要运用在，当图片小于容器时，又无法使用background-repeat来实现时，我们就可以采用cover;将背景图片放大到适合容器的大小，但这种方法会使用背景图片失真；
+
+contain:此值刚好与cover相反，其主要是将背景图片缩小，以适合铺满整个容器，这个主要运用在，当背景图片大于元素容器时，而又需要将背景图片全部显示出来，此时我们就可以使用contain将图片缩小到适合容器大小为止，这种方法同样会使用图片失真。
+
+http://www.w3cplus.com/content/css3-background-size/    css3-background-size
+
 background-repeat: repeat-x;  x轴平铺,如果设置了background-position:40px; 那么左边那部分会补上图片,不会空出来
 
 font-size : 页面中的中文文字大小最小为12px，一般均为偶数，不用奇数(奇数会有问题)

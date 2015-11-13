@@ -1,0 +1,11 @@
+1、transform: translateX(100%); 隐藏页面元素,-100% 隐藏在左边
+此时h1是看不见的，配合动画显示
+<div class="intro">
+    <h1 class="title">switchPage</h1>
+</div>
+.intro{width: 100%; text-align: center;}
+h1{ text-align: transform: translateX(100%); animation: move 1s ease-in-out 100ms forwards; }
+@keyframes sec {
+    0% {transform: translateX(100%);}
+    100% { transform: translateX(0);}
+}
