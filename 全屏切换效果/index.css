@@ -42,17 +42,17 @@ p { font-size: 2em; margin: 0.5em 0 2em 0; }
 
 .pages { position: fixed; list-style: none; }
 
-.pages li { width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+.pages li { width: 10px; height: 10px; border-radius: 50%; background: #fff; }
 
-.pages li.active { transform: scale(2,2); background: none; border: 1px solid #FFFE00; }
+.pages li.active { -webkit-transform: scale(1.5, 1.5); -moz-transform: scale(1.5, 1.5); -o-transform: scale(1.5, 1.5); -ms-transform: scale(1.5, 1.5); transform: scale(1.5, 1.5); background: none; border: 1px solid #FFFE00; }
 
 .vertical { right: 30px; top: 50%; }
 
-.vertical li { margin:12px 0; }
+.vertical li { margin: 12px 0; }
 
 .vertical li.active { margin-left: 0; }
 
-.horizontal { bottom: 30px; left: 50%; transform: translateX(-50%); }
+.horizontal { bottom: 30px; left: 50%; -webkit-transform: translateX(-50%); -o-transform: translateX(-50%); -ms-transform: translateX(-50%); -moz-transform: translateX(-50%); transform: translateX(-50%); }
 
 .horizontal li { float: left; margin: 0 8px; }
 
