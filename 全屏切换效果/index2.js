@@ -232,14 +232,14 @@
     };
     /** 默认参数 */
     $.fn.PageSwitch.settings = {
-        "selectors": {
-            "container": '#container',
-            "part": '.part',
-            "page": '.pages',
-            "vertical": '.vertical',
-            "horizontal": 'horizontal',
-            "active": '.active'
-        },
+		"selectors": {
+			"container": '#container',
+			"part": '.part',
+			"page": '.pages',
+			"vertical": '.vertical',
+			"horizontal": 'horizontal',
+			"active": '.active'
+		},
         "index": 0,  // 默认显示第一屏
         "easing": 'ease', // 特效方式，ease-in,ease-out,linear
         "duration": 1000,// 每次动画执行的时间

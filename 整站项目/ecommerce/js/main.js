@@ -14,7 +14,7 @@ mv.tools.getByClass = function (oParent, sClass) {
     var arr = [];
 
     for (var i = 0; i < aEle.length; i++) {
-        if (aEle[i].className == sClass) {
+        if (aEle[i].className === sClass) {
             arr.push(aEle[i]);
         }
     }
@@ -36,13 +36,13 @@ mv.ui = {};
 mv.ui.textChange = function (obj, str) {
 
     obj.onfocus = function () {
-        if (this.value == str) {
+        if (this.value === str) {
             this.value = '';
         }
     };
 
     obj.onblur = function () {
-        if (this.value == '') {
+        if (this.value === '') {
             this.value = str;
         }
     };
@@ -143,7 +143,7 @@ mv.app.toBanner = function () {
 
     function auto() {
 
-        if (iNow == aLi.length - 1) {
+        if (iNow === aLi.length - 1) {
             iNow = 0;
         }
         else {
@@ -160,7 +160,7 @@ mv.app.toBanner = function () {
 
     function autoPrev() {
 
-        if (iNow == 0) {
+        if (iNow === 0) {
             iNow = aLi.length - 1;
         }
         else {
@@ -277,7 +277,7 @@ mv.app.toRun = function () {
 
     oPrev.onclick = function () {
 
-        if (iNow == 0) {
+        if (iNow === 0) {
             iNow = aLi.length / 2;
             oUl.style.left = -oUl.offsetWidth / 2 + 'px';
         }
@@ -290,7 +290,7 @@ mv.app.toRun = function () {
 
     oNext.onclick = function () {
 
-        if (iNow == aLi.length / 2) {
+        if (iNow === aLi.length / 2) {
             iNow = 0;
             oUl.style.left = 0;
         }
