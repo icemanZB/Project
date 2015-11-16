@@ -1,5 +1,4 @@
 ;(function ($) {
-
     function _isSuportCss(property) {
         var body = $("body")[0];
         for (var i = 0; i < property.length; i++) {
@@ -123,9 +122,9 @@
                 if (this.settings.keyboard) {
                     $(window).on('keydown', function (ev) {
                         var keyCode = ev.keyCode;
-                        if (keyCode == 37 || keyCode == 38) {
+                        if (keyCode === 37 || keyCode === 38) {
                             me.prev();
-                        } else if (keyCode == 39 || keyCode == 40) {
+                        } else if (keyCode === 39 || keyCode === 40) {
                             me.next();
                         }
                     });
@@ -168,7 +167,7 @@
                 var me = this;
                 // 获取当前页面的offset的坐标
                 var dest = this.part.eq(this.index).position();
-                if (!dest) return;
+                if (!dest) {return;}
 
                 me.canScroll = false;
 
