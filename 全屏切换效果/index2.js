@@ -1,16 +1,6 @@
 ;(function ($) {
-    function _isSuportCss(property) {
-        var body = $("body")[0];
-        for (var i = 0; i < property.length; i++) {
-            if (property[i] in body.style) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    
     var PageSwitch = (function () {
-
         function PageSwitch(ele, opts) {
             this.settings = $.extend(true, $.fn.PageSwitch.settings, opts || {});
             this.ele = ele;  // $('#container')
@@ -22,7 +12,17 @@
             this.canScroll = true; // 锁
             this.init(); // 初始化插件
         }
-
+		
+		function _isSuportCss(property) {
+			var body = $("body")[0];
+			for (var i = 0; i < property.length; i++) {
+				if (property[i] in body.style) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
         PageSwitch.prototype = {
             // 初始化dom结构，布局，分页及绑定事件
             init: function () {

@@ -128,3 +128,13 @@ fullpage.js
 http://www.jq22.com/jquery-info472   http://www.dowebok.com/77.html
 
 http://www.w3cplus.com/content/css3-background-size/    css3-background-size
+
+
+ http://www.modernizr.com/ 检测浏览器是否支持HTML5/CSS3神器Modernizr
+ http://blog.csdn.net/laijieyao/article/details/41205515
+if (Modernizr.localstorage) {
+// window.localStorage is available!
+} else {
+// no native support for local storage :(
+// maybe try Gears or another third-party solution
+}

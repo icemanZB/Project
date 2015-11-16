@@ -72,3 +72,6 @@ WebStorm 配置支持 Node.js 智能提示  File -> Settings -> 搜索栏输入n
 File->setting->language and frameworks->javascript->libraries->勾选要用到的库
 
 File Encodings 设置工程的编码为 utf-8
+
+
+dw  ctrl+h 代码提示恢复
