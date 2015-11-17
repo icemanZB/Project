@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div { background: #0094ff; width: 250px; height: 100px; }
+
+        .no-relative { background: #ff6a00; width: 200px; height: 100px; }
+
+        .relative { background: #ff6a00; width: 200px; height: 100px; position: relative; }
+
+        .minus-margin { margin-top: -30px; }
+    </style>
+</head>
+<body>
+默认情况下，两个元素都是正常的元素，设置了负的margin属性后，后面的元素会覆盖前面的元素，我们修改第一个元素的class为relative
+添加了相对定位后，第一个元素就会覆盖其他正常的元素了
+<div class="relative">  <!-- no-relative -->
+    未相对定位的元素，加了相对定位后覆盖后者margin负值
+</div>
+<div class="minus-margin">
+    负margin元素
+</div>
+</body>
+</html>

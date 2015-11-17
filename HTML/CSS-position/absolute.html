@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>absolute</title>
+    <style>
+        div { background: #0094ff; width: 250px; height: 100px; }
+
+        .absolute { background: #ff6a00; position: absolute; width: 200px; height: 100px; top: 20px; left: 50px; }
+    </style>
+</head>
+<body>
+绝对定位 :
+1、使元素脱离文档流
+2、使内嵌元素支持宽高
+3、块属性标签内容撑开宽度 ( 会把元素变成块标签 )
+4、如果有定位父级相对于定位父级发生偏移,没有定位父级相对于整个文档发生偏移
+<span class="absolute">
+</span>
+
+<div></div>
+偏移属性
+
+前面的例子中已经涉及到偏移属性，它指的是元素相对于其包含块的偏移，我们称其为偏移属性，分别是top，bottom，left，right。
+他们的值可以是具体的数值，也可以是百分比。如果是百分比，top和bottom是相对于包含块高度的百分比，left和right是相对于宽度的百分比。
+它们也可以设置负值，即有可能将元素移动到包含块的外边。
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            _background-image: url(about:blank); /*用浏览器空白页面作为背景*/
+            _background-attachment: fixed; /* prevent screen flash in IE6 确保滚动条滚动时，元素不闪动*/
+        }
+        body {
+           /* background-image: url(1.jpg);
+            background-attachment: scroll;
+            给body 添加背景
+            */
+        }
+
+        #topNav {
+            width: 980px;
+            z-index: 100; /*设置浮动层次*/
+            overflow: visible;
+            position: fixed;
+            top: 50px; /* 其他浏览器下定位，在这里可设置坐标*/
+            _position: absolute; /*IE6 用absolute模拟fixed*/
+            _top: expression(documentElement.scrollTop + 50 + "px"); /*IE6 动态设置top位置*/
+            /* documentElement.scrollTop 设置浮动元素始终在浏览器最顶，可以加一个数值达到排版效果 */
+            /* 只实现了垂直方向的fixed。若要实现水平方向的fixed，设置_left:expression(documentElement.scrollLeft + "px"); */
+            background-color: #0000FF;
+            height: 31px;
+        }
+
+        .show {
+            position: absolute;
+            top: 500px;
+            left: 400px;
+            border: #ff0000 1px solid;
+        }
+    </style>
+</head>
+<body>
+<div class="jd_menu" id="topNav">1111</div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<div class="show">show</div>
+</body>
+</html>

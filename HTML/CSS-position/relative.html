@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>relative</title>
+    <style>
+        div { background: #0094ff; width: 250px; height: 100px; }
+
+        .relative { background: #ff6a00; position: relative; width: 200px; height: 100px; top: 20px; left: 50px; }
+    </style>
+</head>
+<body>
+相对定位 : position:relative
+1、不影响元素本身的特性 (该是块还是块,是内嵌还是内嵌)
+2、不使元素脱离文档流 (文档流就是页面中所占的位置,存在就是没有脱离文档流)
+3、如果没有定位偏移量,对元素本身没有任何影响
+4、默认撑满整行
+5、不能使内嵌支持宽高
+兼容问题 : 如果父级有overflow:hidden; 实际上在IE6下 会有兼容问题,
+父级的overflow:hidden;是包不住子集的相对定位的
+解决方案:父子级都加相对定位即可(让父级变成定位元素,加绝对定位也是可以的)
+<div class="relative">
+</div>
+<div></div>
+</body>
+</html>

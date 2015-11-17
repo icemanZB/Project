@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/browserdetect.js"></script>
+    <script>
+        if (BrowserDetect.browser == 'Internet Explorer' && BrowserDetect.version === 7) {
+            alert('IE7');
+        }
+
+        if (BrowserDetect.browser == 'Internet Explorer' && BrowserDetect.version === 8) {
+            alert('IE8');
+        }
+
+        // alert(BrowserDetect.version);
+
+        var isIe6 = !window.XMLHttpRequest;  // 检测是否是IE6
+
+        // 如果要检查ie浏览器，干脆直接使用
+        var isIE = /msie/.test(navigator.userAgent.toLowerCase());
+        var isMozilla = /firefox/.test(navigator.userAgent.toLowerCase());
+        var isWebkit = /webkit/.test(navigator.userAgent.toLowerCase());
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

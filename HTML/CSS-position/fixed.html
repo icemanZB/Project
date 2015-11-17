@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fixed</title>
+    <style>
+        /*
+          滚动条在document上面,给html设置overflow:hidden; 隐藏了滚动条
+          这方法不是很好，在IE6下会把所有position:absolute都变成"浮动"的元素；还有使用js方法滚动滚动条时会出现对象闪烁
+          如下方法结合了CSS和js的办法，解决了以上的问题
+          */
+        html { height: 100%; overflow: hidden; }
+
+        body { margin: 0; height: 100%; overflow: auto; }
+
+        /*overflow:auto; 滚动条就在body上面了*/
+        .box { height: 2000px; }
+
+        .div { width: 100px; height: 100px; background: red; position: absolute; left: 100px; top: 100px; }
+
+        /*
+            方法2  建议不使用，维护不好，并且在IE6下有抖动，建议js完成
+            IE有一个多步的渲染进程。当你滚动或调整你的浏览器大小的时候，它将重置所有内容并重画页面，这个时候它就会重新处理css表达式。
+            因此虽然CSS进行了重新计算，需要fixed的元素位置也进行了正确的调整，但是会有一跳一跳的抖动感觉，
+            这种体验很不好，如果浏览器调整的频繁，很伤眼
+
+            给HTML标签，使用background-attachment这个属性，就能使IE在渲染前，先进行CSS的计算，
+            但一定要设置background-image，如果没有图片，设置为about:blank也是可以的。
+
+            background-attachment 规定背景图像是否固定或者随着页面的其余部分滚动。
+            background-image 规定要使用的背景图像。
+            解决方案： * html{background-image:url(about:blank);background-attachment:fixed}
+
+        */
+        .box2 { height: 2000px; }
+
+        .div2 { width: 100px; height: 100px; background: red; position: fixed; left: 100px; top: 100px;
+            _position: absolute; _top: expression(eval(document.documentElement.scrollTop+100));
+        }
+
+    </style>
+</head>
+<body>
+http://ju.outofmemory.cn/entry/22844
+<div class="box">
+    <div class="div"></div>
+</div>
+<div class="box2">
+    <div class="div2"></div>
+</div>
+</body>
+</html>

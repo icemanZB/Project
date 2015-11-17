@@ -1,5 +1,6 @@
 ;(function ($) {
-    
+
+
     var PageSwitch = (function () {
         function PageSwitch(ele, opts) {
             this.settings = $.extend(true, $.fn.PageSwitch.settings, opts || {});
@@ -12,17 +13,29 @@
             this.canScroll = true; // 锁
             this.init(); // 初始化插件
         }
-		
-		function _isSuportCss(property) {
-			var body = $("body")[0];
-			for (var i = 0; i < property.length; i++) {
-				if (property[i] in body.style) {
-					return true;
-				}
-			}
-			return false;
-		}
-		
+
+        var supports = (function() {
+            var div = document.createElement('div'),
+                vendors = 'Khtml Ms O Moz Webkit'.split(' '),
+                len = vendors.length;
+
+            return function(prop) {
+
+                if ( prop in div.style ) return true;
+
+                prop = prop.replace(/^[a-z]/, function(val) {
+                    return val.toUpperCase();
+                });
+
+                while(len--) {
+                    if ( vendors[len] + prop in div.style ) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+        })();
+
         PageSwitch.prototype = {
             // 初始化dom结构，布局，分页及绑定事件
             init: function () {
@@ -171,10 +184,7 @@
 
                 me.canScroll = false;
 
-                var transform = ["-webkit-transform", "-ms-transform", "-moz-transform", "transform"],
-                    transition = ["-webkit-transition", "-ms-transition", "-moz-transition", "transition"];
-
-                if (_isSuportCss(transform) && _isSuportCss(transition)) {
+                if (supports) {
                     var traslate = "";
                     if (this._isVertical()) {
                         traslate = "0px, -" + dest.top + "px, 0px";

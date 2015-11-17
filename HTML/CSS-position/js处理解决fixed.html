@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        html {
+            _background-image: url(about:blank); /*用浏览器空白页面作为背景*/
+            _background-attachment: fixed; /* prevent screen flash in IE6 确保滚动条滚动时，元素不闪动*/
+        }
+
+        body { margin: 0; padding: 0; font-size: 12px; line-height: 22px; }
+
+        p { margin: 0; padding: 36px; }
+
+        .con { position: absolute; padding: 26px; border: #999999 3px solid; background-color: #3399FF; right: 200px; top: 200px; }
+
+        .fixed { position: absolute; right: 60px; top: 100px; border: #666666 3px solid; background-color: #CCCCCC; padding: 26px; }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var n = 100; //top值
+            var obj = document.getElementById("fixed"); //position:fixed对象
+            window.onscroll = function () {
+                obj.style.setExpression('top',
+                        'eval((document.documentElement).scrollTop + ' + 10 + ') + "px"');
+            };
+            window.onresize = function () {
+                // 这个写法还是会有抖动的问题，需要使用上面的写法
+                obj.style.top = (document.body.scrollTop || document.documentElement.scrollTop) + n + 'px';
+            };
+        };
+    </script>
+</head>
+<body>
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<p>测试内容.........</p>
+
+<div class="con">内容。。。</div>
+<div class="fixed" id="fixed">我的位置是固定的！拉动滚动条看效果。</div>
+</body>
+</html>

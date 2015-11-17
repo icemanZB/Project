@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>包含块</title>
+    <style>
+        div { background: #0094ff; width: 250px; height: 100px; }
+
+        .relative { background: #ff6a00; position: relative; width: 200px; height: 100px; top: 20px; left: 50px; }
+    </style>
+</head>
+<body>
+对于position属性也有包含块这个属性，它要分几种情况来讨论：
+1.根元素的包含块，根元素一般是html元素，有些浏览器会使用body作为根元素，大多数浏览器，初始包含块是一个视窗大小的矩形
+2.非根元素的包含块，如果该元素的position是relative或static，它的包含块是最近的块级框，表的单元格或行内块的内容边界
+
+这是相对定位元素的包含块，为最近的块级框，表的单元格或行内块的内容边界，相对定位元素相对于其包含块进行偏移，
+可以简单理解为相对于其原来的位置进行偏移。
+
+非根元素的包含块，如果该元素的position是absolute，则包含块为最近的position不是static的祖先元素。
+简单来说，它的包含块会从父级元素一直向上查找，找到第一个position不是static的元素为止。
+<div>
+    我是父级元素的内容
+    <div class="relative">
+        相对定位元素
+    </div>
+</div>
+<!--
+有两个绝对定位元素，第一个元素没有position不是static的祖先元素，所以它的包含块是body，根据body进行偏移，
+第二个绝对定位元素设置了一个relative的父元素，它根据父元素进行偏移
+div { background: #0094ff; width: 250px; height: 100px; }
+.relative { background: #ff6a00; position: relative; width: 200px; height: 100px; top: 20px; left: 50px; }
+.absolute { background: #988c8c; position: absolute; width: 200px; height: 100px; top: 20px; left: 50px; }
+
+<div class="absolute">
+    相对于初始包含块定位
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="relative">
+    <div class="absolute">
+        相对于最近relative祖先元素定位
+    </div>
+</div>
+-->
+</body>
+</html>

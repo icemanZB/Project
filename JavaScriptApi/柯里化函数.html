@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        // http://www.zhangxinxu.com/wordpress/2013/02/js-currying/
+        // 柯里化”就像某些官员的把戏，官员要弄7个老婆，碍于国策（一夫一妻）以及年老弟衰，表面上就1个老婆，实际上剩下的6个暗地里消化
+        // 柯里化（Currying），又称部分求值（Partial Evaluation），是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术
+        // 所谓“柯里化”就是使函数理解并处理部分应用
+        // 柯里化有的作用  1. 参数复用；2. 提前返回；3. 延迟计算/运行
+        var currying = function (fn) {
+            // fn 指官员消化老婆的手段
+            var args = [].slice.call(arguments, 1);
+
+            // args 指的是那个合法老婆
+            return function () {
+                // 已经有的老婆和新搞定的老婆们合成一体，方便控制
+                var newArgs = args.concat([].slice.call(arguments));
+
+                // 这些老婆们用 fn 这个手段消化利用，完成韦小宝前辈的壮举并返回
+                return fn.apply(null, newArgs);
+            };
+        };
+
+        // 下为官员如何搞定7个老婆的测试
+        // 获得合法老婆
+        var getWife = currying(function () {
+            var allWife = [].slice.call(arguments);
+            // allwife 就是所有的老婆的，包括暗渡陈仓进来的老婆
+            console.log(allWife.join(";"));
+        }, "合法老婆");
+
+        // 获得其他6个老婆  合法老婆;大老婆;小老婆;俏老婆;刁蛮老婆;乖老婆;送上门老婆
+        getWife("大老婆", "小老婆", "俏老婆", "刁蛮老婆", "乖老婆", "送上门老婆");
+
+        // 换一批老婆
+        getWife("超越韦小宝的老婆");  // 合法老婆;超越韦小宝的老婆
+
+        var addEvent = function (el, type, fn, capture) {
+            if (window.addEventListener) {
+                el.addEventListener(type, function (e) {
+                    fn.call(el, e);
+                }, capture);
+            } else if (window.attachEvent) {
+                el.attachEvent("on" + type, function (e) {
+                    fn.call(el, e);
+                });
+            }
+        };
+
+        //上面的方法有什么问题呢？很显然，我们每次使用addEvent为元素添加事件的时候，(eg. IE6/IE7)都会走一遍if...else if ...，其实只要一次判定就可以了，怎么做？–柯里化。改为下面这样子的代码：
+        var addEventCurrying = (function () {
+            if (window.addEventListener) {
+                return function (el, sType, fn, capture) {
+                    el.addEventListener(sType, function (e) {
+                        fn.call(el, e);
+                    }, capture);
+                };
+            } else if (window.attachEvent) {
+                return function (el, sType, fn) {
+                    el.attachEvent("on" + sType, function (e) {
+                        fn.call(el, e);
+                    });
+                };
+            }
+        })();
+
+        addEvent(document,'click', function () {
+            console.log(1);
+        },false);
+
+        addEventCurrying(document,'click', function () {
+            console.log(1);
+        },false);
+
+        var supports = (function () {
+            var div = document.createElement('div'),
+                    vendors = 'Khtml Ms O Moz Webkit'.split(' '),
+                    len = vendors.length;
+
+            return function (prop) {
+
+                if (prop in div.style) return true;
+
+                prop = prop.replace(/^[a-z]/, function (val) {
+                    return val.toUpperCase();
+                });
+
+                while (len--) {
+                    if (vendors[len] + prop in div.style) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+        })();
+
+        console.log(supports('transform'));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

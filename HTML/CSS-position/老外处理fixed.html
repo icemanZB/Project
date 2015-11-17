@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--[if lt IE 7]>
+    <link rel="stylesheet" href="ie-stuff.css" type="text/css" media="screen"/><![endif]-->
+    <style>
+        /*针对IE6 7 的处理办法，感觉不是很好*/
+        #footer {
+            position: absolute;
+            bottom: auto;
+            clear: both;
+            background: red;
+            width: 100px;
+            height: 100px;
+            top: expression(eval(document.compatMode &&document.compatMode=='CSS1Compat') ?documentElement.scrollTop+(documentElement.clientHeight-this.clientHeight) - 1: document.body.scrollTop+(document.body.clientHeight-this.clientHeight) - 1);
+        }
+    </style>
+</head>
+<body>
+<div id="footer">aaaa</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

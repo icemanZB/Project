@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>z-index</title>
+    <style>
+        div { background: #0094ff; width: 250px; height: 100px; }
+
+        .relative { background: #ff6a00; position: relative; width: 500px; height: 300px; top: 20px; left: 50px;   }
+
+        .absolute { background: #988c8c; position: absolute; width: 200px; height: 100px; top: 20px; left: 50px; }
+
+        .light { background: #f3d6d6; top: 70px; left: 80px; }
+    </style>
+</head>
+<body>
+<div class="relative">
+    <div class="absolute" style="z-index: 10;">
+        相对于最近relative祖先元素定位1，要使第一个元素盖住第二个元素，只有在有定位的情况下，z-index才起效果
+    </div>
+    <div class="absolute light">
+        相对于最近relative祖先元素定位2
+    </div>
+</div>
+</body>
+</html>

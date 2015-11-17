@@ -8,8 +8,8 @@ var addEvent = function (id, event, fn) {
     var obj = document.getElementById(id) || document;
     obj['bind' + event] = obj['bind' + event] || {};
     obj['bind' + event]['bind' + fn] = obj['bind' + event]['bind' + fn] || function () {
-        fn.call(obj);
-    };
+            fn.call(obj);
+        };
     if (obj.addEventListener) {
         obj.addEventListener(event, obj['bind' + event]['bind' + fn], false);
     } else {
@@ -35,10 +35,10 @@ var removeEvent = function (obj, event, fn) {
 
 /*
  * 事件代理 ( 委托 ) 绑定在父元素上,使其子元素也拥有这个事件
- * delegateEvent('li',click,function(){  console.log(1);  });
+ * delegateEvent('li','click',function(){  console.log(1);  });
  *
  * */
-var delegateEvent = function () {
+var delegateEvent = function (target,event,fn) {
     addEvent(document, event, function (e) {
         if (e.target.nodeName === target.toUpperCase()) {
             fn.call(e.target);
@@ -181,7 +181,7 @@ function getCookie(name) {
     var arr = document.cookie.split(';');
     for (var i = 0; i < arr.length; i++) {
         var arr2 = arr[i].split('=');
-        if (arr2[0] = name) {
+        if (arr2[0] === name) {
             return arr2[1];
         }
     }
@@ -227,7 +227,7 @@ function quickSort(arr) {
         }
     }
 
-    return quickSort(left).concat(pivot, quickSort(aRight));
+    return quickSort(aLeft).concat(pivot, quickSort(aRight));
 }
 
 /**
@@ -461,4 +461,43 @@ function isProperty(obj, attr) {
     return !obj.hasOwnProperty(attr) && (attr in obj);
 
 }
+
+// 判断是否支持css3
+var supports = (function () {
+    var div = document.createElement('div'),
+        vendors = 'Khtml Ms O Moz Webkit'.split(' '),
+        len = vendors.length;
+
+    return function (prop) {
+
+        if (prop in div.style) return true;
+
+        prop = prop.replace(/^[a-z]/, function (val) {
+            return val.toUpperCase();
+        });
+
+        while (len--) {
+            if (vendors[len] + prop in div.style) {
+                return true;
+            }
+        }
+        return false;
+    };
+})();
+
+var isType = function(type) {
+
+    return function(obj) {
+        return Object.prototype.toString.call(obj) === "[object " + type + "]";
+    };
+};
+
+// console.log(isType('String')("")); // 'Number' 'Array'
+/*
+var isString=isType('String');
+console.log(isString(''));
+*/
+
+
+
 

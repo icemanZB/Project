@@ -24,6 +24,9 @@ http://ued.taobao.org/blog/
 迅雷CUED
 http://cued.xunlei.com/
 
+淘宝前端团队 (FED)
+http://taobaofed.org/
+
 
 书籍推荐
 http://www.imooc.com/wenda/detail/239506
@@ -130,8 +133,8 @@ http://www.jq22.com/jquery-info472   http://www.dowebok.com/77.html
 http://www.w3cplus.com/content/css3-background-size/    css3-background-size
 
 
- http://www.modernizr.com/ 检测浏览器是否支持HTML5/CSS3神器Modernizr
- http://blog.csdn.net/laijieyao/article/details/41205515
+http://www.modernizr.com/ 检测浏览器是否支持HTML5/CSS3神器Modernizr
+
 if (Modernizr.localstorage) {
 // window.localStorage is available!
 } else {

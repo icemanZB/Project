@@ -1,152 +1,152 @@
 
-Çå¿ÕÊý×é arr.length=0;
+æ¸…ç©ºæ•°ç»„ arr.length=0;
 
 
 
-jquery prop ·½·¨½âÎö http://blog.csdn.net/chaiyining007/article/details/8218038
+jquery prop æ–¹æ³•è§£æž http://blog.csdn.net/chaiyining007/article/details/8218038
 
-jQueryÖÐÌø³ö each Ñ­»·  continue ¿ÉÒÔÊ¹ÓÃ return true
-                        break    ¿ÉÒÔÊ¹ÓÃ return false
+jQueryä¸­è·³å‡º each å¾ªçŽ¯  continue å¯ä»¥ä½¿ç”¨ return true
+                        break    å¯ä»¥ä½¿ç”¨ return false
 
-var _href = _menu.getAttribute('href');  // »ñÈ¡µ½ #item1
-var _href=_menu.href; // »ñÈ¡µ½µÄÊÇä¯ÀÀÆ÷µÄÂ·¾¶
-<a href="#item1" class="current">1F ÄÐ×°</a>
+var _href = _menu.getAttribute('href');  // èŽ·å–åˆ° #item1
+var _href=_menu.href; // èŽ·å–åˆ°çš„æ˜¯æµè§ˆå™¨çš„è·¯å¾„
+<a href="#item1" class="current">1F ç”·è£…</a>
 
-Ê¹ÓÃÕýÔò±í´ïÊ½À´ÅÐ¶ÏÒ»¸ö×Ö·û´®ÖÐÊÇ·ñÓÐÄ³¸ö×Ö·û´®
+ä½¿ç”¨æ­£åˆ™è¡¨è¾¾å¼æ¥åˆ¤æ–­ä¸€ä¸ªå­—ç¬¦ä¸²ä¸­æ˜¯å¦æœ‰æŸä¸ªå­—ç¬¦ä¸²
 if (/active/.test(aLi[i].className)) {}
 
-javascriptÖÐtop¡¢clientTop¡¢scrollTop¡¢offsetTopµÄ½²½â
+javascriptä¸­topã€clientTopã€scrollTopã€offsetTopçš„è®²è§£
 http://www.cnblogs.com/trlanfeng/archive/2012/11/04/2753280.html
 
-jsÖÐ offsetHeight ÊÇ¶¯Ì¬»ñÈ¡Öµ
+jsä¸­ offsetHeight æ˜¯åŠ¨æ€èŽ·å–å€¼
 http://www.kuqin.com/shuoit/20140113/337572.html
 
-jQueryÖ®Î»ÖÃ
+jQueryä¹‹ä½ç½®
 http://www.cnblogs.com/kissdodog/archive/2012/12/09/2809770.html
 oUl.position().top ==> oUl.get(0).offsetTop
 
-$("#content").find(".item") == $('#content .item')  µ«ÊÇºóÕßÐ§ÂÊµÍ
+$("#content").find(".item") == $('#content .item')  ä½†æ˜¯åŽè€…æ•ˆçŽ‡ä½Ž
 
 var arr=[1,2,3];
-pop() ·½·¨ÓÃÓÚÉ¾³ý²¢·µ»ØÊý×éµÄ×îºóÒ»¸öÔªËØ
-unshift() ·½·¨¿ÉÏòÊý×éµÄ¿ªÍ·Ìí¼ÓÒ»¸ö»ò¸ü¶àÔªËØ,²¢·µ»ØÐÂµÄ³¤¶È
+pop() æ–¹æ³•ç”¨äºŽåˆ é™¤å¹¶è¿”å›žæ•°ç»„çš„æœ€åŽä¸€ä¸ªå…ƒç´ 
+unshift() æ–¹æ³•å¯å‘æ•°ç»„çš„å¼€å¤´æ·»åŠ ä¸€ä¸ªæˆ–æ›´å¤šå…ƒç´ ,å¹¶è¿”å›žæ–°çš„é•¿åº¦
 
 arr.unshift(arr.pop());  // 3   arr => [3, 1, 2]
 
 var arr=[1,2,3];
-shift() ·½·¨ÓÃÓÚ°ÑÊý×éµÄµÚÒ»¸öÔªËØ´ÓÆäÖÐÉ¾³ý,²¢·µ»ØµÚÒ»¸öÔªËØµÄÖµ
-push()  ·½·¨¿ÉÏòÊý×éµÄÄ©Î²Ìí¼ÓÒ»¸ö»ò¶à¸öÔªËØ,²¢·µ»ØÐÂµÄ³¤¶È
+shift() æ–¹æ³•ç”¨äºŽæŠŠæ•°ç»„çš„ç¬¬ä¸€ä¸ªå…ƒç´ ä»Žå…¶ä¸­åˆ é™¤,å¹¶è¿”å›žç¬¬ä¸€ä¸ªå…ƒç´ çš„å€¼
+push()  æ–¹æ³•å¯å‘æ•°ç»„çš„æœ«å°¾æ·»åŠ ä¸€ä¸ªæˆ–å¤šä¸ªå…ƒç´ ,å¹¶è¿”å›žæ–°çš„é•¿åº¦
 
 arr.push(arr.shift()); // 3   arr => [2, 3, 1]
 
-Math.random()  random() ·½·¨¿É·µ»Ø½éÓÚ 0 ~ 1 Ö®¼äµÄÒ»¸öËæ»úÊý
+Math.random()  random() æ–¹æ³•å¯è¿”å›žä»‹äºŽ 0 ~ 1 ä¹‹é—´çš„ä¸€ä¸ªéšæœºæ•°
 
 
-appendChildÓÚinsertBefore http://www.cnblogs.com/ATree/archive/2011/09/26/JS-appendChild-insertBefore.html
+appendChildäºŽinsertBefore http://www.cnblogs.com/ATree/archive/2011/09/26/JS-appendChild-insertBefore.html
 
-¸´ÖÆ½Úµã cloneNode() Èç¹û²ÎÊýÊÇ true ¾ÍÊÇÒ»Æð¸´ÖÆÀïÃæµÄ×Ó½Úµã, false ¾ÍÖ»¸´ÖÆµ±Ç°½Úµã ²»»á¸´ÖÆÀïÃæµÄ×Ó½Úµã
-·µ»ØµÄ½Úµã²»ÊôÓÚÎÄµµÊ÷,ËüµÄ parentNode ÊôÐÔÎª null
-µ±¸´ÖÆµÄÊÇ Element ½ÚµãÊ±,ËüµÄËùÓÐÊôÐÔ¶¼½«±»¸´ÖÆ,µ«Òª×¢Òâ,µ±Ç°½ÚµãÉÏ×¢²áµÄÊÂ¼þ¼àÌýÆ÷º¯Êý²»»á±»¸´ÖÆ
+å¤åˆ¶èŠ‚ç‚¹ cloneNode() å¦‚æžœå‚æ•°æ˜¯ true å°±æ˜¯ä¸€èµ·å¤åˆ¶é‡Œé¢çš„å­èŠ‚ç‚¹, false å°±åªå¤åˆ¶å½“å‰èŠ‚ç‚¹ ä¸ä¼šå¤åˆ¶é‡Œé¢çš„å­èŠ‚ç‚¹
+è¿”å›žçš„èŠ‚ç‚¹ä¸å±žäºŽæ–‡æ¡£æ ‘,å®ƒçš„ parentNode å±žæ€§ä¸º null
+å½“å¤åˆ¶çš„æ˜¯ Element èŠ‚ç‚¹æ—¶,å®ƒçš„æ‰€æœ‰å±žæ€§éƒ½å°†è¢«å¤åˆ¶,ä½†è¦æ³¨æ„,å½“å‰èŠ‚ç‚¹ä¸Šæ³¨å†Œçš„äº‹ä»¶ç›‘å¬å™¨å‡½æ•°ä¸ä¼šè¢«å¤åˆ¶
 
-jquery clone() ÎÞ²ÎÊýµÄÇé¿öÊÇÇ±¸´ÖÆ(²»¸´ÖÆÊÂ¼þ)  clone(true) Éî¸´ÖÆ(¸´ÖÆÊÂ¼þ)
+jquery clone() æ— å‚æ•°çš„æƒ…å†µæ˜¯æ½œå¤åˆ¶(ä¸å¤åˆ¶äº‹ä»¶)  clone(true) æ·±å¤åˆ¶(å¤åˆ¶äº‹ä»¶)
 
-jquery stop() ·½·¨Í£Ö¹µ±Ç°ÕýÔÚÔËÐÐµÄ¶¯»­
-¹¤×÷ÖÐÓöµ½¹ýµÄÊµ¼Ê°¸Àý:
-ÔÚÏîÄ¿Àï×öµÄÒ»¸öÏÂÀ­²Ëµ¥,µ±Êó±êÒÆÉÏÈ¥µÄÊ±ºò¾Í²Ëµ¥ÏÔÊ¾,µ±Êó±êÀë¿ªµÄÊ±ºò²Ëµ¥Òþ²Ø
+jquery stop() æ–¹æ³•åœæ­¢å½“å‰æ­£åœ¨è¿è¡Œçš„åŠ¨ç”»
+å·¥ä½œä¸­é‡åˆ°è¿‡çš„å®žé™…æ¡ˆä¾‹:
+åœ¨é¡¹ç›®é‡Œåšçš„ä¸€ä¸ªä¸‹æ‹‰èœå•,å½“é¼ æ ‡ç§»ä¸ŠåŽ»çš„æ—¶å€™å°±èœå•æ˜¾ç¤º,å½“é¼ æ ‡ç¦»å¼€çš„æ—¶å€™èœå•éšè—
 
-Èç¹ûÎÒ¿ìËÙ²»¶ÏµØ½«Êó±êÒÆÈëÒÆ³ö²Ëµ¥(¼´µ±²Ëµ¥ÏÂÀ­¶¯»­Î´Íê³ÉÊ±,Êó±êÓÖÒÆ³öÁË²Ëµ¥)¾Í»á²úÉú"¶¯»­»ýÀÛ"
-µ±Êó±êÍ£Ö¹ÒÆ¶¯ºó,»ýÀÛµÄ¶¯»­»¹»á³ÖÐøÖ´ÐÐ,Ö±µ½¶¯»­ÐòÁÐÖ´ÐÐÍê±Ï
+å¦‚æžœæˆ‘å¿«é€Ÿä¸æ–­åœ°å°†é¼ æ ‡ç§»å…¥ç§»å‡ºèœå•(å³å½“èœå•ä¸‹æ‹‰åŠ¨ç”»æœªå®Œæˆæ—¶,é¼ æ ‡åˆç§»å‡ºäº†èœå•)å°±ä¼šäº§ç”Ÿ"åŠ¨ç”»ç§¯ç´¯"
+å½“é¼ æ ‡åœæ­¢ç§»åŠ¨åŽ,ç§¯ç´¯çš„åŠ¨ç”»è¿˜ä¼šæŒç»­æ‰§è¡Œ,ç›´åˆ°åŠ¨ç”»åºåˆ—æ‰§è¡Œå®Œæ¯•
 
-½â¾ö·½·¨:ÔÚÐ´¶¯»­Ð§¹ûµÄ´úÂëÇ°¼ÓÈë stop(true,true) ÕâÑùÃ¿´Î¿ìËÙµÄÒÆÈëÒÆ³ö²Ëµ¥¾ÍÕý³£ÁË
-µ±ÒÆÈëÒ»¸ö²Ëµ¥µÄÊ±ºò,Í£Ö¹ËùÓÐ¼ÓÈë¶ÓÁÐµÄ¶¯»­,µ«ÊÇÍê³Éµ±Ç°µÄ¶¯»­(ÌøÖÁµ±Ç°¶¯»­µÄ×îÖÕÐ§¹ûÎ»ÖÃ)
+è§£å†³æ–¹æ³•:åœ¨å†™åŠ¨ç”»æ•ˆæžœçš„ä»£ç å‰åŠ å…¥ stop(true,true) è¿™æ ·æ¯æ¬¡å¿«é€Ÿçš„ç§»å…¥ç§»å‡ºèœå•å°±æ­£å¸¸äº†
+å½“ç§»å…¥ä¸€ä¸ªèœå•çš„æ—¶å€™,åœæ­¢æ‰€æœ‰åŠ å…¥é˜Ÿåˆ—çš„åŠ¨ç”»,ä½†æ˜¯å®Œæˆå½“å‰çš„åŠ¨ç”»(è·³è‡³å½“å‰åŠ¨ç”»çš„æœ€ç»ˆæ•ˆæžœä½ç½®)
 
-Math.pow(x,y) x µÄ y ´ÎÃÝ
+Math.pow(x,y) x çš„ y æ¬¡å¹‚
 
-$(window).width()  »ñÈ¡´°¿ÚµÄ¿í¶È
+$(window).width()  èŽ·å–çª—å£çš„å®½åº¦
 
-ÈÝÆ÷Ò³Ãæ¾ÓÖÐ ($(window).width()-$('#obj').outWidth())/2 ¡¢ ($(window).height()-$('#obj').outHeight())/2
+å®¹å™¨é¡µé¢å±…ä¸­ ($(window).width()-$('#obj').outWidth())/2 ã€ ($(window).height()-$('#obj').outHeight())/2
 
-´¥·¢¹ö¶¯ÌõÊÂ¼þºÍresize
+è§¦å‘æ»šåŠ¨æ¡äº‹ä»¶å’Œresize
 
 $(window).on('resize scroll',function(){
     $('div').css('top',($(window).height()-$('#obj').outHeight())/2 + $(window).scroll());
 })
 
-jsÀïÓÃ "parentNode" »ñµÃ¸¸½Úµã,ÓÃ "childNodes"¡¡»ñµÃËùÓÐµÄ×Ó½Úµã¡£
-parentElement »ñÈ¡¶ÔÏó²ã´ÎÖÐµÄ¸¸¶ÔÏó¡£
-parentNode »ñÈ¡ÎÄµµ²ã´ÎÖÐµÄ¸¸¶ÔÏó¡£
-childNodes »ñÈ¡×÷ÎªÖ¸¶¨¶ÔÏóÖ±½Óºó´úµÄ HTML ÔªËØºÍ TextNode ¶ÔÏóµÄ¼¯ºÏ¡£
-children »ñÈ¡×÷Îª¶ÔÏóÖ±½Óºó´úµÄ DHTML ¶ÔÏóµÄ¼¯ºÏ¡£
+jsé‡Œç”¨ "parentNode" èŽ·å¾—çˆ¶èŠ‚ç‚¹,ç”¨ "childNodes"ã€€èŽ·å¾—æ‰€æœ‰çš„å­èŠ‚ç‚¹ã€‚
+parentElement èŽ·å–å¯¹è±¡å±‚æ¬¡ä¸­çš„çˆ¶å¯¹è±¡ã€‚
+parentNode èŽ·å–æ–‡æ¡£å±‚æ¬¡ä¸­çš„çˆ¶å¯¹è±¡ã€‚
+childNodes èŽ·å–ä½œä¸ºæŒ‡å®šå¯¹è±¡ç›´æŽ¥åŽä»£çš„ HTML å…ƒç´ å’Œ TextNode å¯¹è±¡çš„é›†åˆã€‚
+children èŽ·å–ä½œä¸ºå¯¹è±¡ç›´æŽ¥åŽä»£çš„ DHTML å¯¹è±¡çš„é›†åˆã€‚
 
-parentNode ºÍ parentElement ¹¦ÄÜÒ»Ñù, childNodes ºÍ children ¹¦ÄÜÒ»Ñù¡£µ«ÊÇ parentNode ºÍ childNodes ÊÇ·ûºÏW3C±ê×¼µÄ
-¿ÉÒÔËµ±È½ÏÍ¨ÓÃ¡£¶øÁíÍâÁ½¸öÖ»ÊÇIEÖ§³Ö,²»ÊÇ±ê×¼, Firefox ¾Í²»Ö§³Ö
+parentNode å’Œ parentElement åŠŸèƒ½ä¸€æ ·, childNodes å’Œ children åŠŸèƒ½ä¸€æ ·ã€‚ä½†æ˜¯ parentNode å’Œ childNodes æ˜¯ç¬¦åˆW3Cæ ‡å‡†çš„
+å¯ä»¥è¯´æ¯”è¾ƒé€šç”¨ã€‚è€Œå¦å¤–ä¸¤ä¸ªåªæ˜¯IEæ”¯æŒ,ä¸æ˜¯æ ‡å‡†, Firefox å°±ä¸æ”¯æŒ
 
 
-Json Óë Êý×éµÄÇø±ð  json µÄÏÂ±ê ÊÇÒ»¸ö×Ö·û´®   Êý×éµÄÏÂ±êÊÇÊý×Ö  json Ã»ÓÐlength  Êý×éÓÐ length
+Json ä¸Ž æ•°ç»„çš„åŒºåˆ«  json çš„ä¸‹æ ‡ æ˜¯ä¸€ä¸ªå­—ç¬¦ä¸²   æ•°ç»„çš„ä¸‹æ ‡æ˜¯æ•°å­—  json æ²¡æœ‰length  æ•°ç»„æœ‰ length
 
-getAttribute() ¼æÈÝÎÊÌâ  Èç¹ûÊÇ»ñÈ¡class ÄÇÃ´¸ßµÈ¼¶µÄä¯ÀÀÆ÷Ã»ÓÐÎÊÌâ IE7ÐèÒªÓÃclassName
+getAttribute() å…¼å®¹é—®é¢˜  å¦‚æžœæ˜¯èŽ·å–class é‚£ä¹ˆé«˜ç­‰çº§çš„æµè§ˆå™¨æ²¡æœ‰é—®é¢˜ IE7éœ€è¦ç”¨className
 
 http://www.cnblogs.com/2050/archive/2012/07/14/2591594.html
-ÓÃinnerHTML²åÈëhtml´úÂëÖÐÓÐÑùÊ½±íÊ±Ðè×¢ÒâµÄµØ·½
-  document.getElementById('div').innerHTML='<style>p{background:#f00}</style><p>ÎÒÊÇp±êÇ©</p>';
-×¢Òâµ½ÔÚIEÖÐ£¬´úÂëÖÐµÄ<style>p{background:#f00}</style> Õâ¶ÎÑùÊ½ÉùÃ÷²¢Ã»ÓÐÆð×÷ÓÃ
-½â¾ö·½·¨£ºÔÚÑùÊ½±íÇ°±ØÐëÒªÓÐÆäËûµÄhtml´úÂë£¬¼´Ê¹ÊÇÒ»¸ö &nbsp Ò²ÐÐ¡£
+ç”¨innerHTMLæ’å…¥htmlä»£ç ä¸­æœ‰æ ·å¼è¡¨æ—¶éœ€æ³¨æ„çš„åœ°æ–¹
+  document.getElementById('div').innerHTML='<style>p{background:#f00}</style><p>æˆ‘æ˜¯pæ ‡ç­¾</p>';
+æ³¨æ„åˆ°åœ¨IEä¸­ï¼Œä»£ç ä¸­çš„<style>p{background:#f00}</style> è¿™æ®µæ ·å¼å£°æ˜Žå¹¶æ²¡æœ‰èµ·ä½œç”¨
+è§£å†³æ–¹æ³•ï¼šåœ¨æ ·å¼è¡¨å‰å¿…é¡»è¦æœ‰å…¶ä»–çš„htmlä»£ç ï¼Œå³ä½¿æ˜¯ä¸€ä¸ª &nbsp ä¹Ÿè¡Œã€‚
 
-ÅÐ¶ÏÒ³ÃæËùÓÐÍ¼Æ¬¼ÓÔØÍê³É
+åˆ¤æ–­é¡µé¢æ‰€æœ‰å›¾ç‰‡åŠ è½½å®Œæˆ
 <script>
-ÏÈµÃ³öÍ¼Æ¬µÄÊýÁ¿£¬È»ºóÔÚÃ¿Ò»ÕÅÍ¼Æ¬¼ÓÔØÍêºóµÄÊÂ¼þÖÐ°ÑÏÈÇ°µÃ³öµÄÍ¼Æ¬ÊýÁ¿¼õ1£¬ÔÙÅÐ¶Ï×îºóµÄ½á¹ûÊÇ²»ÊÇ0£¬Èç¹ûÊÇ0ÔòÒâÎ¶×ÅËùÓÐÍ¼Æ¬¶¼¼ÓÔØÍêÁË
+å…ˆå¾—å‡ºå›¾ç‰‡çš„æ•°é‡ï¼Œç„¶åŽåœ¨æ¯ä¸€å¼ å›¾ç‰‡åŠ è½½å®ŒåŽçš„äº‹ä»¶ä¸­æŠŠå…ˆå‰å¾—å‡ºçš„å›¾ç‰‡æ•°é‡å‡1ï¼Œå†åˆ¤æ–­æœ€åŽçš„ç»“æžœæ˜¯ä¸æ˜¯0ï¼Œå¦‚æžœæ˜¯0åˆ™æ„å‘³ç€æ‰€æœ‰å›¾ç‰‡éƒ½åŠ è½½å®Œäº†
 var imgNum=$('img').length;
 $('img').load(function(){
     if(!--imgNum){alert('All images loaded')}
 })
 </script>
 
-Êý¾ÝÀàÐÍ×ª»»
-[]+1+3  //½á¹ûÎª13
-[1]+3   //½á¹ûÎª13
-null+1+3  //½á¹ûÎª4
+æ•°æ®ç±»åž‹è½¬æ¢
+[]+1+3  //ç»“æžœä¸º13
+[1]+3   //ç»“æžœä¸º13
+null+1+3  //ç»“æžœä¸º4
 
-×ª»»³ÉÊý×Ö
-+x //Ê¹ÓÃÒ»¸öÒ»ÔªµÄ¼ÓºÅÔËËã·û£¬ÕâÊÇ×î¿ìµÄ·½·¨
-x-0 »ò x*1 //ÁíÒ»ÖÖÐÎÊ½
-Number(x)  //Ê¹ÓÃ²»´ønewµÄÊý×Ö¹¹Ôìº¯Êý½øÐÐ×ª»»
+è½¬æ¢æˆæ•°å­—
++x //ä½¿ç”¨ä¸€ä¸ªä¸€å…ƒçš„åŠ å·è¿ç®—ç¬¦ï¼Œè¿™æ˜¯æœ€å¿«çš„æ–¹æ³•
+x-0 æˆ– x*1 //å¦ä¸€ç§å½¢å¼
+Number(x)  //ä½¿ç”¨ä¸å¸¦newçš„æ•°å­—æž„é€ å‡½æ•°è¿›è¡Œè½¬æ¢
 
-¶ÔÏóºÍº¯Êý×ÜÊÇ±»×ª»»³ÉNaN, undefinedÒ²»á±»×ª»»³ÉNaN, µ«null»á±»×ª»»³É0
-alert(+[]);  //½á¹ûÎª0
-alert(+[1]); //½á¹ûÎª1
-alert(+[1,2]); //½á¹ûÎªNaN
-alert(+new Array(1)); //½á¹ûÎª0
-alert(+new Array(1,2)); //½á¹ûÎªNaN
+å¯¹è±¡å’Œå‡½æ•°æ€»æ˜¯è¢«è½¬æ¢æˆNaN, undefinedä¹Ÿä¼šè¢«è½¬æ¢æˆNaN, ä½†nullä¼šè¢«è½¬æ¢æˆ0
+alert(+[]);  //ç»“æžœä¸º0
+alert(+[1]); //ç»“æžœä¸º1
+alert(+[1,2]); //ç»“æžœä¸ºNaN
+alert(+new Array(1)); //ç»“æžœä¸º0
+alert(+new Array(1,2)); //ç»“æžœä¸ºNaN
 
 
 
 /*
- * client×ÖÃæÒâË¼µÄÀí½âÊÇ,¿Í»§¶Ë,ÔÚÎÒÃÇµÄÊÓ´°ÖÐ,¿Í»§¶Ë¾ÍÊÇä¯ÀÀÆ÷¡£
- * clientHeight¾ÍÊÇä¯ÀÀÆ÷¿ÉÊÓ·¶Î§µÄ¸ß¶È,clientWidthÍ¬Àí¡£
- * ¶ÔÓÚclientÓëoffestÖ®¼äµÄÇø±ðÊÇ,client½ö½öÊÇ¿ÉÊÓ·¶Î§,²¢²»°üÀ¨¹ö¶¯ÌõµÄ¸ß¶È¡£
+ * clientå­—é¢æ„æ€çš„ç†è§£æ˜¯,å®¢æˆ·ç«¯,åœ¨æˆ‘ä»¬çš„è§†çª—ä¸­,å®¢æˆ·ç«¯å°±æ˜¯æµè§ˆå™¨ã€‚
+ * clientHeightå°±æ˜¯æµè§ˆå™¨å¯è§†èŒƒå›´çš„é«˜åº¦,clientWidthåŒç†ã€‚
+ * å¯¹äºŽclientä¸Žoffestä¹‹é—´çš„åŒºåˆ«æ˜¯,clientä»…ä»…æ˜¯å¯è§†èŒƒå›´,å¹¶ä¸åŒ…æ‹¬æ»šåŠ¨æ¡çš„é«˜åº¦ã€‚
  * */
 
-removeChild µÄÒ»Ð©ÎÊÌâ
+removeChild çš„ä¸€äº›é—®é¢˜
 <ul id="demo">
 <li>a</li>
 <li>b</li>
 <li>c</li>
 </ul>
-ÄÇÃ´ÕâÊ±ºòÖ»»áÉ¾³ýµÚÒ»ÐÐ£¬ÒòÎªµ±É¾³ýÁËÒ»¸öÖ®ºó£¬ÐÐµÄÎ»ÖÃ»áÏòÇ°ÒÆ¶¯Ò»Î»¡£
-giftTrs.lengthÒ²»áÏàÓ¦¼õÒ»¡£
+é‚£ä¹ˆè¿™æ—¶å€™åªä¼šåˆ é™¤ç¬¬ä¸€è¡Œï¼Œå› ä¸ºå½“åˆ é™¤äº†ä¸€ä¸ªä¹‹åŽï¼Œè¡Œçš„ä½ç½®ä¼šå‘å‰ç§»åŠ¨ä¸€ä½ã€‚
+giftTrs.lengthä¹Ÿä¼šç›¸åº”å‡ä¸€ã€‚
 var ul = document.getElementById('demo');
 var liList = ul.getElementsByTagName('li');
 for (var i = 0; i < = liList.length; i++) {
 ul.removeChild(liList[i]);
 }
-ÕýÈ·×ö·¨£º
+æ­£ç¡®åšæ³•ï¼š
 var ul = document.getElementById('demo');
 var liList = ul.getElementsByTagName('li');
 var lilength = liList.length;
 for (var i = 0; i < lilength; i++) {
 ul.removeChild(liList[0]);
 }
-IE ÏÂ removeChild µÄÎÊÌâ
+IE ä¸‹ removeChild çš„é—®é¢˜
 http://fins.iteye.com/blog/172263/
 <html>
  <head>
@@ -189,30 +189,30 @@ removeNode : isIE ? function(){
 }
 
 
-http://blog.sina.com.cn/s/blog_6f6360250101hjo7.html js¼æÈÝÎÊÌâ
+http://blog.sina.com.cn/s/blog_6f6360250101hjo7.html jså…¼å®¹é—®é¢˜
 
 
-×¢ÒâÊÂÏî
+æ³¨æ„äº‹é¡¹
 
- 1¡¢ËùÓÐµÄÏà¶ÔÂ·¾¶µØÖ·,²»ÄÜ×öÎªÅÐ¶ÏÌõ¼þ(img src href )
-    Àý×Ó : // img/1.jpg Ô­Ê¼Â·¾¶
-       	 // file:///C:/Users/Administrator/Desktop/11-4-JS1/img/1.jpg // »ñµÃÂ·¾¶
-    Í¼Æ¬µÄÏà¶ÔÂ·¾¶²»ÄÜ¶Á,µ«ÊÇ¿ÉÒÔÐ´!
+ 1ã€æ‰€æœ‰çš„ç›¸å¯¹è·¯å¾„åœ°å€,ä¸èƒ½åšä¸ºåˆ¤æ–­æ¡ä»¶(img src href )
+    ä¾‹å­ : // img/1.jpg åŽŸå§‹è·¯å¾„
+       	 // file:///C:/Users/Administrator/Desktop/11-4-JS1/img/1.jpg // èŽ·å¾—è·¯å¾„
+    å›¾ç‰‡çš„ç›¸å¯¹è·¯å¾„ä¸èƒ½è¯»,ä½†æ˜¯å¯ä»¥å†™!
 
- 2¡¢ÑÕÉ«Öµ : color: red #f00 rgb() rgba()  ÑÕÉ«ÖµÒ²²»ÄÜÄÃÀ´×öÅÐ¶Ï
+ 2ã€é¢œè‰²å€¼ : color: red #f00 rgb() rgba()  é¢œè‰²å€¼ä¹Ÿä¸èƒ½æ‹¿æ¥åšåˆ¤æ–­
 
- 3¡¢innerHTML µÄÖµÒ²²»ÄÜÄÃÀ´×öÅÐ¶Ï,ÓÐ¼æÈÝÐÔÎÊÌâ?
+ 3ã€innerHTML çš„å€¼ä¹Ÿä¸èƒ½æ‹¿æ¥åšåˆ¤æ–­,æœ‰å…¼å®¹æ€§é—®é¢˜?
 
- 4¡¢²»ÒªÐÞ¸Ä±íµ¥ÔªËØµÄtypeÖµ,IE6 7 8 ²»Ö§³Ö,»á±¨´í
+ 4ã€ä¸è¦ä¿®æ”¹è¡¨å•å…ƒç´ çš„typeå€¼,IE6 7 8 ä¸æ”¯æŒ,ä¼šæŠ¥é”™
 
- 5¡¢ÐÞ¸Ä¸¡¶¯µÄ¼æÈÝÎÊÌâ , ¿ÉÒÔÍ¨¹ýÐ´ÑùÊ½À´»Ø±ÜÕâ¸öÎÊÌâ.{float:left} .right{float:right;}
-    È»ºóÔÙÊÇoDiv.className='left';
+ 5ã€ä¿®æ”¹æµ®åŠ¨çš„å…¼å®¹é—®é¢˜ , å¯ä»¥é€šè¿‡å†™æ ·å¼æ¥å›žé¿è¿™ä¸ªé—®é¢˜.{float:left} .right{float:right;}
+    ç„¶åŽå†æ˜¯oDiv.className='left';
 
-    oDiv.style.float = 'right';     // ÓÐ¼æÈÝÎÊÌâ
+    oDiv.style.float = 'right';     // æœ‰å…¼å®¹é—®é¢˜
    	oDiv.style.styleFloat = 'right';		// IE styleFloat
-   	oDiv.style.cssFloat = 'left';			// ·ÇIE cssFloat
+   	oDiv.style.cssFloat = 'left';			// éžIE cssFloat
 
- 6¡¢this Ö¸ÏòÎÊÌâ
+ 6ã€this æŒ‡å‘é—®é¢˜
    	function fn(){
    	    this
    	}
@@ -222,10 +222,10 @@ http://blog.sina.com.cn/s/blog_6f6360250101hjo7.html js¼æÈÝÎÊÌâ
             this;   thi->oDiv
         }
     (4) oDiv.onclick=function(){
-           fn();   fn()ÀïÃæµÄthis->window
+           fn();   fn()é‡Œé¢çš„this->window
         }
     (5) <div onclick="this"></div>    this->div
-    (6) <div onclick="fn();"></div>   fn()ÀïÃæµÄthis->window
+    (6) <div onclick="fn();"></div>   fn()é‡Œé¢çš„this->window
     (7) funtion fn(obj){
             obj->window
         }
@@ -236,26 +236,26 @@ http://blog.sina.com.cn/s/blog_6f6360250101hjo7.html js¼æÈÝÎÊÌâ
         function fn(obj){
             obj->Odiv
         }
- 7¡¢forÑ­»·ÖÐµÄi Óë×Ô¶¨ÒåÊôÐÔ
+ 7ã€forå¾ªçŽ¯ä¸­çš„i ä¸Žè‡ªå®šä¹‰å±žæ€§
     window.onload = function (){
     	var aBtn = document.getElementsByTagName('input');
     	for( var i=0; i<aBtn.length; i++ ){
-    		aBtn[i].index = i;			// ×Ô¶¨ÒåÊôÐÔ£¨Ë÷ÒýÖµ£©
+    		aBtn[i].index = i;			// è‡ªå®šä¹‰å±žæ€§ï¼ˆç´¢å¼•å€¼ï¼‰
     		aBtn[i].onclick = function (){
-    			// alert( i );			// Õâ±ßÓÀÔ¶µÃµ½µÄÊÇ3
+    			// alert( i );			// è¿™è¾¹æ°¸è¿œå¾—åˆ°çš„æ˜¯3
     			alert( this.index );
     		};
     	}
     };
 
 
-¼¼ÇÉ
-ÆæÅ¼ÊýÊ¹ÓÃ  ['','main-i_right'][i%2]
+æŠ€å·§
+å¥‡å¶æ•°ä½¿ç”¨  ['','main-i_right'][i%2]
 
 
-ÎÊÌâ:  mouseenter mouseleave ÒÑ¾­½â¾ö
+é—®é¢˜:  mouseenter mouseleave å·²ç»è§£å†³
 
-ÑÓ³Ù¼ÓÔØ    ÑÓ³Ù¼ÓÔØ£¬Ò²³Æ¶èÐÔ¼ÓÔØ£¬¶èÐÔÔØÈëµÈ¡£ÑÓ³Ù¼ÓÔØÒâÎ¶×ÅÔÚÐÅÏ¢±»Ê¹ÓÃÇ°²»»á×öÈÎºÎ²Ù×÷£º
+å»¶è¿ŸåŠ è½½    å»¶è¿ŸåŠ è½½ï¼Œä¹Ÿç§°æƒ°æ€§åŠ è½½ï¼Œæƒ°æ€§è½½å…¥ç­‰ã€‚å»¶è¿ŸåŠ è½½æ„å‘³ç€åœ¨ä¿¡æ¯è¢«ä½¿ç”¨å‰ä¸ä¼šåšä»»ä½•æ“ä½œï¼š
 function addHandler(target, eventType, handler) {
   if (target.addEventListener) {  // DOM2 Events
     addHandler = function(target, eventType, handler) {
@@ -269,7 +269,7 @@ function addHandler(target, eventType, handler) {
   addHandler(target, eventType, handler);
 }
 
-// µ÷ÓÃ
+// è°ƒç”¨
 addHandler(document, 'click', function() {
   console.log('hello world');
 });
@@ -277,14 +277,14 @@ addHandler(document, 'click', function() {
 addHandler(window, 'keydown', function() {
   console.log('key down');
 });
-·½·¨ÔÚµÚÒ»´Î±»µ÷ÓÃÊ±£¬»áÏÈ¼ì²é²¢¾ö¶¨Ê¹ÓÃÄÄÖÖ·½·¨È¥°ó¶¨ÊÂ¼þ´¦ÀíÆ÷£¬È»ºóÔ­Ê¼º¯Êý±»°üº¬ÕýÈ·²Ù×÷µÄÐÂº¯Êý¸²¸Ç¡£
-×îºóÒ»²½µ÷ÓÃÐÂµÄº¯Êý£¨Ò²¿ÉÒÔÖ±½Óreturn ÐÂµÄº¯Êý£©£¬²¢´«ÈëÔ­Ê¼²ÎÊý¡£
-Ö®ºóµÄÃ¿´Îµ÷ÓÃaddHandler()¶¼²»»áÔÙ×ö¼ì²â£¬ÒòÎª¼ì²â´úÂëÒÑ¾­±»ÐÂµÄº¯Êý¸²¸Ç¡£
+æ–¹æ³•åœ¨ç¬¬ä¸€æ¬¡è¢«è°ƒç”¨æ—¶ï¼Œä¼šå…ˆæ£€æŸ¥å¹¶å†³å®šä½¿ç”¨å“ªç§æ–¹æ³•åŽ»ç»‘å®šäº‹ä»¶å¤„ç†å™¨ï¼Œç„¶åŽåŽŸå§‹å‡½æ•°è¢«åŒ…å«æ­£ç¡®æ“ä½œçš„æ–°å‡½æ•°è¦†ç›–ã€‚
+æœ€åŽä¸€æ­¥è°ƒç”¨æ–°çš„å‡½æ•°ï¼ˆä¹Ÿå¯ä»¥ç›´æŽ¥return æ–°çš„å‡½æ•°ï¼‰ï¼Œå¹¶ä¼ å…¥åŽŸå§‹å‚æ•°ã€‚
+ä¹‹åŽçš„æ¯æ¬¡è°ƒç”¨addHandler()éƒ½ä¸ä¼šå†åšæ£€æµ‹ï¼Œå› ä¸ºæ£€æµ‹ä»£ç å·²ç»è¢«æ–°çš„å‡½æ•°è¦†ç›–ã€‚
 
-µ÷ÓÃÑÓ³Ù¼ÓÔØº¯ÊýÊ±£¬µÚÒ»´Î×Ü»áÏûºÄ½Ï³¤µÄÊ±¼ä£¬ÒòÎªËü±ØÐëÔËÐÐ¼ì²â½Ó×ÅÔÙµ÷ÓÃÁíÒ»¸öº¯ÊýÍê³ÉÈÎÎñ£¬
-µ«Ëæºóµ÷ÓÃº¯Êý»á±ä¿ì£¬ÒòÎª²»ÐèÒªÔÙ½øÐÐ¼ì²â¡£µ±Ò»¸öº¯ÊýÔÚÒ³ÃæÖÐ²»»áÁ¢¼´µ÷ÓÃÊ±£¬ÑÓ³Ù¼ÓÔØÊÇ×îºÃµÄÑ¡Ôñ¡£
+è°ƒç”¨å»¶è¿ŸåŠ è½½å‡½æ•°æ—¶ï¼Œç¬¬ä¸€æ¬¡æ€»ä¼šæ¶ˆè€—è¾ƒé•¿çš„æ—¶é—´ï¼Œå› ä¸ºå®ƒå¿…é¡»è¿è¡Œæ£€æµ‹æŽ¥ç€å†è°ƒç”¨å¦ä¸€ä¸ªå‡½æ•°å®Œæˆä»»åŠ¡ï¼Œ
+ä½†éšåŽè°ƒç”¨å‡½æ•°ä¼šå˜å¿«ï¼Œå› ä¸ºä¸éœ€è¦å†è¿›è¡Œæ£€æµ‹ã€‚å½“ä¸€ä¸ªå‡½æ•°åœ¨é¡µé¢ä¸­ä¸ä¼šç«‹å³è°ƒç”¨æ—¶ï¼Œå»¶è¿ŸåŠ è½½æ˜¯æœ€å¥½çš„é€‰æ‹©ã€‚
 
-Ìõ¼þÔ¤¼ÓÔØ Ìõ¼þÔ¤¼ÓÔØ»áÔÚ½Å±¾¼ÓÔØÆÚ¼äÌáÇ°¼ì²â£¬¶ø²»»áµÈµ½º¯Êý±»µ÷ÓÃ£º
+æ¡ä»¶é¢„åŠ è½½ æ¡ä»¶é¢„åŠ è½½ä¼šåœ¨è„šæœ¬åŠ è½½æœŸé—´æå‰æ£€æµ‹ï¼Œè€Œä¸ä¼šç­‰åˆ°å‡½æ•°è¢«è°ƒç”¨ï¼š
 var addHandler = document.addEventListener ?
   function(target, eventType, handler) {
     target.addEventListener(eventType, handler, false);
@@ -293,7 +293,7 @@ var addHandler = document.addEventListener ?
     target.attachEvent('on' + eventType, handler);
   };
 
-// µ÷ÓÃ
+// è°ƒç”¨
 addHandler(document, 'click', function() {
   console.log('hello world');
 });
@@ -301,61 +301,61 @@ addHandler(document, 'click', function() {
 addHandler(window, 'keydown', function() {
   console.log('key down');
 });
-Ìõ¼þÔ¤¼ÓÔØÈ·±£ËùÓÐº¯ÊýÏûºÄµÄÊ±¼äÏàÍ¬£¬Æä´ú¼ÛÊÇÐèÒªÔÚ½Å±¾¼ÓÔØÊ±¾Í¼ì²â£¬¶ø²»ÊÇ¼ÓÔØºó¡£
-Ô¤¼ÓÔØÊÊÓÃÓÚÒ»¸öº¯ÊýÂíÉÏ¾ÍÒª±»ÓÃµ½£¬²¢ÇÒÔÚÕû¸öÒ³ÃæµÄÉúÃüÖÜÆÚÖÐÆµ·±³öÏÖµÄ³¡ºÏ
+æ¡ä»¶é¢„åŠ è½½ç¡®ä¿æ‰€æœ‰å‡½æ•°æ¶ˆè€—çš„æ—¶é—´ç›¸åŒï¼Œå…¶ä»£ä»·æ˜¯éœ€è¦åœ¨è„šæœ¬åŠ è½½æ—¶å°±æ£€æµ‹ï¼Œè€Œä¸æ˜¯åŠ è½½åŽã€‚
+é¢„åŠ è½½é€‚ç”¨äºŽä¸€ä¸ªå‡½æ•°é©¬ä¸Šå°±è¦è¢«ç”¨åˆ°ï¼Œå¹¶ä¸”åœ¨æ•´ä¸ªé¡µé¢çš„ç”Ÿå‘½å‘¨æœŸä¸­é¢‘ç¹å‡ºçŽ°çš„åœºåˆ
 
 
-°ÑÕûÕ¾×öµÄjsÐ§¹ûÌáÁ¶³öÀ´
+æŠŠæ•´ç«™åšçš„jsæ•ˆæžœæç‚¼å‡ºæ¥
 
-jsÖÐ ´°¿Ú³ß´ç»¹ÐèÕûÀíÒ»ÏÂ
+jsä¸­ çª—å£å°ºå¯¸è¿˜éœ€æ•´ç†ä¸€ä¸‹
 
-jsÖÐ Êý×é²»ÏàµÈ
+jsä¸­ æ•°ç»„ä¸ç›¸ç­‰
 
-jsÐÔÄÜÕûÀí
+jsæ€§èƒ½æ•´ç†
 
-js ä¯ÀÀÆ÷¼æÈÝÐÔ£¿£¿
+js æµè§ˆå™¨å…¼å®¹æ€§ï¼Ÿï¼Ÿ
 
-cmd ºÍ amd µÄÇø±ð£¿£¿£¿
-nodejs ¿´ÏÂ
-×¼±¸ÏÂ×ÔÎÒ½éÉÜ
+cmd å’Œ amd çš„åŒºåˆ«ï¼Ÿï¼Ÿï¼Ÿ
+nodejs çœ‹ä¸‹
+å‡†å¤‡ä¸‹è‡ªæˆ‘ä»‹ç»
 
-ÇëÃèÊöÄã¾­Àú¹ýµÄJavaScriptµ¥Ôª²âÊÔ£¿£¿£¿  Quint jQueryµÄµ¥Î»²âÊÔ¿ò¼Ü
+è¯·æè¿°ä½ ç»åŽ†è¿‡çš„JavaScriptå•å…ƒæµ‹è¯•ï¼Ÿï¼Ÿï¼Ÿ  Quint jQueryçš„å•ä½æµ‹è¯•æ¡†æž¶
 
 
-position ÓÐ¶àÉÙ¸öÊôÐÔ
-±êÇ©ÓïÒå»¯
-absolute ¸¸¼¶Ã»ÓÐ relative ÔõÃ´°ì
+position æœ‰å¤šå°‘ä¸ªå±žæ€§
+æ ‡ç­¾è¯­ä¹‰åŒ–
+absolute çˆ¶çº§æ²¡æœ‰ relative æ€Žä¹ˆåŠž
 
-css3 ÓÃµÄ×î¶àµÄ  Transition  Ô²½Ç Í¼Æ¬³ÅÂúµÄÄÇ¸öÊôÐÔ background-size:contain;
-box-sizing:border-box;  ¹ÖÒìºËÄ£ÐÍ
-ÉèÖÃÔªËØ¾ÓÖÐ
+css3 ç”¨çš„æœ€å¤šçš„  Transition  åœ†è§’ å›¾ç‰‡æ’‘æ»¡çš„é‚£ä¸ªå±žæ€§ background-size:contain;
+box-sizing:border-box;  æ€ªå¼‚æ ¸æ¨¡åž‹
+è®¾ç½®å…ƒç´ å±…ä¸­
 nth-of-type()
 
-on·½·¨ ÖÐÅÐ¶ÏÊÇÄÄ¸ö¶ÔÏó ev ÖÐµÄ
+onæ–¹æ³• ä¸­åˆ¤æ–­æ˜¯å“ªä¸ªå¯¹è±¡ ev ä¸­çš„
 
-argument ÓÐÊ²Ã´ÆäËûÊôÐÔ·½·¨
+argument æœ‰ä»€ä¹ˆå…¶ä»–å±žæ€§æ–¹æ³•
 
-js Ñ­»·Êä³ö×îÖÕ½á¹ûµÄÔ­Àí  jsÊÇµ¥Ïß³Ì
+js å¾ªçŽ¯è¾“å‡ºæœ€ç»ˆç»“æžœçš„åŽŸç†  jsæ˜¯å•çº¿ç¨‹
 
-setTimeout() Ô­Àí
+setTimeout() åŽŸç†
 
-// ²»ÒªÒ»±ß´´½¨ÔªËØ£¬Ò»±ß¸øÔªËØÌí¼ÓÊôÐÔ»òÊÂ¼þ´¦Àíº¯Êý
+// ä¸è¦ä¸€è¾¹åˆ›å»ºå…ƒç´ ï¼Œä¸€è¾¹ç»™å…ƒç´ æ·»åŠ å±žæ€§æˆ–äº‹ä»¶å¤„ç†å‡½æ•°
 var aBtn = document.getElementsByTagName('input');
 for (var i=0; i<3; i++) {
-	// Ö»ÓÐµÚÈý¸öº¯ÊýÓÐÊÂ¼þ innerHTML »áÏÈÇå¿ÕÒ³ÃæÉÏËùÓÐµÄ°´Å¥ÔÚ´´½¨
-	document.body.innerHTML = document.body.innerHTML + '<input type="button" value="°´Å¥" />';
-	// µÚÒ»¸ö°´Å¥ = Ã»ÓÐÊÂ¼þ´¦Àíº¯ÊýÁË  0
-	// µÚ¶þ¸ö°´Å¥ = Ã»ÓÐÊÂ¼þ´¦Àíº¯ÊýÁË	 1
-	// µÚÈý¸ö°´Å¥ = ÓÐÊÂ¼þ´¦Àíº¯ÊýÁË	 1
+	// åªæœ‰ç¬¬ä¸‰ä¸ªå‡½æ•°æœ‰äº‹ä»¶ innerHTML ä¼šå…ˆæ¸…ç©ºé¡µé¢ä¸Šæ‰€æœ‰çš„æŒ‰é’®åœ¨åˆ›å»º
+	document.body.innerHTML = document.body.innerHTML + '<input type="button" value="æŒ‰é’®" />';
+	// ç¬¬ä¸€ä¸ªæŒ‰é’® = æ²¡æœ‰äº‹ä»¶å¤„ç†å‡½æ•°äº†  0
+	// ç¬¬äºŒä¸ªæŒ‰é’® = æ²¡æœ‰äº‹ä»¶å¤„ç†å‡½æ•°äº†	 1
+	// ç¬¬ä¸‰ä¸ªæŒ‰é’® = æœ‰äº‹ä»¶å¤„ç†å‡½æ•°äº†	 1
 	aBtn[i].onclick = function () {
 		alert(123);
 	};
 }
 
-inline-block ¼ÓÔÚ¿éÔªËØÉÏÊÇÃ»ÓÐÐ§¹ûµÄ
+inline-block åŠ åœ¨å—å…ƒç´ ä¸Šæ˜¯æ²¡æœ‰æ•ˆæžœçš„
 
-// µÚÒ»´ÎforÑ­»·Îª µÚÒ»¸ö°´Å¥°ó¶¨ÁËÊÂ¼þ´¦Àíº¯Êý£¬µ«ÊÇº¯ÊýÃ»ÓÐÖ´ÐÐ£¬º¯ÊýÖ´ÐÐ¾ÍÖ»ÓÐµã»÷µÄÊ±ºò²Å»áÖ´ÐÐ
-// ºóÃæ¼¸´ÎÑ­»·¶¼ÊÇÒ»Ñù£¬ÄÇÃ´Äãµã»÷ÍêÒÔºó i ¾ÍÒÑ¾­ÊÇ 3ÁË
+// ç¬¬ä¸€æ¬¡forå¾ªçŽ¯ä¸º ç¬¬ä¸€ä¸ªæŒ‰é’®ç»‘å®šäº†äº‹ä»¶å¤„ç†å‡½æ•°ï¼Œä½†æ˜¯å‡½æ•°æ²¡æœ‰æ‰§è¡Œï¼Œå‡½æ•°æ‰§è¡Œå°±åªæœ‰ç‚¹å‡»çš„æ—¶å€™æ‰ä¼šæ‰§è¡Œ
+// åŽé¢å‡ æ¬¡å¾ªçŽ¯éƒ½æ˜¯ä¸€æ ·ï¼Œé‚£ä¹ˆä½ ç‚¹å‡»å®Œä»¥åŽ i å°±å·²ç»æ˜¯ 3äº†
 for(var i=0;i<aBtn.length;i++){
 
     aBtn[i].onclick=function(){
@@ -364,27 +364,27 @@ for(var i=0;i<aBtn.length;i++){
 
 }
 
-ºÜ¶àÈËÎÒ¶¼»áÎÊËû£¬ÉÏ¸öÏîÄ¿ÓÃµ½Ê²Ã´¼¼Êõ£¬ÎªÊ²Ã´ÓÃÕâ¸ö£¬ÓÐÊ²Ã´ÓÅÈ±µã£¬ÓÐÊ²Ã´Ìæ´ú·½°¸
-¶ÔMVCÓÐÊ²Ã´ÁË½â£¬MVVMÄØ£¬ÓÐÃ»ÓÐ×Ô¼º´î¹ýÏîÄ¿¼Ü¹¹
+å¾ˆå¤šäººæˆ‘éƒ½ä¼šé—®ä»–ï¼Œä¸Šä¸ªé¡¹ç›®ç”¨åˆ°ä»€ä¹ˆæŠ€æœ¯ï¼Œä¸ºä»€ä¹ˆç”¨è¿™ä¸ªï¼Œæœ‰ä»€ä¹ˆä¼˜ç¼ºç‚¹ï¼Œæœ‰ä»€ä¹ˆæ›¿ä»£æ–¹æ¡ˆ
+å¯¹MVCæœ‰ä»€ä¹ˆäº†è§£ï¼ŒMVVMå‘¢ï¼Œæœ‰æ²¡æœ‰è‡ªå·±æ­è¿‡é¡¹ç›®æž¶æž„
 
-ÊìÏ¤TCP/IP¡¢HTTP»ù±¾¹¤×÷Ô­Àí£¿£¿
-HTTPÐ­Òé
-TCPÈý´ÎÎÕÊÖ
-webÐÔÄÜÆ¿¾±
-´úÂë´ò°ü¶¼Ã»ÊÔ¹ý£¬sass¡¢less¡¢grunt
+ç†Ÿæ‚‰TCP/IPã€HTTPåŸºæœ¬å·¥ä½œåŽŸç†ï¼Ÿï¼Ÿ
+HTTPåè®®
+TCPä¸‰æ¬¡æ¡æ‰‹
+webæ€§èƒ½ç“¶é¢ˆ
+ä»£ç æ‰“åŒ…éƒ½æ²¡è¯•è¿‡ï¼Œsassã€lessã€grunt
 
-ÁË½âÇ°¶Ë MVC ¿ª·¢Ä£Ê½
+äº†è§£å‰ç«¯ MVC å¼€å‘æ¨¡å¼
 
-5¡¢JavaScriptÖÐÈçºÎ¶ÔÒ»¸ö¶ÔÏó½øÐÐÉî¶Èclone?
+5ã€JavaScriptä¸­å¦‚ä½•å¯¹ä¸€ä¸ªå¯¹è±¡è¿›è¡Œæ·±åº¦clone?
 
 
-19¡¢¼æÈÝÐ´·¨ (ÄÜÁ¦¼ì²â)
+19ã€å…¼å®¹å†™æ³• (èƒ½åŠ›æ£€æµ‹)
 
-20¡¢ css¼ÆÊýÆ÷
+20ã€ cssè®¡æ•°å™¨
 
-21¡¢ js ÖÐ in ²Ù×÷·û
+21ã€ js ä¸­ in æ“ä½œç¬¦
 
-26¡¢ jquery ¶¯»­ animate(params, options) slideUp()
+26ã€ jquery åŠ¨ç”» animate(params, options) slideUp()
 
 
 
