@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box { background: black; color: white; padding-left: 20px;
+            line-height:10px; /* 添加line-height显示vertical-align:bottom和vertical-align:text-bottom的差异 */
+        }
+
+        .dot { display: inline-block; width: 4px; height: 4px; background: white; vertical-align: bottom;
+            /*
+                vertical-align:text-bottom;
+                对比vertical-align:bottom和vertical-align:text-bottom，他们的表现似乎一样
+                实际上呢，这里的表现一致只是一个巧合而已，要显示其差异很简单，添加一个line-height值
+                可以看到，vertical-align:text-bottom属性的那个小方点的位置没有随着line-height的改变而改变，
+                还是与文字的底部对齐。原因：text-bottom是与父标签的文字底部对齐，在这里也就是后面的“我是一个卡哇伊的文字”
+                这段文字对齐，而bottom是相对于父标签的底部对齐
+            */
+        }
+    </style>
+</head>
+<body>
+<!-- 默认状态下，应用于inline水平( inline-block、inline、( 未知元素就是自定义元素，浏览器默认会把他当做inline ) )和
+table-cell元素，只有这些元素默认情况下会对vertical-align属性起作用 总结： 图片，按钮，文字和单元格
+inline : img、span、strong、em、未知元素
+inline-block : input(IE8+)、button(IE8+)
+table-cell : td
+-->
+
+<span class="box">
+    <span class="dot"></span>
+    我是一段卡哇伊的文字。
+</span>
+
+</body>
+</html>

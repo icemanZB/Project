@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* 设这里的标签继承的行高是20px，则这里的vertical-align:-50%所代表的实际值是：-50% * 20 = 10(像素) */
+        body { line-height: 1.5; }   /* 20px */
+
+        /* 通过距离（相对于此标签[line-height]值的百分大小）升高（正值）或降低（负值）元素。'0%'等同于'baseline' */
+        .v0 { vertical-align: 50%; }
+
+        .v1 { vertical-align: -50%; }
+    </style>
+</head>
+<body>
+<p><img src="../mm.jpg" class=""/>未设置vertical-align百分比值的效果。</p>
+
+<p><img src="../mm.jpg" class="v0"/>vertical-align:50%的效果。</p>
+
+<p><img src="../mm.jpg" class="v1"/>vertical-align:-50%的效果。</p>
+</body>
+</html>

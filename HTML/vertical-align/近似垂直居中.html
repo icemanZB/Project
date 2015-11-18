@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p{ height: 200px; background: #ccc; text-align: center;
+            /* 添加line-height实现近似垂直居中，使vertical-align起作用，太短不够居中！
+                IE6不支持，IE7支持但是图片和父标签要有换行
+            */
+            line-height: 200px;
+        }
+        img{ vertical-align: middle; }
+    </style>
+</head>
+<body>
+    <p>
+        <img src="../mm.jpg" alt="">
+    </p>
+    <!--这样的方法图片也是近似居中-->
+    <p style="display: table-cell;vertical-align: middle;">
+        <img src="../mm.jpg" alt="">
+    </p>
+</body>
+</html>

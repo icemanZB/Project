@@ -108,6 +108,28 @@ text-indent : 1、2em; 相当于首行缩进2个字 自动检索文字大小，�
               如果字体大小是16px的话,那么首行缩进2个字符的话也可以设置为text-indent:32px;
               2、特殊应用 : text-indent:-999px; 隐藏文字
 
+vertical-align：垂直对齐 base-line top middle bottom ( 线类 )
+                       text-top text-bottom ( 文本类 )
+                       sub super ( 上标下标类 )
+                       20px 20em 20%  ( 数值百分比类 )
+
+长度	         通过距离升高（正值）或降低（负值）元素。'0cm'等同于'baseline'
+百分值 – %	 通过距离（相对于此标签[line-height]值的百分大小）升高（正值）或降低（负值）元素。'0%'等同于'baseline'
+baseline	 默认。元素的基线与父元素的基线对齐。
+sub	         降低元素的基线到父元素合适的下标位置。
+super	     升高元素的基线到父元素合适的上标位置。
+top	         把对齐的子元素的顶端与line box顶端对齐。
+text-top	 把元素的顶端与父元素内容区域的顶端对齐。
+middle	     元素的中垂点与 父元素的基线加1/2父元素中字母x的高度 对齐。
+bottom	     把对齐的子元素的底端与line box底端对齐。
+text-bottom	 把元素的底端与父元素内容区域的底端对齐。
+inherit	     采用父元素相关属性的相同的指定值。
+
+.test{vertical-align:-2px;}
+元素相对于基线向下偏移两像素，这个常常用来修复单选框/复选框与12像素文字大小不对齐的问题。这个没有什么好说的。
+
+IE6/IE7浏览器下的vertical-align的百分比值不支持小数line-height
+
 text-transform: uppercase/lowercase/capitalize( 首字母大写 ) / none
 
 white-space:nowrap; /* 空白符被压缩，强制文本不换行 */   white-space:pre; /* 空白符被保留，遇到" 回车 "换行符在换行 */
@@ -1275,6 +1297,8 @@ body{margin:0; height:100%;overflow:auto;}  // overflow:auto; 滚动条就在bod
 _position:absolute;_top:expression(eval(document.documentElement.scrollTop+100));
 }
 
+
+支持负值的属性 ： margin、letter-spacing、word-spacing、vertical-align
 
 
 常见dotype：

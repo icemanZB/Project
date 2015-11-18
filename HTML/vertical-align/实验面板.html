@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .demo { width: 1000px; margin: 30px auto; position: relative; }
+
+        .operate_box { position: absolute; width: 250px; left: 0; border-right: 1px dashed #a0b3d6; }
+
+        .test_box { background: green; width: 600px; margin-left: 310px; line-height: 200px; }
+
+        .line_box { background: black; color: white; padding-left: 20px; font-size: 14px; }
+
+        .test_dot { display: inline-block; width: 4px; height: 4px; overflow: hidden; background: red; vertical-align: bottom; }
+
+        .img { vertical-align: middle; }
+    </style>
+</head>
+<body>
+<!--
+通过修改，行高以及对应元素的vertical-align属性，同时修改文字大小的页面表现也有助于您对inline box模型的理解。
+由于IE6/7对inline box的解释不完善，同时对vertical-align的认识也是一坨香喷喷的鸟屎，所以请不要再IE6/7下使用此面板，会对您产生误导的
+vertical-align:middle属性的表现与否，仅仅与其父标签有关，至于我们通常看到的与后面的文字垂直居中显示那都是假象！
+当我们将图片vertical-align:middle属性改为其他的时候，例如top，或是bottom的时候会发现，图片位置上移或是下移了，且居边了
+但是文字在那里却纹丝不动，显然，vertical-align的本质上是个独立的个体，与后面的line水平的元素是不存在直接的关系的。
+两者没有必然的联系。
+-->
+<div class="demo">
+    <div class="operate_box">
+        <p><strong>修改默认参数：</strong></p>
+
+        <p>最外框背景色：<select id="outBoxColor">
+            <option value="blue">蓝色&nbsp;</option>
+            <option value="red">红色</option>
+            <option value="gray">灰色</option>
+            <option value="green" selected="selected">绿色</option>
+            <option value="yellow">黄色</option>
+            <option value="orange">橙色</option>
+            <option value="pink">粉色</option>
+        </select>
+        </p>
+        <p>内容的行高为：<input id="lineHeight" type="text" value="200" size="4"/> px</p>
+
+        <p>图片垂直对齐：<select id="imgVerAlign">
+            <option value="middle" selected="selected">middle</option>
+            <option value="bottom">bottom</option>
+            <option value="text-bottom">text-bottom</option>
+            <option value="top">top</option>
+            <option value="text-top">text-top</option>
+            <option value="baseline">baseline</option>
+        </select></p>
+        <p>小方点背景色：<select id="dotBgColor">
+            <option value="black">黑色&nbsp;</option>
+            <option value="red" selected="selected">红色</option>
+            <option value="gray">灰色</option>
+            <option value="green">绿色</option>
+            <option value="yellow">黄色</option>
+            <option value="orange">橙色</option>
+            <option value="pink">粉色</option>
+        </select>
+        </p>
+        <p>方点垂直对齐：<select id="dotVerAlign">
+            <option value="middle">middle</option>
+            <option value="bottom" selected="selected">bottom</option>
+            <option value="text-bottom">text-bottom</option>
+            <option value="top">top</option>
+            <option value="text-top">text-top</option>
+            <option value="baseline">baseline</option>
+        </select></p>
+        <p>文字框背景色：<select id="textBoxBg">
+            <option value="black">黑色&nbsp;</option>
+            <option value="red">红色</option>
+            <option value="gray">灰色</option>
+            <option value="green">绿色</option>
+            <option value="yellow">黄色</option>
+            <option value="orange">橙色</option>
+            <option value="pink">粉色</option>
+        </select>
+        </p>
+        <p>文字大小修改：<input id="fontSize" type="text" value="20" size="4"/> px</p>
+    </div>
+    <div id="testBox" class="test_box">
+                    <span id="lineBox" class="line_box">
+                        <img id="testImage" class="img" src="http://image.zhangxinxu.com/image/study/s/s128/mm10.jpg"/>
+                        <span id="testDot" class="test_dot"></span>
+                        <span id="testWord" style="font-size:20px;">我是卡哇伊文字！</span>
+                    </span>
+    </div>
+</div>
+<script type="text/javascript">
+    var $ = function (id) {
+        return document.getElementById(id);
+    };
+    var fn = {
+        fnBgChange: function (o, target) {
+            o.onchange = function () {
+                target.style.backgroundColor = o.value;
+            };
+        },
+        fnFontChange: function (o, target) {
+            o.onkeyup = function () {
+                var v = parseInt(o.value, 10);
+                target.style.fontSize = v + "px";
+            };
+        },
+        fnLineHChange: function (o, target) {
+            o.onkeyup = function () {
+                var v = parseInt(o.value, 10).toString();
+                target.style.lineHeight = v + "px";
+            };
+        },
+        fnVerChange: function (o, target) {
+            o.onchange = function () {
+                target.style.verticalAlign = o.value;
+            };
+        }
+    };
+    // 绑定
+    fn.fnBgChange($("outBoxColor"), $("testBox"));
+    fn.fnBgChange($("textBoxBg"), $("lineBox"));
+    fn.fnBgChange($("dotBgColor"), $("testDot"));
+    fn.fnFontChange($("fontSize"), $("testWord"));
+    fn.fnVerChange($("imgVerAlign"), $("testImage"));
+    fn.fnVerChange($("dotVerAlign"), $("testDot"));
+    fn.fnLineHChange($("lineHeight"), $("testBox"));
+</script>
+</body>
+</html>
