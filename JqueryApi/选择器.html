@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择器</title>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script>
+        $(function(){
+            console.log($('strong','li')); // strong 选择父级是li的strong
+            // $(子，父)，是从父节点里找子节点
+            $('strong','li').css('background','red').click(function(){
+                alert(1); // 点击strong触发
+            });
+        })
+    </script>
+</head>
+<body>
+<ul id="ul1">
+    <li><strong>list</strong> item 1 - one strong tag</li>
+    <li>list item 2</li>
+    <li>list item 3</li>
+    <li><strong>list item 4</strong></li>
+    <li>list item 5</li>
+    <li>list item 6</li>
+</ul>
+
+</body>
+</html>

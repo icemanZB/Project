@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>not()</title>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script>
+        $(function () {
+            // not() 从匹配元素集合中删除元素 :even 去掉偶数
+            $('#ul1 li').not(':even').css('background-color', 'red');
+            $('#ul2 li').not(document.getElementById('notli')).css('background-color', 'green');
+            $('p').not(function (index) {
+                console.log(index); // 0 1 2
+                console.log($(this));
+                return $(this).hasClass('selected')?$(this).css('background','yellow'): $(this).css('background','red');
+            });
+        });
+    </script>
+</head>
+<body>
+<ul id="ul1">
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li>list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+</ul>
+
+<ul id="ul2">
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li id="notli">list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+</ul>
+<p>aaa</p>
+
+<p class="selected">bbb</p>
+
+<p>ccc</p>
+</body>
+</html>
