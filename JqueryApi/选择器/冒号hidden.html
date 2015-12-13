@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择器</title>
+    <script type="text/javascript" src="../../js/jquery-2.0.2.js"></script>
+    <script>
+        /**
+         * 以下几种情况的元素是隐藏元素：
+         * 包括<input type="hidden" /> 、<div style="display:none;"></div>、
+         * width 和 height 设置为 0、隐藏的父元素（这也会隐藏子元素）
+         * 注释：该选择器对 visibility:hidden 的元素不起作用。
+         *
+         * 如果我只想获取<input>元素，可以使用$('input:hidden')
+         *
+         * */
+        $(function(){
+            // 在id为n1的div标签内查找所有不可见的元素
+            console.log($('#n1 :hidden'));  // #n2 #n5
+
+            // 在id为n1的div标签内查找所有不可见的p标签
+            console.log($("#n1 p:hidden")); // #n2
+
+            console.log($('div:hidden').length); // 0
+        })
+    </script>
+</head>
+<body>
+
+<div id="n1">
+    <p id="n2" style="display: none;"></p>
+    <p id="n3">
+        <span id="n4">CodePlayer</span>
+        <input id="n5" type="hidden" value="专注于编程开发技术分享">
+        <span id="n6" style="visibility: hidden;">http://www.365mini.com</span>
+        <span id="n7" style="opacity: 0;">jQuery手册</span>
+    </p>
+</div>
+
+<div id="box" style="visibility: hidden;">
+
+</div>
+
+</body>
+</html>

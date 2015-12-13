@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS后代选择器</title>
+    <style>
+        span { display: block; margin-top: 10px;}
+        div > span { background: red; }
+        div span { border:1px solid green;}
+        /*
+        div span{} IE6+ 获取div下所有的span
+        div>span{} IE7+  选取父元素是 <div> 元素的每个 <span> 元素
+        */
+    </style>
+</head>
+<body>
+<div>
+    <span>4444444444</span>
+    <span>222222</span>
+</div>
+<div>
+    <p>
+        <span>aaaaa</span>
+    </p>
+</div>
+</body>
+</html>

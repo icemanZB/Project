@@ -163,11 +163,8 @@ android 只会触发一次touchstart，一次touchmove，touchend 不触发 4.0 
 局部滚动开启弹性滚动： body{ overflow:scroll;-webkit-overflow-scrolling:touch; } 但是android不支持弹性滚动
 要兼容android可以使用iScroll实现
 
-
-页面性能：经常需要切换位置的元素，使用绝对定位，提高渲染性能
-
-一像素边框问题的解决，根本原因是 1px =2dp
-
+一像素边框问题的解决，根本原因是 1px =2dp  0.5px 显示边框为1
+解决方案：
 .sidebar .folder li{
     /* border-bottom:0.5px solid #ddd; */
     padding: 8px 0 8px 15px;
@@ -176,7 +173,7 @@ android 只会触发一次touchstart，一次touchmove，touchend 不触发 4.0 
     position:relative;
 }
 
-.folder li + li:befpre{
+.folder li + li:before{
    position:absolute;
    top:-1px;
    left:0;
@@ -232,6 +229,12 @@ oBox.ontouchend=function(e){
 
 transition 需要在元素整个渲染完成以后，才会有效果
 
- -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 设置的是a标签或者按钮按下的阴影颜色( 默认会有黑色半透明的阴影，不是很美观 )
+设置的是a标签或者按钮按下的阴影颜色( 默认会有黑色半透明的阴影，不是很美观 )
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
+<meta name="format-detection"/>
 
+当该 HTML 页面在手机上浏览时，该标签用于指定是否将网页内容中的手机号码显示为拨号的超链接。
+在 iPhone 上默认值是：<meta name="format-detection" content="telephone=yes"/>
+如果不希望手机自动将网页中的电话号码显示为拨号的超链接，那么可以这样写：
+<meta name="format-detection" content="telephone=no"/>

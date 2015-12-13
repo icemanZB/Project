@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IE6png</title>
+    <style>
+        body{ background: #000000;}
+        .box{ width: 59px; height: 18px;
+            background: url(sprite.png) no-repeat -131px -159px;
+            _background: url(sprite-ie6.png) no-repeat -131px -159px;
+        }
+
+    </style>
+</head>
+<body>
+用PNG8格式图片替代PNG24格式的图片
+用fireworks导出Alpha模式的PNG8格式的图片，Alpha模式的PNG8格式图片支持半透明
+在IE6下全透明以及半透明部分会显示成全透明，并且会存在锯齿。
+如果对用户体验影响不是很大的话，可以考虑一下用这个方法。
+png8和png24
+
+png8和png24的根本区别，不是颜色位的区别，而是存储方式不同。
+png8有1位的布尔透明通道（要么完全透明，要么完全不透明），png24则有8位（256阶）的布尔透明通道（所谓半透明）。
+如果是半透明的图片存储为PNG8，图片四周会有锯齿，阴影也会不见
+png-8 和 gif 有一些相似之处，模式都是索引颜色，只支持像素级的纯透明，不支持 alpha 透明。
+
+我们通常说的“IE6 不支持 PNG 透明”，是指不支持 PNG-24 的透明。但是 IE6 支持 PNG-8 的透明，就像支持 gif 的透明一样。
+http://www.sjyhome.com/photoshop/png8-png24.html
+
+<div class="box"></div>
+</body>
+</html>
