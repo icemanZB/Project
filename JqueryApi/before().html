@@ -24,6 +24,7 @@
             });
             $('#btn').click(function(){
                 $('div').before('p'); // 这里的 p 不是一个选择器，不能获取p元素，只是单纯的文本
+                $('div').before($('p')); // 在div元素前面插入p元素 (外部) 剪切
             });
         });
     </script>

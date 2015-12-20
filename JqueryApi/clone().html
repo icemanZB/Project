@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>clone()</title>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script>
+        $(function () {
+            // 复制节点 clone(true) 复制元素的同时复制元素所绑定的事件
+            $("ul li").click(function(){
+                // clone() 潜复制，不保留事件
+                $(this).clone(true).appendTo("ul"); // 注意参数true，可以复制自己，并且他的副本保留事件。
+            })
+        });
+    </script>
+</head>
+<body>
+
+<ul>
+    <li title='苹果'>苹果</li>
+    <li title='橘子'>橘子</li>
+    <li title='菠萝'>菠萝</li>
+</ul>
+</body>
+</html>

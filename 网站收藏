@@ -144,3 +144,9 @@ if (Modernizr.localstorage) {
 // no native support for local storage :(
 // maybe try Gears or another third-party solution
 }
+
+http://jdc.jd.com/archives/321  移动端lazyload优化
+
+http://www.chinaz.com/web/2015/0918/448237.shtml  纯干货！一款APP从设计稿到切图过程全方位揭秘
+
+http://blog.csdn.net/phunxm/article/details/42174937  iPhone屏幕尺寸、分辨率及适配
