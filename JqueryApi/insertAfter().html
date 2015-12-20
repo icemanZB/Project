@@ -16,8 +16,9 @@
             });
 
             // h1会被移走,添加到被选元素之后
+            // 生成的html <div>这是一个段落。</div><h1>这是一个标题</h1>
             $("#btn").click(function(){
-                $("h1").insertAfter("div");
+                $("h1").insertAfter("div"); // 在div的后面插入h1，这两个参数均是选择器
             });
 
 

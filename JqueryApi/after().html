@@ -5,12 +5,25 @@
     <title>after()</title>
     <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
     <script type="text/javascript">
-        // 使用函数来插入内容 使用函数在被选元素之后插入指定的内容
+        // 使用函数在被选元素之后插入指定的内容html (外部)
         // 生成的 html <p>This is a paragraph.</p><p>Hello world!</p>
         $(document).ready(function () {
             $("button").click(function () {
-                // after() 方法在被选元素后插入指定的内容
+                // after() 方法在被选元素后(外部)插入指定的内容
                 $("p").after("<p>Hello world!</p>");
+            });
+            // 使用函数在被选元素之后插入指定的内容
+            /**
+             * $(selector).after(function(index)) 必需。规定返回待插入内容的函数
+             * */
+            // 生成的html <p>This is a paragraph.</p><p>The p element above has index 0</p>
+            $("button").click(function () {
+                $("p").after(function (n) {
+                    return "<p>The p element above has index " + n + "</p>";
+                });
+            });
+            $('#btn').click(function(){
+                $('div').after('p'); // 这里的 p 不是一个选择器，不能获取p元素，只是单纯的文本
             });
         });
     </script>
@@ -18,5 +31,8 @@
 <body>
 <p>This is a paragraph.</p>
 <button>在每个 p 元素后插入内容</button>
+
+<div>aaa</div>
+<input type="button" id="btn" value="按钮"/>
 </body>
 </html>

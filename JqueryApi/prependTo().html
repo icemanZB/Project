@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>prependTo()</title>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script type="text/javascript">
+        // prepend() 方法在被选元素的开头（仍位于内部）插入指定内容。
+        // 在每个 p 元素开头插入内容(仍然在内部)  先删除后插入
+        // html <p><b>Hello world!</b> This is another paragraph.</p>
+        // <p><b>Hello world!</b> This is another paragraph.</p>
+        /**
+         * 提示：prepend() 和 prependTo() 方法作用相同。
+         * 差异在于语法：内容和选择器的位置，以及 prepend() 能够使用函数来插入内容。
+         * */
+        $(document).ready(function () {
+            $("button").click(function(){
+                $("<b>Hello World!</b>").prependTo("p");
+            });
+
+            // 在div之前(div的内部)插入选择到p的元素
+            // 生成的html <div><p>This is a paragraph.</p><p>This is another paragraph.</p>aaaa</div>
+            $('#btn').click(function(){
+                $('p').prependTo('div');
+            });
+        });
+    </script>
+</head>
+<body>
+<p>This is a paragraph.</p>
+
+<p>This is another paragraph.</p>
+<button>在每个 p 元素的开头插入内容</button>
+
+<div>aaaa</div>
+<input type="button" value="按钮" id="btn"/>
+</body>
+</html>
