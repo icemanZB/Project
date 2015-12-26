@@ -14,20 +14,27 @@ data-toggle="dropdown"才能有效，一般是作为JavaScript关联。对于菜
 1.外围容器使用class="dropdown"包裹；
 2.内部点击按钮事件绑定data-toggle="dropdown"；
 3.菜单元素使用class="dropdown-menu"。
+4.下拉菜单都是定位的
 -->
 <div class="dropdown" id="dropdown">  <!--open 默认菜单展开，一般不用,设置向上触发dropup -->
-    <button class="btn btn-default" data-toggle="dropdown">
+	<!-- data-toggle="dropdown" 用于js切换
+	     data-target=".dropdown" 目标是上一层的div( 明确指定哪些菜单可以操作，默认是当前菜单)
+	-->
+    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         下拉菜单
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">   <!--菜单项居右对齐dropdown-menu dropdown-menu-right，默认值是dropdown-menu-left-->
         <li class="dropdown-header">网站导航</li>
         <!--设置菜单的标题dropdown-header，不要加超链接-->
-        <li><a href="#">首页</a></li>
-        <li><a href="#">资讯</a></li>
+	    <!-- active 选中状态，disabled禁止 -->
+        <li class="active"><a href="#">首页</a></li>
+        <li class="disabled"><a href="#">资讯</a></li>
         <li class="divider"></li>
-        <!--设置菜单的分割线divider-->
-        <li><a href="#">产品</a></li>
+        <!-- 设置菜单的分割线divider
+             text-center 设置文字居中
+        -->
+        <li class="text-center"><a href="#">产品</a></li>
         <li><a href="#">关于</a></li>
     </ul>
 </div>

@@ -1,5 +1,4 @@
 
-role ( 增加可访问性 )
 
 dropdown 中的tabindex="-1" 是什么意思
 
@@ -56,15 +55,24 @@ container 固定布局
 同样缩小了分辨率，都可以实现效果，但是浮动布局如果两列浮动，中间有空隙，那么当分辨率变小的时候，虽然右侧的那一列到下面去了，但是右侧的
 空隙还在。而栅格布局则不会，他会贴紧浏览器的右侧，不会留有空隙
 
+按钮图标组合使用 ( 配合下拉的剪头 )
+<a href="#" class="btn btn-primary">按钮 <span class="caret"></span></a>
+<button class="btn btn-primary">按钮 <span class="caret"></span></button>
 
+箭头向上 ( 主要是dropup这个class )
+<div class="btn-group dropup">
+    <button class="btn btn-primary">按钮</button>
+    <button class="btn btn-primary"><span class="caret"></span></button>
+</div>
 
-
-
-
-
-
-
-
+自定义属性：
+1、data- 来操作js交互的，就是为了触发js效果
+   如 data-toggle="dropdown"  dropdown值相当于js中的方法，不能修改成其他的'aaa'之类的名称
+2、role、aria-，都是html5的属性，作用是针对一些特殊人群服务( 视力不好的 )，就会使用屏幕阅读器读取页面上的内容
+   如 aria-haspopup="true" 是否有弹出下拉菜单( 是 )
+      aria-expanded="true" 是否现在目前是展开的状态( 是展开状态 )、false 起始下拉菜单是隐藏的
+   role: 当前标签的一种状态( 表示一种职责 )，让特殊人群知道模拟的是什么 role="menu"，就是模拟的是菜单
+   ( 平时写代码不一定要加上 )
 
 
 
