@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>toggleClass()</title>
+	<script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+	<script>
+		$(function () {
+			/*
+			* toggleClass() 切换样式，就是重复执行 addClass() 和 removeClass()
+			 结果： <p class="myClass another" title="选择你最喜欢的水果." >你最喜欢的水果是?</p>
+			       <p class="myClass" title="选择你最喜欢的水果." >你最喜欢的水果是?</p>
+			* */
+			$("p").toggleClass("another");
+		});
+	</script>
+</head>
+<body>
+<p class="myClass" title="选择你最喜欢的水果.">你最喜欢的水果是?</p>
+</body>
+</html>

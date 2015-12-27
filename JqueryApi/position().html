@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>position()</title>
+	<style>
+		* { margin: 0; padding: 0 }
+
+		#div1 { width: 200px; height: 200px; background: red; overflow: hidden; margin: 20px; position: relative; }
+
+		#div2 { width: 100px; height: 100px; background: yellow; margin: 30px; position: absolute; left: 60px; }
+	</style>
+	<script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			// position() 获取相对于最近的一个position样式属性为relative或者absolute的父节点相对偏移，有定位的情况
+			// div1、div2 都没有定位的话，就是 20 (红块的到屏幕的这段距离)，div2就是看做一个有定位的元素了
+			// div2 本身的margin30px是不算进去的,因为有定位 ( 样式关系 )
+			// 如果 div2 没有定位，而div1有定位，值为 0，因为margin30是不算的
+			alert($("#div2").position().left); // 60，有left值肯定获取的是left值，并且不计算margin值
+		});
+	</script>
+</head>
+<body>
+
+<div id="div1">
+	<div id="div2"></div>
+</div>
+
+</body>
+</html>

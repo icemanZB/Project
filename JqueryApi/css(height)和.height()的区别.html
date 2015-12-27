@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css()</title>
+	<script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+	<script>
+		$(function () {
+			/*
+			* css() 注意：1、如果是数字，将会被自动转化为像素值
+			*            2、在css() 方法中，如果属性中带有'-'符号，例如 font-size 和 background-color 属性
+			*               如果在设置这些属性的值的时候不带引号，那么就要用驼峰式写法
+			*               例如：$('p').css({ fontSize:"30px",backgroundColor:"#888" });
+			*               如果带上了引号，既可以写成"font-size"，也可以写成'fontSize'，建议带上引号
+			* */
+			// $(element).css('height')  和  $(element).height() 的区别
+
+			// css()方法获取的高度值与样式的设置有关，可能会得到'auto'，也可能得到'10px'之类的字符串；
+			// 而height()方法获取的高度值则是元素在页面中的实际高度，与样式设置无关，并且不带单位
+			// height()方法也能用来设置元素的高度，如果需要用其它单位(em)，则必须传递一个字符串
+			// $('p').height(100)  、 $('p').height('10em')
+		});
+	</script>
+</head>
+<body>
+
+<p class="high another aaa">pppppppp</p>
+</body>
+</html>

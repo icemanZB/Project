@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>siblings()</title>
+    <script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+    <script>
+        $(function () {
+            $('li.third-item').siblings().css('background-color', 'red'); // item1、item2、item4、item5 变红
+        });
+    </script>
+</head>
+<body>
+<ul>
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li class="third-item">list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>parentsUntil()</title>
+	<script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+	<script>
+		$(function () {
+			// 查找 <li class="item-a"> 的祖先元素，直到 <ul class="level-1">，并将它们设置为红色背景。
+			$("li.item-a").parentsUntil(".level-1")
+					.css("background-color", "red");
+
+			// 找到 <li class="item-2"> 的所有类名为 "yes" 的祖先元素，直到 <ul class="level-1">，然户为它们设置蓝色边框
+			$("li.item-2").parentsUntil($("ul.level-1"), ".yes")
+					.css("border", "3px solid blue");
+		});
+	</script>
+</head>
+<body>
+<ul class="level-1 yes">
+	<li class="item-i">I</li>
+	<li class="item-ii">II
+		<ul class="level-2 yes">
+			<li class="item-a">A</li>
+			<li class="item-b">B
+				<ul class="level-3">
+					<li class="item-1">1</li>
+					<li class="item-2">2</li>
+					<li class="item-3">3</li>
+				</ul>
+			</li>
+			<li class="item-c">C</li>
+		</ul>
+	</li>
+	<li class="item-iii">III</li>
+</ul>
+</body>
+</html>

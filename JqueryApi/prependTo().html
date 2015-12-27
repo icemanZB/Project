@@ -18,10 +18,10 @@
                 $("<b>Hello World!</b>").prependTo("p");
             });
 
-            // 在div之前(div的内部)插入选择到p的元素
-            // 生成的html <div><p>This is a paragraph.</p><p>This is another paragraph.</p>aaaa</div>
+            // 在p之前(p的内部)插入选择到div的元素
+            // 生成的html <p><div>aaaa</div>This is another paragraph.</p>
             $('#btn').click(function(){
-                $('p').prependTo('div');
+                $('div').prependTo('p');
             });
         });
     </script>
