@@ -2,22 +2,32 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title></title>
-    <script type="text/javascript">
-        var num1 = '1' > 2;
-        console.info(num1); // 会先将字符串转为数字在比较  false
+	<meta charset="utf-8">
+	<title>比较</title>
+	<script type="text/javascript">
+		// 会先将字符串转为数字在比较
+		console.log('1' > 2); // false
 
-        var num2 = '3' > '22';
-        console.info(num2); // 两个都是字符串比较，只会对第一个字符进行比较  true
+		// 两个都是字符串比较，只会对第一个字符进行比较
+		console.log('3' > '22');  // true
 
-        var num3 = 'a' > 'b';
-        console.info(num3); // 此时比较的是ASCII码 97>98  false
+		// 2的字符编码是50、3的字符编码是51
+		console.log('2' < '3'); // true
 
-        // 第二个是对象的时候,第一个如果是true,则返回第二个对象
-        // 否则返回false
-        var box = 0 && {};
-    </script>
+		// "23" 会隐式转换为数字，在进行比较
+		console.log("23" < 3);  // false
+
+		// 此时比较的是ASCII码 97>98
+		console.log('a' > 'b'); // false 、"B" < "a" // true
+
+		console.log('B'.toLowerCase() < 'a'.toLowerCase());  // false
+
+		// "a" 转换为了NaN，任何数 和 NaN 比较都为 false
+		console.log('a' < 3); // false
+
+		// 第二个是对象的时候，第一个如果是true，则返回第二个对象，否则返回 false
+		var box = 0 && {};
+	</script>
 </head>
 
 <body>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>作用域</title>
+	<script type="text/javascript">
+		(function () {
+			var color = 'blue';
+
+			function changeColor() {
+				color = 'red';
+			}
+
+			changeColor();
+			console.log(color);  // red
+
+		})();
+
+
+		// 在IE8 之前的版本中，即使是在catch块的外部也可以访问到错误对象，即catch语句中捕获的错误对象会被添加到执行环境的变量对象
+
+		function build() {
+			var qs = "?debug=true";
+			with (location) {  // 在with语句中，最近的环境是函数环境
+				var url = href + qs;
+			}
+			return url; // url 成了执行环境的一部分
+		}
+
+		build();
+		var color = "blue";
+		(function () {
+			// 如果局部环境中存在着同名标识符，就不会使用位于父环境中的标识符
+			function getColor() {
+				var color = "red";
+				return color;
+			}
+
+			console.log(getColor()); // red
+			console.log(window.color); // blue
+		})();
+
+
+	</script>
+</head>
+
+<body>
+</body>
+
+</html>

@@ -6,17 +6,20 @@
     <script type="text/javascript">
         /*
          * join()  是对于值进行操作的
+         * 如果不传递不给join()方法传入任何值，则使用逗号作为分隔符，IE7以下的版本会错误的使用undefined作为分隔符。建议传入参数
          *
          * */
         var arr = ['Iceman', 25, 'Shanghai', new Date()];
 
-        console.info(arr.join('')); 	// 数组转换为字符串
-        console.info(typeof arr.join(''));  // string
+        console.log(arr.join('')); 	// 数组转换为字符串
+        console.log(arr); //  ["Iceman", 25, "Shanghai", Date {Sat Jan 23 2016 21:27:11 GMT+0800}]
+        console.log(typeof arr.join(''));  // string
+        console.log(arr.join('|'));  // 按|分割的字符串
 
-        var arr2 = ['Iceman', 25, 'Shanghai'];
-        console.info(arr2.join('|'));  // 方法运行过后返回按|分割的字符串
-        console.info(typeof arr2.join('|'));
-        console.info(typeof arr2);  // 原数组没有任何变化,类型还是object
+        var aa=[null,undefined,'null'];
+        // 如果数组中的某一项值是 null、undefined
+        // 那么在join()、toLocaleString()、toString()、valueOf() 方法返回的结果中以空字符串表示
+        console.log(aa.join()); // ,,null
 
     </script>
 </head>
