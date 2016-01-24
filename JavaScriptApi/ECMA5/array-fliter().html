@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>fliter()</title>
+	<script type="text/javascript">
+		/*
+		 * ECMA5 数组新方法 filter()
+		 * 对数组中的每一项运行给定函数，返回该函数会返回true的项组成的新数组
+		 * 浏览器兼容：IE9+、firefox 2+、Safari3+、Opera9.5+和chrome
+		 * */
+		var num = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+		// 返回一个所有数组都大于2的新数组
+		var filterRes = num.filter(function (item, index, array) {
+
+			return (item > 2);
+
+		});
+		console.log(filterRes);  // [3, 4, 5, 4, 3]
+	</script>
+</head>
+<body>
+
+</body>
+</html>

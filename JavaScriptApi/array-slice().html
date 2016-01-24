@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>slice</title>
-    <script type="text/javascript">
-        // slice() 方法可从已有的数组中返回选定的元素
-        // 返回一个新的数组,包含从 start 到 end (不包括该元素) 的 arrayObject 中的元素
-        // 该方法并不会修改数组,而是返回一个子数组
-        var arr1 = ['Iceman', 25, 'ShangHai', 'Computer'];
-        var newArr = arr1.slice(1);
-        console.info(newArr);  // [25, "ShangHai", "Computer"]
-        console.info(arr1); // ["Iceman", 25, "ShangHai", "Computer"]
+	<meta charset="UTF-8">
+	<title>slice()</title>
+	<script type="text/javascript">
+		// slice() 方法可从已有的数组中返回选定的元素
+		// 返回一个新的数组,包含从 start 到 end (不包括该元素) 的 arrayObject 中的元素
+		// 该方法并不会修改数组,而是创建当前数组的一个副本
+		var arr = ['Iceman', 25, 'ShangHai', 'Computer','IT'];
+		var newArr = arr.slice(1); // 在只有一个参数的情况下，会返回该参数指定位置开始到当前数组末尾的所有项
+		console.log(newArr);  //  [25, "ShangHai", "Computer", "IT"]
+		console.log(arr); // ["Iceman", 25, "ShangHai", "Computer", "IT"]
 
-        // 这里不是从第1个位置取3个 而是从第1个位置取到第3个位置 (不包括第三个)
-        var arr14 = arr1.slice(1, 3);
-        console.info(arr14); // [25, "ShangHai"]
-        console.info(arr1); // ["Iceman", 25, "ShangHai", "Computer"]
+		// 这里不是从第1个位置取3个 而是从第1个位置取到第3个位置 (不包括第三个)
+		console.log(arr.slice(1, 3)); // [25, "ShangHai"]
+		// 如果参数中有个负数，则用数组长度加上该数来确定相应的位置
+		console.log(arr.slice(-2,-1));  // ["Computer"]
+		console.log(arr.slice(3,4)); // ["Computer"]
+		// 如果结束位置小于起始位置，则返回空数组
+		console.log(arr.slice(2,1));  // []
 
-    </script>
+	</script>
 </head>
 <body>
 

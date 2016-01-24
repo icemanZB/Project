@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>map()</title>
+	<script type="text/javascript">
+		/*
+		 * ECMA5 数组新方法 map()
+		 * 对数组中的每一项运行给定函数，返回一个数组，而这个数组的每一项都是在原始数组中的对应项上运行传入函数的结果
+		 * 浏览器兼容：IE9+、firefox 2+、Safari3+、Opera9.5+和chrome
+		 * 浏览器兼容：IE9+、firefox 2+、Safari3+、Opera9.5+和chrome
+		 * */
+		var num = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+		// 给数组中的每一项*2，然后返回这些乘积组成的数组
+		var mapRes = num.map(function (item, index, array) {
+
+			return item * 2;
+
+		});
+		console.log(mapRes);  // [2, 4, 6, 8, 10, 8, 6, 4, 2]
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
