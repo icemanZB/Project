@@ -16,6 +16,17 @@
 		setName(person);
 		console.log(person.name);  // Nicholas
 
+		// 函数名仅仅是指向函数的指针，因此函数名与包含对象指针的其他变量没有什么不同
+		function sum(num1, num2) {
+			return num1 + num2;
+		}
+		console.log(sum(10, 10));  // 20
+		var anotherSum = sum; // 使用不带圆括号的函数名是访问函数指针，而非调用函数
+		console.log(anotherSum(10, 10));  // 20
+		sum = null;
+		console.log(anotherSum(10, 10));  // 20
+
+
 	</script>
 </head>
 

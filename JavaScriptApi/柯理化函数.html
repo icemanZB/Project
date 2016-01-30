@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>柯理化函数</title>
+	<script type="text/javascript">
+		function createComparisonFunction(propertyName) {
+			return function (object1, object2) {
+				console.log(object1);  // Object {name: "Zachary", age: 28}
+				console.log(object2);  // Object {name: "Nicholas", age: 29}
+				var value1 = object1[propertyName];
+				var value2 = object2[propertyName];
+				if (value1 < value2) {
+					return -1;
+				} else if (value1 > value2) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		}
+
+		var data = [{name: "Zachary", age: 28}, {name: "Nicholas", age: 29}];
+		data.sort(createComparisonFunction("name"));
+		console.log(data[0].name);  // Nicholas
+		data.sort(createComparisonFunction("age"));
+		console.log(data[0].name); // Zachary
+
+		var isType = function (type) {
+
+			return function (obj) {
+				return Object.prototype.toString.call(obj) === "[object " + type + "]";
+			};
+		};
+
+		console.log(isType('Array')([])); // 'Number' 'Array'
+		var isString = isType('Array');
+		console.log(isString([]));
+	</script>
+</head>
+
+<body>
+</body>
+
+</html>
