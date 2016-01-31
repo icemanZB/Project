@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型模式</title>
+	<script>
+		// 每创建一个函数都有一个 prototype 属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法
+		// 即 prototype 就是通过调用构造函数而创建的那个对象实例的原型对象，可以让所有实例共享属性和方法
+
+		function Person() {
+		}
+		Person.prototype.name = "Nicholas";
+		Person.prototype.age = 29;
+		Person.prototype.job = "Software Engineer";
+		Person.prototype.sayName = function () {
+			console.log(this.name);
+		};
+		var person1 = new Person(); // 创建 person1 实例
+		person1.sayName(); // Nicholas
+		var person2 = new Person();
+		person2.sayName(); // Nicholas
+		console.log(person1.sayName == person2.sayName); // true
+
+		// 在默认情况下，所有原型对象都会自动获得一个 constructor 属性，这个属性包含一个指向 prototype 属性所在函数的指针
+		// 创建了自定义构造函数后，其原型对象默认只会取得 constructor 属性，当调用构造函数创建一个新实例后
+		// 该实例内部将包含一个指针( 内部属性 )，指向构造函数的原型对象，这个指针就是 __proto__
+		
+		/* 这个链接存在于实例与构造函数的原型对象之间，而不是存在于实例与构造函数之间 */
+		console.log(Person.prototype.constructor);  // 打印出 Person 构造函数
+		console.log(person1.constructor); // Person 构造函数
+
+		/* 使用 Person 构造函数 和 Person.prototype 创建实例代码 如图6-1 */
+
+		// Person.prototype 指向了原型对象，而 Person.prototype.constructor 又指回了 Person
+		// person1 和 person2 都包含一个内部属性，该属性仅仅指向了 Person.prototype
+
+		// isPrototypeOf() 方法来确定对象之间是否存在关系
+		console.log(Person.prototype.isPrototypeOf(person1));  // true
+		console.log(Person.prototype.isPrototypeOf(person2));  // true
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
