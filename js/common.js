@@ -507,3 +507,7 @@ function selectForm(lowerValue, upperValue) {
 	return Math.floor(Math.random() * choices + lowerValue);
 }
 
+// 判断属性是存在于实例中还是存在于原型中
+function hasOwnPrototypeProperty(obj, name) {
+	return !obj.hasOwnProperty(name) && (name in obj);
+}

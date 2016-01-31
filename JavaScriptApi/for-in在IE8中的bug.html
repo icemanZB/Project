@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>for-in</title>
+	<script>
+		/* IE8 及以下的版本存在一个bug，屏蔽不可枚举属性的实例属性不会出现在 for-in 循环中
+		 * 在IE中，由于其实现认为原型的 toString() 方法被打上了值为 false 的 [[Enumerable]] 标记，因此跳过了该属性，结果看不到警告框
+		 * 该 bug 会影响默认不可枚举的所有属性和方法有：hasOwnProperty()、propertyIsEnumerable()、toLocaleString()、toString()和valueOf()
+		 */
+		var o = {
+			toString: function () {
+				return "My Object";
+			}
+		};
+
+		for (var prop in o) {
+			if (prop == "toString") {
+				alert("Found toString"); // 在 IE 中不会显示
+			}
+		}
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

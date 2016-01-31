@@ -11,6 +11,8 @@
 		 * 支持 Object.getOwnPropertyDescriptor() 这个方法的浏览器有 IE9+、Firefox 4+、Safari5+、Opera12+、Chrome
 		 */
 
+		// Ojbect.getOwnPropertyDescriptor() 方法只能用于实例属性，要取得原型属性的描述符
+		// 必须直接在原型对象上调用 Object.getOwnPropertyDescriptor() 方法
 
 		var book = {
 			edition: 1
