@@ -1,10 +1,42 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<title>柯理化函数</title>
+	<script src="js/EventUtil.js"></script>
 	<script type="text/javascript">
+		// 柯理化函数，用于创建已经设置好了一个或多个参数的函数，原理就是使用一个闭包返回一个函数
+		function add(num1, num2) {
+			return num1 + num2;
+		}
+
+		function curriedAdd(num2) {
+			return add(5, num2);
+		}
+
+		console.log(add(2, 3)); // 5
+		console.log(curriedAdd(3)); // 8
+		// 柯理化函数通常由以下步骤动态创建，调用另一个函数并为它传入要柯理化的函数和必要的参数，它的主要工作是将被返回的函数的参数进行排序
+		// curry 的第一个参数就是要进行柯理化的函数，其他参数是要传入的值
+		// 创建了第一个参数绑定为5的add()柯理化版本，当调用 curriedAdd()并传入3是，3会成为add()的第二个参数，同时第一个参数依然是5，最后结果是8
+		function curry(fn) {
+			console.log(fn);  // function add(num1,num2){ return num1 + num2;}
+			// 获取第一个参数之后所有的参数
+			var args = Array.prototype.slice.call(arguments, 1);
+			console.log(args);  // [5]
+			return function () {
+				// 获取内部函数的参数
+				var innerArgs = Array.prototype.slice.call(arguments);
+				console.log(innerArgs);  // [3]
+				var finalArgs = args.concat(innerArgs);
+				console.log(finalArgs);  //  [5, 3]
+				return fn.apply(null, finalArgs); // 将传递的结果传给fn
+			};
+		}
+		var curryAdd = curry(add, 5);
+		console.log(curryAdd(3));  // 8
+		var curried = curry(add, 5, 12);  // 这里柯理化add()函数两个参数都提供了，以后就无需再传递它们了
+		console.log(curried());  // 17
 		function createComparisonFunction(propertyName) {
 			return function (object1, object2) {
 				console.log(object1);  // Object {name: "Zachary", age: 28}
@@ -26,6 +58,14 @@
 		console.log(data[0].name);  // Nicholas
 		data.sort(createComparisonFunction("age"));
 		console.log(data[0].name); // Zachary
+		// 创建函数 会预先包含全局变量对象和作用域链，这个作用域链被保存在内部的[[Scope]]
+		// 当函数返回后，其执行环境的作用域链会被销毁，但是它的活动对象仍然会留在内存中
+		// createComparisonFunction("name");  调用函数
+		// 调用函数，就会创建一个执行环境( execution context )，以及相应的作用域链，然后使用 arguments 和 其他命名参数的值来初始化函数活动对象( activation object )
+		// 复制函数的[[Scope]] 属性中的对象构建起执行环境的作用域链
+		// var result = compareNames(data);
+		// 解除对匿名函数的引用，以便释放内存
+		// compareNames = null;
 
 		var isType = function (type) {
 
@@ -37,10 +77,34 @@
 		console.log(isType('Array')([])); // 'Number' 'Array'
 		var isString = isType('Array');
 		console.log(isString([]));
+
+		window.onload = function () {
+			// 柯理化常常作为函数绑定的一部分包含在其中，构造出更为复杂的bind()函数
+			function bind(fn, context) {
+				var args = Array.prototype.slice.call(arguments, 2);
+				return function () {
+					var innerArgs = Array.prototype.slice.call(arguments);
+					var finalArgs = args.concat(innerArgs);
+					return fn.apply(context, finalArgs);
+				};
+			}
+
+			var handler = {
+				message: "Event handled",
+				handleClick: function (name, ev) {
+					console.log(this.message + ":" + name + ":" + ev.type);
+				}
+			};
+
+			var btn = document.getElementById("my-btn");
+			EventUtil.addHandler(btn, "click", bind(handler.handleClick, handler, "my-btn"));
+
+			EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler, "my-btn"));
+		};
 	</script>
 </head>
 
 <body>
+<input type="button" id="my-btn" value="按钮"/>
 </body>
-
 </html>
