@@ -39,6 +39,26 @@
 		var isNativeJSON = window.JSON && Object.prototype.toString.call(JSON) == "[object JSON]";
 		console.log(isNativeJSON);  // true
 
+		/*
+		 * Json 与 数组的区别
+		 *
+		 * json 的下标 是一个字符串；数组的下标是数字
+		 *
+		 * json 没有length；数组有 length
+		 *
+		 * */
+		var jsonArr = {a: 12, b: 5, c: 7};
+
+		var arr = [12, 5, 7];
+
+		console.log(jsonArr['a']);
+
+		console.log(arr[1]);
+
+		console.log(jsonArr.length);  // undefined
+
+		console.log(arr.length);  // 3
+
 	</script>
 </head>
 <body>

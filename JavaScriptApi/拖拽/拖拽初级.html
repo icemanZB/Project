@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		#div1 {
+			width: 200px;
+			height: 200px;
+			background: red;
+			position: absolute;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function () {
+			var oDiv = document.getElementById("div1");
+			var disX = 0;
+			var disY = 0;
+			oDiv.onmousedown = function (ev) {
+				var oEvent = ev || event; // 浏览器兼容
+				disX = oEvent.clientX - oDiv.offsetLeft; // 横向的位置就是鼠标的位置-div的位置
+				disY = oEvent.clientY - oDiv.offsetTop;
+
+				oDiv.onmousemove = function (ev) {
+					var oEvent = ev || event;
+					oDiv.style.left = oEvent.clientX - disX + 'px'; // 当前鼠标的位置-disX
+					oDiv.style.top = oEvent.clientY - disY + 'px';
+				};
+				oDiv.onmouseup = function () {
+					oDiv.onmousemove = null;
+					oDiv.onmouseup = null; // 不留垃圾,鼠标抬起本来也就没有用了
+				};
+
+			};
+
+		};
+	</script>
+</head>
+
+<body>
+<div id="div1">
+
+</div>
+</body>
+
+</html>

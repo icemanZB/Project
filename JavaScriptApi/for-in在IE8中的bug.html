@@ -20,6 +20,32 @@
 			}
 		}
 
+		/*
+		 * for in 是处理对象使用的
+		 *
+		 * */
+		var json = {a: 12, b: 5, c: 7};
+
+		for (var attr in json) {
+			if (json.hasOwnProperty(attr)) {
+				console.log("第" + attr + "个值为:" + json[attr]);
+			}
+
+		}
+
+		var box = {
+			name: 'Iceman',
+			age: 25,
+			height: 170
+		};
+
+		for (var i in box) {
+			if (box.hasOwnProperty(i)) {
+				console.log(i);
+				console.log(box[i]);
+			}
+		}
+
 	</script>
 </head>
 <body>

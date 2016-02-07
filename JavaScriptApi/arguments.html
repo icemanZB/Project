@@ -15,6 +15,30 @@
 		// 如果只传递了一个参数，那么arguments[1]设置的值不会反映到命名参数中，num2 为 undefined
 		// 这是因为 arguments 对象的长度是由传入的参数决定的，不是由定义函数时的参数个数决定的
 		doAdd(10);
+
+		function box() {
+			return arguments[0] + '|' + arguments[1] + '|' + arguments[2];
+		}
+
+		console.info(box('Iceman', 25, 'IT'));
+
+		/*
+		 * arguments 的应用
+		 *
+		 * 任意个参数求和
+		 *
+		 * */
+		function sum() {
+			var sum = 0;
+			for (var i = 0; i < arguments.length; i++) {
+				sum += arguments[i];
+			}
+			return sum;
+		}
+
+		console.log(sum(1, 2, 3));
+
+
 	</script>
 </head>
 <body>

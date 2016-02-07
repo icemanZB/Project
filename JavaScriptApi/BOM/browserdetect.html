@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>browserdetect</title>
+	<script src="../js/browserdetect.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		console.log(navigator.userAgent); // 展现浏览器信息
+		console.log(navigator.platform); // 浏览器所在系统
+		console.log(BrowserDetect.browser); // 浏览器名称
+		console.log(BrowserDetect.version); // 浏览器版本
+		console.log(BrowserDetect.OS); // 浏览器所在系统
+		// 给IE7一下的浏览器做特殊处理
+		if (BrowserDetect.browser == 'Internet Explorer' && BrowserDetect.version < 7) {
+			alert('需要做IE低版本的兼容！');
+		}
+
+	</script>
+</head>
+
+<body>
+</body>
+
+</html>
