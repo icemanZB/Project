@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>函数声明</title>
+	<script>
+		// 函数声明，它的一个重要特征就是函数声明提升，在执行代码之前会先读取函数声明
+		sayHi();
+		function sayHi() {
+			console.log("Hi!");
+		}
+
+		// 函数表达式，使用之前必须先赋值
+		// sayAge();  // 错误
+		var sayAge = function () {
+			console.log("age!");
+		};
+
+		// 这在 ECMA 中属于无效语法，大多数浏览器会返回第二个声明，忽略 condition
+		// Firefox 会在 condition 为 true，返回第一个声明，这种不应该出现
+		if (true) {
+			(function sayName() {
+				console.log('name');
+			}())
+		} else {
+			(function sayYHo() {
+				console.log("Yo");
+			})()
+		}
+
+		// 可以这样做
+		var sayHi;
+		if (true) {
+			sayHi = function () {
+				console.log('hi');
+			}
+		} else {
+			sayHi = function () {
+				console.log('Yo');
+			}
+		}
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

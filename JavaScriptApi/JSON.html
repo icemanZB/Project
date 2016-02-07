@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>JSON</title>
+	<script>
+		// JSON 不支持 undefined、变量、函数或对象的实例
+
+		// ECMA5 定义了全局的JSON对象，支持的浏览器有 IE8+、Firefox3.5+、Safari4+、Chrome、Opera10.5+
+		// JSON.stringify()、JSON.parse()
+
+		var book = {
+			"title": "Professional JavaScript",
+			"authors": [
+				"Nicholas C. Zakes"
+			],
+			edition: 3,
+			year: 2011
+		};
+		// {"title":"Professional JavaScript","edition":3}
+		var jsonText = JSON.stringify(book, ["title", "edition"]);
+		console.log(jsonText);
+		// {"title":"Professional JavaScript","authors":"Nicholas C. Zakes","year":5000}
+		// Firefox3.5、3.6 对 JSON.stringify()实现有个bug，在讲函数作为方法的第二个参数时，这个函数只能作为过滤器
+		var json = JSON.stringify(book, function (key, value) {
+			switch (key) {
+				case "authors":
+					return value.join(",");
+				case "year":
+					return 5000;
+				case "edition":
+					return undefined;
+				default:
+					return value;
+			}
+		});
+
+		// 检测是否是原生JSON对象
+		var isNativeJSON = window.JSON && Object.prototype.toString.call(JSON) == "[object JSON]";
+		console.log(isNativeJSON);  // true
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
