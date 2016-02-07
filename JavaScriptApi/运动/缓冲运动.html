@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		#div1 {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			background: red;
+			top: 50px;
+			left: 0; /*600 初始值*/
+		}
+
+		#div2 {
+			width: 1px;
+			height: 300px;
+			position: absolute;
+			left: 300px;
+			top: 0;
+			background: black;
+		}
+	</style>
+	<script type="text/javascript">
+		// 原理 ： 当物体和终点之间的距离大的时候 速度是大的
+		//  距离不断的减小，速度也不断的减小  也就是说 速度与距离成正比
+		function startMove() {
+			var oDiv = document.getElementById("div1");
+			setInterval(function () {
+				// 300 为目标点
+				// 为什么要除以10 呢 , 因为 当物体的offsetLeft 为0 的时候
+				// 300-0=0  会直接到达目标点,而没有了中间的过程
+				// 解决速度太大了 就去除以一个10就可以了
+				// 随着距离的越来越小 速度也就越来越小 达到缓冲的目的
+				// 若分母越小 速度越大 ,控制速度 去改变分母即可
+				var speed = (300 - oDiv.offsetLeft) / 10;
+
+
+				// 此时 除出来会有小数的情况 大家知道在css中 290.5px =290px
+				// 299.9px = 299px 像素会舍去小数部分 所以他运动到最后不会达到目标点
+				// 解决这个问题的话 ,就要取整
+				// 当div往右动, speed 为正 就ceil()
+				// 若div的初始位置为600,那就是在向左走 , 此时speed是负值
+				// 若算出来speed=-0.9  在ceil() 一下 那就是变成0了 ,就会出问题
+				//所以要floor,向下取整
+				// 总结：
+				// 往右边移动 就向上取整 / 左边就向下取整
+				// 这套程序就可以 既往右边 又往左边运动
+				// 注 ： 用缓冲运动一定要取整,否则就会出bug
+
+				speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+				oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+
+			}, 30)
+		}
+	</script>
+</head>
+
+<body>
+<input type="button" id="btn" value="开始运动" onclick="startMove()"/>
+
+<div id="div1">
+
+</div>
+<div id="div2">
+
+</div>
+</body>
+
+</html>
