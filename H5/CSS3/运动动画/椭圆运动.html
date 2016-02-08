@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>椭圆运动</title>
+    <style type="text/css">
+        body {
+            background-color: #eaf0f2;
+        }
+
+        h1 {
+            font-size: 14px;
+            font-family: "微软雅黑";
+            text-align: center;
+        }
+
+        body {
+            background: #000;
+        }
+
+        .butterfly {
+            width: 150px;
+            height: 142px;
+            margin: 0 auto;
+            /* 设置圆周运动 */
+            transform-origin: center 150%;
+            -webkit-animation: circle 2s infinite linear;
+            animation: circle 2s infinite linear;
+        }
+
+        .butterfly img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* 外层向上下移动200px */
+        figure {
+            margin-left: 200px;
+            -webkit-animation: updown 1s infinite ease-in-out alternate;
+            animation: updown 1s infinite ease-in-out alternate;
+            /* -webkit-animation-delay:-.5s;  */
+        }
+
+        @-webkit-keyframes updown {
+            to {
+                -webkit-transform: translateY(200px);
+                transform: translateY(200px);
+            }
+        }
+
+        @-webkit-keyframes circle {
+            to {
+                -webkit-transform: rotate(-1turn);
+                transform: rotate(-1turn);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>请使用webkit内核标准浏览器查看效果</h1>
+<figure>
+    <div class="butterfly">
+        <img src="img/plane.png" alt=""/>
+    </div>
+</figure>
+</body>
+</html>

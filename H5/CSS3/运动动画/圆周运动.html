@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>圆周运动</title>
+    <style type="text/css">
+        body {
+            background-color: #eaf0f2;
+        }
+
+        h1 {
+            font-size: 14px;
+            font-family: "微软雅黑";
+            text-align: center;
+        }
+
+        body {
+            background: #000;
+        }
+
+        .stage {
+            width: 400px;
+            height: 400px;
+            margin: 100px auto;
+            background: url(img/moon.jpg) no-repeat;
+            background-size: cover;
+        }
+
+        .rocketship {
+            width: 130px;
+            height: 250px;
+            background: url(img/rocket.png);
+            background-size: cover;
+            /* 设置运动的原点 */
+            transform-origin: 200% center;
+            -webkit-animation: circle 1s infinite linear;
+        }
+
+        @-webkit-keyframes circle {
+            to {
+                /* 旋转1周 */
+                -webkit-transform: rotate(1turn);
+                transform: rotate(1turn);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>请使用webkit内核标准浏览器查看效果</h1>
+
+<div class="stage">
+    <div class="rocketship"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>弧形运动</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background: #111;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 14px;
+            font-family: "微软雅黑";
+            text-align: center;
+        }
+
+        .stage {
+            width: 120px;
+            height: auto;
+            margin: 0 auto;
+            position: relative;
+            -webkit-transform-origin: center top;
+            -webkit-transform: rotate(-30deg);
+            -webkit-animation: sway 2.2s infinite alternate ease-in-out;
+        }
+
+        .watch {
+            width: 100%;
+            height: auto;
+        }
+
+        .seconds {
+            position: absolute;
+            width: 8%;
+            height: auto;
+            bottom: 11.5%;
+            left: 45.5%;
+            -webkit-transform-origin: center 72.4%;
+            -webkit-animation: second 60s infinite linear;
+        }
+
+        @-webkit-keyframes second {
+            to {
+                -webkit-transform: rotate(355deg);
+            }
+        }
+
+        @-webkit-keyframes sway {
+            to {
+                -webkit-transform: rotate(30deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>请使用webkit内核标准浏览器查看效果</h1>
+
+<div class="stage">
+    <img src="img/watch.png" alt="钟表" class="watch"/>
+    <img src="img/finger.png" alt="秒针" class="seconds">
+</div>
+
+</body>
+</html>
