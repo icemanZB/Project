@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>transition</title>
+    <style type="text/css">
+        body {
+            color: #ffffff;
+            background: #000;
+        }
+
+        h1 {
+            font-size: 14px;
+            font-family: "微软雅黑";
+            text-align: center;
+        }
+
+        .change {
+            display: block;
+            width: 400px;
+            height: 400px;
+            background: url(img/moon.png) no-repeat center;
+            /*
+                cover : 等比扩展图片来填满元素
+                contain : 等比缩小图片来适应元素的尺寸
+
+            */
+            background-size: cover;
+            border: 1em solid rgba(255, 255, 255, .8);
+            margin: 50px auto;
+        }
+
+        .change img {
+            display: block;
+            width: 300px;
+            height: 284px;
+            opacity: 0;
+            /*
+                把图像进行偏移,在原有的位置上向左向上偏移100px
+            */
+            transform: translate(-100px, -100px);
+            /*
+                过渡 Transition
+                CSS3 的过渡属性 transition : 允许 CSS 的属性值在一定时间区间内平滑的过渡。
+
+                语法 :
+                    transition: transition-property transition-duration transition-timing-function transition-delay
+                    transition: 执行过渡效果的属性 完成过渡效果的持续时间 过渡效果的速度曲线 过渡效果何时开始的延迟时间
+                    transition: 属性 持续时间 动画方式 延迟
+
+                举例 :
+                    transition: width 5s ease-in-out 1s;
+                意思是 : 当元素的 width 值发生改变时,该变化会持续 5s 来慢慢完成
+                        动画是慢开始再慢结束,且需延迟 1s 再开始动画。
+
+                说明:
+                    过渡的点就在于 : 让动画看起来不那么突兀,平滑一些,动画的利器简单实用
+                    当要声明多个属性的过渡时用逗号隔开,然后各自设置各自的持续时间、变化速率、延迟
+
+                动画方式 :
+                    过渡的动画速度现有的属性值:
+                        linear 匀速
+                        ease 慢速开始-变快-慢速结束
+                        ease-in 以慢速开始，加速运动
+                        ease-out 以慢速结束，减速运动
+                        ease-in-out 慢速开始和慢速结束，先加速再减速
+                        cubic-bezier 自定义cubic-bezier曲线，所有值在[0,1]区域内
+            */
+            transition: opacity 1s ease-in-out .5s, transform 1s ease-in-out;
+        }
+
+        /*
+            动画执行过程 :
+
+              鼠标移入的时候  直接执行opacity,0.1s以后执行transform
+
+              鼠标移出的时候  同样先执行transform,0.5秒以后执行opacity
+
+
+        */
+        .change:hover img {
+            transform: translate(0, 0);
+            opacity: 1;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out .1s;
+        }
+    </style>
+</head>
+<body>
+<h1>请使用webkit内核标准浏览器查看效果</h1>
+<a href="#" class="change ">
+    <img src="img/change.png" alt=""/>
+</a>
+</body>
+</html>

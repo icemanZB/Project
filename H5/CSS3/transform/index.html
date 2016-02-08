@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>transform</title>
+    <style type="text/css">
+        body {
+            color: #fff;
+            background: #222;
+        }
+
+        h1 {
+            font-size: 14px;
+            font-family: "微软雅黑";
+            text-align: center;
+        }
+
+        .cardfan {
+            width: 300px;
+            height: 200px;
+            margin: 2rem auto; /* rem是CSS3新增的一个相对单位 */
+        }
+
+        .cardfan img {
+            width: 300px;
+            height: 200px;
+        }
+
+        /*
+            transform : translate/rotate/scale/skew(扭曲)/matrix(实现其他效果)
+        */
+
+        .cardfan > img {  /* 子元素选择器(E>F) 只选中其中Ｆ是Ｅ的子元素 */
+            position: absolute;
+            border: 10px solid #fff;
+            box-sizing: border-box;
+            box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+            /*
+                transform-origin : 定义默认变化的原点 默认值是 center center
+                                   水平方向不变,y轴在原来的中心点向下移动了400px
+                                   如果是30% center 那就是图行向左30%的位置
+            */
+            transform-origin: center 400px;
+            transition: transform .7s ease; /* 平滑过渡 */
+        }
+
+        /*
+            根据之前所定的 transform-origin 值做旋转
+            负值是顺时针旋转,正值是逆时针旋转
+        */
+        .cardfan img:first-child {
+            transform: rotate(5deg);
+        }
+
+        .cardfan img:last-child {
+            transform: rotate(-5deg);
+        }
+
+        .cardfan:hover img:first-child {
+            transform: rotate(25deg);
+        }
+
+        .cardfan:hover img:last-child {
+            transform: rotate(-25deg);
+        }
+
+    </style>
+</head>
+<body>
+<h1>请使用webkit内核标准浏览器查看效果</h1>
+
+<div class="cardfan">
+    <img src="img/1.jpg" alt=""/>
+    <img src="img/2.jpg" alt=""/>
+    <img src="img/3.jpg" alt=""/>
+</div>
+</body>
+</html>

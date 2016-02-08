@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>div 旋转变大</title>
+    <style type="text/css">
+        .mainDiv{
+            width:100px;
+            height:100px;
+            margin:100px auto;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+            color:#ddd;
+            background:#ddd;
+            border:1px solid #ddd;
+            transform:rotate(0deg) scale(1);
+            transition:2s;
+
+        }
+        .mainDiv:hover{
+            color:black;
+            background:red;
+            transform:rotate(720deg) scale(2);
+        }
+    </style>
+</head>
+<body>
+<div class="mainDiv">您好</div>
+</body>
+</html>
