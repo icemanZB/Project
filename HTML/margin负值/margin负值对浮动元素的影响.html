@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>margin负值对浮动元素的影响</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 400px;
+            height: 100px;
+        }
+
+        .container div {
+            width: 100px;
+            height: 100px;
+            float: left;
+            margin-right: -50px;
+        }
+
+        .div1 {
+            background-color: blue;
+        }
+
+        .div2 {
+            background-color: green;
+        }
+
+        .div3 {
+            background-color: red;
+            margin-left: -100px;
+        }
+    </style>
+</head>
+<body>
+<!-- 就是某个元素虽然是写在了后面，但可以通过负边距让它在浏览器显示的时候是在前面的 -->
+<div class="container">
+    <div class="div1">子元素1</div>
+    <div class="div2">子元素2</div>
+    <div class="div3">子元素3</div>
+</div>
+</body>
+</html>

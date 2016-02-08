@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>不需要同一个超链接文字标题被换行</title>
+    <style type="text/css">
+        .wrap {
+            width: 200px;
+            line-height: 22px;
+        }
+
+        .wrap a {
+            margin: 0 5px;
+            white-space: nowrap;
+        }
+
+        /* 实现同一个超链接不被自动分割成两排显示 white-space:nowrap; */
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <a href="#">栏目标题1</a><a href="#">栏目标题2</a>
+    <a href="#">栏目标题3</a><a href="#">栏目标题4</a>
+    <a href="#">栏目标题5</a><a href="#">栏目标题6</a>
+</div>
+</body>
+</html>

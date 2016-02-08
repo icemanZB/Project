@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>去除列表最后一个li元素的border-bottom</title>
+    <style type="text/css">
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #test {
+            margin: 20px;
+            width: 390px;
+            background: #F4F8FC;
+            border-radius: 3px;
+            border: 2px solid #D7E2EC;
+        }
+
+        #test li {
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            border-bottom: 1px dotted #D5D5D5;
+            margin-bottom: -1px;
+        }
+    </style>
+</head>
+<body>
+<h2>列表中我们经常会添加border-bottom值,最后一个li的border-bottom往往会与外边框重合,视觉上不雅观往往要移除。</h2>
+<ul id="test">
+    <li>Test</li>
+    <li>Test</li>
+    <li>Test</li>
+    <li>Test</li>
+    <li>Test</li>
+</ul>
+</body>
+</html>

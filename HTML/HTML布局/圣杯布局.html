@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>圣杯布局</title>
+    <style type="text/css">
+        body {
+
+            /* 由于中间center层是自适应的,当窗口大小缩小到200(x)+300(y)的时候
+               center 就没有了,所以应该给#container设置一个最小宽度
+             */
+            min-width: 700px; /* 200*2+300  */
+        }
+
+        /* IE6以下的bug,margin负值在IE6上会失效,把left层弄到很远的地方,需要把它拉回来 */
+        * html #left {
+            left: 300px; /* 设置的是right的宽度 */
+        }
+
+        #container {
+            padding-left: 200px;
+            padding-right: 300px;
+        }
+
+        #container .column {
+            float: left;
+            position: relative;
+        }
+
+        #center {
+            width: 100%;
+            background: #eee;
+            min-height: 300px;
+        }
+
+        #left {
+            width: 200px;
+            background-color: blue;
+            margin-left: -100%; /* 把left放到center的左边 */
+            min-height: 300px;
+            right: 200px; /* 接着设置left层移到padding-left的位置那边,使用相对定位,跟它自己的位置相距离它的宽 */
+        }
+
+        #right {
+            width: 300px;
+            background-color: red;
+            min-height: 300px;
+            margin-right: -300px;
+        }
+
+        #footer {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div id="header"></div>
+
+<div id="container">
+    <div id="center" class="column">
+        http://blog.csdn.net/cui_angel/article/details/8306470<br>
+        原文地址 http://alistapart.com/article/holygrail<br>
+        http://www.ituring.com.cn/article/66270 好文
+    </div>
+    <div id="left" class="column"></div>
+    <div id="right" class="column"></div>
+
+</div>
+
+<div id="footer"></div>
+<!--
+核心思想是利用margin负边距进行挤呀挤：
+
+负边距  margin-left为负值，且两个元素不在一行的时候（可以用元素float:left,width:100%实现）margin-left可以吃掉兄弟元素的margin.
+
+二、带有padding的圣杯布局，假设left层的左右padding为x，center层的padding为y，right层的padding为z.
+复制代码
+body {
+  min-width: 2(2x+X+2y)+(2z+Y)px;
+}
+#container {
+  padding-left: (2x+X)px;
+  padding-right: (2z+Y+2y)px;
+}
+#container .column {
+  position: relative;
+  float: left;
+}
+#center {
+  padding: 0 ypx;
+  width: 100%;
+}
+#left {
+  width: Xpx;
+  padding: 0 xpx;
+  right: (X+2x+y)px;
+  margin-left: -100%;
+}
+#right {
+  width: Ypx;
+  padding: 0 zpx;
+  margin-right:(Y+2z+y)px;
+}
+#footer {
+  clear: both;
+}
+
+/*** IE Fix ***/
+* html #left {
+  left: (2z+Y)px;
+}
+-->
+</body>
+</html>

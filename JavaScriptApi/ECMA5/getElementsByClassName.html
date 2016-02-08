@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>getElementsByClassName</title>
+	<script type="text/javascript">
+		window.onload = function () {
+			// 注意不加.  获取所有class为box的div的集合
+			// 类似  document.getElementsByTagName()
+			// IT 8 以下都不支持
+			var aDiv = document.getElementsByClassName('box');
+
+			alert(aDiv.length);
+
+		};
+	</script>
+</head>
+<body>
+<div id="div1" class="box" title="hello">div</div>
+<div class="box">div2</div>
+</body>
+</html>
