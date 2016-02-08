@@ -25,9 +25,49 @@
 		}
 
 		// outputNumbers(5);
+		window.onload = function () {
+			var aA = document.getElementsByTagName('a');
+			/*            for (var i = 0, len = aA.length; i < len; i++) {
+			 aA[i].index = i;
+			 aA[i].onclick = function () {
+			 console.info(this.index + 1);
+			 };
+			 }*/
+
+			// 闭包
+
+			for (var i = 0, len = aA.length; i < len; i++) {
+				(function (i) {
+					aA[i].onclick = function () {
+						console.info(i + 1);
+					};
+				})(i)
+			}
+		};
+
+		function Foo() {
+			var i = 0;
+			return function () {
+				console.log(i++);
+			}
+		}
+
+		// f1 => return function(){ console.info(i++); }
+
+		var f1 = Foo(),
+				f2 = Foo();
+		f1();  // 0
+		f1();  // 1
+		f2();  // 0
+		f2();  // 1
+		f2();  // 2
 	</script>
 </head>
 <body>
-
+<!-- 实现一段脚本,使得点击对应链接alert出相应的编号 -->
+<a href='#'> 第一个链接 </a> <br/>
+<a href='#'> 第二个链接 </a> <br/>
+<a href='#'> 第三个链接 </a> <br/>
+<a href='#'> 第四个链接 </a> <br/>
 </body>
 </html>

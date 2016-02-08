@@ -45,6 +45,29 @@
 		console.log(window.name);  // Nicholas
 		console.log(window.age);  // 29
 		console.log(window.job);  // Software Engineer
+
+		var length = 10;
+		function fn() {
+			console.log(this.length);
+		}
+
+		var json = {
+			length: 5,
+			method: function (fn) {
+				fn(); // 10
+				arguments[0](); // 2
+			}
+		};
+
+
+		/*
+		 * 我们知道取对象属于除了点操作符还可以用中括号,所以第二次执行时相当于arguments调用方法,
+		 * this指向arguments,而这里传了两个参数,故输出arguments长度为2
+		 *
+		 * */
+
+		json.method(fn, 1);
+
 	</script>
 </head>
 <body>
