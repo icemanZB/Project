@@ -16,6 +16,19 @@
 			alert('需要做IE低版本的兼容！');
 		}
 
+		if (BrowserDetect.browser == 'Internet Explorer' && BrowserDetect.version === 8) {
+			alert('IE8');
+		}
+
+		// alert(BrowserDetect.version);
+
+		var isIe6 = !window.XMLHttpRequest;  // 检测是否是IE6
+
+		// 如果要检查ie浏览器，干脆直接使用
+		var isIE = /msie/.test(navigator.userAgent.toLowerCase());
+		var isMozilla = /firefox/.test(navigator.userAgent.toLowerCase());
+		var isWebkit = /webkit/.test(navigator.userAgent.toLowerCase());
+
 	</script>
 </head>
 
