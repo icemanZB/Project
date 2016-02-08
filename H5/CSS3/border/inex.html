@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>border 本身和边框半径 border-raduis</title>
+    <style type="text/css">
+        /*border本身*/
+        .border {
+            width: 50px;
+            height: 50px;
+            border-style: solid;
+            border-width: 20px;
+            border-top-color: red;
+            border-right-color: blue;
+            border-bottom-color: green;
+            border-left-color: black;
+        }
+
+        /* border半径 */
+        .border-radius {
+            border-radius: 50%;
+        }
+
+        /* 用border可实现三角 */
+        .border-triangle {
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="border"></div>
+    <div class="border border-radius"></div>
+    <div class="border border-triangle"></div>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>CSS3时钟效果</title>
+    <style type="text/css">
+        ol, ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+            font-family: 'Microsoft Yahei';
+        }
+
+        /* 表盘 */
+        .clock {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            background-color: #292a38;
+            margin: 50px auto;
+        }
+
+        /* 刻度 */
+        .line-hour li,
+        .line-min li {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* 设定指针的旋转点为最左端,否则指针将围绕着自己的中点，进行自旋转。 */
+            transform-origin: left center;
+            background-color: #fff;
+        }
+
+        .line-hour li {
+            width: 10px;
+            height: 2px;
+        }
+
+        .line-min li {
+            width: 5px;
+            height: 2px;
+        }
+
+        /* 表盘中心的样式 */
+        .pointer li.circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: left center;
+            background: #fff;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            margin-top: -5px;
+            margin-left: -5px;
+        }
+
+        /* 数字 */
+        .number {
+            position: absolute;
+            height: 150px;
+            width: 150px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Microsoft Yahei';
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .number li {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 指针 */
+        .pointer li {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: left center;
+            background: #fff;
+        }
+
+        .pointer li.hour {
+            width: 45px;
+            height: 3px;
+            margin-top: -1px;
+        }
+
+        .pointer li.min {
+            width: 60px;
+            height: 2px;
+            margin-top: -1px;
+        }
+
+        .pointer li.sec {
+            width: 80px;
+            height: 1px;
+            margin-top: -1px;
+        }
+    </style>
+</head>
+<body>
+<h1>CSS 时钟效果分步实现</h1>
+
+<div class="clock">
+    <!-- 分钟刻度容器 -->
+    <ul class="line-min"></ul>
+    <!-- 小时刻度容器 -->
+    <ul class="line-hour"></ul>
+    <!-- 数字容器 -->
+    <ol class="number"></ol>
+    <!-- 指针容器 -->
+    <ul class="pointer">
+        <li class="hour"></li>
+        <li class="min"></li>
+        <li class="sec"></li>
+        <li class="circle"></li>
+    </ul>
+</div>
+<script src="../js/jquery-2.0.2.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        function init() {
+            drawLines($('.line-min'), 60, 85); // 画分钟的刻度
+            drawLines($('.line-hour'), 12, 80); // 画小时的刻度
+            drawNumbers($('.number'));  // 画数字
+        }
+
+        init();
+
+
+        /*
+         * 绘制钟表刻度线
+         * @param wrap 刻度线的父容器
+         * @param total 刻度线的总个数
+         * @param translateX 刻度线在x轴方向的偏移量
+         */
+        function drawLines(wrap, total, translateX) {
+            var gap = 360 / total;
+            var strHtml = '';
+            for (var i = 0; i < total; i++) {
+                // translate -50% 水平居中
+                // i * gap 表示当前刻度与x轴之间的夹角
+                strHtml += '<li style="transform:rotate(' + (i * gap) + 'deg) translate(' + translateX + 'px,-50%)"></li>';
+            }
+            wrap.html(strHtml);
+        }
+
+
+        /*
+         * 绘制时钟数字
+         * @param wrap 数字的父容器
+         */
+        function drawNumbers(wrap) {
+            var radius = wrap.width() / 2;
+
+            var strHtml = '';
+            for (var i = 1; i <= 12; i++) {
+                var myAngle = (i - 3) / 6 * Math.PI; // 当前的数字与x轴夹角
+                // console.info((i - 3) / 6); ??
+                var myX = radius + radius * Math.cos(myAngle), // x=r+rcos(θ)
+                        myY = radius + radius * Math.sin(myAngle); // y=r+rsin(θ)
+
+                strHtml += '<li style="left:' + myX + 'px; top:' + myY + 'px">' + i + '</li>';
+            }
+            wrap.html(strHtml);
+        }
+
+
+        var domHour = $(".hour"),
+                domMin = $(".min"),
+                domSec = $(".sec");
+
+        calTime();
+
+        setInterval(calTime, 1000);
+
+        /*
+         * 钟表走动,转动秒针、分针、时针
+         *
+         **/
+        function calTime() {
+            var now = new Date(),
+                    hour = now.getHours(),
+                    min = now.getMinutes(),
+                    sec = now.getSeconds();
+
+            /*
+             * 1s=360/60 度=6度
+             * 1m=360/60 度=6度
+             * 1m=60s,秒进位至分钟=(s/60)*6度
+             * 1h=360/12 度=30度
+             * 1h=60m,分钟进位至小时=(m/60)*30 度 可忽略不计
+             *
+             * 减去90度 指向12点
+             * */
+            var secAngle = sec * 6 - 90,  // s*6-90
+                    minAngle = min * 6 + sec * 0.1 - 90,  // m*6+s*0.1-90
+                    hourAngle = hour * 30 + min * 0.5 - 90;  // h*30+m*0.5 - 90
+
+            domSec.css('transform', 'rotate(' + secAngle + 'deg)');
+            domMin.css('transform', 'rotate(' + minAngle + 'deg)');
+            domHour.css('transform', 'rotate(' + hourAngle + 'deg)');
+
+            document.title = hour + ':' + min + ':' + sec;
+        }
+
+    });
+</script>
+</body>
+</html>
