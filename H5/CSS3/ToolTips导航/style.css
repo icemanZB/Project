@@ -1,0 +1,228 @@
+/* Global */
+html {
+    width: 100%;
+    height: 100%;
+    -ms-text-size-adjust: none;
+    /* 设置屏幕在旋转的时候文字大小不要发生改变 */
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -o-text-size-adjust: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #47c9af;;
+    color: #74777b;
+    font-weight: 500;
+    font-size: 1em;
+    font-family: 'Raleway', Arial, sans-serif;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    outline: none;
+}
+
+*, *:after, *:before {
+    /* 这个属性设置的是不让padding填充之类的样式影响到盒子的大小 */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.clearfix:before, .clearfix:after {
+    content: '';
+    display: block;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/* Navigator */
+
+.nav {
+    width: 820px;
+    height: 300px;
+    margin: 200px auto 0 auto;
+    font-weight: 300;
+}
+
+.nav ul li {
+    display: inline-block;
+    position: relative;
+    margin: 0 1em;
+    font-size: 1.5em;
+}
+
+.nav ul li a {
+    display: inline-block;
+    font-weight: 700;
+    padding: 0.15em 0.25em 0;
+    -webkit-transition: color 0.3s;
+    -moz-transition: color 0.3s;
+    -o-transition: color 0.3s;
+    transition: color 0.3s;
+}
+
+.nav a {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.nav a:hover, .nav a:focus {
+    color: #fff;
+}
+
+/* Tooltip */
+
+.tooltip {
+    display: inline;
+    position: relative;
+    z-index: 999;
+}
+
+.tooltip-content {
+    position: absolute;
+    z-index: 9999;
+    width: 80px;
+    height: 80px;
+    padding-top: 25px; /* 这里的padding已经不会影响原有的宽高,因为设置了-webkit-box-sizing: border-box; */
+    left: 50%; /*  这个圆距离a左边一半的距离 */
+    margin-left: -40px; /* 移动到中间,移动圆一般的距离 */
+    bottom: 100%; /* 当一个东西往上走的时候建议设置bottom,设置100%顶部对齐 */
+    border-radius: 50%;
+    text-align: center;
+    background: #fff;
+    color: #47c9af;
+    opacity: 0;
+    margin-bottom: 20px;
+    cursor: default;
+    pointer-events: none;
+}
+
+.tooltip-content i {
+    opacity: 0;
+}
+
+.tooltip:hover .tooltip-content,
+.tooltip:hover .tooltip-content i {
+    opacity: 1;
+}
+
+.tooltip-effect-1 .tooltip-content {
+    /* 3d平移,改变y轴方向的值,向下移动了10px translate3d(0, 10px, 0)=translateY(10px)
+       建议使用translate3d,所有的css3 3d 都可以开启移动端硬件加速
+       rotated3d(x,y,z,angle)  x,y,z 是 0~1之间的系数
+      */
+    -webkit-transform: translate3d(0, 10px, 0) rotate3d(1, 1, 1, 45deg);
+    transform: translate3d(0, 10px, 0) rotate3d(1, 1, 1, 45deg);
+    /* 设置底部中间为中心点 transform-origin: 50% 100%; =transform-origin: center bottom; */
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-1 .tooltip-content i {
+    /* 改变缩放大小 */
+    -webkit-transform: scale3d(0, 0, 1);
+    transform: scale3d(0, 0, 1);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-2 .tooltip-content {
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-2 .tooltip-content i {
+    -webkit-transform: translate3d(0, 15px, 0);
+    transform: translate3d(0, 15px, 0);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-3 .tooltip-content {
+    -webkit-transform: translate3d(0, 10px, 0) rotate3d(0, 1, 0, 90deg);
+    transform: translate3d(0, 10px, 0) rotate3d(0, 1, 0, 90deg);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-3 .tooltip-content i {
+    -webkit-transform: scale3d(0, 0, 1);
+    transform: scale3d(0, 0, 1);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-4 .tooltip-content {
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-4 .tooltip-content i {
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-5 .tooltip-content {
+    -webkit-transform: scale3d(0, 0, 1);
+    transform: scale3d(0, 0, 1);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip-effect-5 .tooltip-content i {
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip:hover .tooltip-content,
+.tooltip:hover .tooltip-content i {
+    pointer-events: auto;
+    -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+}
+
+.tooltip-effect-1:hover .tooltip-content i {
+    -webkit-transform: rotate3d(1, 1, 1, 0deg);
+    transform: rotate3d(1, 1, 1, 0deg);
+}
+
+/* Arrow */
+
+.tooltip-content::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin: -7px 0 0 -15px;
+    width: 30px;
+    height: 20px;
+    background: url(img/tooltip1.svg) no-repeat center center; /* svg图片格式,放大或者改变图片尺寸 */
+    background-size: 100%;
+}
