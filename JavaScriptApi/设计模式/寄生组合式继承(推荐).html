@@ -41,6 +41,7 @@
 		// 这一句实际上把 SuperType.prototype 对象的 constructor 属性也改掉了！
 		// console.log(SuperType.prototype.constructor); // SubType(name, age)
 		console.log(SuperType.prototype.constructor); //  SuperType(name)  正常
+		// ecma5的继承 SubType.prototype = Object.create(SuperType.prototype); SubType.prototype.constructor = SubType;
 		SubType.prototype.sayAge = function () {
 			console.log(this.age);
 		};

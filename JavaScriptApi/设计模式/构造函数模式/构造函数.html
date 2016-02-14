@@ -17,6 +17,10 @@
         var man = new Person('Iceman', 25);
         var woman = new Person('Vicky', 25);
 
+        var test = man.run;
+        console.log(test()); // undefined
+        console.log(test.call(man));  // Iceman25
+
         /**
          * 原型方法指向过程：
          * 1. 先查找构造函数实例里面的属性或方法,如果有就立刻返回
