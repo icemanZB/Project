@@ -511,3 +511,14 @@ function selectForm(lowerValue, upperValue) {
 function hasOwnPrototypeProperty(obj, name) {
 	return !obj.hasOwnProperty(name) && (name in obj);
 }
+
+// 获取绝对的url 用法 getAbsoluteUrl('/something');
+var getAbsoluteUrl = (function() {
+	var a;
+	return function(url) {
+		if(!a) a = document.createElement('a');
+		a.href = url;
+
+		return a.href;
+	};
+})();
