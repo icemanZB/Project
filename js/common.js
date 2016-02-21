@@ -187,6 +187,10 @@ function getCookie(name) {
 	}
 
 	return '';
+
+	/*var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+	 if (arr != null) return unescape(arr[2]);
+	 return null*/
 }
 
 function removeCookie(name) {
@@ -513,12 +517,438 @@ function hasOwnPrototypeProperty(obj, name) {
 }
 
 // 获取绝对的url 用法 getAbsoluteUrl('/something');
-var getAbsoluteUrl = (function() {
+var getAbsoluteUrl = (function () {
 	var a;
-	return function(url) {
-		if(!a) a = document.createElement('a');
+	return function (url) {
+		if (!a) a = document.createElement('a');
 		a.href = url;
 
 		return a.href;
 	};
 })();
+
+// 字符串长度截取
+function cutstr(str, len) {
+	var temp,
+		icount = 0,
+		patrn = /[^\x00-\xff]/,
+		strre = "";
+	for (var i = 0; i < str.length; i++) {
+		if (icount < len - 1) {
+			temp = str.substr(i, 1);
+			if (patrn.exec(temp) == null) {
+				icount = icount + 1;
+			} else {
+				icount = icount + 2;
+			}
+			strre += temp;
+		} else {
+			break;
+		}
+	}
+	return strre + "...";
+}
+
+// 替换全部
+String.prototype.replaceAll = function (s1, s2) {
+	return this.replace(new RegExp(s1, "gm"), s2);
+};
+
+// 清除空格
+String.prototype.trim = function () {
+	var reExtraSpace = /^\s*(.*?)\s+$/;
+	return this.replace(reExtraSpace, "$1")
+};
+
+// 清除左右空格
+function ltrim(s) {
+	return s.replace(/^(\s*|　*)/, "");
+}
+function rtrim(s) {
+	return s.replace(/(\s*|　*)$/, "");
+}
+
+// 判断是否以某个字符串开头
+String.prototype.startWith = function (s) {
+	return this.indexOf(s) == 0;
+};
+
+// 判断是否以某个字符串结束
+String.prototype.endWith = function (s) {
+	var d = this.length - s.length;
+	return (d >= 0 && this.lastIndexOf(s) == d);
+};
+
+// 转义html标签
+function HtmlEncode(text) {
+	return text.replace(/&/g, '&').replace(/\"/g, '"').replace(/</g, '<').replace(/>/g, '>');
+}
+
+// 时间日期格式转换
+Date.prototype.Format = function (formatStr) {
+	var str = formatStr;
+	var Week = ['日', '一', '二', '三', '四', '五', '六'];
+	str = str.replace(/yyyy|YYYY/, this.getFullYear());
+	str = str.replace(/yy|YY/, (this.getYear() % 100) > 9 ? (this.getYear() % 100).toString() : '0' + (this.getYear() % 100));
+	str = str.replace(/MM/, (this.getMonth() + 1) > 9 ? (this.getMonth() + 1).toString() : '0' + (this.getMonth() + 1));
+	str = str.replace(/M/g, (this.getMonth() + 1));
+	str = str.replace(/w|W/g, Week[this.getDay()]);
+	str = str.replace(/dd|DD/, this.getDate() > 9 ? this.getDate().toString() : '0' + this.getDate());
+	str = str.replace(/d|D/g, this.getDate());
+	str = str.replace(/hh|HH/, this.getHours() > 9 ? this.getHours().toString() : '0' + this.getHours());
+	str = str.replace(/h|H/g, this.getHours());
+	str = str.replace(/mm/, this.getMinutes() > 9 ? this.getMinutes().toString() : '0' + this.getMinutes());
+	str = str.replace(/m/g, this.getMinutes());
+	str = str.replace(/ss|SS/, this.getSeconds() > 9 ? this.getSeconds().toString() : '0' + this.getSeconds());
+	str = str.replace(/s|S/g, this.getSeconds());
+	return str;
+};
+
+// 判断是否为数字类型
+function isDigit(value) {
+	var patrn = /^[0-9]*$/;
+	return (patrn.exec(value) == null || value == "");
+}
+
+
+// 加入收藏夹
+function AddFavorite(sURL, sTitle) {
+	try {
+		window.external.addFavorite(sURL, sTitle);
+	} catch (e) {
+		try {
+			window.sidebar.addPanel(sTitle, sURL, "");
+		} catch (e) {
+			alert("加入收藏失败，请使用Ctrl+D进行添加");
+		}
+	}
+}
+
+// 设为首页
+function setHomepage() {
+	if (document.all) {
+		document.body.style.behavior = 'url(#default#homepage)';
+		document.body.setHomePage('http://w3cboy.com');
+	} else if (window.sidebar) {
+		if (window.netscape) {
+			try {
+				netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+			} catch (e) {
+				alert("该操作被浏览器拒绝，如果想启用该功能，请在地址栏内输入 about:config,然后将项 signed.applets.codebase_principal_support 值该为true");
+			}
+		}
+		var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+		prefs.setCharPref('browser.startup.homepage', 'http://w3cboy.com')
+	}
+}
+
+// 为元素添加trigger方法
+Element.prototype.trigger = function (type, data) {
+	var event = document.createEvent('HTMLEvents');
+	event.initEvent(type, true, true);
+	event.data = data || {};
+	event.eventName = type;
+	event.target = this;
+	this.dispatchEvent(event);
+	return this;
+};
+
+NodeList.prototype.trigger = function (event) {
+	[]['forEach'].call(this, function (el) {
+		el['trigger'](event);
+	});
+	return this;
+};
+
+// 完美判断是否为网址
+function IsURL(strUrl) {
+	var regular = /^\b(((https?|ftp):\/\/)?[-a-z0-9]+(\.[-a-z0-9]+)*\.(?:com|edu|gov|int|mil|net|org|biz|info|name|museum|asia|coop|aero|[a-z][a-z]|((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]\d)|\d))\b(\/[-a-z0-9_:\@&?=+,.!\/~%\$]*)?)$/i;
+	if (regular.test(strUrl)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// getElementsByClassName
+function getElementsByClassName(name) {
+	var tags = document.getElementsByTagName('*') || document.all;
+	var els = [];
+	for (var i = 0; i < tags.length; i++) {
+		if (tags.className) {
+			var cs = tags.className.split(' ');
+			for (var j = 0; j < cs.length; j++) {
+				if (name == cs[j]) {
+					els.push(tags);
+					break
+				}
+			}
+		}
+	}
+	return els
+}
+
+// 获取页面高度
+function getPageHeight() {
+	var g = document, a = g.body, f = g.documentElement, d = g.compatMode == "BackCompat"
+		? a
+		: g.documentElement;
+	return Math.max(f.scrollHeight, a.scrollHeight, d.clientHeight);
+}
+
+// 获取页面scrollLeft
+function getPageScrollLeft() {
+	var a = document;
+	return a.documentElement.scrollLeft || a.body.scrollLeft;
+}
+
+// 获取页面可视宽度
+function getPageViewWidth() {
+	var d = document, a = d.compatMode == "BackCompat"
+		? d.body
+		: d.documentElement;
+	return a.clientWidth;
+}
+
+// 获取页面宽度
+function getPageWidth() {
+	var g = document, a = g.body, f = g.documentElement, d = g.compatMode == "BackCompat"
+		? a
+		: g.documentElement;
+	return Math.max(f.scrollWidth, a.scrollWidth, d.clientWidth);
+}
+
+// 获取页面scrollTop
+function getPageScrollTop() {
+	var a = document;
+	return a.documentElement.scrollTop || a.body.scrollTop;
+}
+
+// 获取页面可视高度
+function getPageViewHeight() {
+	var d = document, a = d.compatMode == "BackCompat"
+		? d.body
+		: d.documentElement;
+	return a.clientHeight;
+}
+
+// 去掉url前缀
+function removeUrlPrefix(a) {
+	a = a.replace(/：/g, ":").replace(/．/g, ".").replace(/／/g, "/");
+	while (trim(a).toLowerCase().indexOf("http://") == 0) {
+		a = trim(a.replace(/http:\/\//i, ""));
+	}
+	return a;
+}
+
+// 随机数时间戳
+function uniqueId() {
+	var a = Math.random, b = parseInt;
+	return Number(new Date()).toString() + b(10 * a()) + b(10 * a()) + b(10 * a());
+}
+
+// 全角半角转换 iCase: 0全到半，1半到全，其他不转化
+function chgCase(sStr, iCase) {
+	if (typeof sStr != "string" || sStr.length <= 0 || !(iCase === 0 || iCase == 1)) {
+		return sStr;
+	}
+	var i, oRs = [], iCode;
+	if (iCase) {/*半->全*/
+		for (i = 0; i < sStr.length; i += 1) {
+			iCode = sStr.charCodeAt(i);
+			if (iCode == 32) {
+				iCode = 12288;
+			} else if (iCode < 127) {
+				iCode += 65248;
+			}
+			oRs.push(String.fromCharCode(iCode));
+		}
+	} else {/*全->半*/
+		for (i = 0; i < sStr.length; i += 1) {
+			iCode = sStr.charCodeAt(i);
+			if (iCode == 12288) {
+				iCode = 32;
+			} else if (iCode > 65280 && iCode < 65375) {
+				iCode -= 65248;
+			}
+			oRs.push(String.fromCharCode(iCode));
+		}
+	}
+	return oRs.join("");
+}
+
+// alert(new Date().format("yyyy-MM-dd hh:mm:ss"));日期格式化函数+调用方法
+Date.prototype.format = function (format) {
+	var o = {
+		"M+": this.getMonth() + 1, //month
+		"d+": this.getDate(),    //day
+		"h+": this.getHours(),   //hour
+		"m+": this.getMinutes(), //minute
+		"s+": this.getSeconds(), //second
+		"q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+		"S": this.getMilliseconds() //millisecond
+	};
+	if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+		(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	for (var k in o) {
+		if (o.hasOwnProperty(k)) {
+			if (new RegExp("(" + k + ")").test(format))
+				format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+		}
+	}
+	return format;
+};
+
+// 时间个性化输出功能
+/*
+ 1、< 60s, 显示为“刚刚”
+ 2、>= 1min && < 60 min, 显示与当前时间差“XX分钟前”
+ 3、>= 60min && < 1day, 显示与当前时间差“今天 XX:XX”
+ 4、>= 1day && < 1year, 显示日期“XX月XX日 XX:XX”
+ 5、>= 1year, 显示具体日期“XXXX年XX月XX日 XX:XX”
+ */
+function timeFormat(time) {
+	var date = new Date(time),
+		curDate = new Date(),
+		year = date.getFullYear(),
+		month = date.getMonth() + 10,
+		day = date.getDate(),
+		hour = date.getHours(),
+		minute = date.getMinutes(),
+		curYear = curDate.getFullYear(),
+		curHour = curDate.getHours(),
+		timeStr;
+
+	if (year < curYear) {
+		timeStr = year + '年' + month + '月' + day + '日 ' + hour + ':' + minute;
+	} else {
+		var pastTime = curDate - date,
+			pastH = pastTime / 3600000;
+
+		if (pastH > curHour) {
+			timeStr = month + '月' + day + '日 ' + hour + ':' + minute;
+		} else if (pastH >= 1) {
+			timeStr = '今天 ' + hour + ':' + minute + '分';
+		} else {
+			var pastM = curDate.getMinutes() - minute;
+			if (pastM > 1) {
+				timeStr = pastM + '分钟前';
+			} else {
+				timeStr = '刚刚';
+			}
+		}
+	}
+	return timeStr;
+}
+
+// 解决offsetX兼容性问题
+// 针对火狐不支持offsetX/Y
+function getOffset(e) {
+	var target = e.target, // 当前触发的目标对象
+		eventCoord,
+		pageCoord,
+		offsetCoord;
+
+	// 计算当前触发元素到文档的距离
+	pageCoord = getPageCoord(target);
+
+	// 计算光标到文档的距离
+	eventCoord = {
+		X: window.pageXOffset + e.clientX,
+		Y: window.pageYOffset + e.clientY
+	};
+
+	// 相减获取光标到第一个定位的父元素的坐标
+	offsetCoord = {
+		X: eventCoord.X - pageCoord.X,
+		Y: eventCoord.Y - pageCoord.Y
+	};
+	return offsetCoord;
+}
+
+function getPageCoord(element) {
+	var coord = {X: 0, Y: 0};
+	// 计算从当前触发元素到根节点为止，
+	// 各级 offsetParent 元素的 offsetLeft 或 offsetTop 值之和
+	while (element) {
+		coord.X += element.offsetLeft;
+		coord.Y += element.offsetTop;
+		element = element.offsetParent;
+	}
+	return coord;
+}
+
+// backTop('goTop'); 返回顶部的通用方法
+function backTop(btnId) {
+	var btn = document.getElementById(btnId);
+	var d = document.documentElement;
+	var b = document.body;
+	window.onscroll = set;
+	btn.style.display = "none";
+	btn.onclick = function () {
+		btn.style.display = "none";
+		window.onscroll = null;
+		this.timer = setInterval(function () {
+			d.scrollTop -= Math.ceil((d.scrollTop + b.scrollTop) * 0.1);
+			b.scrollTop -= Math.ceil((d.scrollTop + b.scrollTop) * 0.1);
+			if ((d.scrollTop + b.scrollTop) == 0) clearInterval(btn.timer, window.onscroll = set);
+		}, 10);
+	};
+	function set() {
+		btn.style.display = (d.scrollTop + b.scrollTop > 100) ? 'block' : "none"
+	}
+}
+
+// 按字母排序，对每行进行数组排序
+function SetSort() {
+	var text = K1.value.split(/[\r\n]/).sort().join("\r\n");//顺序
+	var test = K1.value.split(/[\r\n]/).sort().reverse().join("\r\n");//反序
+	K1.value = K1.value != text ? text : test;
+}
+
+// 字符串反序
+function IsReverse(text) {
+	return text.split('').reverse().join('');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
