@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script>
+		window.onload = function () {
+
+			var F = function (selector, context) {
+				return this.init(selector, context);
+			};
+			F.prototype.init = function (selector, context) {
+				// NodeList 是个类数组结构，我们把它以数值索引形式分配到对象中就好啦！一来去除冗余 element 属性，二来让原型对象成为类数组结构，可以有一些特殊的功能。
+				var nodeList = (context || document).querySelectorAll(selector);
+				this.length = nodeList.length;
+				for (var i = 0; i < this.length; i += 1) {
+					this[i] = nodeList[i];
+				}
+				return this;
+			};
+			F.prototype.each = function (fn) {
+				// {0: img#image1, 1: img#image2, length: 2}0: img#image11: img#image2length: 2__proto__: F
+				console.log(this);
+				var i = 0, length = this.length;
+				for (; i < length; i += 1) {
+					fn.call(this[i], i, this[i]);
+				}
+				return this;
+			};
+
+			F.prototype.hide = function () {
+				this.each(function () {
+					this.style.display = "none";
+				});
+			};
+
+			var $ = function (selector, context) {
+				return new F(selector, context);
+			};
+
+			$("button")[0].onclick = function () {
+				$("img")[0].hide();
+			};
+		};
+
+	</script>
+</head>
+<body>
+<button id="button">点击我</button>
+<img id="image1" src="mm.jpg"><img id="image2" src="mm2.jpg">
+</body>
+</html>

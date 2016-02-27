@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script>
+		window.onload = function () {
+
+			// 上面的方法，元素的获取直接在F方法中，但是，实际情况，考虑到兼容性实现，元素获取可能会相当复杂，同时方法私有，不能重利用。
+			// 因此，可以把元素获取方法放在原型上，便于管理和重用。
+
+			var F = function (id) {
+				return this.getElementById(id);
+			};
+			F.prototype.getElementById = function (id) {
+				this.element = document.getElementById(id);
+				return this;
+			};
+			F.prototype.hide = function () {
+				this.element.style.display = "none";
+			};
+
+			new F("image1").hide();
+			// 元素获取方法放在 prototype 上，通过 F() 执行。你可能会奇怪了，你刚明明说"new F() 直接返回 DOM 是不可取的"，怎么现在又有 return 呢？
+			// 大家务必擦亮眼睛，F.prototype.getElementById 的返回值是 this，也就是 new F() 的返回值是this
+			// 形象点就是 new F("image1")出了一拳，又反弹到自己脸上了。
+
+			/*
+			 6. 我不喜欢new，我喜欢$
+			 new F("image")这种写法我好不喜欢，好吧，把 new 什么什么藏在$方法中把~
+			 */
+
+
+			var $ = function (id) {
+				return new F(id);
+			};
+			// 于是，上面的图片隐藏的直接执行代码就是
+			$("button").element.onclick = function() {
+				$("image2").hide();
+			};
+
+		};
+
+
+	</script>
+</head>
+<body>
+<button id="button">点击我</button>
+<img id="image1" src="mm.jpg"><img id="image2" src="mm2.jpg">
+</body>
+</html>
