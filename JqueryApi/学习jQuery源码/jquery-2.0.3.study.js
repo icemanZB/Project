@@ -1,3 +1,16 @@
+/*!
+ * jQuery JavaScript Library v2.0.3
+ * http://jquery.com/
+ *
+ * Includes Sizzle.js
+ * http://sizzlejs.com/
+ *
+ * Copyright 2005, 2013 jQuery Foundation, Inc. and other contributors
+ * Released under the MIT license
+ * http://jquery.org/license
+ *
+ * Date: 2013-07-03T13:30Z
+ */
 (function( window, undefined ) {
 
 // Can't do this because several apps including ASP.NET trace
@@ -7,30 +20,52 @@
 //"use strict";
 var
 	// A central reference to the root jQuery(document)
+	/* 1.为了压缩考虑，jQuery(document)这种无法压缩 2.定义变量，有利于后期代码进行可维护 */
 	rootjQuery,
 
 	// The deferred used on DOM ready
+	/* 延期使用DOM就绪 */
 	readyList,
 
 	// Support: IE9
 	// For `typeof xmlNode.method` instead of `xmlNode.method !== undefined`
-	core_strundefined = typeof undefined,
+	/* 在老版本的IE6 7 8 9中，如果是判断 xml节点(或方法)，window.a == undefined 这种方式判断会有问题，为了兼容使用 typeof window.a == "undefined"  */
+	core_strundefined = typeof undefined,  // "undefined"
 
 	// Use the correct document accordingly with window argument (sandbox)
+	/* 使用正确的文档与窗口参数，存储为变量用于压缩 */
 	location = window.location,
 	document = window.document,
 	docElem = document.documentElement,
 
 	// Map over jQuery in case of overwrite
+	/* 变量冲突的时候使用，如果在外部定义过 window.jQuery = "jQuery"; 那么此时这个变量存的值就是 _jQuery = "jQuery";如果外部没有定义，那么 _jQuery = undefined */
 	_jQuery = window.jQuery,
 
 	// Map over the $ in case of overwrite
+	/* 变量冲突的时候使用同理上述 _jQuery 变量 */
 	_$ = window.$,
 
 	// [[Class]] -> type pairs
+	/* 用于类型判断， $.type()
+	 * 	class2type ={
+		 "[object Array]": "array",
+		 "[object Boolean]": "boolean",
+		 "[object Date]": "date",
+		 "[object Error]": "error",
+		 "[object Function]": "function",
+		 "[object Number]": "number",
+		 "[object Object]": "object",
+		 "[object RegExp]": "regexp",
+		 "[object String]": "string"
+	    };
+	 *
+	 **/
+
 	class2type = {},
 
 	// List of deleted data cache ids, so we can reuse them
+	/* 删除的数据缓存系统的列表(ID)，所以我们可以重用它们，在之前的版本就是删除ID的(与data()是有关系的)，但是2.0.3的版本已经没用了 */
 	core_deletedIds = [],
 
 	core_version = "2.0.3",
@@ -42,12 +77,15 @@ var
 	core_indexOf = core_deletedIds.indexOf,
 	core_toString = class2type.toString,
 	core_hasOwn = class2type.hasOwnProperty,
-	core_trim = core_version.trim,
+	core_trim = core_version.trim,  /* 去掉前后空格，ECMA5 中的字符串方法 */
 
+	// Define a local copy of jQuery
 	/* 构建jQuery对象 */
 	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
-		/* jQuery 对象实际上只是初始化构造函数的“强化”，这里 new jQuery.fn.init() 就能拿到 jQuery.prototype，jQuery.fn.init() 才是构造函数 */
+		/* jQuery 对象实际上只是初始化构造函数的“强化”，这里 new jQuery.fn.init() 就能拿到 jQuery.prototype，jQuery.fn.init() 才是构造函数
+		 * 其实就是 jQuery.prototype.init()   => jQuery.fn = jQuery.prototype
+		 * */
 		return new jQuery.fn.init( selector, context, rootjQuery );
 	},
 

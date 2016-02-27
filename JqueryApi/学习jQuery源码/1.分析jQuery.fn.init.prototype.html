@@ -9,16 +9,16 @@
 		 * 根据上面的概念，jQuery 本质也是一个构造函数，但是从始至终，都没有new jQuery对象；而仅仅是调用 jQuery 构造函数( jQuery.fn.init() )
 		 * 这样构造函数自身，始终都没有使用 jQuery 的原型发生关联。
 		 * 把 jQuery 构造函数当做普通函数调用( $(selector) )，内部返回了一个对象（在其构造函数内部转了一个弯）new 了原型对象中的init方法(jQuery.prototype.init)。
-		 * 此时，新的构造函数变成了 jQuery.fn.init 方法。init() 内部的 this 属性和方法是实例单独拥有的。（只有5个 this.selector, this.context, this.length, this. ）
+		 * 此时，新的构造函数变成了 jQuery.fn.init 方法。init() 内部的 this 属性和方法是实例单独拥有的。
 		 * 同时让 init.prototype = jquery.prototype; 以便使用 jQuery 的原型对象中的属性和方法。
 		 * 其中，init 方法返回的是一个 this 对象。this 指代 new init 构造函数创建的对象，里面既有自己的属性和方法，也有共有的属性和方法。
 		 * this是jQuery独有的对象，其中DOM数组部分是一个类数组（array like）
 		 * */
 		(function(){
 			var jQuery = function( selector, context){
-				/* jQuery对象实际上只是初始化构造函数的“强化”，这里 new jQuery.fn.init() 就能拿到jQuery.prototype */
+				/* jQuery对象实际上只是初始化构造函数的“强化”，这里 new jQuery.fn.init() 就能拿到 jQuery.prototype */
 				// 实际上 jQuery.fn.init() 才是构造函数
-				return new jQuery.fn.init( selector, context ); // 可以看成 $.fn.init.prototype
+				return new jQuery.fn.init( selector, context ); // 可以看成 jQuery.prototype.init()
 			};
 			// jQuery.fn 就是 jQuery的原型
 			jQuery.fn = jQuery.prototype={
@@ -55,6 +55,43 @@
 
 		$(); //Object{ }
 		$(); // 写了 jQuery.fn.init.prototype = jQuery.fn;   Object { jquery="1.7.1",  length=0,  constructor=function(),  更多...}
+
+
+		(function(){
+
+
+			function Aaa(){
+			}
+			Aaa.prototype.init = function(){
+			};
+			Aaa.prototype.css = function(){
+			};
+
+			var a1 = new Aaa();
+			a1.init();  // 先初始化，在能调用 css()
+			a1.css();
+
+
+			function jQ(){
+				// 这句话执行就代表 jQ.prototype.init() 这个函数就会执行
+				// 在外部调用写了jQ() 之后不用像上面一样在去写初始化的步骤了
+				// 由于css()方法是在jQ()原型下面的，jQ.prototype.init()是找不到 css()方法的
+				// 所以有了 jQ.prototype.init.prototype = jQ.prototype; 那就可以调用 css()
+				return new jQ.prototype.init();
+			}
+
+			jQ.prototype.init = function(){
+				return this;
+			};
+			jQ.prototype.css = function(){
+			};
+			// 把 jQ 的原型 赋值给了 jQ.prototype.init( 初始化构造函数下面的原型 )，形成对象的引用
+			jQ.prototype.init.prototype = jQ.prototype;
+
+			jQ().css();
+
+
+		})();
 
 
 	</script>
