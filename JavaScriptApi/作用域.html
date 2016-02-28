@@ -41,7 +41,17 @@
 			console.log(window.color); // blue
 		})();
 
+		// 上下文与作用域（scope）是不同的概念。Js本身是单线程的，每当有function被执行时，就会产生一个新的上下文，这一上下文会被压入Js的上下文堆栈（context stack）中
+		// function 执行结束后则被弹出，因此Js解释器总是在栈顶上下文中执行。在生成新的上下文时，首先会绑定该上下文的变量对象，
+		// 其中包括 arguments 和该函数中定义的变量；之后会创建属于该上下文的作用域链（scope chain），最后将this赋予这一function所属的Object
+		// 如图 context
 
+		// Scope chain
+
+		// 在function被执行时生成新的上下文时会先绑定当前上下文的变量对象，再创建作用域链。
+		// 我们知道function的定义是可以嵌套在其他function所创建的上下文中，也可以并列地定义在同一个上下文中（如global）。
+		// 作用域链实际上就是自下而上地将所有嵌套定义的上下文所绑定的变量对象串接到一起，使嵌套的function可以“继承”上层上下文的变量，而并列的function之间互不干扰：
+		// 如图 ScopeChain
 	</script>
 </head>
 

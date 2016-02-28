@@ -90,29 +90,37 @@ var
 	},
 
 	// Used for matching numbers
+	/* 找数字，正负号、小数点、科学计数法 */
 	core_pnum = /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,
 
 	// Used for splitting on whitespace
+	/* 用空格分隔单词，匹配空格分隔开 */
 	core_rnotwhite = /\S+/g,
 
 	// A simple way to check for HTML strings
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
 	// Strict HTML recognition (#11290: must start with <)
+	/* ?:\s*(<[\w\W]+>)[^>]* 匹配元素标签(创建标签可能会用到)例如：<p>aaa 、*|#([\w-]*) 匹配ID的形式，防止XSS注入类似(#<div>不在创建div) 例如：#div1  */
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
 
 	// Match a standalone tag
+	/* 匹配成对的独立单标签 <div></div> 、 <p></p>、<li> */
 	rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
 
 	// Matches dashed string for camelizing
+	/* 用在css属性转换上(驼峰式)，如 MsMarginLeft，其他的前缀是 webkitMarginLeft  */
 	rmsPrefix = /^-ms-/,
+	/* 找到 "-和字符"转成大写，例如： -l  ->  L (margin-left -> marginLeft) 或者匹配css3的数字 ( -2d -> 2d ) */
 	rdashAlpha = /-([\da-z])/gi,
 
 	// Used by jQuery.camelCase as callback to replace()
+	/* 用于转驼峰的回调函数 */
 	fcamelCase = function( all, letter ) {
 		return letter.toUpperCase();
 	},
 
 	// The ready event handler and self cleanup method
+	/* DOM加载成功后触发 */
 	completed = function() {
 		document.removeEventListener( "DOMContentLoaded", completed, false );
 		window.removeEventListener( "load", completed, false );
@@ -127,7 +135,7 @@ jQuery.fn = jQuery.prototype = {
 	constructor: jQuery,
 	/**
 	 *  入口
-	 *  构造函数 function init(){}
+	 *  构造函数 function init(){} 初始化和参数的管理
 	 *  原型对象 init.prototype = jQuery.prototype
 	 *  return this; $()的返回值是 $.fn.init 的原型对象(Object{ } ”空“)，于是通过 jQuery.fn.init.prototype = jQuery.fn;
 	 *  $() 的返回值从 $.fn.init.prototype 一下子变成 $.fn
@@ -142,38 +150,58 @@ jQuery.fn = jQuery.prototype = {
 		}
 
 		// Handle HTML strings
+		/* 例如传入的是 $("div")、$(".box')、$("#div")、$("#div div.box")、$("<div>")、$("<li>hello")(这种写法会生成<li></li>不会添加hello文本) */
 		if ( typeof selector === "string" ) {
+			/* 判断字符串最左边的字符是否是"<"并且最右边的字符是否是">"并且长度大于等于3，所以这个判断是去找标签 */
 			if ( selector.charAt(0) === "<" && selector.charAt( selector.length - 1 ) === ">" && selector.length >= 3 ) {
 				// Assume that strings that start and end with <> are HTML and skip the regex check
+				/* $("<div>")  -> match = [null , "<div>" , null] */
 				match = [ null, selector, null ];
 
 			} else {
+				/* 使用正则匹配标签加文字$("<li>hello")或者ID的形式$("#div")，像 $("div")、$(".box')、$("#div div.box") 匹配这些的时候 match = null;
+				 * $("#div1")  -> match = ["#div1",null,"div1"];
+				 * $("<li>hello") -> match = ["<li>hello","<li>",undefined];
+				 **/
 				match = rquickExpr.exec( selector );
 			}
 
 			// Match html or make sure no context is specified for #id
+			/* 其实只有在创建标签和获取ID元素的时候match有值得true，match[1]有值的话，那肯定是创建标签，没有值的话并且不指定上下文的时候肯定是获取ID元素 */
 			if ( match && (match[1] || !context) ) {
 
 				// HANDLE: $(html) -> $(array)
+				/* match[1] 有值的时候，就是创建标签 $("<li>") */
 				if ( match[1] ) {
+					/* $("<li>",document) 或者 $("<li>",$(document)) */
 					context = context instanceof jQuery ? context[0] : context;
 
 					// scripts is true for back-compat
+					/* jQuery.parseHTML 把字符串转成节点数组，jQuery.merge() 是用在合并json，但是json格式一定是这样子的类数组格式
+					 * 最终形成 Object {0:li,1:li,length:2,....}
+					 * */
 					jQuery.merge( this, jQuery.parseHTML(
 						match[1],
+						/* 最终 context = document */
 						context && context.nodeType ? context.ownerDocument || context : document,
 						true
 					) );
 
 					// HANDLE: $(html, props)
+					/* 这段是处理创建标签带有属性的 $('<li></li>',{title : 'hi',html : 'abcd',css : {background:'red'}}).appendTo( 'ul' ); */
+					/* rsingleTag 匹配单标签(<li></li>)， jQuery.isPlainObject() 必须是个{title : 'hi',html : 'abcd'} */
 					if ( rsingleTag.test( match[1] ) && jQuery.isPlainObject( context ) ) {
+						/* 此时 context = { title : 'hi',html : 'abcd' } */
 						for ( match in context ) {
 							// Properties of context are called as methods if possible
+							/* match 的值 就是 title 、html，在jQuery中 this["title"] 没有这个方法，但是有 this["html"] = this.html() */
 							if ( jQuery.isFunction( this[ match ] ) ) {
+								/* 当有这个方法的时候进行html()函数调用了 this.html( "abcd" ); */
 								this[ match ]( context[ match ] );
 
 							// ...and otherwise set as attributes
 							} else {
+								/* 没有方法就添加属性，调用attr(title,"hi") */
 								this.attr( match, context[ match ] );
 							}
 						}
@@ -182,6 +210,7 @@ jQuery.fn = jQuery.prototype = {
 					return this;
 
 				// HANDLE: $(#id)
+				/* 这个就是获取ID的时候 $("#div1") */
 				} else {
 					elem = document.getElementById( match[2] );
 
@@ -209,6 +238,7 @@ jQuery.fn = jQuery.prototype = {
 			}
 
 		// HANDLE: $(DOMElement)
+		/* $(this)、$(document) */
 		} else if ( selector.nodeType ) {
 			this.context = this[0] = selector;
 			this.length = 1;
@@ -216,6 +246,7 @@ jQuery.fn = jQuery.prototype = {
 
 		// HANDLE: $(function)
 		// Shortcut for document ready
+		/* $(function(){}) */
 		} else if ( jQuery.isFunction( selector ) ) {
 			return rootjQuery.ready( selector );
 		}
@@ -224,7 +255,7 @@ jQuery.fn = jQuery.prototype = {
 			this.selector = selector.selector;
 			this.context = selector.context;
 		}
-
+		/* 处理 $([])、$({}) */
 		return jQuery.makeArray( selector, this );
 	},
 
@@ -232,6 +263,7 @@ jQuery.fn = jQuery.prototype = {
 	selector: "",
 
 	// The default length of a jQuery object is 0
+	/* this 对象的长度 */
 	length: 0,
 
 	toArray: function() {

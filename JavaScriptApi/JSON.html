@@ -59,6 +59,13 @@
 
 		console.log(arr.length);  // 3
 
+		// 针对纯 JSON 数据对象的深复制
+		// 然而使用这种方法会有一些隐藏的坑，它能正确处理的对象只有 Number, String, Boolean, Array, 扁平对象，即那些能够被 json 直接表示的数据结构。
+		function jsonClone(obj) {
+			return JSON.parse(JSON.stringify(obj));
+		}
+		var clone = jsonClone({ a:1 });
+
 	</script>
 </head>
 <body>
