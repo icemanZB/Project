@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>postMessage</title>
+	<script>
+		// windowObj.postMessage(message, targetOrigin);
+		// windowObj : 接受消息的 Window 对象。
+		// message : 在最新的浏览器中可以是对象。
+		// targetOrigin : 目标的源，* 表示任意。
+		// 这个方法非常强大，无视协议，端口，域名的不同
+		var windowObj = window; // 可以是其他的 Window 对象的引用
+		var data = null;
+
+		addEventListener('message', function(e){
+			if(e.origin == 'http://jasonkid.github.io/fezone') {
+				data = e.data;
+				e.source.postMessage('Got it!', '*');
+			}
+		});
+
+		// message 事件就是用来接收 postMessage 发送过来的请求的。函数参数的属性有以下几个：
+		// origin : 发送消息的 window 的源。
+		// data : 数据。
+		// source : 发送消息的 Window 对象。
+	</script>
+</head>
+<body>
+
+</body>
+</html>

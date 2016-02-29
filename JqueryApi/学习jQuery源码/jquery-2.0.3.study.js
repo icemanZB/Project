@@ -212,27 +212,43 @@ jQuery.fn = jQuery.prototype = {
 				// HANDLE: $(#id)
 				/* 这个就是获取ID的时候 $("#div1") */
 				} else {
+					/* $("#div1")  -> match = ["#div1",null,"div1"];  match[2] = "div1" */
 					elem = document.getElementById( match[2] );
 
 					// Check parentNode to catch when Blackberry 4.6 returns
 					// nodes that are no longer in the document #6963
+					/* 一般来说只要判断elem存不存在就可以了，但是在 Blackberry 4.6 下，可能这个元素已经不再页面上了但是还能找到
+					 * 例如克隆一个节点，然后删除以后，他仍旧能找到，所以在判断看看有没有父级
+					 * */
 					if ( elem && elem.parentNode ) {
 						// Inject the element directly into the jQuery object
+						/* jQuery选择元素的时候是存成一个类数组，所以设置长度为1，第0项就是对应这个DOM元素 */
 						this.length = 1;
 						this[0] = elem;
 					}
 
+					/* ID选择符上下文肯定是 document */
 					this.context = document;
+					/* 就是外面传进来的#div1，存到 this.selector */
 					this.selector = selector;
 					return this;
 				}
 
 			// HANDLE: $(expr, $(...))
+			/* 当是这种情况的时候 $("div")、$(".box')、$("#div div.box") 标签、class、复杂选择器  */
+			/* 当context不存在的时候，肯定进入了这个if，那么值肯定是 rootjQuery，rootjQuery=$(document)
+			 * 传了context，并且要看context.jquery 就是表示 这个context 是不是jQuery对象，如果是 就是调用 context.find( selector );
+			 * 例如： $("ul",$(document))   -> $(document).find("ul");
+			 * */
 			} else if ( !context || context.jquery ) {
+				/* find() -> 最终会调用 sizzle  */
 				return ( context || rootjQuery ).find( selector );
 
 			// HANDLE: $(expr, context)
 			// (which is just equivalent to: $(context).find(expr)
+			/* 传了context，但是不是jquery对象就走 else，this.constructor = jQuery
+			 * 例如： $("ul",document)  ->  jQuery(document).find("ul");
+			 * */
 			} else {
 				return this.constructor( context ).find( selector );
 			}
