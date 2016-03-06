@@ -15,6 +15,17 @@
 		var objectSayColor = sayColor.bind(o);
 		objectSayColor();  // blue
 
+		// 低版本兼容
+		if (!function () {}.bind) {
+			Function.prototype.bind = function (context) {
+				var self = this, args = Array.prototype.slice.call(arguments);
+
+				return function () {
+					return self.apply(context, args.slice(1));
+				}
+			};
+		}
+
 	</script>
 </head>
 <body>

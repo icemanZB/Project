@@ -13,10 +13,22 @@
 		// 返回一个所有数组都大于2的新数组
 		var filterRes = num.filter(function (item, index, array) {
 
-			return (item > 2);
+			return (item > 2);  // 返回值只要是弱等于== true/false就可以了，而非非得返回 === true/false
 
 		});
 		console.log(filterRes);  // [3, 4, 5, 4, 3]
+
+		if (typeof Array.prototype.filter != "function") {
+			Array.prototype.filter = function (fn, context) {
+				var arr = [];
+				if (typeof fn === "function") {
+					for (var k = 0, length = this.length; k < length; k++) {
+						fn.call(context, this[k], k, this) && arr.push(this[k]);
+					}
+				}
+				return arr;
+			};
+		}
 	</script>
 </head>
 <body>

@@ -19,11 +19,13 @@
 		console.log(mapRes);  // [2, 4, 6, 8, 10, 8, 6, 4, 2]
 
 		// 实现兼容的时候必须注意：对于数组中被删除（delete）或者根本从未赋值的索引项，map中第一个函数参数是不会执行的。
+		// 所以要加一个判断
 		if (typeof Array.prototype.map != "function") {
 			Array.prototype.map = function (fn, context) {
 				var arr = [];
 				if (typeof fn === "function") {
 					for (var k = 0, length = this.length; k < length; k++) {
+						// 这样写与原生的也是有区别
 						arr.push(fn.call(context, this[k], k, this));
 					}
 				}
@@ -34,29 +36,30 @@
 		Array.prototype.myMap = function (fn, context) {
 			context = context || window;
 			var ary = [];
-			//if (Array.prototype.map) {
-			//	ary = this.map(fn, context);
-			//} else {
-				for (var i = 0; i < this.length; i++) {
-					ary[i] = fn.apply(context, [this[i], i, this]);
-				}
-			//}
+			for (var i = 0; i < this.length; i++) {
+				ary[i] = fn.apply(context, [this[i], i, this]);
+			}
 			return ary;
 		};
 		// 以字面量方式新创建数组的时候，连续的逗号，会形成数字索引不连续，注意一定要用console.dir方法
-		var arr=[1,2,,,3];
+		var arr = [1, 2, , , 3];
 
-		console.dir(arr.myMap(function(e,i,a){return e*2;}));  // 调用自己写的代码结果 [2, 4, NaN, NaN, 6]
+		/*		console.dir(arr.myMap(function (e, i, a) {
+		 return e * 2;
+		 }));  // 调用自己写的代码结果 [2, 4, NaN, NaN, 6]*/
 
 		// 原生的 map 方法跳过了那些从未赋值的索引对应的项
-		console.dir(arr.map(function(e,i,a){ return e*2; }));  // 调用原声的结果   [2, 4, undefined, undefined, 6]
+		console.log(arr.map(function (e, i, a) {
+			return e * 2;
+		}));  // 调用原生的结果   [2, 4, undefined, undefined, 6]
+
 
 		// 利用delete操作符删除数组中的某项
 		// delete操作符用于删除对象中某个属性，而JS中，数组就是对象的一种，数组的索引就是其属性名，对应的项就是属性值。
 		// 用delete删除后，数组中的这对属性名值对（又称键值对）就不存在了，这时候对其采用遍历方法，当然不会针对不存在名值对进行调用了
 		// 有一点要特别注意，数组中被删除的项或者从未定义的项，与人为将其值设置为 undefined 的项，尽管如果强行访问，结果都是 undefined，但是是不太一样的
 		// 比如这样一个数组[1,,undefined]；该数组中不存在索引为1的项，但是却存在索引为2的项，可以用 console.dir输出看出区别。
-		console.dir( [1,,undefined] );  // 0:1 , 2:undefined
+		console.dir([1, , undefined]);  // 0:1 , 2:undefined
 
 
 		// 既然数组的索引可以被跳过，那数组的length属性还能反映其长度吗？

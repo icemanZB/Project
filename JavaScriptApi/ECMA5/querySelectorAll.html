@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>querySelectAll</title>
-    <script type="text/javascript">
-        window.onload=function(){
+	<meta charset="UTF-8">
+	<title>querySelectAll</title>
+	<script type="text/javascript">
+		window.onload = function () {
 
-            // 获取一组元素
-            var oDiv=document.querySelectorAll('.box');
+			// 获取一组元素
+			// querySelectorAll() 不会不断的对文档进行搜索，这样可以避免一些性能问题
+			var oDiv = document.querySelectorAll('.box');
 
-            alert(oDiv.length);
+			console.log(oDiv.length);
 
-        };
-    </script>
+			document.getElementById("myDiv").querySelectorAll("em"); // 取得某div中所有em元素( 类似 getElementByTagName("em") )
+
+			document.querySelectorAll(".selected");  // 取得类为 "selected"的所有元素
+
+			var strongs = document.querySelectorAll("p strong");  // 取得所有p元素中的所有strong元素
+			var i, len, strong;
+			for (i = 0, len = strongs.length; i < len; i++) {
+				strong = strongs[i]; // 或者 strongs.item(i)
+				strong.className = "important";
+			}
+
+		};
+	</script>
 </head>
 <body>
 <div class="box">div1</div>

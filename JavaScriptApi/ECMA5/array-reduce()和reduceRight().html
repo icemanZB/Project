@@ -33,6 +33,69 @@
 		console.log(sumRight); // 15
 
 
+		var data = [1, 2, 3, 4];
+		/*
+		 * // 初始设置
+		 index = 3, previous = initialValue = 4, current = 3
+
+		 // 第一次迭代
+		 index = 2, previous = (4- 3) = 1, current = 2
+
+		 // 第二次迭代
+		 index = 1, previous = (1 - 2) = -1, current = 1
+
+		 // 第三次迭代
+		 index = 0, previous = (-1 + 1) = 0, current = undefined (退出)
+		 * */
+		var specialDiff = data.reduceRight(function (previous, current, index) {
+			if (index == 0) {
+				return previous + current;
+			}
+			return previous - current;
+		});
+
+		console.log(specialDiff); // 0
+
+
+		// 有了reduce，我们可以轻松实现二维数组的扁平化：
+
+		var matrix = [
+			[1, 2],
+			[3, 4],
+			[5, 6]
+		];
+
+		// 二维数组扁平化
+		var flatten = matrix.reduce(function (previous, current) {
+			return previous.concat(current);
+		});
+
+		console.log(flatten); // [1, 2, 3, 4, 5, 6]
+
+
+		//if (typeof Array.prototype.reduce != "function") {
+		Array.prototype.reduce = function (callback, initialValue) {
+			var previous = initialValue, k = 0, length = this.length;
+			if (typeof initialValue === "undefined") {
+				previous = this[0];
+				k = 1;
+			}
+
+			if (typeof callback === "function") {
+				for (k; k < length; k++) {  // 这里从下标1开始，也就是第二个元素开始循环
+					this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+				}
+			}
+			return previous;
+		};
+		//}
+
+		[1, 2, 3, 4, 5].reduce(function (prev, cur, index, array) {
+			return prev + cur;
+		});
+
+		console.log([1, "ad", 3, 4].hasOwnProperty("5"));  // 判断下标索引是否超了，下标5对应的内容不存在
+		console.log(Object.prototype.hasOwnProperty.call([1, "ad", undefined, 4], "2"));  // true
 	</script>
 </head>
 <body>

@@ -1,37 +1,40 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>children</title>
-    <script>
-        window.onload = function () {
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>children</title>
+	<script>
+		window.onload = function () {
 
-            var oUl = document.getElementById('ul1');
+			var oUl = document.getElementById('ul1');
 
-            /*
-            元素.children : 只读 属性 子节点列表集合
-            标准下和非标准下都只包含元素类型的节点，但是IE7以下依然不认非法节点
-            */
+			/*
+			 元素.children : 只读 属性 子节点列表集合
+			 标准下和非标准下都只包含元素类型的节点，但是IE7以下依然不认非法节点
+			 children() 支持的浏览器有 IE5+、Firefox3.5+、Safari2(但有bug)、Chrome、Opera8+
+			 IE8及更早版本的 children 属性中也会包含注释节点，但IE9之后的版本则只会返回元素节点
 
-            console.log( oUl.children.length );
+			 */
 
-            for (var i = 0; i < oUl.children.length; i++) {
+			console.log(oUl.children.length);
 
-                oUl.children[i].style.background = 'red';
+			for (var i = 0; i < oUl.children.length; i++) {
 
-            }
+				oUl.children[i].style.background = 'red';
 
-        }
-    </script>
+			}
+
+		}
+	</script>
 </head>
 
 <body>
 <ul id="ul1" style="border: 1px solid red;">
-    <li>11111 <span>span</span></li>
-    <li>22222</li>
-    <li>33333</li>
-    <li>44444</li>
-    <p>pppppppp</p>
+	<li>11111 <span>span</span></li>
+	<li>22222</li>
+	<li>33333</li>
+	<li>44444</li>
+	<p>pppppppp</p>
 </ul>
 </body>
 </html>
