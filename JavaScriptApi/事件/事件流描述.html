@@ -13,6 +13,13 @@
 		 结果，就是有两个机会在目标对象上面操作事件
 		 IE9、Firefox、Chrome、Safari、Opera 都支持DOM事件流；IE8及更早的版本不支持DOM事件流
 		 */
+
+		// eventPhase 属性可以用来确定事件当前正位于事件流哪个阶段；
+		// 如果在捕获阶段调用事件处理程序时，eventPhase为1；
+		// 事件处理程序处于目标对象上，eventPhase为2；尽管"处于目标"发生在冒泡阶段，但eventPhase 仍然一直等于2
+		// 在冒泡阶段调用事件处理程序，eventPhase为3；
+		// 而当eventPhase等于2时，this、target、currentTarget始终都是相等的
+
 	</script>
 </head>
 <body>
