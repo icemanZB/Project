@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		.wrap {
+			width: 100%;
+			height: 600px;
+			overflow: hidden;
+			perspective: 800px; /* 子元素获得3D元素的支持,子元素距离视图的位置 */
+			position: fixed;
+			z-index: 100;
+		}
+
+		/* 海报样式 */
+		.photo {
+			width: 260px;
+			height: 320px;
+			position: absolute;  /* 用js进行随机定位 */
+			left: 50%;
+			top: 50%;
+			margin: -160px 0 0 -130px;
+			z-index: 1;
+			-webkit-transition: all .6s;
+		}
+
+		/* 海报的面 */
+		.photo .side {
+			/* 大小随着海报的变化而变化 */
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
+		.photo .side-front .image img {
+			width: 100%; /* 图片的宽度会根据外层海报的宽度大小来调整  width: 260px; height: 320px; */
+		}
+
+		.photo .side-back .image img{
+			width: 100%;
+		}
+
+		/* photo-wrap负责翻转 */
+		.photo-wrap {
+			/* 宽高与 photo 一样 */
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			-webkit-transform-style: preserve-3d; /* 让photo-wrap中子元素支持3d效果 */
+			-webkit-transition: all .6s;
+		}
+		.photo-wrap .side-front {
+			-webkit-transform: rotateY(0deg);
+		}
+		.photo-wrap .side-back {
+			-webkit-transform: rotateY(180deg); /* 背面旋转180,让他正过来 */
+		}
+		.photo-wrap .side {
+			-webkit-backface-visibility: hidden; /* 在旋转元素不希望看到其背面时隐藏 */
+		}
+
+		/* photo_front 和 photo_back 都是用在 photo-wrap 上,用来支持正反面的切换,所以附加在photo photo_center上 */
+		.photo_front .photo-wrap {
+			-webkit-transform: translate(0, 0) rotateY(0deg);
+		}
+		.photo_back .photo-wrap {
+			-webkit-transform: translate(260px, 0) rotateY(180deg);
+		}
+
+		.photo {
+			-webkit-transform:scale(1.3);
+		}
+		.photo-wrap {
+			-webkit-transform-origin: 0% 50%;
+		}
+
+		.filter-bg {
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.80);
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 90;
+		}
+
+
+	</style>
+</head>
+<body>
+<!--http://www.w3cplus.com/css3/transform-basic-property.html-->
+<div class="wrap" id="wrap">
+	<!-- photo负责平移和旋转,改变photo_front为photo_back就会旋转-->
+	<div class="photo photo_front">
+		<div class="photo-wrap"> <!-- photo-wrap负责翻转 -->
+			<!-- side-front 正面样式 -->
+			<div class="side side-front">
+				<p class="image"><img src="big-red.png" alt=""/></p>
+			</div>
+
+			<div class="side side-back">
+				<p class="image"><img src="big-red-back.png" alt=""/></p>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div class="filter-bg"></div>
+</body>
+</html>
