@@ -14,6 +14,7 @@
          * 缺点 : cookie数量和长度的限制。每个domain最多只能有20条cookie,每个cookie长度不能超过4KB,否则会被截掉
          *	 	 安全性问题。如果cookie被人拦截了,那人就可以取得所有的 session 信息
          *	 	 即使加密也与事无补,因为拦截者并不需要知道 cookie 的意义,他只要原样转发cookie就可以达到目的了
+         *       cookie 不能跨域
          *
          * cookie是存于用户硬盘的一个文件,这个文件通常对应于一个域名,当浏览器再次访问这个域名时,便使这个cookie可用。
          * 因此,cookie可以跨越一个域名下的多个网页,但不能跨越多个域名使用。
@@ -24,11 +25,28 @@
          *  3.cookie的数据可以设置名字的
          *  4.一个域名下存放的cookie的个数是有限制的，不同的浏览器存放的个数不一样
          *  5.每个cookie存放的内容大小也是有限制的，不同的浏览器存放大小不一样
+         *  6.cookie 名称不区分大小写，一般最好是看作是区分大小写的，cookie的名称必须是经过URL编码的decodeURIComponent()
+         *  7.域：如果没有明确规定，那么这个域会被认作来自设置cookie的那个域
+         *  8.路径：对于指定域中的那个路径，应该向服务器发送cookie。例如：http://www.wrox.com/books/中才能访问，那么http://www.wrox.com的页面不能访问
+         *  name=value;express=expiration_time;path=domain_path;domain=domain_name;secure
+	     *
          *
          * path : 设置能够读取cookie的顶级目录;
          * domain : 创建cookie所在网页所拥有的域名;
          * secure : 默认是false
          *
+         * IE6以及更低版本限制每个域名最多20个cookie、IE7和之后版本每个域名最多50个、Firefox限制每个域最多50个cookie、Opera限制每个域最多30个cookie
+         * Safari和Chrome对于每个域的cookie数量限制没有硬性规定，当超过单个域名限制之后还要再设置cookie，浏览器就会清除以前设置的cookie，IE和Opera会删除最近最少使用过的cookie
+         * Firefox看上去好像是随机决定要清除哪个cookie，所以考虑cookie限制非常重要，以免出现不可预期的后果
+         *
+         * 浏览器中对于cookie的尺寸也有限制，大多数浏览器都有大约4096B的长度限制。为了最佳的浏览器兼容性，最好将整个cookie长度限制在4095B以内
+         * 尺寸限制影响到一个域下所有的cookie，而非每个cookie单独限制，如果尝试创建超过最大尺寸限制的cookie，那么该cookie会被悄无声息地丢掉
+         *
+         * 子cookie是存放在单个cookie中的更小段的数据，也就是用cookie值来存储多个名称值对
+         * name=name1=value1&name2=value2&name3=value3
+         * 子cookie一般也以查询字符串的格式进行格式化，然后这些值可以使用单个cookie进行存储和访问，而非对每个名称-值对使用不同的cookie存储
+         * 由于所有的cookie都会由浏览器作为请求头发送，所以在cookie中存储大量信息会影响到特定域的请求性能。cookie信息越大，完成对服务器请求
+         * 的时间也就越长。尽管浏览器对cookie进行了大小限制，不过最好还是尽可能在cookie中少存储信息，以免影响性能
          * */
         var oDate = new Date();
         oDate.setDate(oDate.getDate() + 14);
@@ -45,6 +63,8 @@
         document.cookie = "userId=828";
         // 如果要改变一个cookie的值,只需重新赋值
         document.cookie = "userId=929";
+        // 创建一个cookie，在浏览器关闭时自动删除
+        document.cookie = encodeURIComponent("name") + "=" + encodeURIComponent("Nicholas");
 
         // document.cookie='password=Iceman';
         // 不设置过期时间，浏览器关闭自动清除cookie

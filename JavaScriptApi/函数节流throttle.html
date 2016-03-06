@@ -38,6 +38,36 @@
 			};
 		})();
 
+		(function () {
+
+			// 假设有一个<div>元素需要保持它的高度始终等同于宽度
+			// 这段代码有两个问题：首先要计算offsetWidth属性，如果该元素或者页面上其他元素有非常复杂的CSS样式，那么这个过程将会很复杂
+			// 其次，设置某个元素的高度需要对页面进行回流来令改动生效，如果页面有很多元素同时应用了相当数量的CSS话，这个需要很多的计算
+			window.onresize = function () {
+				var div = document.getElementById("myDiv");
+				div.style.height = div.offsetWidth + "px";
+			};
+
+			// 这时可以用到throttle()函数
+			function resizeDiv() {
+				var div = document.getElementById("myDiv");
+				div.style.height = div.offsetWidth + "px";
+			}
+
+			window.onresize = function () {
+				throttle(resizeDiv);
+			};
+
+			// throttle() 来简化，这个函数可以自动进行定时器的设置和清除
+			function throttle(method, context) {
+				clearTimeout(method.tId);
+				method.tId = setTimeout(function () {
+					method.call(context);
+				}, 100);
+			}
+
+		})();
+
 		/* setTimeout 和 clearTimeout 其实就是一个简单的 throttle，很多好的控制了resize事件的调用频度。 */
 
 		/*
