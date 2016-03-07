@@ -212,67 +212,112 @@ jQuery.fn = jQuery.prototype = {
 				// HANDLE: $(#id)
 				/* 这个就是获取ID的时候 $("#div1") */
 				} else {
+					/* $("#div1")  -> match = ["#div1",null,"div1"];  match[2] = "div1" */
 					elem = document.getElementById( match[2] );
 
 					// Check parentNode to catch when Blackberry 4.6 returns
 					// nodes that are no longer in the document #6963
+					/* 一般来说只要判断elem存不存在就可以了，但是在 Blackberry 4.6 下，可能这个元素已经不再页面上了但是还能找到
+					 * 例如克隆一个节点，然后删除以后，他仍旧能找到，所以在判断看看有没有父级
+					 * */
 					if ( elem && elem.parentNode ) {
 						// Inject the element directly into the jQuery object
+						/* jQuery选择元素的时候是存成一个类数组，所以设置长度为1，第0项就是对应这个DOM元素 */
 						this.length = 1;
 						this[0] = elem;
 					}
 
+					/* ID选择符上下文肯定是 document */
 					this.context = document;
+					/* 就是外面传进来的#div1，存到 this.selector */
 					this.selector = selector;
 					return this;
 				}
 
 			// HANDLE: $(expr, $(...))
+			/* 当是这种情况的时候 $("div")、$(".box')、$("#div div.box") 标签、class、复杂选择器  */
+			/* 当context不存在的时候，肯定进入了这个if，那么值肯定是 rootjQuery，rootjQuery=$(document)
+			 * 传了context，并且要看context.jquery 就是表示 这个context 是不是jQuery对象，如果是 就是调用 context.find( selector );
+			 * 例如： $("ul",$(document))   -> $(document).find("ul");
+			 * */
 			} else if ( !context || context.jquery ) {
+				/* find() -> 最终会调用 sizzle  */
 				return ( context || rootjQuery ).find( selector );
 
 			// HANDLE: $(expr, context)
 			// (which is just equivalent to: $(context).find(expr)
+			/* 传了context，但是不是jquery对象就走 else，this.constructor = jQuery
+			 * 例如： $("ul",document)  ->  jQuery(document).find("ul");
+			 * */
 			} else {
 				return this.constructor( context ).find( selector );
 			}
 
 		// HANDLE: $(DOMElement)
-		/* $(this)、$(document) */
+		/* 这里的else if 是帮上面判断 typeof selector === "string" 连在一起的
+		 * 选择节点例如：$(this)、$(document)，如果是节点类型肯定有nodeType
+		 * */
 		} else if ( selector.nodeType ) {
+			/* 连等赋值：selector(DOM节点)赋值到this[0](对象的第0个属性上)，接着在设置执行上下文(因为节点不需要有什么上下文就直接赋值即可) */
 			this.context = this[0] = selector;
 			this.length = 1;
+			/* 其实就是想办法把所找到的元素都存到this上，形成带下标，length形式的对象 */
 			return this;
 
 		// HANDLE: $(function)
 		// Shortcut for document ready
-		/* $(function(){}) */
+		/* $(function(){})，文档加载
+		 * jQuery.isFunction() 判断是不是函数，如果是则调用 ready() 方法
+		 * */
 		} else if ( jQuery.isFunction( selector ) ) {
 			return rootjQuery.ready( selector );
 		}
-
+		/* 这个if是用来处理 $( $("#div1") ) 这种情况的
+		 * selector.selector 的意思就是表示是否是个jQuery对象，如果是的话，selector肯定有值
+		 * */
 		if ( selector.selector !== undefined ) {
+			/* 这两句其实就是 $("#div1")，表示的是一个意思 */
 			this.selector = selector.selector;
 			this.context = selector.context;
 		}
-		/* 处理 $([])、$({}) */
+		/* 处理 $([])、$({})
+		 * jQuery.makeArray() 传一个参数的时候就是把类数组转为真正的数组(平时用的)
+		 *                    传两个参数的时候就会变成json(特殊的拥有length，下标属性的)，一般是源码内部使用、
+		 *                    这个方法是工具方法，可以给jQuery对象使用，也可以给原生的JavaScript 使用
+		 * 这个方法类似 jQuery.merge()  最终形成 Object {0:li,1:li,length:2,....}
+		 * */
 		return jQuery.makeArray( selector, this );
 	},
 
 	// Start with an empty selector
+	/* 存储选择到元素的字符串形式 */
 	selector: "",
 
 	// The default length of a jQuery object is 0
 	/* this 对象的长度 */
 	length: 0,
 
+	/* 功能是把类数组转为真正的数组
+	 * 这个方法是实例下的方法，只能给jQuery对象使用
+	*/
 	toArray: function() {
+		/* [].slice.call(this)，this是上下文，改变执行环境 */
 		return core_slice.call( this );
 	},
 
 	// Get the Nth element in the matched element set OR
 	// Get the whole matched element set as a clean array
+	/* 可以选择到一个原生的集合
+	 * 或者是指定集合当中的某一个
+	 * get() 就是转原生集合(数组)
+	 * */
 	get: function( num ) {
+		/*
+		* 首先看 num 不存在的情况下，其实就是要一个集合，调用toArray()方法，转成原生的数组
+		* 如果有num并且是负数，就是从后往前找(this.length + num)
+		* 如果有num，num是正数就是走的是 this[ num ]，获取json集合中的指定的一个(this是json，"[]"代表着去找json对应的属性，这里this不是数组)
+		* this -> Object {0:li,1:li,length:2,....}
+		* */
 		return num == null ?
 
 			// Return a 'clean' array
