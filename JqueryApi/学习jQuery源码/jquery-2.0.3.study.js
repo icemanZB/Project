@@ -282,8 +282,9 @@ jQuery.fn = jQuery.prototype = {
 		}
 		/* 处理 $([])、$({})
 		 * jQuery.makeArray() 传一个参数的时候就是把类数组转为真正的数组(平时用的)
-		 *                    传两个参数的时候就会变成json(特殊的拥有length，下标属性的)，一般是源码内部使用、
-		 *                    这个方法是工具方法，可以给jQuery对象使用，也可以给原生的JavaScript 使用
+		 *                    传两个参数的时候就会变成 json (特殊的拥有 length，下标属性的)，一般是源码内部使用、
+		 *                    这个方法是工具方法，可以给 jQuery 对象使用，也可以给原生的 JavaScript 使用
+		 *                    工具方法一般可以看做 jQuery 底层方法，实例方法可以看成更高一层的方法
 		 * 这个方法类似 jQuery.merge()  最终形成 Object {0:li,1:li,length:2,....}
 		 * */
 		return jQuery.makeArray( selector, this );
@@ -327,13 +328,27 @@ jQuery.fn = jQuery.prototype = {
 			( num < 0 ? this[ this.length + num ] : this[ num ] );
 	},
 
+	/* jQuery 对象入栈
+	 * 这个概念有点类似于进电梯，先进的人在后面，后进的人在前面，出电梯的时候，后进的人先出，先进的人后出。总结：先进后出
+	 * */
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
 	pushStack: function( elems ) {
 
+		/* this.constructor() -> 得到一个空的jQuery对象
+		*  elems 参数 就是传进来的DOM对象
+		*  通过 jQuery.merge() 方法打包成一个json对象
+		*  方法的使用例如：$('div').pushStack( $('span') )
+		*  { 0: span,context: document,length: 1,prevObject: jQuery.fn.jQuery.init[1],selector: "span" }
+		* */
 		// Build a new jQuery matched element set
 		var ret = jQuery.merge( this.constructor(), elems );
 
+		/* 添加一个 prevObject 属性，存之前的对象。也就是说在 span 下面添加了一个 prevObject 属性存 div
+		 * 存这个属性是为了方便找到先入栈的那个元素，例如 $('div').pushStack( $('span') ).css('background','red').end().css('background','yellow');
+		 * 这里的 end() 方法就可以找到 div
+		 * { 0: div,context: document,length: 1,prevObject: jQuery.fn.jQuery.init[1],selector: "div"}
+		 * */
 		// Add the old object onto the stack (as a reference)
 		ret.prevObject = this;
 		ret.context = this.context;
@@ -346,6 +361,7 @@ jQuery.fn = jQuery.prototype = {
 	// (You can seed the arguments with an array of args, but this is
 	// only used internally.)
 	each: function( callback, args ) {
+		/* jQuery.each() 是工具方法 */
 		return jQuery.each( this, callback, args );
 	},
 
@@ -357,6 +373,11 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	slice: function() {
+		/*
+		 * this -> { 0: p,1: p,2: p,3: p,context: document,length: 4,prevObject: jQuery.fn.jQuery.init[1],selector: "p" }
+		 * core_slice.apply( this, arguments ) -> [].slice.apply(this,[1,3])
+		 * 传入 this 是要改变原来的 Array 的指向
+		 * */
 		return this.pushStack( core_slice.apply( this, arguments ) );
 	},
 
@@ -370,7 +391,9 @@ jQuery.fn = jQuery.prototype = {
 
 	eq: function( i ) {
 		var len = this.length,
+			/* +i 就是转数字 */
 			j = +i + ( i < 0 ? len : 0 );
+
 		return this.pushStack( j >= 0 && j < len ? [ this[j] ] : [] );
 	},
 
@@ -381,11 +404,16 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	end: function() {
+		/* end()方法就是利用了栈的原理
+		 * 例如：$('div').pushStack( $('span') ).css('background','red').end().css('background','yellow');
+		 * 此时的 this 就是 span，那么 span 的 prevObject 就是 div 了，如果没有的话就不做任何处理了
+		 * */
 		return this.prevObject || this.constructor(null);
 	},
 
 	// For internal use only.
 	// Behaves like an Array's method, not like a jQuery method.
+	/* 这三个方法是 jQuery 内部使用的，jQuery 把这三个数组的方法挂载到了 jQuery 对象下，所以这个对象就有了数组的这三个方法，不建议在外面使用 */
 	push: core_push,
 	sort: [].sort,
 	splice: [].splice
