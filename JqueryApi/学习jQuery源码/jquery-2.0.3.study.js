@@ -427,60 +427,111 @@ jQuery.fn = jQuery.prototype = {
 * */
 jQuery.fn.init.prototype = jQuery.fn;
 
-/* 新增静态方法jQuery.extend，新增原型方法jQuery.fn.extend */
+/* 新增静态方法 jQuery.extend，新增原型方法 jQuery.fn.extend(也就是扩展实例方法)
+*  jQuery 继承方式就是拷贝继承
+* */
 jQuery.extend = jQuery.fn.extend = function() {
+	/*
+	* $.extend( a , { name : 'hello' } , { age : 30 } );
+	* 其中 arguments[0] 第一个元素就是 a，后续参数都要往 a 身上扩展
+	* */
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[0] || {},
 		i = 1,
 		length = arguments.length,
-		deep = false;
+		deep = false;  /* 是否是深拷贝 */
 
+	/* 看是不是深拷贝的情况
+	 * $.extend( true , a , b ); 这种情况走的就是这个if
+	 * */
 	// Handle a deep copy situation
 	if ( typeof target === "boolean" ) {
 		deep = target;
+		/* 此时目标元素变成了 arguments[1] 就是第二个参数  */
 		target = arguments[1] || {};
 		// skip the boolean and the target
+		/* 由于参数项变了，所以要跳过 boolean 和 target */
 		i = 2;
 	}
 
+	/* 检测参数是否正确
+	 * 当目标元素不是对象就把他变成一个对象
+	 * */
 	// Handle case when target is a string or something (possible in deep copy)
 	if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
 		target = {};
 	}
 
+	/* 看是不是插件的情况
+	* $.extend({
+	    aaa : function(){
+	        alert(1);
+	    }
+	 })
+	* length 和 i 相等表示就是只传入了一个参数，就是插件的情况
+	* 此时的 target 就是 this ( $() 这个函数，或者 $.fn(原型) )
+	* $.extend();  -> this -> $  -> this.aaa  ->  $.aaa()
+	* $.fn.extend(); -> this -> $.fn -> this.aaa ->  $().aaa()
+	* */
 	// extend jQuery itself if only one argument is passed
 	if ( length === i ) {
 		target = this;
 		--i;
 	}
-
+	/* 这个循环就是N多个对象扩展到一个对象上 N = { name : 'hello' } , { age : 30 }
+	* $.extend( a , { name : 'hello' } , { age : 30 } );
+	* */
 	for ( ; i < length; i++ ) {
 		// Only deal with non-null/undefined values
 		if ( (options = arguments[ i ]) != null ) {
 			// Extend the base object
+			/* arguments[ i ] 就是 Object {name: "hello"}，Object {age: 30} */
 			for ( name in options ) {
-				src = target[ name ];
-				copy = options[ name ];
+				src = target[ name ];  // undefined,undefined
+				copy = options[ name ]; // hello,30
 
+				/* 防止循环引用
+				 * var a = {};
+				   $.extend( a , { name : a } );
+				   这种情况就是循环引用，{ name : a } 这个整体往 a 进行扩展，扩展完 { name : a }这个对象中的 a 又是个对象，一层层扩展就是循环引用
+				 * 也就是说 a , { name : a } 如果这两个 a 相等，就跳出循环
+				 * */
 				// Prevent never-ending loop
 				if ( target === copy ) {
 					continue;
 				}
 
 				// Recurse if we're merging plain objects or arrays
+				/* jQuery.isPlainObject(copy) 判断 copy 是不是一个对象
+				 * (copyIsArray = jQuery.isArray(copy)) 看下是不是数组
+				 *
+				 * */
 				if ( deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) {
+					/* 针对数组的情况 */
 					if ( copyIsArray ) {
 						copyIsArray = false;
 						clone = src && jQuery.isArray(src) ? src : [];
 
 					} else {
+						/* 针对json的情况
+						 * 先看下原有的目标下面有没有这个属性，在看下这个是不是json，如果这两个条件都满足，就不用重新创建新对象
+						 * var a = { name : { job : 'it' } };
+						   var b = { name : {age : 30} };
+						   $.extend( true , a  , b );
+						 * 例如上述情况，此时的 a 是 ->  name : { job : 'it',age : 30 }
+						 * 之所以没有覆盖掉原来a中的name，就是因为递归的传参的时候传入的是 src
+						 * src 就是 { job : 'it' }
+						 * 如果修改一下源码，clone = {}; 直接创建新对象，那么 a -> name : { age : 30 }
+						 * */
 						clone = src && jQuery.isPlainObject(src) ? src : {};
 					}
 
 					// Never move original objects, clone them
+					/* 这句就是递归 */
 					target[ name ] = jQuery.extend( deep, clone, copy );
 
 				// Don't bring in undefined values
+				/* 浅拷贝，就是基本类型赋值，没有对象的引用关系 */
 				} else if ( copy !== undefined ) {
 					target[ name ] = copy;
 				}

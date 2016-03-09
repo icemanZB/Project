@@ -54,6 +54,40 @@
                 })
         );
         // { name: "John", last: "Resig",location: { city: "Boston", state: "MA" } }
+
+        // 当只写一个对象自变量的时候，jQuery 中扩展插件的形式
+
+        $.extend({     // 扩展工具方法
+	        aaa : function(){
+		        alert(1);
+	        },
+	        bbb : function(){
+		        alert(2);
+	        }
+        });
+
+        $.fn.extend({     // 扩展 jQuery 实例方法
+	        ccc : function(){
+		        alert(3);
+	        },
+	        ddd : function(){
+		        alert(4);
+	        }
+        });
+
+
+        $.aaa();
+        $.bbb();
+
+        $().ccc();
+        $().ddd();
+
+        /*
+         $.extend();  -> this -> $  -> this.aaa  ->  $.aaa()
+         $.fn.extend(); -> this -> $.fn -> this.aaa ->  $().aaa()
+         */
+
+
     </script>
 </head>
 <body>
