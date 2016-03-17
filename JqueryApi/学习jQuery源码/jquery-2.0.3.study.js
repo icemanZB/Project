@@ -122,6 +122,7 @@ var
 	// The ready event handler and self cleanup method
 	/* DOM加载成功后触发 */
 	completed = function() {
+		/* 这两句话就是取消事件，那么其中一个走进来，第二个就走不进来了，也就是事件被取消掉了，所以最终 jQuery.ready() 只会触发一次 */
 		document.removeEventListener( "DOMContentLoaded", completed, false );
 		window.removeEventListener( "load", completed, false );
 		/* 最终调用的是 jQuery.ready() 工具方法 */
@@ -586,11 +587,13 @@ jQuery.extend({
 	readyWait: 1,
 
 	// Hold (or release) the ready event
-	/* 推迟DOM触发 */
+	/* 推迟 DOM 触发，实际应用的例子是异步加载外部js插件的时候，希望js加载完成以后，在出发 DOM  */
 	holdReady: function( hold ) {
 		if ( hold ) {
+			/* jQuery.readyWait++; 是指等所有的文件都hold完成以后，在一次次释放，用于多组文件异步加载完成以后触发 DOM  */
 			jQuery.readyWait++;
 		} else {
+			/* 每次走这里就会释放一次 */
 			jQuery.ready( true );
 		}
 	},
@@ -600,6 +603,10 @@ jQuery.extend({
 	ready: function( wait ) {
 
 		// Abort if there are pending holds or we're already ready
+		/* --jQuery.readyWait 减到0的时候，就可以走下面的代码了，不为0的时候就return;
+		*  如果是普通的形式，$.ready()，就是要看 jQuery.isReady 看他是否为真，为 true 就说明 DOM 加载完成了
+		*  为false就是走下面 jQuery.isReady = true; 设置为 true， 让下面的代码就触发一次
+		* */
 		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
 			return;
 		}
@@ -608,15 +615,23 @@ jQuery.extend({
 		jQuery.isReady = true;
 
 		// If a normal DOM Ready event fired, decrement, and wait if need be
+		/* 看看还需不需要等待，直到次数为0的时候，就可以走下面的代码了 */
 		if ( wait !== true && --jQuery.readyWait > 0 ) {
 			return;
 		}
 
 		// If there are functions bound, to execute
-		/* 最终jQuery.ready() 就是走了这句话，看对象是否已经完成，就是可以出发jQuery.ready.promise().done(fn); 这个fn了 */
+		/* 最终jQuery.ready() 就是走了这句话，看对象是否已经完成，就是可以触发 jQuery.ready.promise().done(fn); 这个fn了
+		 * resolveWith() 和 resolve() 是一样的，只不过可以传参数 resolveWidth("指向",[jQuery]就是参数 )
+		 * 可以理解为 document 就是 fn 的指向， [jQuery] 就是 fn 的参数
+		 * $(function(arg){ console.log(this); // document; console.log(arg); // jQuery 函数 })
+		 * */
 		readyList.resolveWith( document, [ jQuery ] );
 
-		// Trigger any bound ready events
+		// Trigger any bound ready events、
+		/* 主动触发事件，这种写法会进入这个if， $(document).on("ready",function(){});
+		 * 先判断有没有主动触发的方法，有的话就调用ready()，在取消掉
+		 * */
 		if ( jQuery.fn.trigger ) {
 			jQuery( document ).trigger("ready").off("ready");
 		}
@@ -1036,6 +1051,9 @@ jQuery.extend({
 });
 
 jQuery.ready.promise = function( obj ) {
+	/* 这个变量第一次是没有的，也就是说第一次可以进到if，后续的就进不进去了
+	 * 只要一次加载成功，后续都会出发
+	 * */
 	if ( !readyList ) {
 
 		/* jQuery.Deferred() 创建延迟对象 */
@@ -1044,9 +1062,13 @@ jQuery.ready.promise = function( obj ) {
 		// Catch cases where $(document).ready() is called after the browser event has already occurred.
 		// we once tried to use readyState "interactive" here, but it caused issues like the one
 		// discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
-		/* 不管这个判断走哪个，最终还是调用的是 jQuery.ready 这个工具方法 */
+		/*  document.readyState === "complete" 查看DOM是否已经加载好了，如果已经加载好了就没必要再去检测DOM是否加载完成 */
 		if ( document.readyState === "complete" ) {
 			// Handle it asynchronously to allow scripts the opportunity to delay ready
+			/* 不管这个判断走哪个，最终还是调用的是 jQuery.ready 这个工具方法
+			 * setTimeout( jQuery.ready ); 这里加的 setTimeout 是为了防止 IE DOM快加载完成的时候， document.readyState === "complete" 这个会提前触发
+			 * 这种是个Hack的写法，保证在IE下是没问题的
+			 * */
 			setTimeout( jQuery.ready );
 
 		} else {
@@ -1057,7 +1079,12 @@ jQuery.ready.promise = function( obj ) {
 					 window.removeEventListener( "load", completed, false );
 					 jQuery.ready();
 				 };
+		    * DOM 没有加载完成进行检测
 			* */
+			/* DOMContentLoaded 是高于 load的，那为什么要检测这两个，而不只检测 DOMContentLoaded
+			 * 主要是因为有些浏览器会缓存 load，有可能在一些浏览器(FF)，缓存了 load 以后会先触发 load 事件
+			 * 为了保证第一时间走最快的 DOM 加载，所以就两个都写了
+			 * */
 			document.addEventListener( "DOMContentLoaded", completed, false );
 
 			// A fallback to window.onload, that will always work
