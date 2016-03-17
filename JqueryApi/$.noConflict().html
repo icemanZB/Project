@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>$.noConflict()</title>
+	<script>
+		var $=1233;
+		var jQuery = 333;
+	</script>
+	<script src="../js/jquery-2.0.2.js"></script>
+	<script>
+		// 防止冲突
+		var $$ =$.noConflict(); // 用 $$ 代替 $
+
+		// var $$ =$.noConflict(true);
+
+		var $ = 123;
+
+		$$(function(){
+
+			console.log($);
+
+		})
+
+		$(function(){})
+
+		$(document).ready(function(){})
+
+		$().ready()
+
+		jQuery.ready.promise().done(fn);
+
+		if ( document.readyState === "complete" ) {
+
+			setTimeout( jQuery.ready );
+
+		} else {
+
+			document.addEventListener( "DOMContentLoaded", completed, false );
+
+			window.addEventListener( "load", completed, false );
+		}
+
+
+		completed = function() {
+			document.removeEventListener( "DOMContentLoaded", completed, false );
+			window.removeEventListener( "load", completed, false );
+			jQuery.ready();
+		};
+
+		$.ready()
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

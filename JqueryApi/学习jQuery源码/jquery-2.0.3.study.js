@@ -124,6 +124,7 @@ var
 	completed = function() {
 		document.removeEventListener( "DOMContentLoaded", completed, false );
 		window.removeEventListener( "load", completed, false );
+		/* 最终调用的是 jQuery.ready() 工具方法 */
 		jQuery.ready();
 	};
 
@@ -270,6 +271,9 @@ jQuery.fn = jQuery.prototype = {
 		 * jQuery.isFunction() 判断是不是函数，如果是则调用 ready() 方法
 		 * */
 		} else if ( jQuery.isFunction( selector ) ) {
+			/* 这句就是平时外面写的 $(document).ready(function(){});，这句理解成对应的源码就是$().ready(); $()就是创建对象，在调用实例方法ready()
+			*  其实就是下面的 ready: function( fn ) { // Add the callback  jQuery.ready.promise().done( fn ); return this; }
+			* */
 			return rootjQuery.ready( selector );
 		}
 		/* 这个if是用来处理 $( $("#div1") ) 这种情况的
@@ -365,8 +369,12 @@ jQuery.fn = jQuery.prototype = {
 		return jQuery.each( this, callback, args );
 	},
 
+	/* rootjQuery.ready( selector ); 上面这句就是对应调用这个实例方法 */
 	ready: function( fn ) {
 		// Add the callback
+		/* jQuery.ready.promise() 先创建了延迟对象，在适当的时候触发fn
+		 *  jQuery.ready.promise  搜索下，在下面
+		 * */
 		jQuery.ready.promise().done( fn );
 
 		return this;
@@ -543,31 +551,42 @@ jQuery.extend = jQuery.fn.extend = function() {
 	return target;
 };
 
-/* 绑定一堆静态方法 */
+/* 绑定一堆静态方法(工具方法) */
 jQuery.extend({
 	// Unique for each copy of jQuery on the page
+	/* 生成唯一的字符串，在内部使用的，用在一些映射中( 数据缓存，事件操作，ajax都用到这个属性 )   replace(/\D/g,"") 把非数字的替换成空 */
 	expando: "jQuery" + ( core_version + Math.random() ).replace( /\D/g, "" ),
 
+	/* 对外提供的工具方法，防止冲突 */
 	noConflict: function( deep ) {
+		/* 这句话是为了解决在引用 jQuery库之前就已经定义了$
+		 * 那么最开始定义的属性 _$ = window.$ 就是$在jQuery库件引入之前的值( var $=1233; )
+		 * 那么在引入jQuery 库的时候，window.$ === jQuery肯定是相等的
+		 * 那么就等于 window.$ = 1233
+		 * */
 		if ( window.$ === jQuery ) {
 			window.$ = _$;
 		}
-
+		/* 这个 deep 参数是放弃 jQuery 对外的接口 ( var jQuery = 333; ) */
 		if ( deep && window.jQuery === jQuery ) {
 			window.jQuery = _jQuery;
 		}
 
+		/* 对外提供的接口，return jQuery，在外部接收的任何对象都是 jQuery 了 */
 		return jQuery;
 	},
 
 	// Is the DOM ready to be used? Set to true once it occurs.
+	/* DOM 是否加载完( 内部 ) */
 	isReady: false,
 
 	// A counter to track how many items to wait for before
 	// the ready event fires. See #6781
+	/* 等待多少文件的计数器( 内部 ) */
 	readyWait: 1,
 
 	// Hold (or release) the ready event
+	/* 推迟DOM触发 */
 	holdReady: function( hold ) {
 		if ( hold ) {
 			jQuery.readyWait++;
@@ -577,6 +596,7 @@ jQuery.extend({
 	},
 
 	// Handle when the DOM is ready
+	/* 准备DOM触发 */
 	ready: function( wait ) {
 
 		// Abort if there are pending holds or we're already ready
@@ -593,6 +613,7 @@ jQuery.extend({
 		}
 
 		// If there are functions bound, to execute
+		/* 最终jQuery.ready() 就是走了这句话，看对象是否已经完成，就是可以出发jQuery.ready.promise().done(fn); 这个fn了 */
 		readyList.resolveWith( document, [ jQuery ] );
 
 		// Trigger any bound ready events
@@ -1017,24 +1038,33 @@ jQuery.extend({
 jQuery.ready.promise = function( obj ) {
 	if ( !readyList ) {
 
+		/* jQuery.Deferred() 创建延迟对象 */
 		readyList = jQuery.Deferred();
 
 		// Catch cases where $(document).ready() is called after the browser event has already occurred.
 		// we once tried to use readyState "interactive" here, but it caused issues like the one
 		// discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
+		/* 不管这个判断走哪个，最终还是调用的是 jQuery.ready 这个工具方法 */
 		if ( document.readyState === "complete" ) {
 			// Handle it asynchronously to allow scripts the opportunity to delay ready
 			setTimeout( jQuery.ready );
 
 		} else {
-
 			// Use the handy event callback
+			/* completed 就是对应调用的是上面定义的回调函数，搜索 completed =
+			*    completed = function() {
+					 document.removeEventListener( "DOMContentLoaded", completed, false );
+					 window.removeEventListener( "load", completed, false );
+					 jQuery.ready();
+				 };
+			* */
 			document.addEventListener( "DOMContentLoaded", completed, false );
 
 			// A fallback to window.onload, that will always work
 			window.addEventListener( "load", completed, false );
 		}
 	}
+	/* 返回 promise()，这个对象就是防止外面修改 */
 	return readyList.promise( obj );
 };
 
