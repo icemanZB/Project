@@ -116,6 +116,9 @@ var
 	// Used by jQuery.camelCase as callback to replace()
 	/* 用于转驼峰的回调函数 */
 	fcamelCase = function( all, letter ) {
+		/* all 就是正则的整体，第二个参数就是正则当中的子项
+		 *  /-([\da-z])/gi => 子项 就是 [\da-z]，匹配到对应的字符，转成大写
+		 * */
 		return letter.toUpperCase();
 	},
 
@@ -640,35 +643,62 @@ jQuery.extend({
 	// See test/unit/core.js for details concerning isFunction.
 	// Since version 1.3, DOM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
+	/* 原生的函数(alert)，或者 DOM 方法，在低版本的IE返回 object，而不是function */
 	isFunction: function( obj ) {
 		return jQuery.type(obj) === "function";
 	},
 
+	/* 使用ECMA5 原生的 */
 	isArray: Array.isArray,
 
 	isWindow: function( obj ) {
+		/* obj!=null 意思是除了null 和 undefined 以外 都可以走到后面那句，因为 null 和 undefined 是不会有属性的，防止报错
+		 * window.window 的意思就是全局对象下的浏览器窗口
+		 * */
 		return obj != null && obj === obj.window;
 	},
 
 	isNumeric: function( obj ) {
+		/* parseFloat() 不能转的就是返回NaN，能转的就是数字， isNaN() 判断是否是 NaN
+		 * 如果传进来的是 123 isNaN(123) -> false -> !false -> true
+		 * 如果传进来的是 NaN parseFloat(NaN) -> NaN -> isNaN(NaN) -> true -> !true -> false
+		 * isFinite() 判断是否是个有限的数字   isFinite(123) -> true
+		 * 总结：就是判断能不能转数字，并且是要一个有限的数字
+		 * */
 		return !isNaN( parseFloat(obj) ) && isFinite( obj );
 	},
 
+	/* 判断数据类型 */
 	type: function( obj ) {
 		if ( obj == null ) {
+			/* 把 null 和 undefined 类型 转为字符串 -> ( "null"、"undefined" ) */
 			return String( obj );
 		}
+
 		// Support: Safari <= 5.1 (functionish RegExp)
+		/* 解释：在老版本的chrone 和 safari typeof RegExp 返回的是 "function" ， 正常的应该返回 "object"  */
+		/* core_toString -> class2type.toString，class2type 存的是 {}
+		 * {}.toString.call([]) == "[object Array]"
+		 * typeof obj === "object" || typeof obj === "function" 这两个都不满足的话肯定是基本类型，那么 typeof 就能够判断
+		 * 这个双重判断就是为了兼容低版本的浏览器
+		 * class2type[ core_toString.call(obj) ] 就是找属性的方式 搜索这个注释找到相应的代码 // Populate the class2type map
+		 * class2type[ core_toString.call(obj) ] -> 这个属性就会返回对应的 value 值  array
+		 * */
 		return typeof obj === "object" || typeof obj === "function" ?
 			class2type[ core_toString.call(obj) ] || "object" :
 			typeof obj;
 	},
 
+	/* 判断是否是对象字面量( var obj={}; var obj = new Object() ) 只有这两种返回true */
 	isPlainObject: function( obj ) {
 		// Not plain objects:
 		// - Any object or value whose internal [[Class]] property is not "[object Object]"
 		// - DOM nodes
 		// - window
+		/* 不满足条件的就会返回 false
+		 * 如果把一个 DOM 节点 放到 jQuery.type(DOM); 会返回 object，DOM节点肯定有 nodeType 排除 DOM 节点
+		 * jQuery.type(window); 会返回 object ，所以在判断下是不是 window
+		 * */
 		if ( jQuery.type( obj ) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
 			return false;
 		}
@@ -677,6 +707,14 @@ jQuery.extend({
 		// The try/catch suppresses exceptions thrown when attempting to access
 		// the "constructor" property of certain host objects, ie. |window.location|
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=814622
+		/* 这里是针对 window.location 这类方法，因为 jQuery.type(window.location); 返回 object 他又不是DOM，也不是window
+		 * core_hasOwn -> {}.hasOwnProperty -> 判断对象下的属性是不是自身下面的
+		 * 所有对象都继承 Object 只有 Object 才有 isPrototypeOf 属性，其他对象都是通过原型链查找到的
+		 * 那么 Object.hasOwnPrototypeOf("isPrototypeOf") 一定返回true，其他的比如Array下肯定没有 "isPrototypeOf"，那么肯定返回false
+		 * core_hasOwn.call( obj.constructor.prototype, "isPrototypeOf" ) 这只有对象自变量才会返回 true
+		 * isPrototypeOf() 其实是判断属性和原型之间的关系
+		 * 这里的try是处理 Firefox <20 情况下， window.location 频繁调用的时候，会出现递归泄漏的情况
+		 * */
 		try {
 			if ( obj.constructor &&
 					!core_hasOwn.call( obj.constructor.prototype, "isPrototypeOf" ) ) {
@@ -691,8 +729,10 @@ jQuery.extend({
 		return true;
 	},
 
+	/* 判断对象是否为空 {}、[]、空构造函数 都会返回true */
 	isEmptyObject: function( obj ) {
 		var name;
+		/* 不可枚举属性的实例属性不会出现在 for-in 循环中 */
 		for ( name in obj ) {
 			return false;
 		}
@@ -706,47 +746,71 @@ jQuery.extend({
 	// data: string of html
 	// context (optional): If specified, the fragment will be created in this context, defaults to document
 	// keepScripts (optional): If true, will include scripts passed in the html string
+	/* $("<li></li>") -> $.parseHTML() -> context.createElement( parsed[1] )
+	 * $("<li></li><li></li>") -> $.parseHTML() -> jQuery.buildFragment( [ data ], context, scripts )
+	 * */
 	parseHTML: function( data, context, keepScripts ) {
+		/* 如果不是字符串就直接 return null */
 		if ( !data || typeof data !== "string" ) {
 			return null;
 		}
+		/* 对第二个参数的容错，如果没有传，传了 true、false 直接赋值给第三个参数 */
 		if ( typeof context === "boolean" ) {
 			keepScripts = context;
 			context = false;
 		}
+		/* 默认指定 document，这个上下文只能是document，只不过可能是 iframe 下的 document */
 		context = context || document;
 
+		/* 这个是个正则，判断是不是单标签 */
 		var parsed = rsingleTag.exec( data ),
-			scripts = !keepScripts && [];
+			scripts = !keepScripts && []; /* scripts 默认是 false，那么此时 scripts = [] */
 
 		// Single tag
+		/* 如果是单标签直接创建 */
 		if ( parsed ) {
 			return [ context.createElement( parsed[1] ) ];
 		}
 
+		/* 处理多标签的情况，创建多个标签，这里会把 scripts 标签创建出来放到数组里面 */
 		parsed = jQuery.buildFragment( [ data ], context, scripts );
 
+		/* scripts - > [scripts] -> 然后把这个标签 remove 掉
+		 * 如果传的是 false ，那么就不会删除，script 就会留下
+		 * */
 		if ( scripts ) {
 			jQuery( scripts ).remove();
 		}
 
+		/* parsed.childNodes 得到的是 DOM 节点，通过 merge 转为节点数组
+		 * 然后上面 在 merge 转为 json ， 但是json格式一定是这样子的类数组格式
+		 * 比如 $("<li></li>") 就会走 "if ( match[1] )" 搜索下看到相应的代码  最终形成 Object {0:li,1:li,length:2,....}
+		 * */
 		return jQuery.merge( [], parsed.childNodes );
 	},
 
+	/* 把字符串转为 json
+	 * var str = '{"name":"iceman"}';  $.parseJSON(str).name;
+	 * JSON.parse 是 ECMA5 提供的方法，对应的把JSON变成字符串 -> JSON.stringify()
+	 * */
 	parseJSON: JSON.parse,
 
 	// Cross-browser xml parsing
+	/* 把字符串的 XML 形式解析成 XML 文档的 document 对象*/
 	parseXML: function( data ) {
 		var xml, tmp;
+		/* 数据为空或者不是字符串类型直接 return null; */
 		if ( !data || typeof data !== "string" ) {
 			return null;
 		}
 
 		// Support: IE9
 		try {
+			/* 解析 XML 的实例对象的方法 */
 			tmp = new DOMParser();
 			xml = tmp.parseFromString( data , "text/xml" );
 		} catch ( e ) {
+			/* 处理不合法的 XML，在IE9中会报错，在其他的浏览器不会报错，会创建<parsererror></parsererror> */
 			xml = undefined;
 		}
 
@@ -756,12 +820,13 @@ jQuery.extend({
 		return xml;
 	},
 
+	/* 空函数，写插件的时候会用到 */
 	noop: function() {},
 
 	// Evaluates a script in a global context
 	globalEval: function( code ) {
 		var script,
-				indirect = eval;
+				indirect = eval;  /* eval 存成变量就是 window.eval 是全局的 */
 
 		code = jQuery.trim( code );
 
@@ -769,9 +834,11 @@ jQuery.extend({
 			// If the code includes a valid, prologue position
 			// strict mode pragma, execute code by injecting a
 			// script tag into the document.
+			/* 这里的if，是为了处理严格模式，在严格模式下是不支持 eval() 解析的 */
 			if ( code.indexOf("use strict") === 1 ) {
 				script = document.createElement("script");
 				script.text = code;
+				/* 把内容添加到 head 后，就把<script> 标签删除了 */
 				document.head.appendChild( script ).parentNode.removeChild( script );
 			} else {
 			// Otherwise, avoid the DOM node creation, insertion
@@ -783,24 +850,36 @@ jQuery.extend({
 
 	// Convert dashed to camelCase; used by the css and data modules
 	// Microsoft forgot to hump their vendor prefix (#9572)
+	/* 转驼峰( 内部使用 ) */
 	camelCase: function( string ) {
+		/* IE下特殊处理 -ms-transform -> msTransform ，其他的都是 -moz-transform -> MozTransform
+		 * rmsPrefix => /^-ms-/  找到 ms  转为 ms-， 那么第一个字母就不会大写了
+		 * rdashAlpha = /-([\da-z])/gi 找到 -任意字母或数字转为大写 -l => L -2d=> 2d
+		 * fcamelCase : 是一个回调函数，找到正则中的子项，匹配到的字符转成大写，在替换正则这个整体
+		 * */
 		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
 	},
 
+	/* 是否是指定节点名，内部使用
+	 * 如 : $.nodeName(document.documentElement,"html");  // true
+	 * */
 	nodeName: function( elem, name ) {
+		/* 在不同的浏览器下，nodeName 获取到的名字可能是大写的，所以要统一转成小写 */
 		return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 	},
 
 	// args is for internal usage only
+	/* args 是内部使用的 */
 	each: function( obj, callback, args ) {
 		var value,
 			i = 0,
-			length = obj.length,
-			isArray = isArraylike( obj );
+			length = obj.length, /* 数组和类数组是有length，而json是没有的 */
+			isArray = isArraylike( obj );  /* isArraylike() 判断是不是类数组或者数组，返回false就是json，注意jQurey对象的this返回true,因为他是特殊的一种格式的json */
 
 		if ( args ) {
 			if ( isArray ) {
 				for ( ; i < length; i++ ) {
+					/* 内部使用的时候是不定参数args，所以用的是 apply */
 					value = callback.apply( obj[ i ], args );
 
 					if ( value === false ) {
@@ -821,14 +900,17 @@ jQuery.extend({
 		} else {
 			if ( isArray ) {
 				for ( ; i < length; i++ ) {
+					/* callback.call( obj[ i ], i, obj[ i ] ); 第一个参数是修改指向，后面那个是i，最后一个是value   */
 					value = callback.call( obj[ i ], i, obj[ i ] );
 
+					/* 这句就是在 each() 中写了 return false; 就会跳出循环 */
 					if ( value === false ) {
 						break;
 					}
 				}
 			} else {
 				for ( i in obj ) {
+					/* json 通过 for-in */
 					value = callback.call( obj[ i ], i, obj[ i ] );
 
 					if ( value === false ) {
@@ -842,6 +924,9 @@ jQuery.extend({
 	},
 
 	trim: function( text ) {
+		/* core_trim = core_version.trim， core_version = "2.0.3"
+		 * "2.0.3".trim.call( text );  trim 是 ECMA5 自带的原生的方法
+		 * */
 		return text == null ? "" : core_trim.call( text );
 	},
 
