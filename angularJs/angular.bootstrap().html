@@ -17,7 +17,7 @@
 
         document.onclick = function () {
             var aDiv = document.getElementsByTagName('div');
-            // 动态初始化 就是 ng-app 的功能
+            // 动态初始化 就是标签 html的 ng-app 的功能
             // angular.bootstrap(document, ['myApp1']);  就是等于在页面上 <html ng-app="myApp1"></html>
             angular.bootstrap(aDiv[0], ['myApp1']);
             angular.bootstrap(aDiv[1], ['myApp2']);

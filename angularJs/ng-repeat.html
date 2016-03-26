@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>无标题文档</title>
+	<script src="angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module('myApp', []);
+		m1.controller('Aaa', ['$scope', function ($scope) {
+
+			$scope.dataList = [
+				'aaaaa', 'bbbbb', 'cccccc'
+			];
+
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!-- ng-repeat 指令 遍历集合，data 是自己取的名字-->
+<div ng-controller="Aaa">
+	<ul>
+		<li ng-repeat=" data in dataList ">{{data}}</li>
+	</ul>
+</div>
+
+</body>
+</html>

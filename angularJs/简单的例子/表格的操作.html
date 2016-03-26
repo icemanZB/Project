@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module('myApp', []);
+		m1.controller('Aaa', ['$scope', '$filter', function ($scope, $filter) {
+
+			// 他需要在原始的数据列表查询，因为查询完成以后直接赋值给了 dataList输出出来，第二次查询就是上一次结果进行查询了，原始数据就找不到了
+			var oriArr = [
+				{name: "red", age: "20"},
+				{name: "yellow", age: "40"},
+				{name: "blue", age: "30"},
+				{name: "green", age: "10"}
+			];
+
+			$scope.dataList = oriArr;
+
+			$scope.fnSort = function (arg) {
+				// arguments.callee 就是指的是 fnSort，挂载一个arg属性并且加了前缀，以避免一些函数自身的属性名冲突
+				arguments.callee['fnSort' + arg] = !arguments.callee['fnSort' + arg];
+				// $filter('orderBy') 引用排序的服务，第一个参数是需要排序的列表，第二个参数是排序的字段，第三个参数就是true从大到小，false从小到大
+				$scope.dataList = $filter('orderBy')($scope.dataList, arg, arguments.callee['fnSort' + arg]);
+
+			};
+			$scope.fnFilter = function () {
+				$scope.dataList = $filter('filter')(oriArr, $scope.filterVal);
+			};
+
+		}]);
+
+
+	</script>
+</head>
+<body>
+<div ng-controller="Aaa">
+	<input type="text" ng-model="filterVal"><input type="button" ng-click="fnFilter()" value="搜索">
+	<table border="1">
+		<tr>
+			<th ng-click="fnSort('name')">姓名</th>
+			<th ng-click="fnSort('age')">年龄</th>
+		</tr>
+		<tr ng-repeat="data in dataList">
+			<td>{{ data.name }}</td>
+			<td>{{ data.age }}</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>
