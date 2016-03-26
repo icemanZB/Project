@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		div {
+			margin: 3px;
+			width: 40px;
+			height: 40px;
+			position: absolute;
+			left: 0px;
+			top: 30px;
+			background: green;
+			display: none;
+		}
+
+		div.newcolor {
+			background: blue;
+		}
+	</style>
+	<script type="text/javascript" src="../js/jquery-2.0.2.js"></script>
+	<script>
+		$(function () {
+			/*function ff1() {
+			 console.log(1)
+			 }
+
+			 function ff2() {
+			 console.log(2)
+			 }
+
+			 function ff3() {
+			 console.log(3)
+			 }
+
+			 var $p = $('p');
+			 $p.queue('mx', ff1);
+			 $p.delay(4000, 'mx');
+			 $p.queue('mx', ff2);
+			 $p.queue('mx', ff3);
+
+
+			 $p.click(function () {
+			 $p.dequeue('mx'); // 立即输出1
+			 $p.dequeue('mx'); // 4秒后输出2
+			 });*/
+
+			/*function ff1() {
+			 console.log(1)
+			 }
+
+			 function ff2() {
+			 console.log(2)
+			 }
+
+			 function succ() {
+			 console.log('done')
+			 }
+
+			 var $p = $('p');
+			 $p.queue('mx', ff1);
+			 $p.queue('mx', ff2);
+
+			 var promise = $p.promise('mx');
+			 promise.done(succ);
+
+			 setInterval(function () {
+			 $p.dequeue('mx'); // 先弹出1,2，最后是"done"
+			 }, 1500);*/
+
+
+			/*var obj = {
+			 move0:function(){
+
+			 console.log(0);
+			 },
+			 1:function(){
+
+			 console.log(1);
+			 }
+
+			 }
+
+			 var $p =$("p");
+
+
+			 for(var index in obj){
+			 $p.queue('mx',obj[index]);
+			 }
+
+			 var cbs2 = $.queue( 'xm');
+
+
+			 setInterval(function(){
+			 $p.dequeue("mx");
+			 },1000);*/
+
+			/*$("#start").click(function () {
+			 var divs = $("div")
+			 .show("slow")
+			 .animate({left: "+=200"}, 5000);
+			 jQuery.queue(divs[0], "fx", function () {
+			 $(this).addClass("newcolor");
+			 console.log(this);
+			 jQuery.dequeue(this);
+			 });
+			 divs.animate({left: "-=200"}, 1500);
+			 jQuery.queue(divs[0], "fx", function () {
+			 $(this).removeClass("newcolor");
+			 jQuery.dequeue(this);
+			 });
+			 divs.slideUp();
+			 });
+			 $("#stop").click(function () {
+			 jQuery.queue($("div")[0], "fx", []);
+			 $("div").stop();
+			 });
+
+			 */
+			function ff1() {
+				console.log(1)
+			}
+
+			function ff2() {
+				console.log(2)
+			}
+
+			function succ() {
+				console.log('done')
+			}
+
+			$body = $('body');
+			//$body.queue('mx', ff1);
+			//$body.delay(500,"mx").queue('mx', ff2);
+			$body.queue('mx', ff1);
+			// $body.delay(4000, 'mx');
+			$body.queue('mx', ff2);
+
+
+			var promise = $body.promise('mx');
+			promise.done(succ);
+
+			/*$body.dequeue('mx');
+			$body.dequeue('mx');*/
+
+			/*
+			 setInterval(function () {
+			 $body.dequeue('mx');
+			 }, 500)*/
+			/*var wait = function () {
+			 var dtd = $.Deferred();
+			 var tasks = function () {
+			 $body.dequeue('mx');
+			 $body.dequeue('mx');
+			 setTimeout(function () {
+			 dtd.resolve();
+			 }, 4000)
+			 };
+
+			 tasks();
+
+			 return dtd.promise();
+
+			 };
+
+			 $.when(wait()).done(function () {
+			 console.log("done");
+			 });
+			 */
+
+		})
+	</script>
+</head>
+<body>
+
+<button id="start">Start</button>
+<button id="stop">Stop</button>
+<p>PPPPPPPPPPPPPPPPPPPPPPPPPPPP</p>
+
+<div></div>
+</body>
+</html>

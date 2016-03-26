@@ -12,6 +12,7 @@
 <body>
 <div class="container">
     <ul class="nav nav-tabs" role="tablist">
+        <!-- active 选中的状态 -->
         <li class="active" role="presentation">
             <a href="#">Home</a>
         </li>
@@ -22,7 +23,7 @@
             <a href="#">World</a>
         </li>
     </ul>
-    <!-- nav-stacked 垂直展示 -->
+    <!-- nav-stacked 垂直展示， nav-pills 有背景的tab，nav-tabs这个样式不适用于竖状的展示方式 -->
      <ul class="nav nav-pills nav-stacked" role="tablist">
         <li class="active" role="presentation">
             <a href="#">Home</a>
@@ -34,7 +35,7 @@
             <a href="#">World</a>
         </li>
     </ul>
-        <!-- 两端对齐，铺满全屏 -->
+     <!-- nav-justified 两端对齐，铺满全屏，每个选项卡是等宽，移动端的分辨率就是竖着的 -->
      <ul class="nav nav-pills nav-justified" role="tablist">
         <li class="active" role="presentation">
             <a href="#">Home</a>
@@ -54,6 +55,19 @@
             </ul>
         </li>
     </ul>
+	<!-- nav-tabs-justified 下面的线是自适应 -->
+	<ul class="nav nav-tabs nav-tabs-justified" role="tablist">
+
+		<li class="active" role="presentation">
+			<a href="#">Home</a>
+		</li>
+		<li role="presentation">
+			<a href="#">Hello</a>
+		</li>
+		<li role="presentation">
+			<a href="#">World</a>
+		</li>
+	</ul>
 
     <h4>Tabs</h4>
     <ul id="myTab" class="nav nav-tabs">
@@ -67,6 +81,7 @@
             </ul>
         </li>
     </ul>
+
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane active" id="home">
             <p>www.baidu.com</p>
